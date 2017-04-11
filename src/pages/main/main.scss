@@ -1,0 +1,31 @@
+page-main {
+
+  ion-content.no-scroll{
+
+    > .scroll-content{
+      overflow-y: hidden;
+    }
+
+  }
+
+  ion-header{
+
+    button{
+      box-shadow: none !important;
+    }
+
+    ion-navbar{
+
+      .company_name{
+        //display: inline;
+        color: white;
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+    }
+
+
+  }
+
+}

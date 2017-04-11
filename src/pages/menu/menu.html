@@ -1,0 +1,49 @@
+<ion-menu [content]="content">
+    <ion-content>
+        <ion-list>
+
+            <button menuClose ion-item>button1</button>
+            <button menuClose ion-item>button2</button>
+            <button menuClose ion-item (click)="openPage(pages[0])">{{ pages[0].title }}</button>
+
+            <button menuClose ion-item (click)="logout()">Logout</button>
+
+            <!--<button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">-->
+            <!--{{p.title}}-->
+            <!--</button>-->
+
+
+        </ion-list>
+    </ion-content>
+</ion-menu>
+
+
+<ion-header primary no-border>
+
+    <ion-navbar color="primary">
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title>
+            LM CRM
+        </ion-title>
+
+        <!--<ion-buttons end>-->
+            <!--<button ion-button icon-only (click)="openModal()">-->
+                <!--<ion-icon name="options"></ion-icon>-->
+            <!--</button>-->
+        <!--</ion-buttons>-->
+    </ion-navbar>
+
+
+    <!--<ion-navbar color="primary">-->
+        <!--<ion-title>Menu</ion-title>-->
+    <!--</ion-navbar>-->
+
+</ion-header>
+
+
+<ion-nav #content [root]="rootPage" has-header></ion-nav>
+
+
