@@ -17,14 +17,37 @@ import {ObtainDetailPage} from "../obtain-detail/obtain-detail";
 })
 export class ObtainPage {
 
+    /**
+     * Массив с итемами на странице
+     *
+     */
     items: any = [];
 
-    constructor(
-        public navCtrl: NavController,
-        public navParams: NavParams,
-        public obtain: Obtain,
-        public loadingCtrl: LoadingController,
-        public modalCtrl: ModalController) {
+    /**
+     * Данные по фильтру
+     */
+    filter: any = {
+        sphere: '',
+        mask: '',
+        opened: ''
+    };
+
+    /**
+     * Переменная которая помнит есть ли еще итемы на сервере
+     * нужно ли их еще подгружать или нет
+     */
+    isThereStillItems = true;
+
+
+    /**
+     * Конструктор класса
+     *
+     */
+    constructor(public navCtrl: NavController,
+                public navParams: NavParams,
+                public obtain: Obtain,
+                public loadingCtrl: LoadingController,
+                public modalCtrl: ModalController) {
     }
 
     ionViewDidLoad() {
@@ -37,11 +60,9 @@ export class ObtainPage {
      *
      */
     ionViewWillEnter() {
-        // console.log('ObtainPage View');
-        // console.log( this.obtain.tst );
 
         // загрузка новых итемов
-        this.get()
+        this.loadItems();
 
     }
 
@@ -55,50 +76,173 @@ export class ObtainPage {
         // очищаем итемы
         this.items = [];
 
+        // заводим переменную с присутствующими лидами в true
+        this.isThereStillItems = true;
 
-        let filter =
-            {
-                sphere: '',
-                mask: '',
-                opened: ''
-            };
+        // получение итемов с сервера
+        this.get()
+        // обработка итемов
+            .subscribe(result => {
+                // при получении итемов
 
-        this.obtain.get({ offset: 0, filter: filter }).subscribe(res => {
+                // переводим ответ в json
+                let data = result.json();
 
-            // console.log('из компонента');
-            console.log( res.json() );
+                // вычесляем количество итемов
+                let itemsLength = data.auctionItems.length;
 
-            let data = res.json();
+                // обработка итемов
+                if (itemsLength != 0) {
+                    // если больше нуля
 
-            this.items = data.auctionItems;
+                    // добавляем полученные итемы на страницу
+                    this.items = data.auctionItems;
 
-            // If the API returned a successful response, mark the user as logged in
-            // if (res.status == 'success') {
-            //     this._loggedIn(res);
-            // } else {
-            // }
+                } else {
+                    // если итемов нет
 
-            // if (res.status == 'Ok') {
-            //     this._loggedIn(res);
-            //     // return { status: 'success'};
-            //
-            // } else if(res == 'invalid_credentials') {
-            //
-            //     // return { status: 'invalid', detail: 'invalid_credentials' };
-            //
-            // } else {
-            //
-            //     // return { status: 'error'};
-            // }
+                    // todo сообщаем что итемов нет
 
-            refresher.complete();
+                }
 
-        }, err => {
-            console.error('ERROR', err);
-            refresher.complete();
-        });
+                // отключаем окно индикатора загрузки
+                refresher.complete();
+
+            }, err => {
+                // в случае ошибки
+
+                console.log('ERROR: ' + err);
+
+                // todo выводится сообщение об ошибке (нету связи и т.д.)
+
+                // отключаем окно индикатора загрузки
+                refresher.complete();
+            });
 
     }
+
+
+    /**
+     * Загрузк итемов открытых лидов в модель
+     *
+     */
+    loadItems() {
+
+        // очищаем итемы
+        this.items = [];
+
+        // заводим переменную с присутствующими лидами в true
+        this.isThereStillItems = true;
+
+        // инициация окна загрузки
+        let loading = this.loadingCtrl.create({
+            content: 'Receiving leads, please wait...'
+        });
+
+        // показ окна загрузки
+        loading.present();
+
+
+        // получение итемов с сервера
+        this.get()
+        // обработка итемов
+            .subscribe(result => {
+                // при получении итемов
+
+                // переводим ответ в json
+                let data = result.json();
+
+                // вычесляем количество итемов
+                let itemsLength = data.auctionItems.length;
+
+                // обработка итемов
+                if (itemsLength != 0) {
+                    // если больше нуля
+
+                    // добавляем полученные итемы на страницу
+                    this.items = data.auctionItems;
+
+                } else {
+                    // если итемов нет
+
+                    // todo показываем оповещение что итемов нет
+
+                }
+
+                // отключаем окно индикатора загрузки
+                loading.dismiss();
+
+            }, err => {
+                // в случае ошибки
+
+                console.log('ERROR: ' + err);
+
+                // todo выводится сообщение об ошибке (нету связи и т.д.)
+
+                // отключаем окно индикатора загрузки
+                loading.dismiss();
+            });
+
+    }
+
+
+    /**
+     * Подгрузка следующей партии итемов
+     *
+     */
+    loadMore(infiniteScroll) {
+
+        // todo проверка это конец списка или нет
+
+        console.log('сработал инфинити');
+
+        if( this.isThereStillItems ){
+
+            // получение итемов с сервера
+            this.get()
+            // обработка итемов
+                .subscribe(result => {
+                    // при получении итемов
+
+                    // переводим ответ в json
+                    let data = result.json();
+
+                    // вычесляем количество итемов
+                    let itemsLength = data.auctionItems.length;
+
+                    // обработка итемов
+                    if (itemsLength != 0) {
+                        // если больше нуля
+
+                        // добавляем полученные итемы на страницу
+                        this.items = this.items.concat( data.auctionItems );
+
+                    } else {
+                        // если итемов нет
+
+                        // помечаем что итемы закончились и больше не вызываем эту функцию
+                        this.isThereStillItems = false;
+                    }
+
+                    // отключаем окно индикатора загрузки
+                    infiniteScroll.complete();
+
+                }, err => {
+                    // в случае ошибки
+
+                    console.log('ERROR: ' + err);
+
+                    // todo выводится сообщение об ошибке (нету связи и т.д.)
+
+                    // отключаем окно индикатора загрузки
+                    infiniteScroll.complete();
+                });
+        }else{
+            // отключаем окно индикатора загрузки
+            infiniteScroll.complete();
+        }
+    }
+
 
     /**
      * Загрузка итемов открытых лидов с сервера
@@ -106,112 +250,31 @@ export class ObtainPage {
      */
     get() {
 
-        // очищаем итемы
-        this.items = [];
+        // получаем количество уже загруженных итемов
+        let offset = this.items.length;
 
-        let loading = this.loadingCtrl.create({
-            content: 'Receiving leads, please wait...'
-        });
-
-        loading.present();
-
-        let filter =
-            {
-                sphere: '',
-                mask: '',
-                opened: ''
-            };
-
-        this.obtain.get({ offset: 0, filter: filter }).subscribe(res => {
-
-            // console.log('из компонента');
-            console.log( res.json() );
-
-            let data = res.json();
-
-            this.items = data.auctionItems;
-
-            // If the API returned a successful response, mark the user as logged in
-            // if (res.status == 'success') {
-            //     this._loggedIn(res);
-            // } else {
-            // }
-
-            // if (res.status == 'Ok') {
-            //     this._loggedIn(res);
-            //     // return { status: 'success'};
-            //
-            // } else if(res == 'invalid_credentials') {
-            //
-            //     // return { status: 'invalid', detail: 'invalid_credentials' };
-            //
-            // } else {
-            //
-            //     // return { status: 'error'};
-            // }
-
-            loading.dismiss();
-
-        }, err => {
-            console.error('ERROR', err);
-            loading.dismiss();
-        });
+        // возвращаем promise с итемами
+        return this.obtain.get({offset: offset, filter: this.filter});
     }
 
 
-    obtainDetail(item) {
+    /**
+     * Включение/выключение инфинити
+     *
+     */
+    isLastPageReached():boolean {
+
+        return this.items.length != 0 && this.isThereStillItems;
+    }
+
+
+    /**
+     * Подробности по итему
+     *
+     */
+    detail(item) {
         let modal = this.modalCtrl.create(ObtainDetailPage, {item: item});
         modal.present();
-    }
-
-
-    loadMore(infiniteScroll){
-
-        console.log('Async operation has ended');
-        // infiniteScroll.complete();
-
-        let filter =
-            {
-                sphere: '',
-                mask: '',
-                opened: ''
-            };
-
-        this.obtain.get({ offset: 0, filter: filter }).subscribe(res => {
-
-            // console.log('из компонента');
-            console.log( res.json() );
-
-            let data = res.json();
-
-            console.log( data.auctionItems );
-
-            // If the API returned a successful response, mark the user as logged in
-            // if (res.status == 'success') {
-            //     this._loggedIn(res);
-            // } else {
-            // }
-
-            // if (res.status == 'Ok') {
-            //     this._loggedIn(res);
-            //     // return { status: 'success'};
-            //
-            // } else if(res == 'invalid_credentials') {
-            //
-            //     // return { status: 'invalid', detail: 'invalid_credentials' };
-            //
-            // } else {
-            //
-            //     // return { status: 'error'};
-            // }
-
-            infiniteScroll.complete();
-
-        }, err => {
-            console.error('ERROR', err);
-            infiniteScroll.complete();
-        });
-
     }
 
 }

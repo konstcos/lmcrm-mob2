@@ -17,8 +17,13 @@ import {TutorialPage} from '../pages/tutorial/tutorial';
 import {MainPage} from '../pages/main/main';
 
 import {ObtainPage} from '../pages/obtain/obtain';
+import {ObtainDetailPage} from "../pages/obtain-detail/obtain-detail";
+
 import {DepositedPage} from '../pages/deposited/deposited';
+import {DepositedDetailPage} from "../pages/deposited-detail/deposited-detail";
+
 import {OpenPage} from '../pages/open/open';
+import {OpenDetailPage} from '../pages/open-detail/open-detail'
 
 import {CustomersPage} from '../pages/customers/customers';
 
@@ -37,9 +42,11 @@ import {Settings} from '../providers/settings';
 import {Items} from '../mocks/providers/items';
 
 import {TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
-import {Obtain} from "../providers/obtain";
 
-import {ObtainDetailPage} from "../pages/obtain-detail/obtain-detail";
+import {Obtain} from "../providers/obtain";
+import {Deposited} from "../providers/deposited";
+import {Open} from "../providers/open";
+
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -108,11 +115,13 @@ let pages = [
     MainPage,
 
     ObtainPage,
-
     ObtainDetailPage,
 
     DepositedPage,
+    DepositedDetailPage,
+
     OpenPage,
+    OpenDetailPage,
 
     CustomersPage
 ];
@@ -131,6 +140,8 @@ export function providers() {
         Api,
         Items,
         Obtain,
+        Deposited,
+        Open,
 
         {provide: Settings, useFactory: provideSettings, deps: [Storage]},
         // Keep this to enable Ionic's runtime error handling during development

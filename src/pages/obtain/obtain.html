@@ -13,9 +13,10 @@
     </ion-refresher>
     <!-- конец Обновление страницы -->
 
+
     <!-- Итемы отданых лидов на странице -->
     <ion-list inlist>
-        <ion-item *ngFor="let item of items" (click)="obtainDetail(item)">
+        <ion-item *ngFor="let item of items" (click)="detail(item)">
 
             <h2  >{{ item.name }}</h2>
             <p >{{ item.sphere.name }} ({{ item.mask.name }}) </p>
@@ -29,8 +30,9 @@
     </ion-list>
     <!-- конец Итемы отданых лидов на странице -->
 
+
     <!-- Подгрузка следующей партии итемов -->
-    <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll *ngIf="isLastPageReached()" (ionInfinite)="loadMore($event)">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
     <!-- конец Подгрузка следующей партии итемов -->

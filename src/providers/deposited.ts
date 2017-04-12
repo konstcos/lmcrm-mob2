@@ -6,13 +6,13 @@ import 'rxjs/add/operator/toPromise';
 
 
 /*
- Generated class for the Obtain provider.
+ Generated class for the Deposited provider.
 
  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
  for more info on providers and Angular 2 DI.
  */
 @Injectable()
-export class Obtain {
+export class Deposited {
 
     constructor(
         public http: Http,
@@ -23,7 +23,7 @@ export class Obtain {
      * Получение с сервера итемов обтэин
      */
     get(data: any){
-        return this.api.post('api/obtain', data);
+        return this.api.post('api/deposited', data);
     }
 
 }

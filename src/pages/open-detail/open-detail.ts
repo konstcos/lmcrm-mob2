@@ -2,16 +2,16 @@ import {Component} from '@angular/core';
 import {NavController, NavParams, ViewController} from 'ionic-angular';
 
 /*
- Generated class for the ObtainDetail page.
+ Generated class for the OpenDetail page.
 
  See http://ionicframework.com/docs/v2/components/#navigation for more info on
  Ionic pages and navigation.
  */
 @Component({
-    selector: 'page-obtain-detail',
-    templateUrl: 'obtain-detail.html'
+    selector: 'page-open-detail',
+    templateUrl: 'open-detail.html'
 })
-export class ObtainDetailPage {
+export class OpenDetailPage {
 
     item: any;
 
@@ -20,11 +20,10 @@ export class ObtainDetailPage {
                 public navParams: NavParams) {
 
         this.item = navParams.get('item')
-
     }
 
     ionViewDidLoad() {
-        console.log('ionViewDidLoad ObtainDetailPage');
+        console.log('ionViewDidLoad OpenDetailPage');
     }
 
 

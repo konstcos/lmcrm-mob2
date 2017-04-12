@@ -1,13 +1,15 @@
-<!--
-  Generated template for the Ustomers page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
     <ion-navbar color="primary">
         <ion-title>Customers</ion-title>
+
+        <ion-buttons right>
+            <button ion-button clear (click)="goToMainPage()">
+                <ion-icon name="md-arrow-forward"></ion-icon>
+            </button>
+        </ion-buttons>
+
     </ion-navbar>
 
 </ion-header>
@@ -19,6 +21,5 @@
         Клиенты
     </p>
 
-    <button (click)="back()" ion-button round>Back</button>
 
 </ion-content>

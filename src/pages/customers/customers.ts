@@ -19,7 +19,7 @@ export class CustomersPage {
     constructor(public navCtrl: NavController, public navParams: NavParams, public nav: Nav) {
     }
 
-    back(){
+    goToMainPage(){
         this.nav.setRoot(MainPage);
     }
 
