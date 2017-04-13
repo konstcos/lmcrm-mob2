@@ -1,0 +1,78 @@
+<!--
+  Generated template for the Masks page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="primary">
+        <ion-title>Masks</ion-title>
+
+        <ion-buttons right>
+            <button ion-button clear (click)="goBack()">
+                <ion-icon name="md-arrow-forward"></ion-icon>
+            </button>
+        </ion-buttons>
+
+    </ion-navbar>
+
+</ion-header>
+
+
+<!-- Кнопка добавления нового лида -->
+<ion-fab bottom right>
+    <button ion-fab (click)="createNewMask()"><ion-icon name="md-add"></ion-icon></button>
+</ion-fab>
+<!-- конец Кнопка добавления нового лида -->
+
+
+<ion-content>
+
+    <div *ngIf="sphere">
+
+        <ion-row>
+            <ion-col>
+                {{ sphere.name }}
+            </ion-col>
+        </ion-row>
+
+        <ion-card *ngFor="let mask of masks" class="open_card">
+
+            <ion-row *ngIf="!mask.pending">
+                <ion-col>
+                    waiting for admin approval
+                </ion-col>
+            </ion-row>
+
+
+            <ion-card-content>
+
+                <ion-row>
+
+                    <ion-col>
+                        <ion-toggle [(ngModel)]="mask.active" (click)="switchActive(mask)"></ion-toggle>
+                    </ion-col>
+
+                    <ion-col text-right (click)="editMask(mask)">
+                        <div>{{ mask.updated_at.time }} {{ mask.updated_at.date }}</div>
+                        <h2>{{ mask.name }}</h2>
+                        <div>{{ mask.description }}</div>
+                    </ion-col>
+
+                </ion-row>
+
+            </ion-card-content>
+
+
+            <ion-row>
+                <ion-col>
+                    {{ mask.leads }} leads incoming by this mask
+                </ion-col>
+            </ion-row>
+
+        </ion-card>
+
+    </div>
+
+</ion-content>

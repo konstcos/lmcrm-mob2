@@ -28,6 +28,8 @@ import {OpenPage} from '../open/open';
 import {LoginPage} from '../login/login';
 // страница для фильтрования лидов
 import {CustomersPage} from '../customers/customers';
+// страница добавления нового лида
+import {AddLeadPage} from '../add-lead/add-lead';
 
 
 /*
@@ -153,6 +155,18 @@ export class MainPage {
         this.menuCtrl.enable(true, 'main_menu');
         // выключение фильтра
         this.menuCtrl.enable(false, 'filter');
+    }
+
+
+    /**
+     * Переход на страницу создания нового лида
+     *
+     */
+    addLead(){
+
+        // переход на страницу создания нового лида
+        // this.nav.setRoot(AddLeadPage);
+        this.nav.push(AddLeadPage);
     }
 
 

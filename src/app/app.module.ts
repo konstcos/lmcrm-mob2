@@ -16,6 +16,8 @@ import {TutorialPage} from '../pages/tutorial/tutorial';
 
 import {MainPage} from '../pages/main/main';
 
+import {AddLeadPage} from '../pages/add-lead/add-lead';
+
 import {ObtainPage} from '../pages/obtain/obtain';
 import {ObtainDetailPage} from "../pages/obtain-detail/obtain-detail";
 
@@ -26,7 +28,8 @@ import {OpenPage} from '../pages/open/open';
 import {OpenDetailPage} from '../pages/open-detail/open-detail'
 
 import {CustomersPage} from '../pages/customers/customers';
-
+import {MasksPage} from '../pages/masks/masks';
+import {EditMaskPage} from '../pages/edit-mask/edit-mask';
 
 import {WelcomePage} from '../pages/welcome/welcome';
 import {ListMasterPage} from '../pages/list-master/list-master';
@@ -39,6 +42,7 @@ import {SearchPage} from '../pages/search/search';
 import {User} from '../providers/user';
 import {Api} from '../providers/api';
 import {Settings} from '../providers/settings';
+import {Customer} from '../providers/customer';
 import {Items} from '../mocks/providers/items';
 
 import {TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
@@ -114,6 +118,8 @@ let pages = [
 
     MainPage,
 
+    AddLeadPage,
+
     ObtainPage,
     ObtainDetailPage,
 
@@ -123,7 +129,9 @@ let pages = [
     OpenPage,
     OpenDetailPage,
 
-    CustomersPage
+    CustomersPage,
+    MasksPage,
+    EditMaskPage
 ];
 
 export function declarations() {
@@ -142,6 +150,7 @@ export function providers() {
         Obtain,
         Deposited,
         Open,
+        Customer,
 
         {provide: Settings, useFactory: provideSettings, deps: [Storage]},
         // Keep this to enable Ionic's runtime error handling during development

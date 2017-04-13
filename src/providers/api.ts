@@ -65,23 +65,6 @@ export class Api {
     post(endpoint: string, body: any) {
 
 
-        // this.storage.ready().then(() => {
-        //     console.log('из api:');
-        //     console.log( this.settings.settings );
-        //     console.log('END из api');
-        // });
-
-
-        console.log('из api' + endpoint);
-        console.log( this.settings.settings );
-        console.log('END из api' + endpoint);
-
-
-
-        // console.log( localStorage.getItem('token') );
-
-        // options.headers = this.headers;
-
         let headers = new Headers();
 
 
@@ -90,12 +73,6 @@ export class Api {
             // options = 'Authorization: Bearer' + localStorage.getItem('token');
             headers.append('Authorization', 'Bearer' + localStorage.getItem('token'));
         }
-
-        // console.log('headers:');
-        // console.log( options );
-
-
-        // console.log( this.user.token );
 
         return this.http.post(this.url + '/' + endpoint, body, {headers: headers});
     }

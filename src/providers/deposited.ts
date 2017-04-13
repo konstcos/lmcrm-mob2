@@ -14,15 +14,27 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class Deposited {
 
+
     constructor(
         public http: Http,
         public api: Api) {
     }
 
+
     /**
      * Получение с сервера итемов обтэин
+     *
      */
     get(data: any){
+        return this.api.post('api/deposited', data);
+    }
+
+
+    /**
+     * Получение с сервера итемов обтэин
+     * todo
+     */
+    add(data: any){
         return this.api.post('api/deposited', data);
     }
 

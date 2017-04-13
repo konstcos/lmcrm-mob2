@@ -1,0 +1,52 @@
+
+
+<ion-header>
+
+    <ion-navbar color="primary" hideBackButton="true">
+
+        <ion-buttons left>
+            <button ion-button >
+                <!--<ion-icon name="md-arrow-forward"></ion-icon>-->
+                add
+            </button>
+        </ion-buttons>
+
+        <ion-buttons right>
+            <button ion-button icon-only (click)="goBackPop()">
+                <ion-icon name="md-arrow-forward"></ion-icon>
+            </button>
+        </ion-buttons>
+
+
+        <!--<ion-title>Add Lead</ion-title>-->
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <h2>Add Lead</h2>
+
+    <ion-row>
+        <ion-col>
+            <div>*name</div>
+            <ion-input type="text" placeholder="client name"></ion-input>
+        </ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-col>
+            <div>*phone</div>
+            <ion-input type="text" placeholder="client name"></ion-input>
+        </ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-col>
+            <div>comment</div>
+            <ion-textarea placeholder="client name"></ion-textarea>
+        </ion-col>
+    </ion-row>
+
+</ion-content>

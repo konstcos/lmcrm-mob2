@@ -15,11 +15,36 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
-    <p>
-        Клиенты
-    </p>
+    <ion-card *ngFor="let sphere of spheres" (click)="openSphere(sphere)" class="open_card">
+
+
+        <ion-card-content>
+
+            <h2>{{ sphere.name }}</h2>
+            <div> {{ sphere.leads }} leads in {{ sphere.masks.count }} masks</div>
+
+        </ion-card-content>
+
+
+        <ion-row>
+
+            <ion-col text-center>
+                masks active: <span>{{ sphere.masks.active }}</span>
+            </ion-col>
+
+            <ion-col text-center>
+                masks pending: <span>{{ sphere.masks.pending }}</span>
+            </ion-col>
+
+            <ion-col text-center>
+                masks off: <span>{{ sphere.masks.off }}</span>
+            </ion-col>
+
+        </ion-row>
+
+    </ion-card>
 
 
 </ion-content>
