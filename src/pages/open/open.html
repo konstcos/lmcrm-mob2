@@ -17,7 +17,7 @@
                     <ion-icon name="ios-call"></ion-icon>
                 </button>
 
-                <button ion-button clear small>
+                <button ion-button clear small (click)="openLeadOrganizer(item)">
                     <ion-icon name="md-alarm"></ion-icon>
                 </button>
             </ion-col>
@@ -34,7 +34,7 @@
 
                 <ion-col class="item-right-data" text-right>
                     <div> {{ item.lead.sphere.name }}</div>
-                    <div> {{ item.date }}</div>
+                    <div> {{ item.date.time }} {{ item.date.date }}</div>
                 </ion-col>
 
             </ion-row>
@@ -44,7 +44,7 @@
 
         <ion-row>
             <ion-col>
-                <button ion-button small full>
+                <button ion-button small full (click)="changeStatus(item)">
                     {{ item.status_info ? item.status_info.stepname : 'No status' }}
                 </button>
             </ion-col>

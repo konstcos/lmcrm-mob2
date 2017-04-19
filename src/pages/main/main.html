@@ -12,7 +12,7 @@
         <ion-list>
 
             <button menuClose ion-item>button1</button>
-            <button menuClose ion-item>button2</button>
+            <button menuClose ion-item>Salesmen</button>
             <button menuClose ion-item (click)="openPage(pages[0])">{{ pages[0].title }}</button>
 
             <button menuClose ion-item (click)="logout()">Logout</button>
@@ -55,7 +55,7 @@
 
     <ion-toolbar color="primary">
 
-        <ion-buttons left>
+        <ion-buttons right>
             <button ion-button icon-only (click)="mainMenuOpen()">
                 <ion-icon name="menu"></ion-icon>
             </button>
@@ -66,12 +66,12 @@
             <!--</button>-->
 
         <!--<ion-icon name="menu"></ion-icon>-->
-        <ion-title>
+        <ion-title text-right>
             LM CRM
         </ion-title>
 
 
-        <ion-buttons right>
+        <ion-buttons left>
             <button ion-button icon-only>
                 <ion-icon name="search"></ion-icon>
             </button>
@@ -103,10 +103,10 @@
 <ion-content #content class="no-scroll" dir="ltr">
 
     <!--<ion-tabs color="primary" class="withNavbar">-->
-    <ion-tabs color="primary">
-        <ion-tab trimHistory [root]="obtain" [tabTitle]="obtainTitle"></ion-tab>
-        <ion-tab trimHistory [root]="deposited" [tabTitle]="depositedTitle"></ion-tab>
+    <ion-tabs color="primary" tabsPlacement="top" tabsHighlight="true" selectedIndex="2">
         <ion-tab trimHistory [root]="open" [tabTitle]="openTitle"></ion-tab>
+        <ion-tab trimHistory [root]="deposited" [tabTitle]="depositedTitle"></ion-tab>
+        <ion-tab trimHistory [root]="obtain" [tabTitle]="obtainTitle"></ion-tab>
     </ion-tabs>
 
     <!-- Кнопка добавления нового лида -->

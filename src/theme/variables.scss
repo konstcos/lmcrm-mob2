@@ -13,6 +13,28 @@ $font-path: "../assets/fonts";
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
 
 
+// Минимльная высота тулбара
+$toolbar-md-height: 4.9rem;
+$toolbar-ios-height: 45px;
+$toolbar-wp-height: 4.9rem;
+
+
+// Минимальная высота навбара
+$navbar-md-height: 4.9rem;
+$navbar-ios-height: 45px;
+$navbar-wp-height: 4.9rem;
+
+
+// Минимальная высота таббара
+$tabs-md-tab-min-height: 4.2rem;
+$tabs-ios-tab-min-height: 40px;
+$tabs-wp-tab-min-height: 4.2rem;
+
+// Разер шрифта title в тулбаре
+$toolbar-md-title-font-size: 1.7rem;
+
+// Размер кнопки в тулбаре
+$toolbar-md-button-font-size: 1.3rem;
 
 
 // Named Color Variables

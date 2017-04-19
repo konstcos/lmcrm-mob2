@@ -19,11 +19,20 @@ export class Obtain {
         public api: Api) {
     }
 
+
     /**
      * Получение с сервера итемов обтэин
      */
     get(data: any){
         return this.api.post('api/obtain', data);
+    }
+
+
+    /**
+     * Получение с сервера итемов обтэин
+     */
+    openLead(data: any){
+        return this.api.post('api/openLead', data);
     }
 
 }

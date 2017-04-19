@@ -31,6 +31,12 @@ import {CustomersPage} from '../pages/customers/customers';
 import {MasksPage} from '../pages/masks/masks';
 import {EditMaskPage} from '../pages/edit-mask/edit-mask';
 
+import {OpenLeadStatusesPage} from '../pages/open-lead-statuses/open-lead-statuses';
+
+import {OpenLeadOrganizerPage} from '../pages/open-lead-organizer/open-lead-organizer';
+
+import {SalesmenPage} from '../pages/salesmen/salesmen'
+
 import {WelcomePage} from '../pages/welcome/welcome';
 import {ListMasterPage} from '../pages/list-master/list-master';
 import {ItemCreatePage} from '../pages/item-create/item-create';
@@ -43,6 +49,7 @@ import {User} from '../providers/user';
 import {Api} from '../providers/api';
 import {Settings} from '../providers/settings';
 import {Customer} from '../providers/customer';
+import {OpenLeadOrganizer} from '../providers/open-lead-organizer';
 import {Items} from '../mocks/providers/items';
 
 import {TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
@@ -131,7 +138,14 @@ let pages = [
 
     CustomersPage,
     MasksPage,
-    EditMaskPage
+    EditMaskPage,
+
+    OpenLeadStatusesPage,
+
+    OpenLeadOrganizerPage,
+
+    SalesmenPage
+
 ];
 
 export function declarations() {
@@ -151,6 +165,7 @@ export function providers() {
         Deposited,
         Open,
         Customer,
+        OpenLeadOrganizer,
 
         {provide: Settings, useFactory: provideSettings, deps: [Storage]},
         // Keep this to enable Ionic's runtime error handling during development
@@ -162,7 +177,7 @@ export function providers() {
     declarations: declarations(),
     imports: [
         IonicModule.forRoot(MyApp, {
-            tabsPlacement: "top"
+            // tabsPlacement: "top"
         }),
 
 

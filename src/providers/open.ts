@@ -19,6 +19,7 @@ export class Open {
         public api: Api) {
     }
 
+
     /**
      * Получение с сервера итемов обтэин
      */
@@ -26,5 +27,12 @@ export class Open {
         return this.api.post('api/opened', data);
     }
 
+
+    /**
+     * Получение с сервера итемов обтэин
+     */
+    changeStatus(data: any){
+        return this.api.post('api/changeOpenLeadStatus', data);
+    }
 
 }

@@ -1,0 +1,85 @@
+page-open-lead-statuses {
+
+  .bad_status_color {
+    color: white;
+    background: #CD0000;
+  }
+  .bad_status_color_checked {
+    color: #CD0000;
+    background: #EB9999;
+  }
+
+  .uncertain_status_color {
+    color: white;
+    background: #D9A502;
+  }
+  .uncertain_status_color_checked {
+    color: #D9A502;
+    background: #F0DB99;
+  }
+
+  .process_status_color {
+    color: white;
+    background: #00B050;
+  }
+  .process_status_color_checked {
+    color: #00B050;
+    background: #99DFB9;
+  }
+
+  .refuseniks_status_color {
+    color: white;
+    background: #7F3300;
+  }
+  .refuseniks_status_color_checked {
+    color: #7F3300;
+    background: #CBAD99;
+  }
+
+  .deals_status_color {
+    color: white;
+    background: #3F51B5;
+  }
+  .deals_status_color_checked {
+    color: #3F51B5;
+    background: #B2B9E1;
+  }
+
+  .status_card_header {
+    font-size: 18px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+  }
+
+  .left_button {
+    margin-left: 45px;
+  }
+
+  .right_button {
+    margin-right: 45px;
+  }
+
+  ion-card {
+    margin-bottom: 20px !important;
+  }
+
+  ion-list.status_card_list {
+    padding: 7px 3px 0;
+  }
+
+  ion-item {
+
+    margin-bottom: 3px !important;
+    min-height: 0 !important;
+    cursor: pointer;
+
+    .label {
+      text-align: right;
+      margin: 7px 0;
+      padding: 0 8px;
+
+    }
+
+  }
+
+}

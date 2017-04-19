@@ -18,12 +18,21 @@
     <ion-list inlist>
         <ion-item *ngFor="let item of items" (click)="detail(item)">
 
-            <h2  >{{ item.name }}</h2>
-            <p >{{ item.sphere.name }} ({{ item.mask.name }}) </p>
+            <!--<h2  >{{ item.name }}</h2>-->
+            <!--<p >{{ item.sphere.name }} ({{ item.mask.name }}) </p>-->
+
+            <div text-left>
+                <div class="data_time"> <span class="time">{{ item.auction_added.time }}</span> {{ item.auction_added.date }}</div>
+                <div class="opened"><ion-icon ios="ios-eye" md="md-eye"></ion-icon> {{ item.opened }}</div>
+            </div>
+
 
             <div item-right class="item-right-data" text-right>
-                <div> <span class="item-right-data-time">{{ item.auction_added.time }}</span> {{ item.auction_added.date }}</div>
-                <div><ion-icon ios="ios-eye" md="md-eye"></ion-icon> {{ item.opened }}</div>
+
+                <div class="lead_name">{{ item.name }}</div>
+                <div class="sphere_name"> (<span class="mask_name">{{ item.mask.name }}</span>) {{ item.sphere.name }} </div>
+
+
             </div>
 
         </ion-item>

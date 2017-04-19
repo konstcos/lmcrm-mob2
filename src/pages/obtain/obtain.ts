@@ -4,7 +4,6 @@ import {NavController, NavParams, LoadingController, ModalController} from 'ioni
 import {Obtain} from '../../providers/obtain';
 import {ObtainDetailPage} from "../obtain-detail/obtain-detail";
 
-
 /*
  Generated class for the Obtain page.
 
@@ -152,12 +151,16 @@ export class ObtainPage {
                 // переводим ответ в json
                 let data = result.json();
 
+                console.log(data);
+
                 // вычесляем количество итемов
                 let itemsLength = data.auctionItems.length;
 
                 // обработка итемов
                 if (itemsLength != 0) {
                     // если больше нуля
+
+                    // console.log(data.auctionItems);
 
                     // добавляем полученные итемы на страницу
                     this.items = data.auctionItems;

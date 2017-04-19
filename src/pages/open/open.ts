@@ -2,10 +2,13 @@ import {Component} from '@angular/core';
 import {NavController, NavParams, LoadingController, ModalController} from 'ionic-angular';
 
 import {OpenDetailPage} from '../open-detail/open-detail'
+import {OpenLeadStatusesPage} from "../open-lead-statuses/open-lead-statuses";
+import {OpenLeadOrganizerPage} from "../open-lead-organizer/open-lead-organizer";
 
+import {OpenLeadOrganizer} from '../../providers/open-lead-organizer';
 import {User} from '../../providers/user';
 import {Settings} from '../../providers/settings';
-import { Storage } from '@ionic/storage';
+import {Storage} from '@ionic/storage';
 
 import {Open} from '../../providers/open';
 
@@ -45,27 +48,27 @@ export class OpenPage {
     isThereStillItems = true;
 
 
-    constructor(
-        public navCtrl: NavController,
-        public navParams: NavParams,
-        public user: User,
-        public settings: Settings,
-        public storage: Storage,
-        public open: Open,
-        public loadingCtrl: LoadingController,
-        public modalCtrl: ModalController) {
+    constructor(public navCtrl: NavController,
+                public navParams: NavParams,
+                public user: User,
+                public settings: Settings,
+                public storage: Storage,
+                public open: Open,
+                public loadingCtrl: LoadingController,
+                public modalCtrl: ModalController,
+                public organizer: OpenLeadOrganizer) {
 
 
         storage.ready().then(() => {
 
             console.log('сторедж');
-            console.log( storage.driver );
+            console.log(storage.driver);
 
             // storage.set('name', 'Max');
             // storage.set('aaa', 'ddd');
 
 
-            storage.keys().then(data=>{
+            storage.keys().then(data => {
                 console.log('сторедж:');
                 console.log(data);
             });
@@ -83,7 +86,7 @@ export class OpenPage {
             // setValue
             // settings.setValue('swer', '678');
             console.log('получилось:');
-            console.log( settings.settings );
+            console.log(settings.settings);
 
             // settings.settings['swer'] = '11111111';
 
@@ -108,7 +111,7 @@ export class OpenPage {
 
     ionViewDidLoad() {
         console.log('ionViewDidLoad OpenPage');
-        console.log( this.settings.settings );
+        console.log(this.settings.settings);
     }
 
 
@@ -251,7 +254,7 @@ export class OpenPage {
 
         console.log('сработал инфинити');
 
-        if( this.isThereStillItems ){
+        if (this.isThereStillItems) {
 
             // получение итемов с сервера
             this.get()
@@ -270,7 +273,7 @@ export class OpenPage {
                         // если больше нуля
 
                         // добавляем полученные итемы на страницу
-                        this.items = this.items.concat( data.openedLeads );
+                        this.items = this.items.concat(data.openedLeads);
 
                     } else {
                         // если итемов нет
@@ -292,7 +295,7 @@ export class OpenPage {
                     // отключаем окно индикатора загрузки
                     infiniteScroll.complete();
                 });
-        }else{
+        } else {
             // отключаем окно индикатора загрузки
             infiniteScroll.complete();
         }
@@ -317,7 +320,7 @@ export class OpenPage {
      * Включение/выключение инфинити
      *
      */
-    isLastPageReached():boolean {
+    isLastPageReached(): boolean {
 
         return this.items.length != 0 && this.isThereStillItems;
     }
@@ -330,6 +333,83 @@ export class OpenPage {
     detail(item) {
         let modal = this.modalCtrl.create(OpenDetailPage, {item: item});
         modal.present();
+    }
+
+
+    /**
+     * Окно органайзера
+     *
+     */
+    openLeadOrganizer(item) {
+
+        this.organizer.get({ openLeadId: item.id })
+            .subscribe(result => {
+
+                // переводим ответ в json
+                let data = result.json();
+
+                let modal = this.modalCtrl.create(OpenLeadOrganizerPage, {items: data});
+
+                modal.present();
+
+                console.log(data);
+
+            }, err => {
+
+                // в случае ошибки
+
+                console.log('ERROR: ' + err);
+
+                // todo выводится сообщение об ошибке (нету связи и т.д.)
+
+                // отключаем окно индикатора загрузки
+                // infiniteScroll.complete();
+
+            });
+
+
+
+    }
+
+
+    /**
+     * Смена статуса
+     *
+     */
+    changeStatus(item) {
+        // this.navCtrl.setRoot(OpenLeadStatusesPage);
+
+        // console.log(statuses);
+        let modal = this.modalCtrl.create(OpenLeadStatusesPage, {item: item});
+
+        modal.onDidDismiss(data => {
+            item.status_info = data.status;
+            item.status = data.status.id;
+
+            for (let type in item.statuses) {
+
+                for (let stat of item.statuses[type]) {
+
+                    if (stat.id == data.status.id) {
+
+                        stat.checked = false;
+                        stat.lock = true;
+
+                    } else {
+
+                        stat.checked = false;
+                    }
+
+                }
+            }
+
+
+            console.log(item);
+            console.log(data);
+        });
+
+        modal.present();
+
     }
 
 }
