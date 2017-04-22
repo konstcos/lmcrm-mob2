@@ -6,13 +6,318 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Salesmen</ion-title>
-  </ion-navbar>
+    <ion-navbar color="primary" hideBackButton="true">
+
+        <ion-buttons left text-center class="left_button">
+            <button ion-button (click)="goToMainPage()">
+                close
+            </button>
+        </ion-buttons>
+        <!--<ion-title>ObtainDetail</ion-title>-->
+
+        <!--<ion-buttons right text-center class="right_button">-->
+            <!--<button ion-button>-->
+                <!--open lead data-->
+            <!--</button>-->
+        <!--</ion-buttons>-->
+
+    </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+
+
+<ion-content>
+
+    <ion-card *ngFor="let item of items" >
+
+        <!--<ion-card-header>-->
+
+            <!--<button ion-button small clear>-->
+                <!--Login-->
+            <!--</button>-->
+
+            <!--<button ion-button small clear>-->
+                <!--Statistic-->
+            <!--</button>-->
+
+            <!--<button ion-button small clear>-->
+                <!--Banned-->
+            <!--</button>-->
+
+        <!--</ion-card-header>-->
+
+
+        <!--<ion-row>-->
+
+            <!--<ion-col text-center no-padding>-->
+                <!--<button ion-button small clear>-->
+                    <!--Permissions-->
+                <!--</button>-->
+            <!--</ion-col>-->
+
+            <!--<ion-col text-center no-padding>-->
+                <!--&lt;!&ndash;<button ion-button small clear>&ndash;&gt;-->
+                    <!--&lt;!&ndash;Statistic&ndash;&gt;-->
+                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+            <!--</ion-col>-->
+
+        <!--</ion-row>-->
+
+        <ion-row>
+
+            <ion-col text-right class="salesmen_info">
+                <div class="salesmen_name">{{ item.name }} {{ item.surname }}</div>
+                <div class="salesmen_email">{{ item.email }}</div>
+            </ion-col>
+
+            <ion-col col-3 text-center align-self-center class="salesmen_side_color">
+
+                <div class="salesman_menu_button" (click)="action(item)">
+                    <ion-icon name="menu"></ion-icon>
+                </div>
+
+            </ion-col>
+
+
+        </ion-row>
+
+        <!--<ion-card-content>-->
+
+            <!--<ion-row>-->
+
+                <!--<ion-col justify-content-center>-->
+                    <!--&lt;!&ndash;<button ion-button small clear>&ndash;&gt;-->
+                        <!--&lt;!&ndash;Edit&ndash;&gt;-->
+                    <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                <!--</ion-col>-->
+
+                <!--<ion-col text-right="">-->
+                    <!--<div>{{ item.name }} {{ item.surname }}</div>-->
+                    <!--<div>{{ item.email }}</div>-->
+                <!--</ion-col>-->
+
+            <!--</ion-row>-->
+
+            <!--&lt;!&ndash;<h2>{{ item.name }} {{ item.surname }}</h2>&ndash;&gt;-->
+            <!--&lt;!&ndash;<div>{{ item.email }}</div>&ndash;&gt;-->
+
+        <!--</ion-card-content>-->
+
+
+        <ion-row class="row_separate">
+
+            <ion-col text-right no-padding class="additional_label">
+                <!--leads-->
+            </ion-col>
+
+            <ion-col col-3 text-center no-padding class="salesmen_side_color">
+
+            </ion-col>
+
+        </ion-row>
+
+        <ion-row class="salesmen_card_additional_row">
+
+
+            <ion-col text-center no-padding class="salesmen_card_additional_container">
+
+                <ion-row>
+                    <ion-col text-center no-padding class="salesmen_card_additional_col">
+                        <div class="additional_value">3</div>
+                        <div class="additional_text">on auction</div>
+                    </ion-col>
+
+                    <ion-col text-center no-padding class="salesmen_card_additional_col">
+                        <div class="additional_value">3</div>
+                        <div class="additional_text">open</div>
+                    </ion-col>
+
+                    <ion-col text-center no-padding class="salesmen_card_additional_col">
+                        <div class="additional_value">3</div>
+                        <div class="additional_text">deposited</div>
+                    </ion-col>
+                </ion-row>
+
+            </ion-col>
+
+
+            <!--<ion-col text-center>-->
+                <!--<div class="additional_value">3</div>-->
+                <!--<div class="additional_text">on auction</div>-->
+            <!--</ion-col>-->
+
+            <!--<ion-col text-center>-->
+                <!--<div class="additional_value">3</div>-->
+                <!--<div class="additional_text">open</div>-->
+            <!--</ion-col>-->
+
+            <!--<ion-col text-center>-->
+                <!--<div class="additional_value">3</div>-->
+                <!--<div class="additional_text">deposited</div>-->
+            <!--</ion-col>-->
+
+            <ion-col col-3 class="salesmen_side_color side_additional_col">
+                <div class="side_additional_button">
+                    <!--<ion-icon name="md-log-in"></ion-icon>-->
+                    leads
+                </div>
+            </ion-col>
+
+        </ion-row>
+
+        <ion-row>
+
+
+            <ion-col text-right>
+            </ion-col>
+
+            <ion-col col-3 text-center class="salesmen_side_color">
+
+            </ion-col>
+
+        </ion-row>
+
+        <ion-row>
+
+
+            <ion-col text-right no-padding class="additional_label">
+                <!--masks-->
+            </ion-col>
+
+            <ion-col col-3 text-center no-padding class="salesmen_side_color">
+
+            </ion-col>
+
+        </ion-row>
+
+        <ion-row class="salesmen_card_additional_row">
+
+            <ion-col text-center no-padding class="salesmen_card_additional_container">
+
+                <ion-row>
+                    <ion-col text-center no-padding class="salesmen_card_additional_col">
+                        <div class="additional_value">3</div>
+                        <div class="additional_text">active</div>
+                    </ion-col>
+
+                    <ion-col text-center no-padding class="salesmen_card_additional_col">
+                        <div class="additional_value">3</div>
+                        <div class="additional_text">pending</div>
+                    </ion-col>
+
+                    <ion-col text-center no-padding class="salesmen_card_additional_col">
+                        <div class="additional_value">3</div>
+                        <div class="additional_text">off</div>
+                    </ion-col>
+                </ion-row>
+
+            </ion-col>
+
+            <!--<ion-col text-center>-->
+                <!--<div class="additional_value">3</div>-->
+                <!--<div class="additional_text">active</div>-->
+            <!--</ion-col>-->
+
+            <!--<ion-col text-center>-->
+                <!--<div class="additional_value">3</div>-->
+                <!--<div class="additional_text">pending</div>-->
+            <!--</ion-col>-->
+
+            <!--<ion-col text-center>-->
+                <!--<div class="additional_value">3</div>-->
+                <!--<div class="additional_text">off</div>-->
+            <!--</ion-col>-->
+
+            <ion-col col-3 class="salesmen_side_color side_additional_col">
+
+                <div class="side_additional_button">
+                    masks
+                    <!--<ion-icon name="md-list"></ion-icon>-->
+                </div>
+
+            </ion-col>
+
+        </ion-row>
+
+        <ion-row>
+
+
+            <ion-col text-right>
+            </ion-col>
+
+            <ion-col col-3 text-center class="salesmen_side_color">
+
+            </ion-col>
+
+        </ion-row>
+
+        <!-- leads at auction -->
+        <!-- open leads -->
+        <!-- период за который показывать -->
+
+        <!--<ion-row>-->
+
+            <!--<ion-col text-center>-->
+                <!--masks active: <span>4</span>-->
+            <!--</ion-col>-->
+
+            <!--<ion-col text-center>-->
+                <!--masks pending: <span>6</span>-->
+            <!--</ion-col>-->
+
+            <!--<ion-col text-center>-->
+                <!--masks off: <span>3</span>-->
+            <!--</ion-col>-->
+
+        <!--</ion-row>-->
+
+        <!--<ion-row>-->
+
+            <!--<ion-col text-center no-padding>-->
+                <!--<button ion-button small clear>-->
+                    <!--Login-->
+                <!--</button>-->
+            <!--</ion-col>-->
+
+            <!--<ion-col text-center no-padding>-->
+                <!--<button ion-button small clear>-->
+                    <!--Masks-->
+                <!--</button>-->
+            <!--</ion-col>-->
+
+            <!--<ion-col text-center no-padding>-->
+                <!--<button ion-button small clear>-->
+                    <!--Statistic-->
+                <!--</button>-->
+            <!--</ion-col>-->
+
+
+            <!--<ion-col text-center no-padding>-->
+                <!--<button ion-button small clear>-->
+                    <!--edit-->
+                <!--</button>-->
+            <!--</ion-col>-->
+
+        <!--</ion-row>-->
+
+
+        <!--<ion-row>-->
+            <!--<ion-col>-->
+                <!--<ion-fab bottom right >-->
+                    <!--<button ion-fab mini>Button</button>-->
+                    <!--<ion-fab-list side="left">-->
+                        <!--<button ion-fab>Facebook</button>-->
+                        <!--<button ion-fab>Twitter</button>-->
+                        <!--<button ion-fab>Youtube</button>-->
+                    <!--</ion-fab-list>-->
+                <!--</ion-fab>-->
+            <!--</ion-col>-->
+        <!--</ion-row>-->
+
+
+    </ion-card>
+
 
 </ion-content>

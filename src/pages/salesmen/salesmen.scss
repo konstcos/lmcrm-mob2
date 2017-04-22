@@ -1,3 +1,109 @@
 page-salesmen {
 
+
+  ion-content{
+
+    background: #F8F8F8 !important;
+
+    .scroll-content{
+      padding-bottom: 200px;
+    }
+  }
+
+  .left_button {
+    margin-left: 45px;
+  }
+
+  .right_button {
+    margin-right: 45px;
+  }
+
+  .salesmen_side_color {
+    color: white;
+    background: #337AB7;
+  }
+
+  .salesman_menu_button {
+    font-size: 20px;
+    padding: 10px 0;
+    background: #1966A8;
+    border-radius: 30px;
+    color: #ffffff;
+    margin: 5px 15px 0;
+    cursor: pointer;
+  }
+
+  .salesmen_info {
+    font-size: 15px;
+    color: #4A4A4A;
+    padding: 20px 10px 0 0;
+
+    .salesmen_name {
+      font-weight: 600;
+    }
+
+    .salesmen_email {
+      margin-top: 2px;
+      font-size: 11px;
+    }
+
+  }
+
+  .additional_value {
+    color: #5A5A5A;
+    font-size: 12px;
+  }
+
+  .additional_label {
+    color: #6F6F6F;
+    padding-right: 10px;
+    font-size: 12px;
+    //background: #337AB7;
+  }
+
+  .salesmen_card_additional_row {
+    background: #F4F4F4;
+
+    .salesmen_card_additional_container {
+      padding: 6px 0 6px 0;
+      border-top: 1px solid #DCDCDC;
+      border-bottom: 1px solid #DCDCDC;
+    }
+
+    .salesmen_card_additional_col {
+      border-left: 1px solid #DCDCDC;
+    }
+
+    :first-child {
+      border-left: none;
+    }
+
+    .additional_text {
+      font-size: 10px;
+      color: #6F6F6F;
+    }
+
+  }
+
+  .side_additional_col {
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .side_additional_button {
+    color: #ffffff;
+    background: #1966A8;
+    height: 100%;
+    width: 65px;
+    border-radius: 0 20px 20px 0;
+    padding-top: 12px;
+    padding-left: 12px;
+    font-size: 12px;
+
+  }
+
+  .row_separate {
+    height: 8px;
+  }
+
 }

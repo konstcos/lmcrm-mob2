@@ -1,3 +1,101 @@
 page-сustomers {
 
 }
+
+.left_button {
+  margin-left: 45px !important;
+}
+
+.right_button {
+  margin-right: 45px !important;
+}
+
+.subHeader {
+  color: #E3EAF0;
+  background: #4C8CC2;
+  font-size: 12px;
+  font-weight: 600;
+
+  .salesmen-row {
+    margin-left: 10px;
+
+  }
+
+}
+
+.customers-content {
+  background: #F8F8F8;
+
+  .card.open_card {
+
+    margin-bottom: 20px;
+
+    .card-content {
+
+      padding: 10px 10px 5px;
+
+      .name {
+        color: #868686;
+        font-size: 18px;
+      }
+
+      .leads_status {
+        font-size: 12px;
+        color: #989898;
+
+        .leads_count {
+          font-weight: 600;
+        }
+
+        .masks_count {
+          font-weight: 600;
+        }
+
+      }
+
+    }
+
+    .row.masks_status_wrapper_row {
+      background: #F8F8F8;
+      border-top: 1px solid #D6D6D6;
+      font-size: 10px;
+      color: #989898;
+      font-weight: 400;
+
+      .col.masks_status_wrapper_col {
+        padding: 5px 0;
+
+        .row {
+          .col {
+            border-left: 1px solid #E4E4E4;
+          }
+
+          :first-child {
+            border-left: none;
+          }
+
+          .masks_status {
+            font-size: 14px;
+          }
+
+          .masks_active_color {
+            color: #33CD5F;
+          }
+
+          .masks_pending_color {
+            color: #C2AD27;
+          }
+
+          .masks_off_color {
+            color: #3C80F5;
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}

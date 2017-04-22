@@ -6,7 +6,7 @@ import {MainPage} from '../main/main'
 import {MasksPage} from '../masks/masks'
 
 import {Customer} from '../../providers/customer';
-
+import {SalesmenPage} from '../salesmen/salesmen';
 
 /*
  Generated class for the Ustomers page.
@@ -21,12 +21,21 @@ import {Customer} from '../../providers/customer';
 export class CustomersPage {
 
 
+    subRole: boolean = false;
     spheres: any = [];
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 public nav: Nav,
                 public customer: Customer) {
+
+        let subRole = this.navParams.get('subRole');
+
+        if (subRole == 'salesman') {
+            this.subRole = this.navParams.get('subRole');
+        }
+
+        // console.log(this.subRole);
     }
 
 
@@ -69,7 +78,16 @@ export class CustomersPage {
     }
 
     goToMainPage() {
-        this.nav.setRoot(MainPage);
+
+        if (this.subRole) {
+
+            this.nav.setRoot(SalesmenPage);
+
+        } else {
+
+            this.nav.setRoot(MainPage);
+        }
+
     }
 
     ionViewDidLoad() {
@@ -82,7 +100,7 @@ export class CustomersPage {
      */
     openSphere(sphere) {
 
-        this.nav.setRoot(MasksPage, { sphereId: sphere.id });
+        this.nav.setRoot(MasksPage, {sphereId: sphere.id});
 
 
         // this.customer.getSphereMasks( sphere.id )

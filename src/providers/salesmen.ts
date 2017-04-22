@@ -14,7 +14,20 @@ export class Salesmen {
 
     constructor(public http: Http,
                 public api: Api) {
-        console.log('Hello Salesmen Provider');
+        // console.log('Hello Salesmen Provider');
     }
+
+
+    /**
+     * Получение всех салесманов агента
+     *
+     */
+    getSalesmen() {
+
+        // console.log('getSal');
+
+        return this.api.post('api/getAllSalesmen', {});
+    }
+
 
 }

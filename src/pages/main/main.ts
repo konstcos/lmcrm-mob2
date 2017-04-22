@@ -1,4 +1,3 @@
-
 /**
  * Основные модули приложения
  */
@@ -30,7 +29,8 @@ import {LoginPage} from '../login/login';
 import {CustomersPage} from '../customers/customers';
 // страница добавления нового лида
 import {AddLeadPage} from '../add-lead/add-lead';
-
+// добвление страницы салесмана
+import {SalesmenPage} from '../salesmen/salesmen'
 
 /*
  Основная страница приложения.
@@ -49,7 +49,7 @@ export class MainPage {
      * Инициация страниц
      */
 
-    // страница входящих лидов
+        // страница входящих лидов
     obtain: any = ObtainPage;
     // отданные лиды
     deposited: any = DepositedPage;
@@ -61,7 +61,7 @@ export class MainPage {
      * Заголовки табов
      */
 
-    // входящие лиды (которые на аукционе пользователя)
+        // входящие лиды (которые на аукционе пользователя)
     obtainTitle = "INCOMING";
     // отданные лиды
     depositedTitle = "OUTGOING";
@@ -80,18 +80,18 @@ export class MainPage {
      * Конструктор класса
      *
      */
-    constructor(
-        public navCtrl: NavController,
-        public navParams: NavParams,
-        public nav: Nav,
-        public user: User,
-        public menuCtrl: MenuController) {
+    constructor(public navCtrl: NavController,
+                public navParams: NavParams,
+                public nav: Nav,
+                public user: User,
+                public menuCtrl: MenuController) {
 
         // задаются страницы в меню, название и сама страница
         this.pages = [
 
             // страница клиентов (тут будут все сферы)
             {title: 'Customers', component: CustomersPage},
+            {title: 'Salesmen', component: SalesmenPage}
         ];
     }
 
@@ -120,9 +120,19 @@ export class MainPage {
 
 
     /**
+     * Открытие страницы масок агента (список сфер агента)
+     *
+     */
+    openSalesmen() {
+
+        this.nav.setRoot(SalesmenPage);
+    }
+
+
+    /**
      * Открытые меню
      */
-    mainMenuOpen(){
+    mainMenuOpen() {
 
         // открывает главное меню
         this.menuCtrl.open();
@@ -132,7 +142,7 @@ export class MainPage {
     /**
      * Открывает фильтр
      */
-    filterOpen(){
+    filterOpen() {
 
         // отключение главного меню
         this.menuCtrl.enable(false, 'main_menu');
@@ -149,7 +159,7 @@ export class MainPage {
      *
      * выключает фильтр и включает основное меню
      */
-    filterClose(){
+    filterClose() {
 
         // включение основного меню
         this.menuCtrl.enable(true, 'main_menu');
@@ -162,7 +172,7 @@ export class MainPage {
      * Переход на страницу создания нового лида
      *
      */
-    addLead(){
+    addLead() {
 
         // переход на страницу создания нового лида
         // this.nav.setRoot(AddLeadPage);
@@ -174,7 +184,7 @@ export class MainPage {
      * Разлогинивание пользователя
      *
      */
-    logout(){
+    logout() {
 
         // метод разлогинивания
         this.user.logout();

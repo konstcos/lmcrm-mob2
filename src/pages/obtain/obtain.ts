@@ -151,7 +151,7 @@ export class ObtainPage {
                 // переводим ответ в json
                 let data = result.json();
 
-                console.log(data);
+                // console.log(data);
 
                 // вычесляем количество итемов
                 let itemsLength = data.auctionItems.length;

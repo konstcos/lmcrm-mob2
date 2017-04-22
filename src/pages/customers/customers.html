@@ -2,47 +2,89 @@
 <ion-header>
 
     <ion-navbar color="primary">
-        <ion-title>Customers</ion-title>
+        <!--<ion-title>Customers</ion-title>-->
 
-        <ion-buttons right>
-            <button ion-button clear (click)="goToMainPage()">
-                <ion-icon name="md-arrow-forward"></ion-icon>
+        <!--<ion-buttons right>-->
+            <!--<button ion-button clear (click)="goToMainPage()">-->
+                <!--<ion-icon name="md-arrow-forward"></ion-icon>-->
+            <!--</button>-->
+        <!--</ion-buttons>-->
+
+
+        <ion-buttons left text-center class="left_button">
+            <button ion-button (click)="goToMainPage()">
+                close
             </button>
         </ion-buttons>
 
+
     </ion-navbar>
+
+    <ion-row *ngIf="subRole" class="subHeader">
+        <ion-col>
+            <div class="salesmen-row">
+                salesmen: s1 s1
+            </div>
+        </ion-col>
+    </ion-row>
 
 </ion-header>
 
 
-<ion-content>
+<ion-content class="customers-content">
 
     <ion-card *ngFor="let sphere of spheres" (click)="openSphere(sphere)" class="open_card">
 
 
-        <ion-card-content>
+        <ion-card-content no-padding text-right>
 
-            <h2>{{ sphere.name }}</h2>
-            <div> {{ sphere.leads }} leads in {{ sphere.masks.count }} masks</div>
+            <div class="name">{{ sphere.name }}</div>
+            <div class="leads_status"> <span class="leads_count">{{ sphere.leads }}</span> leads in <span class="masks_count">{{ sphere.masks.count }}</span> masks</div>
 
         </ion-card-content>
 
 
-        <ion-row>
+        <ion-row class="masks_status_wrapper_row">
+            <ion-col no-padding text-center class="masks_status_wrapper_col">
 
-            <ion-col text-center>
-                masks active: <span>{{ sphere.masks.active }}</span>
+                <ion-row>
+
+
+                    <ion-col text-center no-padding>
+                        <div class="masks_active_color masks_status">{{ sphere.masks.active }}</div>
+                        <div>masks active</div>
+                    </ion-col>
+
+                    <ion-col text-center no-padding>
+                        <div class="masks_pending_color masks_status">{{ sphere.masks.pending }}</div>
+                        <div>masks pending</div>
+                    </ion-col>
+
+                    <ion-col text-center no-padding>
+                        <div class="masks_off_color masks_status">{{ sphere.masks.off }}</div>
+                        <div>masks off</div>
+                    </ion-col>
+
+
+                    <!--<ion-col text-center no-padding>-->
+                        <!--masks active: <span>{{ sphere.masks.active }}</span>-->
+                    <!--</ion-col>-->
+
+                    <!--<ion-col text-center no-padding>-->
+                        <!--masks pending: <span>{{ sphere.masks.pending }}</span>-->
+                    <!--</ion-col>-->
+
+                    <!--<ion-col text-center no-padding>-->
+                        <!--masks off: <span>{{ sphere.masks.off }}</span>-->
+                    <!--</ion-col>-->
+
+                </ion-row>
+
             </ion-col>
-
-            <ion-col text-center>
-                masks pending: <span>{{ sphere.masks.pending }}</span>
-            </ion-col>
-
-            <ion-col text-center>
-                masks off: <span>{{ sphere.masks.off }}</span>
-            </ion-col>
-
         </ion-row>
+
+
+
 
     </ion-card>
 
