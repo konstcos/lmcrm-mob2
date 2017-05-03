@@ -1,11 +1,66 @@
 page-edit-mask {
 
-  .save{
-    padding-left: 10px;
+  .toolbar {
+
+    .dell_button {
+      color: #EBA4A4;
+      margin-right: 15px;
+    }
+
   }
 
-  .trash{
-    padding-left: 20px;
+  .content {
+    background: #F8F8F8;
+
+    .scroll-content {
+      padding: 20px 10px 10px 10px;
+
+      .main-data-block {
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ABABAB;
+      }
+
+      .checkbox-data-block {
+        margin-bottom: 10px;
+
+        .checkbox-data-row {
+          margin-top: 5px;
+          background: #E6E6E6;
+          color: #7B7B7B;
+          font-size: 14px;
+
+          .item-inner {
+            border-bottom: none;
+          }
+
+        }
+
+      }
+
+      .mask_label {
+        color: #337AB7;
+      }
+
+      .input-value {
+
+        .text-input {
+          margin: 0;
+          display: inline-block;
+          padding: 5px 0 10px;
+          color: #696969;
+        }
+      }
+
+    }
+
   }
+
+  //.save{
+  //  padding-left: 10px;
+  //}
+  //
+  //.trash{
+  //  padding-left: 20px;
+  //}
 
 }

@@ -31,11 +31,15 @@ import {CustomersPage} from '../pages/customers/customers';
 import {MasksPage} from '../pages/masks/masks';
 import {EditMaskPage} from '../pages/edit-mask/edit-mask';
 
+import {StatisticsPage} from '../pages/statistics/statistics';
+
 import {OpenLeadStatusesPage} from '../pages/open-lead-statuses/open-lead-statuses';
 
 import {OpenLeadOrganizerPage} from '../pages/open-lead-organizer/open-lead-organizer';
 
 import {SalesmenPage} from '../pages/salesmen/salesmen'
+import {EditSalesmenPage} from '../pages/edit-salesmen/edit-salesmen'
+
 
 import {WelcomePage} from '../pages/welcome/welcome';
 import {ListMasterPage} from '../pages/list-master/list-master';
@@ -144,8 +148,9 @@ let pages = [
 
     OpenLeadOrganizerPage,
 
-    SalesmenPage
-
+    SalesmenPage,
+    EditSalesmenPage,
+    StatisticsPage
 ];
 
 export function declarations() {

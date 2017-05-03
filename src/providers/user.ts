@@ -35,11 +35,9 @@ export class User {
     _user: any;
     token: String = '';
 
-    constructor(
-        public http: Http,
-        public api: Api,
-        public s: Settings
-    ) {
+    constructor(public http: Http,
+                public api: Api,
+                public s: Settings) {
     }
 
 // , public nav: Nav
@@ -85,7 +83,7 @@ export class User {
                     this._loggedIn(res);
                     // return { status: 'success'};
 
-                } else if(res == 'invalid_credentials') {
+                } else if (res == 'invalid_credentials') {
 
                     // return { status: 'invalid', detail: 'invalid_credentials' };
 
@@ -101,6 +99,7 @@ export class User {
 
         return seq;
     }
+
 
     /**
      * Send a POST request to our signup endpoint with the data
@@ -137,6 +136,7 @@ export class User {
         return seq;
     }
 
+
     /**
      * Log the user out, which forgets the session
      */
@@ -146,12 +146,42 @@ export class User {
         localStorage.setItem('token', '')
     }
 
+
+    /**
+     * Получение всех сфер пользователя
+     *
+     */
+    getSpheres() {
+
+        let seq = this.api.post('api/getSpheres', {}).share();
+
+        return seq;
+    }
+
+
+    /**
+     * Получение всех сфер пользователя
+     *
+     */
+    getGroupMembers() {
+
+        console.log('getGroup');
+
+        let seq = this.api.post('api/getGroupMembers', {}).share();
+
+        return seq;
+    }
+
+
     /**
      * Process a login/signup response to store user data
      */
     _loggedIn(resp) {
         this._user = resp.roles;
         this.token = resp.token;
+
+        // console.log(resp);
+
         localStorage.setItem('token', resp.token)
 
     }

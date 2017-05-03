@@ -2,23 +2,132 @@
 
 <ion-header>
 
-    <ion-navbar>
+    <!--<ion-navbar>-->
 
-        <ion-title>DepositedDetail</ion-title>
+        <!--<ion-title>DepositedDetail</ion-title>-->
 
-        <ion-buttons right>
-            <button ion-button clear (click)="close()">
-                <ion-icon name="md-arrow-forward"></ion-icon>
+        <!--<ion-buttons right>-->
+            <!--<button ion-button clear (click)="close()">-->
+                <!--<ion-icon name="md-arrow-forward"></ion-icon>-->
+            <!--</button>-->
+        <!--</ion-buttons>-->
+
+    <!--</ion-navbar>-->
+
+
+
+    <ion-navbar color="primary" hideBackButton="true">
+
+        <ion-buttons left text-center class="left_button">
+            <button ion-button (click)="close()">
+                close
             </button>
         </ion-buttons>
+        <!--<ion-title>ObtainDetail</ion-title>-->
+
+        <!--<ion-buttons right text-center class="right_button">-->
+            <!--<button ion-button (click)="confirmOpen(item)">-->
+                <!--open lead data-->
+            <!--</button>-->
+        <!--</ion-buttons>-->
 
     </ion-navbar>
+
+
+
 
 </ion-header>
 
 
 <ion-content padding>
 
-    <h2  >{{ item.name }} {{ item.surname }}</h2>
+    <!--<h2  >{{ item.name }} {{ item.surname }}</h2>-->
+
+
+
+    <div class="data_block_header">
+        <ion-row align-items-center>
+            <ion-col text-left class="opened"><ion-icon ios="ios-eye" md="md-eye"></ion-icon> {{ item.opened }}</ion-col>
+            <ion-col text-right class="name">{{ item.surname }} {{ item.name }}</ion-col>
+        </ion-row>
+    </div>
+
+
+    <div class="data_block">
+
+        <ion-row align-items-center class="data_block_item">
+            <ion-col text-right>
+                <div class="label">earnings</div>
+                <div class="value">{{ item.earnings }}</div>
+            </ion-col>
+            <ion-col col-1 text-right><ion-icon class="color_earning icon_param" name="logo-usd"></ion-icon></ion-col>
+        </ion-row>
+
+    </div>
+
+
+    <div class="data_block">
+
+        <ion-row align-items-center class="data_block_item">
+            <ion-col text-right>
+                <div class="label">phone</div>
+                <div class="value">{{ item.phone.phone }}</div>
+            </ion-col>
+            <ion-col col-1 text-right><ion-icon class="color_green icon_param" name="ios-call"></ion-icon></ion-col>
+        </ion-row>
+
+        <ion-row align-items-center class="data_block_item">
+            <ion-col text-right>
+                <div class="label">email</div>
+                <div class="value">{{ item.email ? item.email : '&nbsp;' }}</div>
+            </ion-col>
+            <ion-col col-1 text-right><ion-icon class="email_color icon_param" name="ios-mail"></ion-icon></ion-col>
+        </ion-row>
+
+    </div>
+
+
+    <div class="data_block">
+
+        <ion-row align-items-center class="data_block_item">
+            <!--<ion-col col-1 text-left><ion-icon class="color_green icon_param" name="md-eye"></ion-icon></ion-col>-->
+            <ion-col text-right>
+                <div class="label">sphere</div>
+                <div class="value">{{ item.sphere.name }}</div>
+            </ion-col>
+            <ion-col col-1 text-right><ion-icon class="sphere_color icon_param" name="ios-cloud"></ion-icon></ion-col>
+        </ion-row>
+
+        <ion-row align-items-center class="data_block_item">
+            <!--<ion-col col-1 text-left><ion-icon class="color_green icon_param" name="md-eye"></ion-icon></ion-col>-->
+            <ion-col text-right>
+                <div class="label">status</div>
+                <div class="value">{{ item.sName }}</div>
+            </ion-col>
+            <ion-col col-1 text-right><ion-icon class="status_color icon_param" name="md-clipboard"></ion-icon></ion-col>
+        </ion-row>
+
+    </div>
+
+
+    <div class="data_block">
+
+        <ion-row align-items-center class="data_block_item">
+            <!--<ion-col col-1 text-left><ion-icon class="color_green icon_param" name="md-eye"></ion-icon></ion-col>-->
+            <ion-col text-right>
+                <div class="label">added at</div>
+                <div class="value">
+                    <span class="date_time">{{ item.date.time }}</span>
+                    <span class="date_date">{{ item.date.date }}</span>
+
+                    <!--{{ item.date }}-->
+                </div>
+            </ion-col>
+            <ion-col col-1 text-right><ion-icon class="calendar_color icon_param" name="md-calendar"></ion-icon></ion-col>
+        </ion-row>
+
+    </div>
+
+
 
 </ion-content>

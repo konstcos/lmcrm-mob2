@@ -15,11 +15,11 @@
         </ion-buttons>
         <!--<ion-title>ObtainDetail</ion-title>-->
 
-        <!--<ion-buttons right text-center class="right_button">-->
-            <!--<button ion-button>-->
-                <!--open lead data-->
-            <!--</button>-->
-        <!--</ion-buttons>-->
+        <ion-buttons right text-center class="right_button">
+            <button ion-button (click)="createSalesmen()">
+                new salesmen
+            </button>
+        </ion-buttons>
 
     </ion-navbar>
 
@@ -27,45 +27,23 @@
 
 
 
+<!-- Кнопка добавления нового лида -->
+<!--<ion-fab bottom right>-->
+    <!--<button ion-fab (click)="createSalesmen()"><ion-icon name="md-add"></ion-icon></button>-->
+<!--</ion-fab>-->
+<!-- конец Кнопка добавления нового лида -->
+
+
 
 <ion-content>
 
     <ion-card *ngFor="let item of items" >
 
-        <!--<ion-card-header>-->
-
-            <!--<button ion-button small clear>-->
-                <!--Login-->
-            <!--</button>-->
-
-            <!--<button ion-button small clear>-->
-                <!--Statistic-->
-            <!--</button>-->
-
-            <!--<button ion-button small clear>-->
-                <!--Banned-->
-            <!--</button>-->
-
-        <!--</ion-card-header>-->
-
-
-        <!--<ion-row>-->
-
-            <!--<ion-col text-center no-padding>-->
-                <!--<button ion-button small clear>-->
-                    <!--Permissions-->
-                <!--</button>-->
-            <!--</ion-col>-->
-
-            <!--<ion-col text-center no-padding>-->
-                <!--&lt;!&ndash;<button ion-button small clear>&ndash;&gt;-->
-                    <!--&lt;!&ndash;Statistic&ndash;&gt;-->
-                <!--&lt;!&ndash;</button>&ndash;&gt;-->
-            <!--</ion-col>-->
-
-        <!--</ion-row>-->
-
         <ion-row>
+
+            <ion-col col-1>
+                <ion-icon *ngIf="item.banned_at" name="md-lock" class="salesmen_banned"></ion-icon>
+            </ion-col>
 
             <ion-col text-right class="salesmen_info">
                 <div class="salesmen_name">{{ item.name }} {{ item.surname }}</div>
@@ -82,28 +60,6 @@
 
 
         </ion-row>
-
-        <!--<ion-card-content>-->
-
-            <!--<ion-row>-->
-
-                <!--<ion-col justify-content-center>-->
-                    <!--&lt;!&ndash;<button ion-button small clear>&ndash;&gt;-->
-                        <!--&lt;!&ndash;Edit&ndash;&gt;-->
-                    <!--&lt;!&ndash;</button>&ndash;&gt;-->
-                <!--</ion-col>-->
-
-                <!--<ion-col text-right="">-->
-                    <!--<div>{{ item.name }} {{ item.surname }}</div>-->
-                    <!--<div>{{ item.email }}</div>-->
-                <!--</ion-col>-->
-
-            <!--</ion-row>-->
-
-            <!--&lt;!&ndash;<h2>{{ item.name }} {{ item.surname }}</h2>&ndash;&gt;-->
-            <!--&lt;!&ndash;<div>{{ item.email }}</div>&ndash;&gt;-->
-
-        <!--</ion-card-content>-->
 
 
         <ion-row class="row_separate">
@@ -126,7 +82,7 @@
                 <ion-row>
                     <ion-col text-center no-padding class="salesmen_card_additional_col">
                         <div class="additional_value">3</div>
-                        <div class="additional_text">on auction</div>
+                        <div class="additional_text">seen</div>
                     </ion-col>
 
                     <ion-col text-center no-padding class="salesmen_card_additional_col">
@@ -158,7 +114,7 @@
                 <!--<div class="additional_text">deposited</div>-->
             <!--</ion-col>-->
 
-            <ion-col col-3 class="salesmen_side_color side_additional_col">
+            <ion-col col-3 class="salesmen_side_color side_additional_col" (click)="loginToSalesmen(item)">
                 <div class="side_additional_button">
                     <!--<ion-icon name="md-log-in"></ion-icon>-->
                     leads
@@ -198,17 +154,17 @@
 
                 <ion-row>
                     <ion-col text-center no-padding class="salesmen_card_additional_col">
-                        <div class="additional_value">3</div>
+                        <div class="additional_value active_color">{{ item.masksStatus.active }}</div>
                         <div class="additional_text">active</div>
                     </ion-col>
 
                     <ion-col text-center no-padding class="salesmen_card_additional_col">
-                        <div class="additional_value">3</div>
+                        <div class="additional_value pending_color">{{ item.masksStatus.pending }}</div>
                         <div class="additional_text">pending</div>
                     </ion-col>
 
                     <ion-col text-center no-padding class="salesmen_card_additional_col">
-                        <div class="additional_value">3</div>
+                        <div class="additional_value off_color">{{ item.masksStatus.off }}</div>
                         <div class="additional_text">off</div>
                     </ion-col>
                 </ion-row>
@@ -230,7 +186,7 @@
                 <!--<div class="additional_text">off</div>-->
             <!--</ion-col>-->
 
-            <ion-col col-3 class="salesmen_side_color side_additional_col">
+            <ion-col col-3 class="salesmen_side_color side_additional_col" (click)="goToCustomersPage(item)">
 
                 <div class="side_additional_button">
                     masks
@@ -321,3 +277,66 @@
 
 
 </ion-content>
+
+
+<div class="permission_alert" *ngIf="permission_alert" (click)="permissionAlertClose()">
+
+</div>
+
+<div class="permission_alert_body" *ngIf="permission_alert">
+
+    <ion-row>
+        <ion-col text-center class="permission_alert_salesmen_data">
+            {{ permission_item.name }} {{ permission_item.surname }}
+        </ion-col>
+    </ion-row>
+
+    <ion-row class="permission_alert_row">
+
+        <ion-col col-2>
+            <ion-toggle [(ngModel)]="permission_item.permissions.create_leads" color="secondary"></ion-toggle>
+        </ion-col>
+
+        <ion-col text-right (click)="changePermissionItem('create_leads')">
+            Create leads
+        </ion-col>
+
+    </ion-row>
+
+    <ion-row class="permission_alert_row">
+
+        <ion-col col-2>
+            <ion-toggle [(ngModel)]="permission_item.permissions.opening_leads" color="secondary"></ion-toggle>
+        </ion-col>
+
+        <ion-col text-right (click)="changePermissionItem('opening_leads')">
+            Opening leads
+        </ion-col>
+
+    </ion-row>
+
+    <ion-row class="permission_alert_row">
+
+        <ion-col col-2>
+            <ion-toggle [(ngModel)]="permission_item.permissions.working_leads" color="secondary"></ion-toggle>
+        </ion-col>
+
+        <ion-col text-right (click)="changePermissionItem('working_leads')">
+            Working with open leads
+        </ion-col>
+
+    </ion-row>
+
+    <ion-row class="permission_alert_footer">
+
+        <ion-col text-left>
+            <button ion-button color="primary" clear (click)="permissionAlertClose()">Cancel</button>
+        </ion-col>
+
+        <ion-col text-right>
+            <button ion-button color="primary" clear (click)="applyPermissionItem()">Apply</button>
+        </ion-col>
+
+    </ion-row>
+
+</div>

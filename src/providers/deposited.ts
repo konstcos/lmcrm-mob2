@@ -21,8 +21,9 @@ export class Deposited {
     }
 
 
+
     /**
-     * Получение с сервера итемов обтэин
+     * Получение с сервера итемов отданых лидов
      *
      */
     get(data: any){
@@ -31,11 +32,11 @@ export class Deposited {
 
 
     /**
-     * Получение с сервера итемов обтэин
-     * todo
+     * Добавление лида в систему
+     *
      */
     add(data: any){
-        return this.api.post('api/deposited', data);
+        return this.api.post('api/newLead', data);
     }
 
 }

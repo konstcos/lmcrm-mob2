@@ -20,6 +20,9 @@ import {Customer} from '../../providers/customer';
 export class MasksPage {
 
     sphere: any;
+    subRole: boolean = false;
+    salesmenData: any = false;
+    salesmenId: any = false;
 
     masks: any = [];
 
@@ -29,13 +32,24 @@ export class MasksPage {
                 public customer: Customer) {
 
 
+        let subRole = this.navParams.get('subRole');
+
+        if (subRole == 'salesman') {
+            this.subRole = this.navParams.get('subRole');
+            this.salesmenData = this.navParams.get('salesmenData');
+            this.salesmenId = this.salesmenData['id'];
+        }
+
+
+        // console.log('masks');
+
         let sphereId = this.navParams.get('sphereId');
 
         if( sphereId ){
 
             // console.log('есть sphereId');
 
-            this.customer.getSphereMasks( sphereId )
+            this.customer.getSphereMasks( sphereId, this.salesmenId )
 
                 .subscribe(result => {
                     // при получении итемов
@@ -99,7 +113,21 @@ export class MasksPage {
      */
     editMask(mask) {
 
-        this.nav.setRoot(EditMaskPage, { sphereId: this.sphere.id, maskId: mask.id });
+
+        if( this.subRole ){
+
+            this.nav.setRoot(EditMaskPage, { sphereId: this.sphere.id, maskId: mask.id, subRole: 'salesman', salesmenData: this.salesmenData });
+
+            // this.nav.setRoot(CustomersPage, {subRole: 'salesman', salesmenData: this.salesmenData});
+
+        }else{
+
+            this.nav.setRoot(EditMaskPage, { sphereId: this.sphere.id, maskId: mask.id, });
+        }
+
+
+
+        // this.nav.setRoot(EditMaskPage, { sphereId: this.sphere.id, maskId: mask.id, subRole: 'salesman', salesmenData: this.salesmenData });
     }
 
 
@@ -152,7 +180,18 @@ export class MasksPage {
      */
     createNewMask(){
         // console.log('создаю новую маску');
-        this.nav.setRoot(EditMaskPage, { sphereId: this.sphere.id, mask: this.sphere.blankMask });
+
+        if( this.subRole ){
+
+            this.nav.setRoot(EditMaskPage, { sphereId: this.sphere.id, mask: this.sphere.blankMask, subRole: 'salesman', salesmenData: this.salesmenData });
+
+            // this.nav.setRoot(CustomersPage, {subRole: 'salesman', salesmenData: this.salesmenData});
+
+        }else{
+
+            this.nav.setRoot(EditMaskPage, { sphereId: this.sphere.id, mask: this.sphere.blankMask });
+        }
+
     }
 
 
@@ -161,7 +200,16 @@ export class MasksPage {
      *
      */
     goBack() {
-        this.nav.setRoot(CustomersPage);
+
+        if( this.subRole ){
+
+            this.nav.setRoot(CustomersPage, {subRole: 'salesman', salesmenData: this.salesmenData});
+
+        }else{
+
+            this.nav.setRoot(CustomersPage);
+        }
+
     }
 
 }

@@ -22,7 +22,9 @@ export class CustomersPage {
 
 
     subRole: boolean = false;
+    salesmenData: any = false;
     spheres: any = [];
+
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
@@ -33,6 +35,7 @@ export class CustomersPage {
 
         if (subRole == 'salesman') {
             this.subRole = this.navParams.get('subRole');
+            this.salesmenData = this.navParams.get('salesmenData');
         }
 
         // console.log(this.subRole);
@@ -48,7 +51,13 @@ export class CustomersPage {
         // загрузка новых итемов
         // this.loadItems();
 
-        this.customer.getSpheres()
+        let salesmenId = false;
+
+        if (this.subRole) {
+            salesmenId = this.salesmenData.id;
+        }
+
+        this.customer.getSpheres({salesman: salesmenId})
 
             .subscribe(result => {
                 // при получении итемов
@@ -100,7 +109,15 @@ export class CustomersPage {
      */
     openSphere(sphere) {
 
-        this.nav.setRoot(MasksPage, {sphereId: sphere.id});
+        if( this.subRole ){
+
+            this.nav.setRoot(MasksPage, {sphereId: sphere.id, subRole: 'salesman', salesmenData: this.salesmenData});
+
+        }else{
+
+            this.nav.setRoot(MasksPage, {sphereId: sphere.id});
+        }
+
 
 
         // this.customer.getSphereMasks( sphere.id )

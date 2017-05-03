@@ -12,13 +12,30 @@
     <ion-list inlist>
         <ion-item *ngFor="let item of items" (click)="detail(item)">
 
-            <h2  >{{ item.name }} {{ item.surname }}</h2>
-            <p >{{ item.sphere.name }} \\ {{ item.sName }} </p>
+            <!--<h2  >{{ item.name }} {{ item.surname }}</h2>-->
+            <!--<p >{{ item.sphere.name }} \\ {{ item.sName }} </p>-->
+
+            <!--<div item-right class="item-right-data" text-right>-->
+                <!--<div> {{ item.date }}</div>-->
+                <!--<div> 0 $ <ion-icon ios="ios-eye" md="md-eye"></ion-icon> {{ item.opened }}</div>-->
+            <!--</div>-->
+
+
+            <div text-left>
+                <div class="data_time"> <span class="time">{{ item.date.time }}</span> {{ item.date.date }}</div>
+                <!--<div class="data_time"> {{ item.date }}</div>-->
+                <div class="opened"><ion-icon ios="ios-eye" md="md-eye"></ion-icon> {{ item.opened }}</div>
+            </div>
+
 
             <div item-right class="item-right-data" text-right>
-                <div> {{ item.date }}</div>
-                <div> 0 $ <ion-icon ios="ios-eye" md="md-eye"></ion-icon> {{ item.opened }}</div>
+
+                <div class="lead_name">{{ item.name }} {{ item.surname }}</div>
+                <div class="sphere_name"> <span class="status_name">{{ item.sName }}</span> / {{ item.sphere.name }} </div>
+
+
             </div>
+
 
         </ion-item>
     </ion-list>

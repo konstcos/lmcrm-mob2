@@ -13,6 +13,7 @@ import {NavController, NavParams, ViewController} from 'ionic-angular';
 })
 export class DepositedDetailPage {
 
+
     item: any;
 
     constructor(public navCtrl: NavController,
@@ -20,6 +21,8 @@ export class DepositedDetailPage {
                 public navParams: NavParams) {
 
         this.item = navParams.get('item')
+
+        console.log(this.item);
     }
 
     ionViewDidLoad() {

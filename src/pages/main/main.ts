@@ -31,6 +31,9 @@ import {CustomersPage} from '../customers/customers';
 import {AddLeadPage} from '../add-lead/add-lead';
 // добвление страницы салесмана
 import {SalesmenPage} from '../salesmen/salesmen'
+// добвление страницы статистики
+import {StatisticsPage} from '../statistics/statistics'
+
 
 /*
  Основная страница приложения.
@@ -90,8 +93,9 @@ export class MainPage {
         this.pages = [
 
             // страница клиентов (тут будут все сферы)
-            {title: 'Customers', component: CustomersPage},
-            {title: 'Salesmen', component: SalesmenPage}
+            {title: 'Customers filters', component: CustomersPage},
+            {title: 'Salesmen', component: SalesmenPage},
+            {title: 'Statistic', component: StatisticsPage}
         ];
     }
 

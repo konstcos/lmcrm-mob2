@@ -1,12 +1,24 @@
 page-salesmen {
 
-
-  ion-content{
+  ion-content {
 
     background: #F8F8F8 !important;
 
-    .scroll-content{
+    .scroll-content {
       padding-bottom: 200px;
+
+      .active_color {
+        color: #1EA845;
+      }
+
+      .pending_color {
+        color: #C2AD29;
+      }
+
+      .off_color {
+        color: #3C80F5;
+      }
+
     }
   }
 
@@ -106,4 +118,60 @@ page-salesmen {
     height: 8px;
   }
 
+}
+
+.permiss_alert_row {
+  width: 100%;
+}
+
+.permiss_alert_label {
+  float: right;
+}
+
+.permission_alert {
+  background: #000;
+  position: absolute;
+  z-index: 99999;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0.6;
+
+}
+
+.permission_alert_body {
+
+  top: 25%;
+  left: 9%;
+  background: #fff;
+  width: 300px;
+  height: 280px;
+  position: absolute;
+  z-index: 999999;
+  padding: 20px 20px 10px;
+
+  .permission_alert_salesmen_data {
+    font-size: 16px;
+    color: grey;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .permission_alert_row {
+    margin: 5px 0;
+    padding: 5px 0;
+    cursor: pointer;
+    font-size: 14px;
+    color: grey;
+  }
+
+  .permission_alert_footer{
+    margin-top: 30px;
+  }
+
+}
+
+.salesmen_banned{
+  color: #FF8888;
 }

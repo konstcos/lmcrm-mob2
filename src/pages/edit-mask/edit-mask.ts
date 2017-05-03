@@ -18,10 +18,12 @@ import {Customer} from '../../providers/customer';
 export class EditMaskPage {
 
     maskId: number;
-
     sphereId: number;
-
     mask: any;
+
+    subRole: boolean = false;
+    salesmenData: any = false;
+    salesmenId: any = false;
 
     newMask: boolean = false;
 
@@ -30,6 +32,16 @@ export class EditMaskPage {
                 public nav: Nav,
                 public toast: ToastController,
                 public customer: Customer) {
+
+
+        let subRole = this.navParams.get('subRole');
+
+        if (subRole == 'salesman') {
+            this.subRole = this.navParams.get('subRole');
+            this.salesmenData = this.navParams.get('salesmenData');
+            this.salesmenId = this.salesmenData['id'];
+        }
+
 
         this.sphereId = this.navParams.get('sphereId');
         this.maskId = this.navParams.get('maskId');
@@ -138,8 +150,7 @@ export class EditMaskPage {
             return false;
         }
 
-
-        this.customer.saveMask(this.mask, this.newMask)
+        this.customer.saveMask(this.mask, this.newMask, this.salesmenId)
 
             .subscribe(result => {
                 // при получении итемов
@@ -151,7 +162,19 @@ export class EditMaskPage {
 
                     this.mask = data.maskData;
 
-                    this.nav.setRoot(MasksPage, {sphereId: this.sphereId});
+                    console.log(data);
+
+                    // this.nav.setRoot(MasksPage, {sphereId: this.sphereId});
+
+                    if( this.subRole ){
+
+                        this.nav.setRoot(MasksPage, {sphereId: this.sphereId, subRole: 'salesman', salesmenData: this.salesmenData});
+
+                    }else{
+
+                        this.nav.setRoot(MasksPage, {sphereId: this.sphereId});
+                    }
+
                 }
 
             }, err => {
@@ -174,12 +197,19 @@ export class EditMaskPage {
      */
     delete() {
 
-        this.customer.deleteMask(this.mask.id)
+        this.customer.deleteMask(this.mask.id, this.salesmenId)
 
             .subscribe(result => {
                 // при получении итемов
 
-                this.nav.setRoot(MasksPage, {sphereId: this.sphereId});
+                if( this.subRole ){
+
+                    this.nav.setRoot(MasksPage, {sphereId: this.sphereId, subRole: 'salesman', salesmenData: this.salesmenData});
+
+                }else{
+
+                    this.nav.setRoot(MasksPage, {sphereId: this.sphereId});
+                }
 
 
                 // переводим ответ в json
@@ -211,7 +241,16 @@ export class EditMaskPage {
      *
      */
     goBack() {
-        this.nav.setRoot(MasksPage, {sphereId: this.sphereId});
+
+        if( this.subRole ){
+
+            this.nav.setRoot(MasksPage, {sphereId: this.sphereId, subRole: 'salesman', salesmenData: this.salesmenData});
+
+        }else{
+
+            this.nav.setRoot(MasksPage, {sphereId: this.sphereId});
+        }
+
     }
 
 }

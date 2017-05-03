@@ -7,23 +7,47 @@
 <ion-header>
 
     <ion-navbar color="primary">
-        <ion-title>Masks</ion-title>
 
-        <ion-buttons right>
-            <button ion-button clear (click)="goBack()">
-                <ion-icon name="md-arrow-forward"></ion-icon>
+
+
+        <ion-buttons left text-center class="left_button">
+            <button ion-button (click)="goBack()">
+                close
             </button>
         </ion-buttons>
 
+        <ion-buttons right text-center class="right_button">
+            <button ion-button (click)="createNewMask()">
+                new mask
+            </button>
+        </ion-buttons>
+
+
+        <!--<ion-title>Masks</ion-title>-->
+
+        <!--<ion-buttons right>-->
+            <!--<button ion-button clear (click)="goBack()">-->
+                <!--<ion-icon name="md-arrow-forward"></ion-icon>-->
+            <!--</button>-->
+        <!--</ion-buttons>-->
+
     </ion-navbar>
+
+    <ion-row *ngIf="subRole" class="subHeader">
+        <ion-col>
+            <div class="salesmen-row">
+                salesmen: {{ salesmenData.name }} {{ salesmenData.surname }}
+            </div>
+        </ion-col>
+    </ion-row>
 
 </ion-header>
 
 
 <!-- Кнопка добавления нового лида -->
-<ion-fab bottom right>
-    <button ion-fab (click)="createNewMask()"><ion-icon name="md-add"></ion-icon></button>
-</ion-fab>
+<!--<ion-fab bottom right>-->
+    <!--<button ion-fab (click)="createNewMask()"><ion-icon name="md-add"></ion-icon></button>-->
+<!--</ion-fab>-->
 <!-- конец Кнопка добавления нового лида -->
 
 
@@ -32,7 +56,7 @@
     <div *ngIf="sphere">
 
         <ion-row>
-            <ion-col>
+            <ion-col text-right class="sphere_name">
                 {{ sphere.name }}
             </ion-col>
         </ion-row>
@@ -40,24 +64,24 @@
         <ion-card *ngFor="let mask of masks" class="open_card">
 
             <ion-row *ngIf="!mask.pending">
-                <ion-col>
+                <ion-col class="admin_approval">
                     waiting for admin approval
                 </ion-col>
             </ion-row>
 
 
-            <ion-card-content>
+            <ion-card-content no-padding>
 
-                <ion-row>
+                <ion-row class="content-data-wrapper">
 
-                    <ion-col>
+                    <ion-col col-2 class="switcher">
                         <ion-toggle [(ngModel)]="mask.active" (click)="switchActive(mask)"></ion-toggle>
                     </ion-col>
 
                     <ion-col text-right (click)="editMask(mask)">
-                        <div>{{ mask.updated_at.time }} {{ mask.updated_at.date }}</div>
-                        <h2>{{ mask.name }}</h2>
-                        <div>{{ mask.description }}</div>
+                        <div class="date_data"> <span class="time">{{ mask.updated_at.time }}</span> <span class="date">{{ mask.updated_at.date }}</span></div>
+                        <div class="name">{{ mask.name }}</div>
+                        <div class="description">{{ mask.description }}</div>
                     </ion-col>
 
                 </ion-row>
@@ -66,12 +90,21 @@
 
 
             <ion-row>
-                <ion-col>
-                    {{ mask.leads }} leads incoming by this mask
+                <ion-col class="leads_col">
+                    <span class="leads_count">{{ mask.leads }}</span> leads incoming by this mask
                 </ion-col>
             </ion-row>
 
         </ion-card>
+
+
+        <ion-row *ngIf="masks.length == 0" class="no_masks_row">
+            <ion-col text-center>
+                <div class="icon"><ion-icon name="md-contract"></ion-icon></div>
+                <div> No masks</div>
+                <div> First add a masks</div>
+            </ion-col>
+        </ion-row>
 
     </div>
 

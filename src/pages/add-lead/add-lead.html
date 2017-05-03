@@ -4,21 +4,23 @@
 
     <ion-navbar color="primary" hideBackButton="true">
 
-        <ion-buttons left>
-            <button ion-button >
-                <!--<ion-icon name="md-arrow-forward"></ion-icon>-->
-                add
-            </button>
-        </ion-buttons>
+        <ion-navbar color="primary" hideBackButton="true">
 
-        <ion-buttons right>
-            <button ion-button icon-only (click)="goBackPop()">
-                <ion-icon name="md-arrow-forward"></ion-icon>
-            </button>
-        </ion-buttons>
+            <ion-buttons left text-center class="left_button">
+                <button ion-button (click)="goBackPop()">
+                    close
+                </button>
+            </ion-buttons>
+            <!--<ion-title>ObtainDetail</ion-title>-->
 
+            <ion-buttons right text-center class="right_button">
+                <button ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">
+                    add lead
+                </button>
+            </ion-buttons>
 
-        <!--<ion-title>Add Lead</ion-title>-->
+        </ion-navbar>
+
     </ion-navbar>
 
 </ion-header>
@@ -26,27 +28,119 @@
 
 <ion-content padding>
 
-    <h2>Add Lead</h2>
+    <!--<h2>Add Lead</h2>-->
 
-    <ion-row>
-        <ion-col>
-            <div>*name</div>
-            <ion-input type="text" placeholder="client name"></ion-input>
+    <!--<ion-row>-->
+        <!--<ion-col>-->
+            <!--<div>*name</div>-->
+            <!--<ion-input type="text" placeholder="client name"></ion-input>-->
+        <!--</ion-col>-->
+    <!--</ion-row>-->
+
+    <!--<ion-row>-->
+        <!--<ion-col>-->
+            <!--<div>*phone</div>-->
+            <!--<ion-input type="text" placeholder="client name"></ion-input>-->
+        <!--</ion-col>-->
+    <!--</ion-row>-->
+
+    <!--<ion-row>-->
+        <!--<ion-col>-->
+            <!--<div>comment</div>-->
+            <!--<ion-textarea placeholder="client name"></ion-textarea>-->
+        <!--</ion-col>-->
+    <!--</ion-row>-->
+
+
+    <ion-list *ngIf="spheres">
+
+        <ion-item margin-bottom>
+            <ion-label text-right stacked>sphere</ion-label>
+            <!--<ion-select [(ngModel)]="gaming">-->
+            <ion-select [(ngModel)]="lead.sphere" interface="action-sheet" dir="rtl" class="add_lead_value">
+
+
+                <ion-option *ngFor="let sphere of spheres" value="{{ sphere.id }}">{{ sphere.name }}</ion-option>
+
+            </ion-select>
+        </ion-item>
+
+        <!--<ion-item margin-bottom>-->
+            <!--<ion-label text-right stacked>add for</ion-label>-->
+            <!--&lt;!&ndash;<ion-select [(ngModel)]="gaming">&ndash;&gt;-->
+            <!--<ion-select interface="action-sheet" dir="rtl" class="add_lead_value">-->
+                <!--<ion-option selected value="0">all</ion-option>-->
+                <!--<ion-option value="1">dealmakers only</ion-option>-->
+                <!--<ion-option value="2">private group</ion-option>-->
+            <!--</ion-select>-->
+        <!--</ion-item>-->
+
+
+
+        <ion-list radio-group [(ngModel)]="lead.type" class="add_lead_radio" (ionChange)="typeChange()">
+
+            <ion-item dir="rtl" no-border >
+                <ion-label text-left class="add_lead_value">For all</ion-label>
+                <ion-radio value="0"></ion-radio>
+            </ion-item>
+
+
+
+            <ion-item dir="rtl" no-border>
+                <ion-label text-left class="add_lead_value">For dealmakers only</ion-label>
+                <ion-radio value="1"></ion-radio>
+            </ion-item>
+
+
+
+            <ion-item dir="rtl" no-border>
+                <ion-label text-left class="add_lead_value">For private group</ion-label>
+                <ion-radio value="2"></ion-radio>
+            </ion-item>
+
+        </ion-list>
+
+
+
+
+
+        <ion-item margin-bottom>
+            <ion-label text-right stacked>*name</ion-label>
+            <ion-input text-right type="text" [(ngModel)]="lead.name" class="add_lead_value" ></ion-input>
+        </ion-item>
+
+        <ion-item margin-bottom>
+            <ion-label text-right stacked>*phone</ion-label>
+            <ion-input text-right type="text" [(ngModel)]="lead.phone" class="add_lead_value"></ion-input>
+        </ion-item>
+
+        <ion-item margin-bottom>
+            <ion-label text-right stacked>comment</ion-label>
+            <ion-textarea rows="4" text-right [(ngModel)]="lead.comment" class="add_lead_value"></ion-textarea>
+        </ion-item>
+
+    </ion-list>
+
+
+    <ion-list *ngIf="lead.member">
+
+        <ion-list-header text-right class="members_head">
+            Group members
+        </ion-list-header>
+
+        <ion-item *ngFor="let member of members" dir="rtl">
+            <ion-label text-left class="add_lead_value">{{ member.email }}</ion-label>
+            <ion-checkbox [(ngModel)]="member.value"></ion-checkbox>
+        </ion-item>
+
+    </ion-list>
+
+
+    <ion-row *ngIf="!lead.sphere">
+        <ion-col text-center>
+            нет сферы
         </ion-col>
     </ion-row>
 
-    <ion-row>
-        <ion-col>
-            <div>*phone</div>
-            <ion-input type="text" placeholder="client name"></ion-input>
-        </ion-col>
-    </ion-row>
-
-    <ion-row>
-        <ion-col>
-            <div>comment</div>
-            <ion-textarea placeholder="client name"></ion-textarea>
-        </ion-col>
-    </ion-row>
 
 </ion-content>

@@ -15,6 +15,9 @@ export class Salesmen {
     constructor(public http: Http,
                 public api: Api) {
         // console.log('Hello Salesmen Provider');
+
+
+
     }
 
 
@@ -27,6 +30,36 @@ export class Salesmen {
         // console.log('getSal');
 
         return this.api.post('api/getAllSalesmen', {});
+    }
+
+
+    /**
+     * Изменение прав салесмана
+     *
+     */
+    сhangeSalesmenPermissions(salesmen_id: boolean, permissions: any) {
+
+        return this.api.post('api/permissionsUpdate', {salesmen_id: salesmen_id, permissions: permissions});
+    }
+
+
+    /**
+     * Создание нового салесмана
+     *
+     */
+    createSalesmen(data: any) {
+
+        return this.api.post('api/createSalesmen', data);
+    }
+
+
+    /**
+     * обновление данных салесмана
+     *
+     */
+    updateSalesmen(data: any) {
+
+        return this.api.post('api/updateSalesmenData', data);
     }
 
 
