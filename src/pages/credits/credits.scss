@@ -1,3 +1,69 @@
 page-credits {
 
+  .item_status {
+    color: #BC900B;
+  }
+
+  .status_confirmed {
+    color: blue;
+  }
+
+  .item_type {
+
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+
+  }
+
+  .withdrawal {
+    background: #337AB7;
+    color: #C3DEF5;
+  }
+
+  .replenishment {
+    background: #32DB64;
+    color: #EBFDF1;
+  }
+
+  .item_main_data {
+
+    padding: 8px 10px 10px;
+
+    .amount {
+      font-size: 18px;
+      font-weight: 600;
+      color: grey;
+    }
+
+    .date {
+      font-size: 12px;
+      color: grey;
+      margin-top: 2px;
+
+      .time {
+        font-size: 10px;
+      }
+
+    }
+
+  }
+
+  .card {
+    margin-top: 10px;
+    margin-bottom: 25px;
+  }
+
+  .requisites{
+
+    p{
+      margin: 0;
+      color: grey;
+      font-weight: 600;
+      padding-left: 15px;
+    }
+
+  }
+
 }

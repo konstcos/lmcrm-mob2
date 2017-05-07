@@ -16,21 +16,78 @@
 
         <ion-buttons right text-center class="right_button">
             <!--<button ion-button>-->
-                <!--Replenishment-->
+            <!--Replenishment-->
             <!--</button>-->
 
             <!--<button ion-button>-->
-                <!--Withdrawal-->
+            <!--Withdrawal-->
             <!--</button>-->
 
         </ion-buttons>
 
     </ion-navbar>
 
+    <ion-toolbar class="requisites">
+        <p>Requisites: 4554-4578-1215-7785</p>
+        <p>Requisites description</p>
+    </ion-toolbar>
+
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+
+    <!-- Обновление страницы -->
+    <ion-refresher (ionRefresh)="refresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <!-- конец Обновление страницы -->
+
+    <ion-card *ngFor="let item of items">
+
+        <!-- шапка платежа -->
+        <ion-row>
+
+            <ion-col class="item_status" text-center align-self-center
+                     [ngClass]="item.status==4 ? 'status_confirmed' : ''">
+                {{ statuses[item.status] }}
+            </ion-col>
+
+            <ion-col text-right class="item_type" [ngClass]="item.type==1 ? 'replenishment' : 'withdrawal'">
+                {{ types[item.type] }}
+            </ion-col>
+
+        </ion-row>
+
+        <!-- основные данные по платежу -->
+        <ion-row>
+
+            <ion-col text-right class="item_main_data">
+
+                <div class="amount">{{ item.amount }}</div>
+                <div class="date"><span class="time">{{ item.date.time }}</span> {{ item.date.date }}</div>
+
+            </ion-col>
+
+        </ion-row>
+
+        <!-- основные данные по платежу -->
+        <ion-row *ngIf="item.status==2">
+
+            <ion-col text-left>
+                <button block small color="danger" ion-button (click)="payReplenishment(item)">Paid</button>
+            </ion-col>
+
+        </ion-row>
+
+    </ion-card>
+
+    <!-- При отсутствии итемов в истории -->
+    <ion-row *ngIf="items.length == 0">
+        <ion-col>
+            No credit history
+        </ion-col>
+    </ion-row>
 
 </ion-content>
 
@@ -40,15 +97,19 @@
     <ion-row>
 
         <ion-col no-padding text-center>
-            <button ion-button color="secondary">
-                <ion-icon name="ios-cloud-upload"></ion-icon> &nbsp;
+            <button
+                    ion-button color="secondary"
+                    (click)="showReplenishmentDialog()">
+                <ion-icon name="ios-cloud-upload"></ion-icon>
+                &nbsp;
                 Replenishment
             </button>
         </ion-col>
 
         <ion-col no-padding text-center>
             <button ion-button>
-                <ion-icon name="ios-cloud-download"></ion-icon> &nbsp;
+                <ion-icon name="ios-cloud-download"></ion-icon>
+                &nbsp;
                 Withdrawal
             </button>
         </ion-col>

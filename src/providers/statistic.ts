@@ -13,7 +13,7 @@ import 'rxjs/add/operator/map';
 export class Statistic {
 
     constructor(public http: Http,
-    public api: Api) {
+                public api: Api) {
         console.log('Hello Statistic Provider');
     }
 
@@ -21,7 +21,7 @@ export class Statistic {
     /**
      * Получение статистики с сервера
      */
-    get(data: any){
+    get(data: any) {
         return this.api.post('api/getStatistic', data);
     }
 
