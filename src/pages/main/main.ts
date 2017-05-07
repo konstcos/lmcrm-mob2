@@ -33,7 +33,8 @@ import {AddLeadPage} from '../add-lead/add-lead';
 import {SalesmenPage} from '../salesmen/salesmen'
 // добвление страницы статистики
 import {StatisticsPage} from '../statistics/statistics'
-
+// добвление страницы управления деньгами
+import {CreditsPage} from '../credits/credits'
 
 /*
  Основная страница приложения.
@@ -95,7 +96,8 @@ export class MainPage {
             // страница клиентов (тут будут все сферы)
             {title: 'Customers filters', component: CustomersPage},
             {title: 'Salesmen', component: SalesmenPage},
-            {title: 'Statistic', component: StatisticsPage}
+            {title: 'Statistic', component: StatisticsPage},
+            {title: 'Credits', component: CreditsPage}
         ];
     }
 

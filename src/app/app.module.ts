@@ -16,6 +16,8 @@ import {TutorialPage} from '../pages/tutorial/tutorial';
 
 import {MainPage} from '../pages/main/main';
 
+import {CreditsPage} from '../pages/credits/credits';
+
 import {AddLeadPage} from '../pages/add-lead/add-lead';
 
 import {ObtainPage} from '../pages/obtain/obtain';
@@ -128,6 +130,8 @@ let pages = [
     SearchPage,
 
     MainPage,
+
+    CreditsPage,
 
     AddLeadPage,
 

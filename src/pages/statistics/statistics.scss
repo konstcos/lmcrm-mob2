@@ -1,3 +1,52 @@
 page-statistics {
 
+  .segment_control_block {
+    padding-bottom: 5px;
+  }
+
+  .toolbar {
+
+    .statistic_data_header_button {
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .statistic_data_header {
+
+      .item-md.item-block .item-inner {
+        border: none;
+        font-size: 14px;
+      }
+
+      ion-select {
+        max-width: 70%;
+        color: #337AB7;
+      }
+
+      .item-block {
+
+        .item_inner {
+          font-size: 12px;
+          color: red;
+        }
+      }
+
+      .statistic_data_date {
+        background: #FFFFFF;
+        color: #337AB7;
+
+        .datetime-md {
+          padding: 6px 5px 6px 5px;
+          display: inline-block;
+          font-weight: 500;
+          font-size: 12px;
+        }
+
+      }
+
+    }
+
+  }
+
 }
+
