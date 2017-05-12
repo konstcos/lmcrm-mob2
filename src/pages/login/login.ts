@@ -1,5 +1,8 @@
 import {Component} from '@angular/core';
-import {NavController, ToastController, Nav, LoadingController} from 'ionic-angular';
+
+import {Platform, NavController, ToastController, Nav, LoadingController} from 'ionic-angular';
+
+// import {Push, PushObject, PushOptions} from "@ionic-native/push";
 
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
@@ -7,6 +10,11 @@ import {MainPage} from '../main/main';
 import {User} from '../../providers/user';
 // import {MenuPage} from "../menu/menu";
 
+// добвление страницы управления деньгами
+import {StatisticsPage} from '../statistics/statistics'
+
+
+import {FCM} from "@ionic-native/fcm";
 
 @Component({
     selector: 'page-login',
@@ -17,8 +25,8 @@ export class LoginPage {
     // If you're using the username field with or without email, make
     // sure to add it to the type
     account: {email: string, password: string} = {
-        email: 'test@example.com',
-        password: 'test'
+        email: '',
+        password: ''
     };
 
     // Our translated text strings
@@ -29,7 +37,11 @@ export class LoginPage {
                 public toastCtrl: ToastController,
                 public translateService: TranslateService,
                 public nav: Nav,
-                public loadingCtrl: LoadingController) {
+                public platform: Platform,
+                public loadingCtrl: LoadingController,
+                // public push: Push
+                private fcm: FCM
+    ) {
 
         this.translateService.get('LOGIN_ERROR').subscribe((value) => {
             this.loginErrorString = value;
@@ -45,7 +57,8 @@ export class LoginPage {
 
         loading.present();
 
-        this.user.login(this.account).subscribe(resp => {
+        this.user.login(this.account)
+            .subscribe(resp => {
 
             // alert( JSON.stringify(resp) );
 
@@ -60,6 +73,16 @@ export class LoginPage {
                 // return { status: 'success'};
                 // console.log('doLogin');
                 // console.log('Ok');
+
+                // this.fcm.getToken().then(token=>{
+                //     // backend.registerToken(token);
+                //     this.user.setFcmToken(token);
+                //     alert(token);
+                //
+                // });
+
+                // this.initPushNotification();
+
 
                 // this.nav.setRoot(MenuPage);
                 this.nav.setRoot(MainPage);
@@ -101,4 +124,84 @@ export class LoginPage {
 
 
     }
+
+
+    /**
+     * Инициация пушНотификаций
+     *
+     */
+    // initPushNotification() {
+    //
+    //     if (!this.platform.is('cordova')) {
+    //         console.warn("Push notifications not initialized. Cordova is not available - Run in physical device");
+    //         return;
+    //     }
+    //
+    //
+    //     this.fcm.getToken().then(token=>{
+    //         // backend.registerToken(token);
+    //         // alert(token);
+    //         this.user.setFcmToken(token);
+    //
+    //     });
+    //
+    //     this.fcm.onTokenRefresh().subscribe(token=>{
+    //         this.user.setFcmToken(token);
+    //     });
+    //
+    //     this.fcm.onNotification().subscribe(data=>{
+    //
+    //         alert(JSON.stringify(data));
+    //
+    //         // this.nav.setRoot(StatisticsPage);
+    //
+    //
+    //         if(data['wasPressed']){
+    //             alert("Received in background");
+    //         } else {
+    //             alert("Received in foreground");
+    //         }
+    //
+    //
+    //     });
+    //
+    // }
+
+    // initPushNotification() {
+    //     if (!this.platform.is('cordova')) {
+    //         console.warn("Push notifications not initialized. Cordova is not available - Run in physical device");
+    //         return;
+    //     }
+    //     const options: PushOptions = {
+    //         android: {
+    //             senderID: "861958159271"
+    //         },
+    //         ios: {
+    //             alert: "true",
+    //             badge: false,
+    //             sound: "true"
+    //         },
+    //         windows: {}
+    //     };
+    //     const pushObject: PushObject = this.push.init(options);
+    //
+    //     pushObject.on('registration').subscribe((data: any) => {
+    //         console.log("device token ->", data.registrationId);
+    //
+    //         alert(data.registrationId);
+    //         //TODO - send device token to server
+    //     });
+    //
+    //     pushObject.on('notification').subscribe((data: any) => {
+    //         console.log('message', data.message);
+    //
+    //     });
+    //
+    //     pushObject.on('error')
+    //         .subscribe(error => {
+    //             console.error('Error with Push plugin', error);
+    //             alert('error');
+    //         });
+    // }
+
 }

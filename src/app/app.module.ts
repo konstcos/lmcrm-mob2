@@ -3,6 +3,13 @@ import {Http} from '@angular/http';
 import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
 import {Storage, IonicStorageModule} from '@ionic/storage';
 
+// import { FCM } from '@ionic-native';
+
+// import {Push, PushObject, PushOptions} from "@ionic-native/push";
+
+import { FCM } from '@ionic-native/fcm';
+
+
 import {MyApp} from './app.component';
 
 import {CardsPage} from '../pages/cards/cards';
@@ -174,6 +181,9 @@ export function providers() {
         Deposited,
         Open,
         Customer,
+        // Push,
+        FCM,
+
         OpenLeadOrganizer,
 
         {provide: Settings, useFactory: provideSettings, deps: [Storage]},

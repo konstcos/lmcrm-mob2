@@ -110,56 +110,56 @@
                     <ion-col no-padding>
 
                         <!-- Сумарные данные по лидам (агента и его салесманов) -->
-                        <div class="lead_summary_block">
+                        <div class="lead_statistic_block lead_summary_block">
 
                             <ion-row>
-                                <ion-col text-center>
+                                <ion-col text-center class="title">
                                     Leads
                                 </ion-col>
                             </ion-row>
 
                             <ion-row>
-                                <ion-col>
+                                <ion-col class="item_label">
                                     added
                                 </ion-col>
-                                <ion-col text-right>
-                                    {{ statisticData.added.period }} / {{ statisticData.added.all }}
+                                <ion-col text-right class="item_data">
+                                    <span class="period">{{ statisticData.added.period }}</span> / <span class="all">{{ statisticData.added.all }}</span>
                                 </ion-col>
                             </ion-row>
 
                             <ion-row>
-                                <ion-col>
+                                <ion-col class="item_label">
                                     operator banned
                                 </ion-col>
-                                <ion-col text-right>
-                                    {{ statisticData.operatorBad.period }} / {{ statisticData.operatorBad.all }}
+                                <ion-col text-right class="item_data">
+                                    <span class="period">{{ statisticData.operatorBad.period }}</span> / <span class="all">{{ statisticData.operatorBad.all }}</span>
                                 </ion-col>
                             </ion-row>
 
                             <ion-row>
-                                <ion-col>
+                                <ion-col class="item_label">
                                     users banned
                                 </ion-col>
-                                <ion-col text-right>
-                                    {{ statisticData.agentBad.period }} / {{ statisticData.agentBad.all }}
+                                <ion-col text-right class="item_data">
+                                    <span class="period">{{ statisticData.agentBad.period }}</span> / <span class="all">{{ statisticData.agentBad.all }}</span>
                                 </ion-col>
                             </ion-row>
 
                             <ion-row>
-                                <ion-col>
+                                <ion-col class="item_label">
                                     seen
                                 </ion-col>
-                                <ion-col text-right>
-                                    {{ statisticData.auction.period }} / {{ statisticData.auction.all }}
+                                <ion-col text-right class="item_data">
+                                    <span class="period">{{ statisticData.auction.period }}</span> / <span class="all">{{ statisticData.auction.all }}</span>
                                 </ion-col>
                             </ion-row>
 
                             <ion-row>
-                                <ion-col>
+                                <ion-col class="item_label">
                                     open
                                 </ion-col>
-                                <ion-col text-right>
-                                    {{ statisticData.openLeads.period }} / {{ statisticData.openLeads.all }}
+                                <ion-col text-right class="item_data">
+                                    <span class="period">{{ statisticData.openLeads.period }}</span> / <span class="all">{{ statisticData.openLeads.all }}</span>
                                 </ion-col>
                             </ion-row>
 
@@ -167,66 +167,66 @@
 
 
                         <!-- Данные только агента -->
-                        <div class="lead_just_agent_block">
+                        <div class="lead_statistic_block lead_just_agent_block">
 
                             <ion-row>
-                                <ion-col text-center>
+                                <ion-col text-center class="title">
                                     Just a agent data
                                 </ion-col>
                             </ion-row>
 
                             <ion-row>
-                                <ion-col>
+                                <ion-col class="item_label">
                                     added
                                 </ion-col>
-                                <ion-col text-right>
-                                    {{ statisticData.user.justAgent.added.period }} / {{ statisticData.user.justAgent.added.all }}
+                                <ion-col text-right class="item_data">
+                                    <span class="period">{{ statisticData.user.justAgent.added.period }}</span> / <span class="all">{{ statisticData.user.justAgent.added.all }}</span>
                                 </ion-col>
                             </ion-row>
 
                             <ion-row>
-                                <ion-col>
+                                <ion-col class="item_label">
                                     operator banned
                                 </ion-col>
-                                <ion-col text-right>
-                                    {{ statisticData.user.justAgent.operatorBad.period }} / {{ statisticData.user.justAgent.operatorBad.all }}
+                                <ion-col text-right class="item_data">
+                                    <span class="period">{{ statisticData.user.justAgent.operatorBad.period }}</span> / <span class="all">{{ statisticData.user.justAgent.operatorBad.all }}</span>
                                 </ion-col>
                             </ion-row>
 
                             <ion-row>
-                                <ion-col>
+                                <ion-col class="item_label">
                                     users banned
                                 </ion-col>
-                                <ion-col text-right>
-                                    {{ statisticData.user.justAgent.agentBad.period }} / {{ statisticData.user.justAgent.agentBad.all }}
+                                <ion-col text-right class="item_data">
+                                    <span class="period">{{ statisticData.user.justAgent.agentBad.period }}</span> / <span class="all">{{ statisticData.user.justAgent.agentBad.all }}</span>
                                 </ion-col>
                             </ion-row>
 
                             <ion-row>
-                                <ion-col>
+                                <ion-col class="item_label">
                                     seen
                                 </ion-col>
-                                <ion-col text-right>
-                                    {{ statisticData.user.justAgent.auction.period }} / {{ statisticData.user.justAgent.auction.all }}
+                                <ion-col text-right class="item_data">
+                                    <span class="period">{{ statisticData.user.justAgent.auction.period }}</span> / <span class="all">{{ statisticData.user.justAgent.auction.all }}</span>
                                 </ion-col>
                             </ion-row>
 
                             <ion-row>
-                                <ion-col>
+                                <ion-col class="item_label">
                                     open
                                 </ion-col>
-                                <ion-col text-right>
-                                    {{ statisticData.user.justAgent.openLeads.period }} / {{ statisticData.user.justAgent.openLeads.all }}
+                                <ion-col text-right class="item_data">
+                                    <span class="period">{{ statisticData.user.justAgent.openLeads.period }}</span> / <span class="all">{{ statisticData.user.justAgent.openLeads.all }}</span>
                                 </ion-col>
                             </ion-row>
 
                         </div>
 
                         <!-- Данные салеманов -->
-                        <div class="lead_salesmen_block">
+                        <div class="lead_statistic_block lead_salesmen_block">
 
                             <ion-row>
-                                <ion-col text-center>
+                                <ion-col text-center class="title">
                                     Salesmen
                                 </ion-col>
                             </ion-row>
@@ -235,70 +235,70 @@
                             <div class="lead_salesmen_item" *ngFor="let salesmen of statisticData.user.salesmenData">
 
                                 <ion-row>
-                                    <ion-col>
+                                    <ion-col class="salesmen_name">
                                         {{ salesmen.user.email }}
                                     </ion-col>
                                 </ion-row>
 
                                 <ion-row>
-                                    <ion-col>
+                                    <ion-col class="item_label">
                                         added
                                     </ion-col>
-                                    <ion-col text-right>
-                                        {{ salesmen.added.period }} / {{ salesmen.added.all }}
+                                    <ion-col text-right class="item_data">
+                                        <span class="period">{{ salesmen.added.period }}</span> / <span class="all">{{ salesmen.added.all }}</span>
                                     </ion-col>
                                 </ion-row>
 
                                 <ion-row>
-                                    <ion-col>
+                                    <ion-col class="item_label">
                                         operator banned
                                     </ion-col>
-                                    <ion-col text-right>
-                                        {{ salesmen.operatorBad.period }} / {{ salesmen.operatorBad.all }}
+                                    <ion-col text-right class="item_data">
+                                        <span class="period">{{ salesmen.operatorBad.period }}</span> / <span class="all">{{ salesmen.operatorBad.all }}</span>
                                     </ion-col>
                                 </ion-row>
 
                                 <ion-row>
-                                    <ion-col>
+                                    <ion-col class="item_label">
                                         users banned
                                     </ion-col>
-                                    <ion-col text-right>
-                                        {{ salesmen.agentBad.period }} / {{ salesmen.agentBad.all }}
+                                    <ion-col text-right class="item_data">
+                                        <span class="period">{{ salesmen.agentBad.period }}</span> / <span class="all">{{ salesmen.agentBad.all }}</span>
                                     </ion-col>
                                 </ion-row>
 
                                 <ion-row>
-                                    <ion-col>
+                                    <ion-col class="item_label">
                                         seen
                                     </ion-col>
-                                    <ion-col text-right>
-                                        {{ salesmen.auction.period }} / {{ salesmen.auction.all }}
+                                    <ion-col text-right class="item_data">
+                                        <span class="period">{{ salesmen.auction.period }}</span> / <span class="all">{{ salesmen.auction.all }}</span>
                                     </ion-col>
                                 </ion-row>
 
                                 <ion-row>
-                                    <ion-col>
+                                    <ion-col class="item_label">
                                         open
                                     </ion-col>
-                                    <ion-col text-right>
-                                        {{ salesmen.openLeads.period }} / {{ salesmen.openLeads.all }}
+                                    <ion-col text-right class="item_data">
+                                        <span class="period">{{ salesmen.openLeads.period }}</span> / <span class="all">{{ salesmen.openLeads.all }}</span>
                                     </ion-col>
                                 </ion-row>
 
                                 <ion-row>
-                                    <ion-col>
+                                    <ion-col class="item_label">
                                         presence
                                     </ion-col>
-                                    <ion-col text-right>
+                                    <ion-col text-right class="item_data" class="additional_data">
                                         {{ salesmen.sphere.presence ? 'Yes' : 'No' }}
                                     </ion-col>
                                 </ion-row>
 
                                 <ion-row>
-                                    <ion-col>
+                                    <ion-col class="item_label">
                                         Active
                                     </ion-col>
-                                    <ion-col text-right>
+                                    <ion-col text-right class="item_data additional_data">
                                         {{ salesmen.user.active ? 'Yes' : 'No' }}
                                     </ion-col>
                                 </ion-row>
@@ -317,17 +317,17 @@
             <ion-col no-padding>
 
                 <!-- лиды без статуса -->
-                <div class="statistic_status_no_status">
+                <div class="statistic_status_block statistic_status_no_status">
 
                     <ion-row>
-                        <ion-col>
+                        <ion-col class="label">
                             No status
                         </ion-col>
                         <ion-col text-center>
-                            {{ statisticData.statuses.noStatus.countPeriod }} / {{ statisticData.statuses.noStatus.countAll }}
+                            <span class="period">{{ statisticData.statuses.noStatus.countPeriod }}</span> / <span class="all">{{ statisticData.statuses.noStatus.countAll }}</span>
                         </ion-col>
                         <ion-col text-center>
-                            {{ statisticData.statuses.noStatus.percentAll }}% / {{ statisticData.statuses.noStatus.percentAll }}%
+                            <span class="period">{{ statisticData.statuses.noStatus.percentPeriod }}%</span> / <span class="all">{{ statisticData.statuses.noStatus.percentAll }}%</span>
                         </ion-col>
                     </ion-row>
 
@@ -335,23 +335,23 @@
 
 
                 <!-- лиды с прогрессивными статусами -->
-                <div class="statistic_status_progress">
+                <div class="statistic_status_block statistic_status_progress">
 
                     <ion-row>
-                        <ion-col text-center>
+                        <ion-col text-center class="title">
                             Progress
                         </ion-col>
                     </ion-row>
 
                     <ion-row *ngFor="let status of statisticData.statuses.type[1]">
-                        <ion-col>
+                        <ion-col class="label">
                             {{ status.name }}
                         </ion-col>
                         <ion-col text-center>
-                            {{ status.countPeriod }} / {{ status.countAll }}
+                            <span class="period">{{ status.countPeriod }}</span> / <span class="all">{{ status.countAll }}</span>
                         </ion-col>
                         <ion-col text-center>
-                            {{ status.percentAll }}% / {{ status.percentAll }}%
+                            <span class="period">{{ status.percentPeriod }}%</span> / <span class="all">{{ status.percentAll }}%</span>
                         </ion-col>
                     </ion-row>
 
@@ -359,23 +359,23 @@
 
 
                 <!-- лиды с неопределенными статусами -->
-                <div class="statistic_status_uncertain">
+                <div class="statistic_status_block statistic_status_uncertain">
 
                     <ion-row>
-                        <ion-col text-center>
+                        <ion-col text-center class="title">
                             Uncertain
                         </ion-col>
                     </ion-row>
 
                     <ion-row *ngFor="let status of statisticData.statuses.type[2]">
-                        <ion-col>
+                        <ion-col class="label">
                             {{ status.name }}
                         </ion-col>
                         <ion-col text-center>
-                            {{ status.countPeriod }} / {{ status.countAll }}
+                            <span class="period">{{ status.countPeriod }}</span> / <span class="all">{{ status.countAll }}</span>
                         </ion-col>
                         <ion-col text-center>
-                            {{ status.percentAll }}% / {{ status.percentAll }}%
+                            <span class="period">{{ status.percentPeriod }}%</span> / <span class="all">{{ status.percentAll }}%</span>
                         </ion-col>
                     </ion-row>
 
@@ -383,23 +383,23 @@
 
 
                 <!-- лиды с отказными статусами -->
-                <div class="statistic_status_refuseniks">
+                <div class="statistic_status_block statistic_status_refuseniks">
 
                     <ion-row>
-                        <ion-col text-center>
+                        <ion-col text-center class="title">
                             Refuseniks
                         </ion-col>
                     </ion-row>
 
                     <ion-row *ngFor="let status of statisticData.statuses.type[3]">
-                        <ion-col>
+                        <ion-col class="label">
                             {{ status.name }}
                         </ion-col>
                         <ion-col text-center>
-                            {{ status.countPeriod }} / {{ status.countAll }}
+                            <span class="period">{{ status.countPeriod }}</span> / <span class="all">{{ status.countAll }}</span>
                         </ion-col>
                         <ion-col text-center>
-                            {{ status.percentAll }}% / {{ status.percentAll }}%
+                            <span class="period">{{ status.percentPeriod }}%</span> / <span class="all">{{ status.percentAll }}%</span>
                         </ion-col>
                     </ion-row>
 
@@ -407,23 +407,23 @@
 
 
                 <!-- лиды с плохими статусами -->
-                <div class="statistic_status_bad">
+                <div class="statistic_status_block statistic_status_bad">
 
                     <ion-row>
-                        <ion-col text-center>
+                        <ion-col text-center class="title">
                             Bad
                         </ion-col>
                     </ion-row>
 
                     <ion-row *ngFor="let status of statisticData.statuses.type[4]">
-                        <ion-col>
+                        <ion-col class="label">
                             {{ status.name }}
                         </ion-col>
                         <ion-col text-center>
-                            {{ status.countPeriod }} / {{ status.countAll }}
+                            <span class="period">{{ status.countPeriod }}</span> / <span class="all">{{ status.countAll }}</span>
                         </ion-col>
                         <ion-col text-center>
-                            {{ status.percentAll }}% / {{ status.percentAll }}%
+                            <span class="period">{{ status.percentPeriod }}%</span> / <span class="all">{{ status.percentAll }}%</span>
                         </ion-col>
                     </ion-row>
 
@@ -431,23 +431,23 @@
 
 
                 <!-- лиды с плохими статусами -->
-                <div class="statistic_status_close_deal">
+                <div class="statistic_status_block statistic_status_close_deal">
 
                     <ion-row>
-                        <ion-col text-center>
+                        <ion-col text-center class="title">
                             Close Deal
                         </ion-col>
                     </ion-row>
 
                     <ion-row *ngFor="let status of statisticData.statuses.type[5]">
-                        <ion-col>
+                        <ion-col class="label">
                             {{ status.name }}
                         </ion-col>
                         <ion-col text-center>
-                            {{ status.countPeriod }} / {{ status.countAll }}
+                            <span class="period">{{ status.countPeriod }}</span> / <span class="all">{{ status.countAll }}</span>
                         </ion-col>
                         <ion-col text-center>
-                            {{ status.percentAll }}% / {{ status.percentAll }}%
+                            <span class="period">{{ status.percentPeriod }}%</span> / <span class="all">{{ status.percentAll }}%</span>
                         </ion-col>
                     </ion-row>
 
@@ -463,13 +463,13 @@
                     <ion-col no-padding>
 
                         <!-- направление транзита -->
-                        <ion-row>
+                        <ion-row class="direction_row">
 
                             <ion-col text-center>
                                 {{ transition.fromStatus }}
                             </ion-col>
 
-                            <ion-col text-center>
+                            <ion-col col-2 text-center>
                                 <ion-icon name="md-arrow-forward"></ion-icon>
                             </ion-col>
 
@@ -480,40 +480,39 @@
                         </ion-row>
 
                         <!-- Данные по периоду -->
-                        <ion-row>
+                        <ion-row class="legend_row">
 
-                            <ion-col>
+                            <ion-col text-center>
                                 period
                             </ion-col>
 
-                            <ion-col>
+                            <ion-col text-center>
                                 all
                             </ion-col>
 
                         </ion-row>
 
                         <!-- Данные по периоду -->
-                        <ion-row>
+                        <ion-row class="percent_row">
 
-
-                            <ion-col>
-                                {{ transition.percentPeriod }}
+                            <ion-col text-center no-padding>
+                                {{ transition.percentPeriod }}%
                             </ion-col>
 
-                            <ion-col>
-                                {{ transition.percentAll }}
+                            <ion-col text-center no-padding>
+                                {{ transition.percentAll }}%
                             </ion-col>
 
                         </ion-row>
 
                         <!-- Данные по периоду -->
-                        <ion-row>
+                        <ion-row class="rating_row">
 
-                            <ion-col>
+                            <ion-col text-center>
                                 {{ transition.ratingPeriod }}
                             </ion-col>
 
-                            <ion-col>
+                            <ion-col text-center>
                                 {{ transition.ratingAll }}
                             </ion-col>
 
@@ -522,14 +521,6 @@
 
                     </ion-col>
 
-
-
-                    <!--<ion-col text-center>-->
-                        <!--{{ status.countPeriod }} / {{ status.countAll }}-->
-                    <!--</ion-col>-->
-                    <!--<ion-col text-center>-->
-                        <!--{{ status.percentAll }}% / {{ status.percentAll }}%-->
-                    <!--</ion-col>-->
                 </ion-row>
 
             </ion-col>

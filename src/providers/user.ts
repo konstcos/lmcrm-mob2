@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import {Api} from './api';
 
+// import { FCM } from 'ionic-native';
+
 import {Settings} from './settings';
 
 import 'rxjs/add/operator/map';
@@ -168,6 +170,44 @@ export class User {
         console.log('getGroup');
 
         let seq = this.api.post('api/getGroupMembers', {}).share();
+
+        return seq;
+    }
+
+
+    /**
+     * Сохранение токена
+     *
+     */
+    setFcmToken(token: string) {
+
+        console.log('начало отправки токена');
+
+        let seq = this.api.post('api/setFcmToken', {token: token})
+            .subscribe(resp => {
+
+                // alert( JSON.stringify(resp) );
+
+                // console.log('doLogin');
+                // console.log(resp.json());
+
+                // this.navCtrl.push(MainPage);
+
+                let res = resp.json();
+
+                console.log(res);
+
+            }, (err) => {
+                // this.navCtrl.push(MainPage);
+                // Unable to log in
+                // let toast = this.toastCtrl.create({
+                //     message: this.loginErrorString,
+                //     duration: 3000,
+                //     position: 'top'
+                // });
+            });
+
+        console.log('конец отправки токена');
 
         return seq;
     }

@@ -28,4 +28,15 @@ page-main {
 
   }
 
+
+  .notifications-badge {
+    background-color: #F53D3D;
+    position: absolute;
+    top: -3px;
+    right: -10px;
+    font-size: 11px;
+    padding: 3px 6px 3px 7px;
+    border-radius: 100%;
+  }
+
 }

@@ -272,14 +272,11 @@ export class StatisticsPage {
                 break;
 
             case '6':
-                // console.log(6);
                 this.periodBlock = true;
                 break;
         }
 
         this.content.resize();
-
-        // console.log(this.datePeriod);
     }
 
 
@@ -296,8 +293,6 @@ export class StatisticsPage {
      *
      */
     sphereChange() {
-        // todo добавить отправку запроса на сервер для получения статистики по сферам
-        console.log(this.currentSphere);
 
         this.get();
 

@@ -48,5 +48,145 @@ page-statistics {
 
   }
 
+  .lead_statistic_block {
+
+    margin-bottom: 20px;
+
+    font-size: 13px;
+
+    .title {
+      font-size: 15px;
+      color: white;
+      background: #337AB7;
+    }
+
+    .item_label {
+      color: #565656;
+
+    }
+
+    .item_data {
+
+      .all {
+        color: #337AB7;
+      }
+
+      .period {
+        font-size: 11px;
+        color: #565656;
+      }
+
+    }
+
+    .additional_data {
+      color: #337AB7;
+    }
+
+    .lead_salesmen_item {
+      padding-top: 15px;
+      padding-bottom: 15px;
+
+      .salesmen_name {
+        color: #337AB7;
+        font-weight: 600;
+      }
+
+    }
+
+  }
+
+  .statistic_status_block {
+    font-size: 11px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+
+    .title {
+      font-weight: 600;
+      font-size: 14px;
+      color: white;
+    }
+
+    .label {
+      font-weight: 600;
+      color: #565656;
+    }
+
+    .period {
+      font-size: 10px;
+      color: #565656;
+    }
+
+    .all {
+      color: #337AB7;
+    }
+  }
+
+  .statistic_status_progress {
+
+    .title {
+      background: #00B050;
+    }
+
+  }
+
+  .statistic_status_uncertain {
+
+    .title {
+      background: #D9A502;
+    }
+
+  }
+
+  .statistic_status_refuseniks {
+
+    .title {
+      background: #7F3300;
+    }
+
+  }
+
+  .statistic_status_bad {
+
+    .title {
+      background: #CD0000;
+    }
+
+  }
+
+  .statistic_status_close_deal {
+
+    .title {
+      background: #3F51B5;
+    }
+
+  }
+
+  .statistic_transition_item {
+    margin-top: 10px;
+    margin-bottom: 15px;
+
+    .direction_row {
+      background: grey;
+      color: white;
+      font-weight: 600;
+    }
+
+    .legend_row {
+      color: #4C4C4C;
+      font-size: 10px;
+    }
+
+    .percent_row {
+      color: #3F51B5;
+      font-weight: 600;
+    }
+
+    .rating_row {
+      font-size: 12px;
+      color: #4C4C4C;
+    }
+
+  }
+
 }
 

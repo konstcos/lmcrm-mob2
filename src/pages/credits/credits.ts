@@ -156,7 +156,7 @@ export class CreditsPage {
             inputs: [
                 {
                     name: 'amount',
-                    placeholder: 'amount'
+                    placeholder: '0'
                 },
             ],
             buttons: [

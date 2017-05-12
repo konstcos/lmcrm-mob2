@@ -4,58 +4,33 @@ import {StatusBar} from 'ionic-native';
 
 import {Settings} from '../providers/providers';
 
-// import { FirstRunPage } from '../pages/pages';
-// import { CardsPage } from '../pages/cards/cards';
-// import { ContentPage } from '../pages/content/content';
-import {LoginPage} from '../pages/login/login';
-// import { MapPage } from '../pages/map/map';
-// import { SignupPage } from '../pages/signup/signup';
-// import { TabsPage } from '../pages/tabs/tabs';
-// import { TutorialPage } from '../pages/tutorial/tutorial';
-// import { WelcomePage } from '../pages/welcome/welcome';
-// import { ListMasterPage } from '../pages/list-master/list-master';
-// import { MenuPage } from '../pages/menu/menu';
-// import { SettingsPage } from '../pages/settings/settings';
-// import { SearchPage } from '../pages/search/search';
+import {User} from '../providers/user';
 
-// import {MainPage} from '../pages/main/main';
-//
-// import {ObtainPage} from '../pages/obtain/obtain';
-// import {DepositedPage} from '../pages/deposited/deposited';
-// import {OpenPage} from '../pages/open/open';
-//
-//
-// import {CustomersPage} from '../pages/customers/customers';
+import {LoginPage} from '../pages/login/login';
+
+// import {Push, PushObject, PushOptions} from "@ionic-native/push";
+
+// import { FCM } from '@ionic-native';
 
 
 import {TranslateService} from 'ng2-translate/ng2-translate';
+import {FCM} from "@ionic-native/fcm";
 
 @Component({
     template: `<ion-nav #content [root]="rootPage" ></ion-nav>`
 })
 export class MyApp {
-    // rootPage = FirstRunPage;
-    rootPage = LoginPage;
-    // rootPage = MainPage;
-    //
-    @ViewChild(Nav) nav: Nav;
-    //
-    // pages: any[] = [
-    //   { title: 'Tutorial', component: TutorialPage },
-    //   // { title: 'Welcome', component: WelcomePage },
-    //   { title: 'Tabs', component: TabsPage },
-    //   { title: 'Cards', component: CardsPage },
-    //   { title: 'Content', component: ContentPage },
-    //   { title: 'Login', component: LoginPage },
-    //   { title: 'Signup', component: SignupPage },
-    //   { title: 'Map', component: MapPage },
-    //   { title: 'Master Detail', component: ListMasterPage },
-    //   { title: 'Menu', component: MenuPage },
-    //   { title: 'Settings', component: SettingsPage },
-    //   { title: 'Search', component: SearchPage }
-    // ]
 
-    constructor(translate: TranslateService, platform: Platform, settings: Settings, config: Config) {
+    rootPage = LoginPage;
+    @ViewChild(Nav) nav: Nav;
+
+
+    constructor(translate: TranslateService,
+                public platform: Platform,
+                settings: Settings,
+                config: Config,
+                public fcm: FCM,
+                public user: User) {
         // Set the default language for translation strings, and the current language.
         translate.setDefaultLang('en');
         translate.use('en');
@@ -70,8 +45,70 @@ export class MyApp {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
             StatusBar.styleDefault();
+
             // Splashscreen.hide();
+
+
+            this.initPushNotification();
         });
+
     }
+
+
+    /**
+     * Инициация пушНотификаций
+     *
+     */
+    initPushNotification() {
+
+        if (!this.platform.is('cordova')) {
+            console.warn("Push notifications not initialized. Cordova is not available - Run in physical device");
+            return;
+        }
+
+        /**
+         * Получение fcm токена
+         *
+         */
+        this.fcm.getToken().then(token => {
+            // backend.registerToken(token);
+            // alert(token);
+            // todo сохранить токен в локалСторедже
+            this.user.setFcmToken(token);
+
+        });
+
+        /**
+         * Обновление fcm токена
+         *
+         */
+        this.fcm.onTokenRefresh().subscribe(token => {
+
+            // todo проверка залогинен/незалогинен - если залогинен - обновить токен
+            this.user.setFcmToken(token);
+        });
+
+        /**
+         * При получении нотификации
+         *
+         */
+        this.fcm.onNotification().subscribe(data => {
+
+            alert(JSON.stringify(data));
+
+            // this.nav.setRoot(StatisticsPage);
+
+
+            if (data['wasPressed']) {
+                alert("Received in background");
+            } else {
+                alert("Received in foreground");
+            }
+
+
+        });
+
+    }
+
 
 }
