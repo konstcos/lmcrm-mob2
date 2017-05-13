@@ -9,7 +9,7 @@ import {Settings} from './settings';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
-import {LoginPage} from '../pages/login/login'
+// import {LoginPage} from '../pages/login/login'
 // import {Nav} from "ionic-angular";
 
 
@@ -50,23 +50,7 @@ export class User {
      */
     login(accountInfo: any) {
 
-        // console.log('settings START');
-        // console.log( this.s.settings );
-        // console.log('settings END');
-
         let seq = this.api.post('api/login', accountInfo).share();
-
-        // var response;
-
-        // console.log('settings');
-        // console.log( this.s.load().then() );
-
-        // this.s.load().then( data => {
-        //         console.log(data)
-        //     }
-        // );
-
-        // console.log(seq);
 
         seq
             .map(res => res.json())
@@ -145,7 +129,26 @@ export class User {
     logout() {
         this._user = null;
         this.token = null;
+
+        let fcm_token = localStorage.getItem('fcm_token');
+
+        let seq = this.api.post('api/logout', {fcm_token: fcm_token}).share();
+
+        seq
+            .map(res => res.json())
+            .subscribe(res => {
+
+                // console.log('user');
+                console.log(res);
+
+            }, err => {
+                console.error('ERROR', err);
+            });
+
+
         localStorage.setItem('token', '')
+
+        return seq;
     }
 
 
@@ -179,19 +182,10 @@ export class User {
      * Сохранение токена
      *
      */
-    setFcmToken(token: string) {
+    registerFcmToken(token: string) {
 
-        console.log('начало отправки токена');
-
-        let seq = this.api.post('api/setFcmToken', {token: token})
+        let seq = this.api.post('api/registerFcmToken', {token: token})
             .subscribe(resp => {
-
-                // alert( JSON.stringify(resp) );
-
-                // console.log('doLogin');
-                // console.log(resp.json());
-
-                // this.navCtrl.push(MainPage);
 
                 let res = resp.json();
 
@@ -207,9 +201,19 @@ export class User {
                 // });
             });
 
-        console.log('конец отправки токена');
-
         return seq;
+    }
+
+
+    /**
+     * Проверка авторизации
+     *
+     */
+    authCheck() {
+
+        let fcm_token = localStorage.getItem('fcm_token');
+
+        return this.api.post('api/authCheck', {fcm_token: fcm_token}).share();
     }
 
 
@@ -223,6 +227,5 @@ export class User {
         // console.log(resp);
 
         localStorage.setItem('token', resp.token)
-
     }
 }

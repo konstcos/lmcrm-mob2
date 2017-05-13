@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {Platform, Nav, Config} from 'ionic-angular';
+import {Platform, Nav, Config, LoadingController} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 
 import {Settings} from '../providers/providers';
@@ -7,6 +7,7 @@ import {Settings} from '../providers/providers';
 import {User} from '../providers/user';
 
 import {LoginPage} from '../pages/login/login';
+import {MainPage} from '../pages/main/main';
 
 // import {Push, PushObject, PushOptions} from "@ionic-native/push";
 
@@ -30,6 +31,7 @@ export class MyApp {
                 settings: Settings,
                 config: Config,
                 public fcm: FCM,
+                public loadingCtrl: LoadingController,
                 public user: User) {
         // Set the default language for translation strings, and the current language.
         translate.setDefaultLang('en');
@@ -48,8 +50,43 @@ export class MyApp {
 
             // Splashscreen.hide();
 
-
+            // инициация пушНотификация
             this.initPushNotification();
+
+            // todo проверка авторизации
+            let loading = this.loadingCtrl.create({
+                content: 'Please wait...'
+            });
+
+            loading.present();
+
+            this.user.authCheck()
+                .subscribe(resp => {
+
+                    let res = resp.json();
+
+                    console.log(res);
+
+                    if(res.status == 'success'){
+                        this.nav.setRoot(MainPage);
+                    }
+
+                    loading.dismiss();
+
+                }, (err) => {
+
+                    console.log(err);
+
+                    loading.dismiss();
+
+                    // this.navCtrl.push(MainPage);
+                    // Unable to log in
+                    // let toast = this.toastCtrl.create({
+                    //     message: this.loginErrorString,
+                    //     duration: 3000,
+                    //     position: 'top'
+                    // });
+                });
         });
 
     }
@@ -74,7 +111,9 @@ export class MyApp {
             // backend.registerToken(token);
             // alert(token);
             // todo сохранить токен в локалСторедже
-            this.user.setFcmToken(token);
+
+            localStorage.setItem('fcm_token', token);
+            // this.user.setFcmToken(token);
 
         });
 
@@ -84,8 +123,18 @@ export class MyApp {
          */
         this.fcm.onTokenRefresh().subscribe(token => {
 
+            // проверка логина
+            if( localStorage.getItem('token') && localStorage.getItem('token') != '' ){
+                // если токен существует и он не пустой
+
+                this.user.registerFcmToken(token);
+
+            }else{
+                // todo убиваем fcm токен
+
+            }
+
             // todo проверка залогинен/незалогинен - если залогинен - обновить токен
-            this.user.setFcmToken(token);
         });
 
         /**

@@ -11,7 +11,7 @@ import {User} from '../../providers/user';
 // import {MenuPage} from "../menu/menu";
 
 // добвление страницы управления деньгами
-import {StatisticsPage} from '../statistics/statistics'
+// import {StatisticsPage} from '../statistics/statistics'
 
 
 import {FCM} from "@ionic-native/fcm";
@@ -82,7 +82,7 @@ export class LoginPage {
                 // });
 
                 // this.initPushNotification();
-
+                this.user.registerFcmToken(localStorage.getItem('fcm_token'));
 
                 // this.nav.setRoot(MenuPage);
                 this.nav.setRoot(MainPage);
@@ -105,10 +105,7 @@ export class LoginPage {
                 // return { status: 'error'};
             }
 
-
-
             loading.dismiss();
-
 
         }, (err) => {
             // this.navCtrl.push(MainPage);
