@@ -1,2 +1,30 @@
 page-login {
+
+  .logo_image img {
+    margin-top: 20px;
+    //margin-bottom: 5%;
+    width: 100px;
+  }
+
+  .logo_text {
+    font-weight: 600;
+    color: white;
+    font-size: 25px;
+    margin-bottom: 10px;
+  }
+
+  ion-content {
+
+    background: #337AB7 !important;
+
+    .login_button {
+      background: #1E629B;
+    }
+
+    input {
+      background: #337AB7 !important;
+    }
+
+  }
+
 }

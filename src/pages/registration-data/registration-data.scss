@@ -1,0 +1,41 @@
+registration-data {
+
+  .spheres-header {
+    color: #9F9F9F;
+    font-size: 12px;
+  }
+
+  .no_sphere_item {
+    color: #D4D4D4;
+    font-size: 14px;
+  }
+
+  .sphere_item {
+    color: #4C4C4C;
+    font-size: 14px;
+    margin: 6px 0;
+  }
+
+  .opportunity {
+    margin: 10px 0px;
+  }
+
+  .opportunity_item {
+    margin: 10px 0;
+    font-size: 12px;
+    padding: 10px 5px;
+    border-radius: 20px;
+
+    li{
+      padding: 5px 0;
+    }
+
+    cursor: pointer;
+
+  }
+
+  .active_opportunity_item {
+    background: #5CB65C;
+  }
+
+}

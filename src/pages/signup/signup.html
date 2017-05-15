@@ -1,44 +1,106 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>{{ 'SIGNUP_TITLE' | translate }}</ion-title>
-  </ion-navbar>
+    <ion-navbar color="primary" hideBackButton="true">
+
+        <ion-buttons left text-center class="left_button">
+            <button ion-button (click)="goBack()">
+                back to login
+            </button>
+        </ion-buttons>
+
+        <ion-buttons right text-center class="right_button">
+            <!--<button ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">-->
+            <!--add lead-->
+            <!--</button>-->
+        </ion-buttons>
+
+    </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-  <form (submit)="doSignup()">
-    <ion-list>
 
-      <ion-item>
-        <ion-label fixed>{{ 'NAME' | translate }}</ion-label>
-        <ion-input type="text" [(ngModel)]="account.name" name="name"></ion-input>
-      </ion-item>
+    <div *ngIf="!waitConfirmation">
 
-      <ion-item>
-        <ion-label fixed>{{ 'EMAIL' | translate }}</ion-label>
-        <ion-input type="email" [(ngModel)]="account.email" name="email"></ion-input>
-      </ion-item>
+        <form (submit)="doSignup()">
+            <ion-list>
 
-      <!--
-      Want to add a Username? Here you go:
+                <!--<ion-item>-->
+                <!--<ion-label fixed>{{ 'NAME' | translate }}</ion-label>-->
+                <!--<ion-input type="text" [(ngModel)]="account.name" name="name"></ion-input>-->
+                <!--</ion-item>-->
 
-      <ion-item>
-        <ion-label floating>Username</ion-label>
-        <ion-input type="text" [(ngModel)]="account.username" name="username"></ion-input>
-      </ion-item>
-      -->
+                <ion-item>
+                    <ion-label stacked>{{ 'EMAIL' | translate }}</ion-label>
+                    <ion-input type="email" [(ngModel)]="account.email" name="email"></ion-input>
+                </ion-item>
 
-      <ion-item>
-        <ion-label fixed>{{ 'PASSWORD' | translate }}</ion-label>
-        <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
-      </ion-item>
+                <!--
+                Want to add a Username? Here you go:
 
-      <div padding>
-        <button ion-button color="primary" block>{{ 'SIGNUP_BUTTON' | translate }}</button>
-      </div>
+                <ion-item>
+                  <ion-label floating>Username</ion-label>
+                  <ion-input type="text" [(ngModel)]="account.username" name="username"></ion-input>
+                </ion-item>
+                -->
 
-    </ion-list>
-  </form>
+                <ion-item>
+                    <ion-label stacked>{{ 'PASSWORD' | translate }}</ion-label>
+                    <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label stacked>Confirm Password</ion-label>
+                    <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
+                </ion-item>
+
+
+
+            </ion-list>
+        </form>
+
+        <div padding>
+            <!--<button ion-button color="primary" block>{{ 'SIGNUP_BUTTON' | translate }}</button>-->
+            <button ion-button color="primary" block (click)="doRegistration()"> REGISTER </button>
+        </div>
+
+
+    </div>
+
+    <div *ngIf="waitConfirmation">
+
+        <form (submit)="doSignup()">
+            <ion-list>
+
+                <ion-item>
+                    <ion-label stacked>Confirmation code</ion-label>
+                    <ion-input type="text" [(ngModel)]="confirmationCode" name="confirmation" placeholder="enter code"></ion-input>
+                </ion-item>
+
+            </ion-list>
+
+
+
+        </form>
+
+
+        <div padding>
+            <!--<button ion-button color="primary" block>{{ 'SIGNUP_BUTTON' | translate }}</button>-->
+            <button ion-button color="primary" block (click)="doConfirmation()"> CONFIRM </button>
+        </div>
+
+    </div>
+
+
+
 </ion-content>
+
+<ion-footer *ngIf="waitConfirmation">
+
+    <div padding>
+        <!--<button ion-button color="primary" block>{{ 'SIGNUP_BUTTON' | translate }}</button>-->
+        <button ion-button color="primary" block (click)="newRegistration()"> NEW REGISTRATION </button>
+    </div>
+
+</ion-footer>

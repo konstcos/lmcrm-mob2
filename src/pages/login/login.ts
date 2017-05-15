@@ -7,6 +7,7 @@ import {Platform, NavController, ToastController, Nav, LoadingController} from '
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
 import {MainPage} from '../main/main';
+import {SignupPage} from '../signup/signup';
 import {User} from '../../providers/user';
 // import {MenuPage} from "../menu/menu";
 
@@ -120,6 +121,12 @@ export class LoginPage {
         });
 
 
+    }
+
+
+    singUp(){
+        // alert('auth');
+        this.nav.setRoot(SignupPage);
     }
 
 

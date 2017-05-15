@@ -48,6 +48,7 @@ import {OpenLeadOrganizerPage} from '../pages/open-lead-organizer/open-lead-orga
 
 import {SalesmenPage} from '../pages/salesmen/salesmen'
 import {EditSalesmenPage} from '../pages/edit-salesmen/edit-salesmen'
+import {RegistrationDataPage} from '../pages/registration-data/registration-data'
 
 
 import {WelcomePage} from '../pages/welcome/welcome';
@@ -154,6 +155,8 @@ let pages = [
     CustomersPage,
     MasksPage,
     EditMaskPage,
+
+    RegistrationDataPage,
 
     OpenLeadStatusesPage,
 

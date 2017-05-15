@@ -1,39 +1,62 @@
-<ion-header>
+<!--<ion-header>-->
 
-  <ion-navbar color="primary">
-    <ion-title>{{ 'LOGIN_TITLE' | translate }}</ion-title>
-  </ion-navbar>
+<!--<ion-navbar color="primary">-->
+<!--<ion-title>{{ 'LOGIN_TITLE' | translate }}</ion-title>-->
+<!--</ion-navbar>-->
 
-</ion-header>
+<!--</ion-header>-->
 
 
-<ion-content>
-  <form (submit)="doLogin()">
-    <ion-list>
+<ion-content color="primary">
 
-      <ion-item>
-        <ion-label fixed>{{ 'EMAIL' | translate }}</ion-label>
-        <ion-input type="email" [(ngModel)]="account.email" name="email"></ion-input>
-      </ion-item>
 
-      <!--
-      Want to use a Username instead of an Email? Here you go:
+    <ion-row>
+        <ion-col text-center class="logo_image">
+            <img src="assets/img/logo2.png" alt="logo">
+        </ion-col>
+    </ion-row>
 
-      <ion-item>
-        <ion-label floating>{{ 'USERNAME' | translate }}</ion-label>
-        <ion-input type="text" [(ngModel)]="account.username"></ion-input>
-      </ion-item>
-      -->
+    <ion-row>
+        <ion-col text-center  class="logo_text">
+            LM CRM
+        </ion-col>
+    </ion-row>
 
-      <ion-item>
-        <ion-label fixed>{{ 'PASSWORD' | translate }}</ion-label>
-        <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
-      </ion-item>
 
-      <div padding>
-        <button ion-button color="primary" block>{{ 'LOGIN_BUTTON' | translate }}</button>
-      </div>
+    <form (submit)="doLogin()">
+        <ion-list>
 
-    </ion-list>
-  </form>
+            <ion-item color="primary">
+                <!--<ion-label fixed>{{ 'EMAIL' | translate }}</ion-label>-->
+                <ion-input type="email" placeholder="EMAIL" [(ngModel)]="account.email" name="email"></ion-input>
+            </ion-item>
+
+            <!--
+            Want to use a Username instead of an Email? Here you go:
+
+            <ion-item>
+              <ion-label floating>{{ 'USERNAME' | translate }}</ion-label>
+              <ion-input type="text" [(ngModel)]="account.username"></ion-input>
+            </ion-item>
+            -->
+
+            <ion-item color="primary">
+                <!--<ion-label fixed>{{ 'PASSWORD' | translate }}</ion-label>-->
+                <ion-input type="password" placeholder="PASSWORD" [(ngModel)]="account.password" name="password"></ion-input>
+            </ion-item>
+
+        </ion-list>
+
+        <div padding>
+            <button ion-button class="login_button" block>{{ 'LOGIN_BUTTON' | translate }}</button>
+        </div>
+
+    </form>
+
+    <hr color="secondary" >
+
+    <div padding>
+        <button ion-button color="secondary" block (click)="singUp()">QUICK REGISTRATION</button>
+    </div>
+
 </ion-content>
