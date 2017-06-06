@@ -1,0 +1,44 @@
+registration-data-role-description {
+
+  ol {
+
+    font-size: 16px;
+    color: grey;
+
+    li {
+
+      margin-top: 20px;
+    }
+  }
+
+  .comparison_block {
+    padding-left: 10px;
+
+    .comparison_block_header {
+      color: grey;
+      font-weight: 700;
+    }
+
+    .comparison_row {
+      border-bottom: #CCCCCC solid 1px;
+      margin: 5px 0;
+      padding: 10px 0;
+      color: grey;
+
+      .icon.checkmark {
+        color: green;
+      }
+
+      .icon.missed {
+        color: #CCCCCC;
+      }
+
+      .marked_col{
+        // background: #EAEAEA;
+      }
+
+    }
+
+  }
+
+}

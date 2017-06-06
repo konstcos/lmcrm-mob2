@@ -33,18 +33,40 @@
 
 <ion-content class="customers-content">
 
-    <ion-card *ngFor="let sphere of spheres" (click)="openSphere(sphere)" class="open_card">
+    <!-- Заголовок (имя сферы) -->
+    <ion-row>
+        <ion-col text-right class="customers-title">
+            Customer Filter Spheres
+        </ion-col>
+    </ion-row>
 
 
-        <ion-card-content no-padding text-right>
-
-            <div class="name">{{ sphere.name }}</div>
-            <div class="leads_status"> <span class="leads_count">{{ sphere.leads }}</span> leads in <span class="masks_count">{{ sphere.masks.count }}</span> masks</div>
-
-        </ion-card-content>
+    <ion-card *ngFor="let sphere of spheres"  class="open_card">
 
 
-        <ion-row class="masks_status_wrapper_row">
+        <!--<ion-card-content no-padding text-right>-->
+
+            <!--<div class="name">{{ sphere.name }}</div>-->
+            <!--<div class="leads_status"> <span class="leads_count">{{ sphere.leads }}</span> leads in <span class="masks_count">{{ sphere.masks.count }}</span> masks</div>-->
+
+        <!--</ion-card-content>-->
+
+
+        <ion-row class="sphere_data">
+
+            <ion-col no-padding>
+                <button small round outline ion-button color="primary" (click)="createNewMask(sphere.id)">new mask</button>
+            </ion-col>
+
+            <ion-col no-padding text-right (click)="openSphere(sphere)">
+                <div class="name">{{ sphere.name }}</div>
+                <div class="leads_status"> <span class="leads_count">{{ sphere.leads }}</span> leads in <span class="masks_count">{{ sphere.masks.count }}</span> masks</div>
+            </ion-col>
+
+        </ion-row>
+
+
+        <ion-row class="masks_status_wrapper_row" (click)="openSphere(sphere)">
             <ion-col no-padding text-center class="masks_status_wrapper_col">
 
                 <ion-row>

@@ -1,0 +1,36 @@
+<ion-header>
+
+    <ion-navbar color="primary" hideBackButton="true">
+
+        <ion-buttons left text-center class="left_button">
+            <button ion-button (click)="goBack()">
+                back to login
+            </button>
+        </ion-buttons>
+
+        <ion-buttons right text-center class="right_button">
+            <!--<button ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">-->
+            <!--add lead-->
+            <!--</button>-->
+        </ion-buttons>
+
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-row>
+        <ion-col text-center>
+            Waiting for confirmation by account manager
+        </ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-col text-center>
+            <button ion-button (click)="checkConfirmation()">check confirmation</button>
+        </ion-col>
+    </ion-row>
+
+</ion-content>

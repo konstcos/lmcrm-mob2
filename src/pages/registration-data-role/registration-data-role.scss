@@ -1,0 +1,48 @@
+registration-data-role {
+
+  .role_block {
+
+    .role_row {
+
+      margin: 40px 0;
+      font-size: 17px;
+      cursor: pointer;
+
+      .selected_icon {
+        color: green;
+      }
+
+      .role_label {
+        border-bottom: 1px #DCDCDC solid;
+        padding-left: 10px;
+        color: grey;
+      }
+
+      .help_col{
+        //border-bottom: 1px #DCDCDC solid;
+
+        .help_icon {
+          color: #3F51B5;
+        }
+      }
+
+    }
+
+  }
+
+  .difference{
+    color: #337AB7;
+    text-align: center;
+    cursor: pointer;
+  }
+
+}
+
+.registration_data_title.title {
+
+  .toolbar-title {
+    //color: #337AB7;
+    color: grey;
+    text-transform: uppercase;
+  }
+}

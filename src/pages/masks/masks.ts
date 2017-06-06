@@ -57,7 +57,7 @@ export class MasksPage {
                     // переводим ответ в json
                     this.sphere = result.json();
 
-                    // console.log(this.sphere);
+                    console.log(this.sphere);
                     // console.log(this.sphere.name);
                     // this.sphere = data;
 
@@ -116,18 +116,15 @@ export class MasksPage {
 
         if( this.subRole ){
 
-            this.nav.setRoot(EditMaskPage, { sphereId: this.sphere.id, maskId: mask.id, subRole: 'salesman', salesmenData: this.salesmenData });
+            this.nav.setRoot(EditMaskPage, { sphereId: this.sphere.id, appointment: 'editMask', sourcePage: 'masks', maskId: mask.id, subRole: 'salesman', salesmenData: this.salesmenData });
 
             // this.nav.setRoot(CustomersPage, {subRole: 'salesman', salesmenData: this.salesmenData});
 
         }else{
 
-            this.nav.setRoot(EditMaskPage, { sphereId: this.sphere.id, maskId: mask.id, });
+            this.nav.setRoot(EditMaskPage, { sphereId: this.sphere.id, appointment: 'editMask', sourcePage: 'masks', maskId: mask.id, });
         }
 
-
-
-        // this.nav.setRoot(EditMaskPage, { sphereId: this.sphere.id, maskId: mask.id, subRole: 'salesman', salesmenData: this.salesmenData });
     }
 
 
@@ -183,13 +180,11 @@ export class MasksPage {
 
         if( this.subRole ){
 
-            this.nav.setRoot(EditMaskPage, { sphereId: this.sphere.id, mask: this.sphere.blankMask, subRole: 'salesman', salesmenData: this.salesmenData });
-
-            // this.nav.setRoot(CustomersPage, {subRole: 'salesman', salesmenData: this.salesmenData});
+            this.nav.setRoot(EditMaskPage, { sphereId: this.sphere.id, appointment: 'newMask', sourcePage: 'masks', mask: this.sphere.blankMask, subRole: 'salesman', salesmenData: this.salesmenData });
 
         }else{
 
-            this.nav.setRoot(EditMaskPage, { sphereId: this.sphere.id, mask: this.sphere.blankMask });
+            this.nav.setRoot(EditMaskPage, { sphereId: this.sphere.id, appointment: 'newMask', sourcePage: 'masks', mask: this.sphere.blankMask });
         }
 
     }

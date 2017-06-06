@@ -18,7 +18,7 @@
 
         <ion-buttons right text-center class="right_button">
 
-            <button ion-button (click)="delete()" class="dell_button">
+            <button *ngIf="!newMask" ion-button (click)="delete()" class="dell_button">
                 dell
             </button>
 
@@ -95,6 +95,17 @@
             </ion-col>
         </ion-row>
 
+        <ion-row>
+            <ion-col text-center>
+                <button outline round small ion-button (click)="save()">
+                    Save
+                </button>
+            </ion-col>
+        </ion-row>
+
     </div>
+
+
+
 
 </ion-content>

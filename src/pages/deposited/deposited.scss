@@ -35,4 +35,73 @@ page-deposited {
     color: darkgreen;
   }
 
+  .no_leads_row {
+
+    color: grey;
+    margin-top: 20px;
+
+    .icon {
+      color: #EAEAEA;
+      font-size: 50px;
+      //font-weight: 400;
+    }
+
+    .leads_text {
+      margin-top: 20px;
+      color: grey;
+      font-size: 14px;
+
+      .take_leads {
+        margin-top: 10px;
+      }
+    }
+
+    .mask_button {
+      margin-top: 20px;
+    }
+
+  }
+
+}
+
+.no_leads_cover {
+  position: absolute;
+  //background: green;
+  width: 200px;
+  height: 200px;
+  right: 57px;
+  bottom: 20px;
+
+  .empty_added_leads_text {
+    background: #337AB7;
+    border-radius: 20px;
+    color: #BEE2FF;
+    font-size: 25px;
+    width: 190px;
+    text-align: center;
+    height: 168px;
+    padding: 36px 30px 0;
+    box-shadow: -4px -2px 15px rgba(0,0,0,0.7);
+  }
+
+  .empty_added_leads_icon {
+    margin-top: 14px;
+    font-size: 35px;
+    font-weight: 700;
+    color: #337AB7;
+    line-height: 5px;
+    float: right;
+
+    ion-icon {
+      line-height: 0;
+      box-shadow: -4px -2px 15px rgba(0,0,0,0.7);
+    }
+
+  }
+
+  //ion-icon.empty_added_leads_icon {
+  //  line-height: 0;
+  //}
+
+  //z-index: 99999;
 }

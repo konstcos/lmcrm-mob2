@@ -1,0 +1,89 @@
+<!--
+  Generated template for the Masks page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+    <!--color="clear"-->
+
+    <!--<ion-navbar color="clear" hideBackButton="true">-->
+    <ion-navbar color="clear">
+
+        <ion-title *ngIf="roleId == 1" text-center class="registration_data_title">Lead Buyer</ion-title>
+        <ion-title *ngIf="roleId == 2" text-center class="registration_data_title">Deal Maker</ion-title>
+        <ion-title *ngIf="roleId == 3" text-center class="registration_data_title">Comparison of roles</ion-title>
+
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+    <ion-row *ngIf="roleId != 3">
+        <ion-col [innerHTML]="description">
+
+        </ion-col>
+    </ion-row>
+
+
+    <div *ngIf="roleId == 3" class="comparison_block">
+
+        <ion-row class="comparison_block_header">
+            <ion-col></ion-col>
+            <ion-col col-4 text-center align-self-center>lead buyer</ion-col>
+            <ion-col col-4 text-center align-self-center>deal maker</ion-col>
+        </ion-row>
+
+        <ion-row class="comparison_row">
+            <ion-col>deposited leads to platform</ion-col>
+            <ion-col col-4 text-center align-self-center class="marked_col">
+                <ion-icon class="checkmark" name="md-checkmark"></ion-icon>
+            </ion-col>
+            <ion-col col-4 text-center align-self-center>
+                <ion-icon class="checkmark" name="md-checkmark"></ion-icon>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="comparison_row">
+            <ion-col>open leads</ion-col>
+            <ion-col col-4 text-center align-self-center class="marked_col">
+                <ion-icon class="checkmark" name="md-checkmark"></ion-icon>
+            </ion-col>
+            <ion-col col-4 text-center align-self-center>
+                <ion-icon class="checkmark" name="md-checkmark"></ion-icon>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="comparison_row">
+            <ion-col>Make money on deals</ion-col>
+            <ion-col col-4 text-center align-self-center class="marked_col">
+                <ion-icon class="missed" name="md-close"></ion-icon>
+            </ion-col>
+            <ion-col col-4 text-center align-self-center>
+                <ion-icon class="checkmark" name="md-checkmark"></ion-icon>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="comparison_row">
+            <ion-col>Optional maintenance of statuses</ion-col>
+            <ion-col col-4 text-center align-self-center class="marked_col">
+                <ion-icon class="checkmark" name="md-checkmark"></ion-icon>
+            </ion-col>
+            <ion-col col-4 text-center align-self-center>
+                <ion-icon class="missed" name="md-close"></ion-icon>
+            </ion-col>
+        </ion-row>
+
+    </div>
+
+
+</ion-content>
+
+
+<ion-footer no-border>
+    <!--<button ion-button color="primary" block>{{ 'SIGNUP_BUTTON' | translate }}</button>-->
+    <button ion-button clear color="primary" (click)="goBack()"> Back</button>
+</ion-footer>

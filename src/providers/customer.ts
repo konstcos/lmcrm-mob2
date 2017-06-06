@@ -31,6 +31,14 @@ export class Customer {
 
 
     /**
+     * Получение шаблона маски по сфере
+     */
+    getSphereMasksTemplate(sphereId: number) {
+        return this.api.post('api/agentSphereBlankMasksData', {sphereId: sphereId});
+    }
+
+
+    /**
      * Получение всех масок по одной сфере
      */
     getSphereMasks(sphereId: number, salesmenId: any) {

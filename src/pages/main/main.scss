@@ -1,22 +1,22 @@
 page-main {
 
-  ion-content.no-scroll{
+  ion-content.no-scroll {
 
-    > .scroll-content{
+    > .scroll-content {
       overflow-y: hidden;
     }
 
   }
 
-  ion-header{
+  ion-header {
 
-    button{
+    button {
       box-shadow: none !important;
     }
 
-    ion-navbar{
+    ion-navbar {
 
-      .company_name{
+      .company_name {
         //display: inline;
         color: white;
         font-size: 20px;
@@ -25,9 +25,7 @@ page-main {
 
     }
 
-
   }
-
 
   .notifications-badge {
     background-color: #F53D3D;
@@ -37,6 +35,44 @@ page-main {
     font-size: 11px;
     padding: 3px 6px 3px 7px;
     border-radius: 100%;
+  }
+
+  .filter_block {
+    margin: 10px 0 30px 15px;
+
+    .filter_name {
+      color: grey;
+      font-weight: 600;
+    }
+
+    .sphere_filter_item {
+      color: grey;
+      padding-top: 10px;
+
+      .selected_sphere_icon {
+        color: green;
+      }
+
+    }
+
+    .period_filter_item{
+      //padding: 10px 0;
+      margin: 10px 0;
+    }
+
+    .item-block{
+      min-height: 0;
+      //padding: 5px 0;
+    }
+
+    ion-label{
+      margin: 5px 0;
+    }
+
+    ion-datetime{
+      padding: 0;
+    }
+
   }
 
 }

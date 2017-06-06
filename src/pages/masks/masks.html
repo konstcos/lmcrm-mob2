@@ -22,15 +22,6 @@
             </button>
         </ion-buttons>
 
-
-        <!--<ion-title>Masks</ion-title>-->
-
-        <!--<ion-buttons right>-->
-            <!--<button ion-button clear (click)="goBack()">-->
-                <!--<ion-icon name="md-arrow-forward"></ion-icon>-->
-            <!--</button>-->
-        <!--</ion-buttons>-->
-
     </ion-navbar>
 
     <ion-row *ngIf="subRole" class="subHeader">
@@ -55,9 +46,10 @@
 
     <div *ngIf="sphere">
 
+        <!-- Заголовок (имя сферы) -->
         <ion-row>
             <ion-col text-right class="sphere_name">
-                {{ sphere.name }}
+                Masks of {{ sphere.name }}
             </ion-col>
         </ion-row>
 
@@ -74,8 +66,10 @@
 
                 <ion-row class="content-data-wrapper">
 
-                    <ion-col col-2 class="switcher">
+                    <ion-col col-3 class="switcher">
                         <ion-toggle [(ngModel)]="mask.active" (click)="switchActive(mask)"></ion-toggle>
+                        <div *ngIf="mask.active" class="mask_indicator active">active</div>
+                        <div *ngIf="!mask.active" class="mask_indicator not_active">not active</div>
                     </ion-col>
 
                     <ion-col text-right (click)="editMask(mask)">
@@ -103,6 +97,15 @@
                 <div class="icon"><ion-icon name="md-contract"></ion-icon></div>
                 <div> No masks</div>
                 <div> First add a masks</div>
+            </ion-col>
+        </ion-row>
+
+
+        <ion-row>
+            <ion-col text-center>
+                <button outline round small ion-button (click)="createNewMask()">
+                    Create a new mask
+                </button>
             </ion-col>
         </ion-row>
 

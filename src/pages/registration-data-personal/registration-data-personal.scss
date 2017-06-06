@@ -1,0 +1,91 @@
+registration-data-personal {
+
+  .sphere_name {
+    color: grey;
+  }
+
+  .personal_data_row {
+
+    margin-bottom: 20px;
+
+    .validation_block {
+
+      .success {
+        color: green;
+      }
+
+      .alert {
+        color: red;
+      }
+
+      padding-bottom: 0;
+    }
+
+    .data_block {
+
+      .label {
+        text-align: right;
+        color: grey;
+        font-size: 12px;
+      }
+
+      .input_row {
+
+        .text-input {
+          margin-top: 7px;
+          margin-bottom: 8px;
+          color: #337AB7;
+        }
+
+      }
+
+      padding-bottom: 0;
+    }
+
+  }
+
+  .personal_data_row_separator {
+    margin: 0;
+    color: lightgray;
+    background-color: lightgray;
+
+    &.personal_data_row_separator.red {
+      color: red;
+      background-color: red;
+    }
+  }
+
+  .error_message {
+    color: red;
+    font-size: 11px;
+    text-align: right;
+  }
+
+  .region_input {
+    color: grey;
+  }
+
+  .region_block {
+    margin-top: 20px;
+    margin-left: 30%;
+
+    .region_item {
+      padding: 6px 0;
+      margin: 3px 0;
+      font-size: 12px;
+      cursor: pointer;
+      color: #3F51B5;
+    }
+
+  }
+
+}
+
+.registration_data_title.title {
+
+  .toolbar-title {
+    //color: #337AB7;
+    color: grey;
+    text-transform: uppercase;
+  }
+}

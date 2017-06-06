@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, LoadingController, ModalController} from 'ionic-angular';
+import {NavController, NavParams, LoadingController, ModalController, Events} from 'ionic-angular';
 
 import {OpenDetailPage} from '../open-detail/open-detail'
 import {OpenLeadStatusesPage} from "../open-lead-statuses/open-lead-statuses";
@@ -56,7 +56,8 @@ export class OpenPage {
                 public open: Open,
                 public loadingCtrl: LoadingController,
                 public modalCtrl: ModalController,
-                public organizer: OpenLeadOrganizer) {
+                public organizer: OpenLeadOrganizer,
+                public events: Events) {
 
 
         storage.ready().then(() => {
@@ -117,6 +118,19 @@ export class OpenPage {
 
     ionViewWillEnter() {
         console.log('OpenPage View');
+
+        // событие на смену страницы
+        this.events.publish("page:change", {page: 'open'});
+
+        // todo событие по смене фильтра
+        this.events.subscribe('openLeadFilter', () => {
+
+            console.log('событие по фильтру в открытых лидах');
+
+            this.filter = JSON.parse(localStorage.getItem('openLeadFilter'));
+
+            this.loadItems();
+        });
 
         this.loadItems();
     }
@@ -342,31 +356,36 @@ export class OpenPage {
      */
     openLeadOrganizer(item) {
 
-        this.organizer.get({ openLeadId: item.id })
-            .subscribe(result => {
 
-                // переводим ответ в json
-                let data = result.json();
+        let modal = this.modalCtrl.create(OpenLeadOrganizerPage, {itemsId: item.id});
 
-                let modal = this.modalCtrl.create(OpenLeadOrganizerPage, {items: data});
+        modal.present();
 
-                modal.present();
 
-                console.log(data);
-
-            }, err => {
-
-                // в случае ошибки
-
-                console.log('ERROR: ' + err);
-
-                // todo выводится сообщение об ошибке (нету связи и т.д.)
-
-                // отключаем окно индикатора загрузки
-                // infiniteScroll.complete();
-
-            });
-
+        // this.organizer.get({ openLeadId: item.id })
+        //     .subscribe(result => {
+        //
+        //         // переводим ответ в json
+        //         let data = result.json();
+        //
+        //         let modal = this.modalCtrl.create(OpenLeadOrganizerPage, {items: data});
+        //
+        //         modal.present();
+        //
+        //         console.log(data);
+        //
+        //     }, err => {
+        //
+        //         // в случае ошибки
+        //
+        //         console.log('ERROR: ' + err);
+        //
+        //         // todo выводится сообщение об ошибке (нету связи и т.д.)
+        //
+        //         // отключаем окно индикатора загрузки
+        //         // infiniteScroll.complete();
+        //
+        //     });
 
 
     }
@@ -409,7 +428,12 @@ export class OpenPage {
         });
 
         modal.present();
-
     }
+
+    customerPage() {
+
+        this.events.publish("main:openCustomer");
+    }
+
 
 }

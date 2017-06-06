@@ -22,15 +22,21 @@
             <!--<p >{{ item.sphere.name }} ({{ item.mask.name }}) </p>-->
 
             <div text-left>
-                <div class="data_time"> <span class="time">{{ item.auction_added.time }}</span> {{ item.auction_added.date }}</div>
-                <div class="opened"><ion-icon ios="ios-eye" md="md-eye"></ion-icon> {{ item.opened }}</div>
+                <div class="data_time"><span class="time">{{ item.auction_added.time }}</span> {{
+                    item.auction_added.date }}
+                </div>
+                <div class="opened">
+                    <ion-icon ios="ios-eye" md="md-eye"></ion-icon>
+                    {{ item.opened }}
+                </div>
             </div>
 
 
             <div item-right class="item-right-data" text-right>
 
                 <div class="lead_name">{{ item.name }}</div>
-                <div class="sphere_name"> (<span class="mask_name">{{ item.mask.name }}</span>) {{ item.sphere.name }} </div>
+                <div class="sphere_name"> (<span class="mask_name">{{ item.mask.name }}</span>) {{ item.sphere.name }}
+                </div>
 
 
             </div>
@@ -38,6 +44,21 @@
         </ion-item>
     </ion-list>
     <!-- конец Итемы отданых лидов на странице -->
+
+
+    <ion-row *ngIf="items.length == 0" class="no_leads_row" text-center>
+        <ion-col>
+            <div class="icon"><ion-icon name="md-contract"></ion-icon></div>
+
+            <div class="leads_text">
+                <div> You do not have any leads</div>
+                <div class="take_leads"> To get the leads, select the mask</div>
+                <div class="take_leads">on the client filter page</div>
+                <button small ion-button color="primary" class="mask_button" (click)="customerPage()"> Select mask </button>
+            </div>
+
+        </ion-col>
+    </ion-row>
 
 
     <!-- Подгрузка следующей партии итемов -->

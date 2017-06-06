@@ -1,8 +1,10 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, LoadingController, ModalController} from 'ionic-angular';
+import {NavController, NavParams, LoadingController, ModalController, Events} from 'ionic-angular';
 
 import {Obtain} from '../../providers/obtain';
 import {ObtainDetailPage} from "../obtain-detail/obtain-detail";
+// страница для фильтрования лидов
+import {CustomersPage} from '../customers/customers';
 
 /*
  Generated class for the Obtain page.
@@ -46,7 +48,8 @@ export class ObtainPage {
                 public navParams: NavParams,
                 public obtain: Obtain,
                 public loadingCtrl: LoadingController,
-                public modalCtrl: ModalController) {
+                public modalCtrl: ModalController,
+                public events: Events) {
     }
 
     ionViewDidLoad() {
@@ -59,6 +62,19 @@ export class ObtainPage {
      *
      */
     ionViewWillEnter() {
+
+        // событие на смену страницы
+        this.events.publish("page:change", {page: 'obtain'});
+
+        // todo событие по смене фильтра
+        this.events.subscribe('obtainFilter', () => {
+
+            console.log('событие по фильтру в полученных лидах');
+
+            this.filter = JSON.parse(localStorage.getItem('obtainFilter'));
+
+            this.loadItems();
+        });
 
         // загрузка новых итемов
         this.loadItems();
@@ -204,7 +220,7 @@ export class ObtainPage {
 
         console.log('сработал инфинити');
 
-        if( this.isThereStillItems ){
+        if (this.isThereStillItems) {
 
             // получение итемов с сервера
             this.get()
@@ -223,7 +239,7 @@ export class ObtainPage {
                         // если больше нуля
 
                         // добавляем полученные итемы на страницу
-                        this.items = this.items.concat( data.auctionItems );
+                        this.items = this.items.concat(data.auctionItems);
 
                     } else {
                         // если итемов нет
@@ -245,7 +261,7 @@ export class ObtainPage {
                     // отключаем окно индикатора загрузки
                     infiniteScroll.complete();
                 });
-        }else{
+        } else {
             // отключаем окно индикатора загрузки
             infiniteScroll.complete();
         }
@@ -270,11 +286,10 @@ export class ObtainPage {
      * Включение/выключение инфинити
      *
      */
-    isLastPageReached():boolean {
+    isLastPageReached(): boolean {
 
         return this.items.length != 0 && this.isThereStillItems;
     }
-
 
     /**
      * Подробности по итему
@@ -283,6 +298,17 @@ export class ObtainPage {
     detail(item) {
         let modal = this.modalCtrl.create(ObtainDetailPage, {item: item});
         modal.present();
+    }
+
+
+    customerPage() {
+        // this.navCtrl.setRoot(CustomersPage);
+
+        // let modal = this.modalCtrl.create(CustomersPage);
+        // modal.present();
+        this.events.publish("main:openCustomer");
+
+        // CustomersPage
     }
 
 }

@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 
-import {Platform, NavController, ToastController, Nav, LoadingController} from 'ionic-angular';
+import {Platform, NavController, ToastController, Nav, LoadingController,} from 'ionic-angular';
 
 // import {Push, PushObject, PushOptions} from "@ionic-native/push";
 
@@ -8,6 +8,11 @@ import {TranslateService} from 'ng2-translate/ng2-translate';
 
 import {MainPage} from '../main/main';
 import {SignupPage} from '../signup/signup';
+
+import {EmailConfirmationPage} from '../email-confirmation/email-confirmation';
+import {RegistrationDataPage} from '../registration-data/registration-data';
+import {RegistrationWaitingConfirmation} from '../registration-waiting-confirmation/registration-waiting-confirmation';
+
 import {User} from '../../providers/user';
 // import {MenuPage} from "../menu/menu";
 
@@ -15,7 +20,7 @@ import {User} from '../../providers/user';
 // import {StatisticsPage} from '../statistics/statistics'
 
 
-import {FCM} from "@ionic-native/fcm";
+// import {FCM} from "@ionic-native/fcm";
 
 @Component({
     selector: 'page-login',
@@ -41,7 +46,7 @@ export class LoginPage {
                 public platform: Platform,
                 public loadingCtrl: LoadingController,
                 // public push: Push
-                private fcm: FCM
+                // private fcm: FCM
     ) {
 
         this.translateService.get('LOGIN_ERROR').subscribe((value) => {
@@ -49,76 +54,84 @@ export class LoginPage {
         })
     }
 
-    // Attempt to login in through our User service
+
+    /**
+     * Залогинивание пользователя
+     *
+     */
     doLogin() {
 
+        // показывает окно загрузки
         let loading = this.loadingCtrl.create({
             content: 'Login, please wait...'
         });
-
         loading.present();
 
+        // отправка запроса на залогинивание
         this.user.login(this.account)
+            // подписываемся на получение результата
             .subscribe(resp => {
+                // обработка результата
 
-            // alert( JSON.stringify(resp) );
+                // преобразование результата в json
+                let res = resp.json();
 
-            // console.log('doLogin');
-            // console.log(resp.json());
+                // сценарий в зависимости от статуса ответа
+                if (res.status == 'success') {
+                    // успешное залогинивание
 
-            // this.navCtrl.push(MainPage);
+                    // регистрация токена fcm
+                    this.user.registerFcmToken(localStorage.getItem('fcm_token'));
 
-            let res = resp.json();
+                    // переход на главную страницу пользователя
+                    this.nav.setRoot(MainPage);
 
-            if (res.status == 'Ok') {
-                // return { status: 'success'};
-                // console.log('doLogin');
-                // console.log('Ok');
+                } else if(res.info == 'invalid_credentials') {
+                    // ошибка в данных пользователя
 
-                // this.fcm.getToken().then(token=>{
-                //     // backend.registerToken(token);
-                //     this.user.setFcmToken(token);
-                //     alert(token);
-                //
-                // });
+                    // сообщаем об ошибках
+                    let toast = this.toastCtrl.create({
+                        message: 'invalid login or password, please try again',
+                        duration: 5000,
+                        position: 'bottom'
+                    });
+                    toast.present();
 
-                // this.initPushNotification();
-                this.user.registerFcmToken(localStorage.getItem('fcm_token'));
+                } else if(res.info == 'unfinished_registration') {
 
-                // this.nav.setRoot(MenuPage);
-                this.nav.setRoot(MainPage);
 
-            } else if(res == 'invalid_credentials') {
+                    if(res.state == 0){
 
-                // console.log('doLogin');
-                // console.log('invalid_credentials');
-                // this.nav.setRoot(MenuPage);
+                        this.nav.setRoot(EmailConfirmationPage);
 
+                    } else if (res.state == 1) {
+
+                        this.nav.setRoot(RegistrationDataPage);
+
+                    } else if (res.state == 2) {
+
+                        this.nav.setRoot(RegistrationWaitingConfirmation);
+                    }
+
+
+                    console.log(res);
+                    console.log('unfinished_registration');
+                    // return { status: 'error'};
+                }
+
+                loading.dismiss();
+
+            }, (err) => {
+                // this.navCtrl.push(MainPage);
+                // Unable to log in
                 let toast = this.toastCtrl.create({
-                    message: 'invalid login or password, please try again',
-                    duration: 5000,
-                    position: 'bottom'
+                    message: this.loginErrorString,
+                    duration: 3000,
+                    position: 'top'
                 });
                 toast.present();
-
-            } else {
-
-                // return { status: 'error'};
-            }
-
-            loading.dismiss();
-
-        }, (err) => {
-            // this.navCtrl.push(MainPage);
-            // Unable to log in
-            let toast = this.toastCtrl.create({
-                message: this.loginErrorString,
-                duration: 3000,
-                position: 'top'
+                loading.dismiss();
             });
-            toast.present();
-            loading.dismiss();
-        });
 
 
     }

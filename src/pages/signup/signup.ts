@@ -5,6 +5,7 @@ import {TranslateService} from 'ng2-translate/ng2-translate';
 
 import {LoginPage} from '../login/login'
 import {RegistrationDataPage} from '../registration-data/registration-data'
+import {EmailConfirmationPage} from '../email-confirmation/email-confirmation'
 import {User} from '../../providers/user';
 
 /*
@@ -22,9 +23,9 @@ export class SignupPage {
     // If you're using the username field with or without email, make
     // sure to add it to the type
     account: {email: string, password: string, confirmPassword: string} = {
-        email: 'test@example.com',
-        password: 'test',
-        confirmPassword: 'test'
+        email: '',
+        password: '',
+        confirmPassword: ''
     };
 
     confirmationCode: string = '';
@@ -44,7 +45,7 @@ export class SignupPage {
 
         let confirmatio = localStorage.getItem('waitConfirmation');
 
-        if(confirmatio == 'true'){
+        if (confirmatio == 'true') {
             this.waitConfirmation = true;
         }
 
@@ -72,12 +73,22 @@ export class SignupPage {
     //     });
     // }
 
+
+    /**
+     * Возврат на страницу логина
+     *
+     */
     goBack() {
         this.nav.setRoot(LoginPage);
     }
 
 
     doRegistration() {
+
+        // проверка на подтверждение пароля
+        if (this.account.password != this.account.confirmPassword) {
+            return false;
+        }
 
         // инициация окна загрузки
         let loading = this.loadingCtrl.create({
@@ -88,17 +99,60 @@ export class SignupPage {
         loading.present();
 
 
-        setTimeout(()=>{
+        // регистрация
+        this.user.registrationStepOne({email: this.account.email, password: this.account.password})
+            .subscribe(result => {
+                // If the API returned a successful response, mark the user as logged in
 
-            localStorage.setItem('waitConfirmation', 'true');
+                let data = result.json();
 
-            this.waitConfirmation = true;
+                console.log(data);
 
+                if (data.status == 'success') {
 
+                    // отправка запроса на залогинивание
+                    this.user.login(this.account)
+                    // подписываемся на получение результата
+                        .subscribe(resp => {
+                            // обработка результата
 
-            loading.dismiss();
+                            // преобразование результата в json
+                            let res = resp.json();
 
-        }, 1000);
+                            this.nav.setRoot(EmailConfirmationPage);
+
+                            loading.dismiss();
+
+                        }, (err) => {
+                            // this.navCtrl.push(MainPage);
+                            // Unable to log in
+                            loading.dismiss();
+                        });
+                }
+
+                // if (res.status == 'Ok') {
+                //     this._loggedIn(res);
+                // }
+
+                // loading.dismiss();
+
+            }, err => {
+                console.error('ERROR', err);
+                // alert('ERROR: ' + err);
+                loading.dismiss();
+            });
+
+        // setTimeout(()=>{
+        //
+        //     localStorage.setItem('waitConfirmation', 'true');
+        //
+        //     this.waitConfirmation = true;
+        //
+        //
+        //
+        //     loading.dismiss();
+        //
+        // }, 1000);
 
     }
 

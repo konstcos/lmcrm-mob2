@@ -1,0 +1,44 @@
+<ion-header>
+
+    <ion-navbar color="primary" hideBackButton="true">
+
+        <ion-buttons left text-center class="left_button">
+            <button ion-button (click)="goBack()">
+                back to login
+            </button>
+        </ion-buttons>
+
+        <ion-buttons right text-center class="right_button">
+            <!--<button ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">-->
+            <!--add lead-->
+            <!--</button>-->
+        </ion-buttons>
+
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+    <ion-list>
+
+        <ion-item>
+            <ion-label stacked>Confirmation code</ion-label>
+            <ion-input type="text" [(ngModel)]="confirmationCode" name="confirmation" placeholder="enter code"></ion-input>
+        </ion-item>
+
+    </ion-list>
+
+    <button ion-button color="primary" clear (click)="confirm()"> confirm </button>
+
+</ion-content>
+
+<!--<ion-footer>-->
+
+    <!--<div padding>-->
+        <!--&lt;!&ndash;<button ion-button color="primary" block>{{ 'SIGNUP_BUTTON' | translate }}</button>&ndash;&gt;-->
+        <!--<button ion-button color="primary" block (click)="newRegistration()"> confirm </button>-->
+    <!--</div>-->
+
+<!--</ion-footer>-->

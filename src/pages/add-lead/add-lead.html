@@ -105,14 +105,26 @@
 
 
         <ion-item margin-bottom>
-            <ion-label text-right stacked>*name</ion-label>
+            <ion-label text-right stacked>name</ion-label>
             <ion-input text-right type="text" [(ngModel)]="lead.name" class="add_lead_value" ></ion-input>
         </ion-item>
 
-        <ion-item margin-bottom>
-            <ion-label text-right stacked>*phone</ion-label>
-            <ion-input text-right type="text" [(ngModel)]="lead.phone" class="add_lead_value"></ion-input>
-        </ion-item>
+
+        <div class="phone_block">
+            <ion-item>
+                <ion-label text-right stacked><span ion-text color="danger">*</span> phone</ion-label>
+                <ion-input
+                        text-right type="tel"
+                        (ngModelChange)='phoneChange($event)'
+                        [(ngModel)]="lead.phone"
+                        class="add_lead_value"
+                        (blur)="phoneValidate()">
+
+                </ion-input>
+            </ion-item>
+            <div *ngIf="errors.phone.empty" class="phone_error">this field required</div>
+            <div *ngIf="errors.phone.notEnough" class="phone_error">the length of the phone number must be at least 9 digits</div>
+        </div>
 
         <ion-item margin-bottom>
             <ion-label text-right stacked>comment</ion-label>

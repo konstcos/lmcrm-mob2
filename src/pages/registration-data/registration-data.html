@@ -1,118 +1,83 @@
-<!--<ion-header>-->
+<ion-header>
 
-    <!--<ion-navbar color="primary" hideBackButton="true">-->
+    <ion-navbar color="primary" hideBackButton="true">
 
-        <!--<ion-buttons left text-center class="left_button">-->
-            <!--<button ion-button (click)="goBack()">-->
-                <!--back to login-->
+        <ion-buttons left text-center class="left_button">
+            <button ion-button (click)="goBack()">
+                back to login
+            </button>
+        </ion-buttons>
+
+        <ion-buttons right text-center class="right_button">
+            <!--<button ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">-->
+            <!--add lead-->
             <!--</button>-->
-        <!--</ion-buttons>-->
+        </ion-buttons>
 
-        <!--<ion-buttons right text-center class="right_button">-->
-            <!--&lt;!&ndash;<button ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">&ndash;&gt;-->
-            <!--&lt;!&ndash;add lead&ndash;&gt;-->
-            <!--&lt;!&ndash;</button>&ndash;&gt;-->
-        <!--</ion-buttons>-->
+    </ion-navbar>
 
-    <!--</ion-navbar>-->
-
-<!--</ion-header>-->
+</ion-header>
 
 
-<ion-content padding="">
+<ion-content padding>
 
-    <h4>Fill in your profile</h4>
+    <!-- Главный блок -->
+    <div class="main_block">
 
-    <form (submit)="doSignup()">
-        <ion-list>
 
-            <!--<div *ngFor="let item of sphereSelected">-->
+        <div text-center class="main_block_title">
+            To continue you must fill this data
+        </div>
 
-                <!--{{ item }}-->
 
-            <!--</div>-->
+        <div>
 
-            <ion-item (click)="showSpheres()">
-                <!--<ion-label stacked>Sphere</ion-label>-->
+            <!-- Выбор сфер деятельности агента -->
+            <div class="switchItem" (click)="selectSpheres()" [ngClass]="confirmation.sphere ? 'apply' : ''">
+                <span *ngIf="confirmation.sphere" class="icon_span">
+                    <ion-icon name="md-checkbox-outline"></ion-icon>
+                </span>
+                <span *ngIf="!confirmation.sphere" class="icon_span">
+                    <ion-icon name="md-square-outline"></ion-icon>
+                </span>
+                Sphere of influence
+            </div>
 
-                <div class="spheres-header">Spheres</div>
+            <!-- Заполнение персональных данных агента -->
+            <div class="switchItem" (click)="fillingPersonal()" [ngClass]="confirmation.personal ? 'apply' : ''">
+                <span *ngIf="confirmation.personal" class="icon_span">
+                    <ion-icon name="md-checkbox-outline"></ion-icon>
+                </span>
+                <span *ngIf="!confirmation.personal" class="icon_span">
+                    <ion-icon name="md-square-outline"></ion-icon>
+                </span>
+                Personal data
+            </div>
 
-                <div *ngIf="sphereSelected.length == 0" class="no_sphere_item">
-                    select spheres
-
-                </div>
-
-                <div *ngFor="let item of sphereSelected" class="sphere_item">
-
-                    {{ spheres[item] }}
-                </div>
-
-            </ion-item>
-
-            <ion-item>
-                <ion-label stacked>First name</ion-label>
-                <ion-input type="text" name="firstName"></ion-input>
-            </ion-item>
-
-            <ion-item>
-                <ion-label stacked>Last name</ion-label>
-                <ion-input type="text" name="lastName"></ion-input>
-            </ion-item>
-
-            <ion-item>
-                <ion-label stacked>Company</ion-label>
-                <ion-input type="text" name="company"></ion-input>
-            </ion-item>
-
-        </ion-list>
-    </form>
-
-    <div class="opportunity">
-
-        <h4>What an opportunity you want: </h4>
-
-        <div class="opportunity_item" (click)="opportunityItemClick(1)" [ngClass]="opportunity[1] ? 'active_opportunity_item' : ''">
-
-            <ul>
-                <li>Sell my irrelevant leads to this platform so I can get instead of them relevant leads for my business</li>
-                <li>Sell my leads direct to my offline partners I work with today for free</li>
-                <li>Get instead of leads I sold to the platform only most relevant leads for my business and expose them</li>
-                <li>Pay my fees to the platform only from deals I close from relevant exposed leads that I can will get from this platform</li>
-                <li>I know I must update statuses of my exposed leads and reveal closed deals as a partner</li>
-            </ul>
+            <!-- Заполнение персональных данных агента -->
+            <div class="switchItem" (click)="roleMatching()" [ngClass]="confirmation.role ? 'apply' : ''">
+                <span *ngIf="confirmation.role" class="icon_span">
+                    <ion-icon name="md-checkbox-outline"></ion-icon>
+                </span>
+                <span *ngIf="!confirmation.role" class="icon_span">
+                    <ion-icon name="md-square-outline"></ion-icon>
+                </span>
+                Your role matching
+            </div>
 
         </div>
 
-        <div class="opportunity_item" (click)="opportunityItemClick(2)" [ngClass]="opportunity[2] ? 'active_opportunity_item' : ''">
-
-            <ul>
-                <li>Sell my irrelevant leads to this platform so I can get instead of them only relevant leads for my business</li>
-                <li>Sell my irrelevant leads direct to my offline partners I work with today for free</li>
-                <li>Buy relevant leads for my business from this platform as many leads as I need without need of giving my giving leads at attractive price</li>
-                <li>Buy only dedicated leads for my business</li>
-                <li>Earn money as a partner from my sold leads</li>
-            </ul>
-
+        <div class="main_block_button">
+            <!--<button ion-button color="primary" block>{{ 'SIGNUP_BUTTON' | translate }}</button>-->
+            <button
+                    ion-button
+                    color="primary"
+                    block
+                    (click)="saveRegistrationData()">
+                Start getting customers &nbsp;
+                <ion-icon name="ios-arrow-forward"></ion-icon>
+            </button>
         </div>
-
-        <div class="opportunity_item" (click)="opportunityItemClick(3)" [ngClass]="opportunity[3] ? 'active_opportunity_item' : ''">
-
-            <ul>
-                <li>Sell my irrelevant leads to this platform so I can get fees from other businesses that close those deals</li>
-                <li>Sell my irrelevant leads direct to my offline partners I work with today for free</li>
-                <li>Buy relevant leads for my business from this platform as many leads as I need without need of giving my leads at attractive price</li>
-                <li>Buy dedicated leads only for my business</li>
-                <li>Earn money as a partner from my sold leads</li>
-            </ul>
-
-        </div>
-
-    </div>
-
-
-    <div padding>
-        <!--<button ion-button color="primary" block>{{ 'SIGNUP_BUTTON' | translate }}</button>-->
-        <button ion-button color="primary" block (click)="goBack()"> SAVE </button>
     </div>
 
 </ion-content>

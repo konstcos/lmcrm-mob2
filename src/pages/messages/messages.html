@@ -1,0 +1,72 @@
+<ion-header>
+
+    <ion-navbar color="primary" hideBackButton="true">
+
+        <ion-buttons left text-center class="left_button">
+            <button ion-button (click)="goBack()">
+                back
+            </button>
+        </ion-buttons>
+
+        <ion-buttons right text-center class="right_button">
+            <!--<button ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">-->
+                <!--add lead-->
+            <!--</button>-->
+        </ion-buttons>
+
+    </ion-navbar>
+
+
+    <ion-toolbar>
+        <ion-segment [(ngModel)]="segmentSwitch">
+            <ion-segment-button value="notice">
+                Notice
+            </ion-segment-button>
+            <ion-segment-button value="messages">
+                Messages
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+
+
+</ion-header>
+
+
+<ion-content padding>
+
+
+    <!--<div padding>-->
+        <!--<ion-segment [(ngModel)]="segmentSwitch">-->
+            <!--<ion-segment-button value="notice">-->
+                <!--Notice-->
+            <!--</ion-segment-button>-->
+            <!--<ion-segment-button value="messages">-->
+                <!--Messages-->
+            <!--</ion-segment-button>-->
+        <!--</ion-segment>-->
+    <!--</div>-->
+
+    <div [ngSwitch]="segmentSwitch">
+        <ion-list *ngSwitchCase="'notice'">
+            <ion-item>
+                <ion-thumbnail item-left>
+                </ion-thumbnail>
+                <h2>notice</h2>
+            </ion-item>
+            ...
+        </ion-list>
+
+        <ion-list *ngSwitchCase="'messages'">
+            <ion-item>
+                <ion-thumbnail item-left>
+                </ion-thumbnail>
+                <h2>messages</h2>
+            </ion-item>
+            ...
+        </ion-list>
+    </div>
+
+
+
+
+</ion-content>

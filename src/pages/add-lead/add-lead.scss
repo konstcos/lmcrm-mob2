@@ -27,4 +27,15 @@ page-add-lead {
 
   }
 
+  .phone_block {
+    margin-bottom: 15px;
+
+    .phone_error {
+      font-size: 12px;
+      text-align: right;
+      color: red;
+      margin-top: 4px;
+    }
+  }
+
 }

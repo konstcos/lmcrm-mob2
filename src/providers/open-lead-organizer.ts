@@ -19,11 +19,37 @@ export class OpenLeadOrganizer {
         console.log('Hello OpenLeadOrganizer Provider');
     }
 
+
     /**
      * Получение с сервера итемов органайзера
      */
-    get(data: any){
+    get(data: any) {
         return this.api.post('api/getOrganizerData', data);
     }
+
+
+    /**
+     * Обновление данных по органайзеру
+     */
+    update(data: any) {
+        return this.api.post('api/updateOrganizerData', data);
+    }
+
+
+    /**
+     * Удаление записи по органайзеру
+     */
+    dell(data: any) {
+        return this.api.post('api/dellOrganizerItem', data);
+    }
+
+
+    /**
+     * Смена статуса итема органайзера
+     */
+    apply(data: any) {
+        return this.api.post('api/applyOrganizerItem', data);
+    }
+
 
 }

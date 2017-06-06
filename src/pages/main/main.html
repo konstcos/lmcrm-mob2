@@ -43,14 +43,259 @@
     </ion-header>
 
     <ion-content>
-        <ion-list>
-
-            <button menuClose ion-item>filter 1</button>
-            <button menuClose ion-item>filter 2</button>
 
 
-        </ion-list>
+        <!-- Период фильтра -->
+        <div class="filter_block">
+
+            <ion-row class="filter_name">
+                <ion-col>
+                    Period
+                </ion-col>
+            </ion-row>
+
+            <!-- Начало периода -->
+            <!--<ion-row class="period_filter_from">-->
+                <!--<ion-col col-3 text-right>-->
+                    <!--From:-->
+                <!--</ion-col>-->
+
+                <!--<ion-col>-->
+                    <!--<ion-datetime-->
+                            <!--displayFormat="DD/MM/YYYY"-->
+                            <!--pickerFormat="DD-MM-YYYY"-->
+                            <!--[(ngModel)]="filter.period.from">-->
+
+                    <!--</ion-datetime>-->
+                <!--</ion-col>-->
+            <!--</ion-row>-->
+
+            <ion-item class="period_filter_item period_filter_from">
+                <ion-label>From</ion-label>
+                <ion-datetime
+                        displayFormat="DD/MM/YYYY"
+                        pickerFormat="DD-MM-YYYY"
+                        [(ngModel)]="filter.period.from">
+                </ion-datetime>
+            </ion-item>
+
+            <!-- Конец периода -->
+            <ion-item class="period_filter_item period_filter_from">
+                <ion-label>To</ion-label>
+                <ion-datetime
+                        displayFormat="DD/MM/YYYY"
+                        pickerFormat="DD-MM-YYYY"
+                        [(ngModel)]="filter.period.to">
+                </ion-datetime>
+            </ion-item>
+
+            <!-- Кнопка обнуления -->
+            <button small ion-button round color="danger" (click)="resetPeriod()">reset period</button>
+
+            <!-- Конец периода -->
+            <!--<ion-row class="period_filter_from">-->
+                <!--<ion-col col-3 text-right>-->
+                    <!--To:-->
+                <!--</ion-col>-->
+
+                <!--<ion-col>-->
+                    <!--период-->
+                <!--</ion-col>-->
+            <!--</ion-row>-->
+
+        </div>
+
+
+
+        <!-- Сферы фильтра -->
+        <div class="filter_block">
+
+            <ion-row class="filter_name">
+                <ion-col>
+                    Spheres
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="sphere_filter_item" *ngFor="let sphere of spheres" (click)="selectSphereFilter(sphere)">
+                <ion-col col-2 text-center>
+
+                    <ion-icon *ngIf="sphere.status" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>
+                    <ion-icon *ngIf="!sphere.status" name="md-square-outline"></ion-icon>
+
+                </ion-col>
+
+                <ion-col>
+                    {{ sphere.name }}
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+        <!-- Маски фильтра -->
+        <div *ngIf="filter.sphere != 0 && childPage!='deposited'" class="filter_block">
+
+            <ion-row class="filter_name">
+                <ion-col>
+                    Masks
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="sphere_filter_item" *ngFor="let mask of currentMasks" (click)="selectMaskFilter(mask)">
+                <ion-col col-2 text-center>
+
+                    <ion-icon *ngIf="mask.status" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>
+                    <ion-icon *ngIf="!mask.status" name="md-square-outline"></ion-icon>
+
+                </ion-col>
+
+                <ion-col>
+                    {{ mask.name }}
+                </ion-col>
+            </ion-row>
+
+
+            <ion-row class="sphere_filter_item" *ngIf="currentMasks.length == 0">
+                <ion-col col-2 text-center>
+                </ion-col>
+
+                <ion-col>
+                    No masks
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+
+        <!-- Статусы открытого лида -->
+        <div *ngIf="filter.sphere != 0 && openLeadStatuses.length != 0 && childPage=='open'" class="filter_block">
+
+            <ion-row class="filter_name">
+                <ion-col>
+                    Open Leads statuses
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="sphere_filter_item" *ngFor="let status of openLeadStatuses" (click)="selectOpenLeadStatuses(status)">
+                <ion-col col-2 text-center>
+
+                    <ion-icon *ngIf="status.status" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>
+                    <ion-icon *ngIf="!status.status" name="md-square-outline"></ion-icon>
+
+                </ion-col>
+
+                <ion-col>
+                    {{ status.name }}
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+
+        <!-- Статусы лида -->
+        <div *ngIf="childPage=='deposited'" class="filter_block">
+
+            <ion-row class="filter_name">
+                <ion-col>
+                    Lead statuses
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="sphere_filter_item" *ngFor="let status of leadStatuses" (click)="selectLeadStatuses(status)">
+                <ion-col col-2 text-center>
+
+
+                    <ion-icon *ngIf="status.status" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>
+                    <ion-icon *ngIf="!status.status" name="md-square-outline"></ion-icon>
+
+                </ion-col>
+
+                <ion-col>
+                    {{ status.name }}
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+
+        <!-- Источник лида -->
+        <div *ngIf="childPage=='deposited'" class="filter_block">
+
+            <ion-row class="filter_name">
+                <ion-col>
+                    Source
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="sphere_filter_item" *ngFor="let source of leadSources" (click)="selectLeadSource(source)">
+                <ion-col col-2 text-center>
+
+
+                    <ion-icon *ngIf="source.status" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>
+                    <ion-icon *ngIf="!source.status" name="md-square-outline"></ion-icon>
+
+                </ion-col>
+
+                <ion-col>
+                    {{ source.name }}
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+
+        <!-- Остальное -->
+        <div *ngIf="childPage=='obtain'" class="filter_block">
+
+            <ion-row class="filter_name">
+                <ion-col>
+                    Other
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="sphere_filter_item" (click)="selectNotOpenOnly()">
+                <ion-col col-2 text-center>
+
+
+                    <ion-icon *ngIf="filter.notOpenOnly == 1" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>
+                    <ion-icon *ngIf="filter.notOpenOnly == 0" name="md-square-outline"></ion-icon>
+
+                </ion-col>
+
+                <ion-col>
+                    Only not open Leads
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+
+
+        <!--<ion-list>-->
+
+            <!--<div *ngIf="childPage=='open'">-->
+                <!--Открытые лиды-->
+            <!--</div>-->
+
+            <!--<div *ngIf="childPage=='deposited'">-->
+                <!--Отданные лиды-->
+            <!--</div>-->
+
+            <!--<div *ngIf="childPage=='obtain'">-->
+                <!--Отфильтрованные лиды-->
+            <!--</div>-->
+
+
+        <!--</ion-list>-->
+
     </ion-content>
+
+    <ion-footer>
+        <ion-toolbar color="dark">
+            <button menuClose small (click)="filterApply()" ion-button>Apply</button>
+            <button menuClose small (click)="filterReset()" ion-button color="danger">Reset</button>
+        </ion-toolbar>
+    </ion-footer>
+
 </ion-menu>
 <!-- конец Меню фильтра -->
 
@@ -77,13 +322,13 @@
 
 
         <ion-buttons left>
-            <button ion-button icon-only>
+            <button ion-button icon-only (click)="testClick()">
                 <ion-icon name="search"></ion-icon>
             </button>
 
-            <button ion-button icon-only>
+            <button ion-button icon-only (click)="openMessages()">
                 <ion-icon name="md-text">
-                    <ion-badge class="notifications-badge" color="danger">7</ion-badge>
+                    <ion-badge *ngIf="notices != 0" class="notifications-badge" color="danger">{{ notices }}</ion-badge>
                 </ion-icon>
             </button>
 
@@ -116,8 +361,8 @@
 
     <!--<ion-tabs color="primary" class="withNavbar">-->
     <ion-tabs color="primary" tabsPlacement="top" tabsHighlight="true" selectedIndex="2">
-        <ion-tab trimHistory [root]="open" [tabTitle]="openTitle"></ion-tab>
         <ion-tab trimHistory [root]="deposited" [tabTitle]="depositedTitle"></ion-tab>
+        <ion-tab trimHistory [root]="open" [tabTitle]="openTitle"></ion-tab>
         <ion-tab trimHistory [root]="obtain" [tabTitle]="obtainTitle"></ion-tab>
     </ion-tabs>
 

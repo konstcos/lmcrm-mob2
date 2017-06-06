@@ -65,6 +65,23 @@ page-masks {
 
       }
 
+      .mask_indicator{
+
+        font-size: 12px;
+        margin-top: 8px;
+        font-weight: 500;
+
+        &.active{
+          color: green;
+
+        }
+
+        &.not_active{
+          color: red;
+        }
+
+      }
+
     }
 
     .no_masks_row {

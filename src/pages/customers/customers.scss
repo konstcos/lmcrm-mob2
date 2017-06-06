@@ -1,5 +1,13 @@
 page-сustomers {
 
+
+}
+
+
+.customers-title {
+  font-size: 20px;
+  color: grey;
+  padding: 15px 10px 5px;
 }
 
 .left_button {
@@ -30,18 +38,21 @@ page-сustomers {
 
     margin-bottom: 20px;
 
-    .card-content {
+    //.card-content {
+    .sphere_data {
 
-      padding: 10px 10px 5px;
+        padding: 10px 10px 5px;
 
       .name {
         color: #868686;
         font-size: 18px;
+        padding-top: 3px;
       }
 
       .leads_status {
         font-size: 12px;
         color: #989898;
+        padding: 6px 0 4px;
 
         .leads_count {
           font-weight: 600;

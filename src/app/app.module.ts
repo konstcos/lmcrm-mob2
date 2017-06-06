@@ -5,9 +5,9 @@ import {Storage, IonicStorageModule} from '@ionic/storage';
 
 // import { FCM } from '@ionic-native';
 
-// import {Push, PushObject, PushOptions} from "@ionic-native/push";
+import {Push, PushObject, PushOptions} from "@ionic-native/push";
 
-import { FCM } from '@ionic-native/fcm';
+// import { FCM } from '@ionic-native/fcm';
 
 
 import {MyApp} from './app.component';
@@ -40,7 +40,11 @@ import {CustomersPage} from '../pages/customers/customers';
 import {MasksPage} from '../pages/masks/masks';
 import {EditMaskPage} from '../pages/edit-mask/edit-mask';
 
+import {OpenLeadOrganizerEditPage} from '../pages/open-lead-organizer-edit/open-lead-organizer-edit';
+
 import {StatisticsPage} from '../pages/statistics/statistics';
+
+import {MessagesPage} from '../pages/messages/messages';
 
 import {OpenLeadStatusesPage} from '../pages/open-lead-statuses/open-lead-statuses';
 
@@ -49,6 +53,12 @@ import {OpenLeadOrganizerPage} from '../pages/open-lead-organizer/open-lead-orga
 import {SalesmenPage} from '../pages/salesmen/salesmen'
 import {EditSalesmenPage} from '../pages/edit-salesmen/edit-salesmen'
 import {RegistrationDataPage} from '../pages/registration-data/registration-data'
+import {RegistrationDataSpheresPage} from '../pages/registration-data-spheres/registration-data-spheres'
+import {RegistrationDataPersonalPage} from '../pages/registration-data-personal/registration-data-personal'
+import {RegistrationDataRolePage} from '../pages/registration-data-role/registration-data-role'
+import {EmailConfirmationPage} from '../pages/email-confirmation/email-confirmation'
+import {RegistrationWaitingConfirmation} from '../pages/registration-waiting-confirmation/registration-waiting-confirmation'
+import {RegistrationDataRolePageDescription} from '../pages/registration-data-role-description/registration-data-role-description'
 
 
 import {WelcomePage} from '../pages/welcome/welcome';
@@ -156,7 +166,17 @@ let pages = [
     MasksPage,
     EditMaskPage,
 
+    MessagesPage,
+
+    OpenLeadOrganizerEditPage,
+
     RegistrationDataPage,
+    RegistrationDataSpheresPage,
+    RegistrationDataPersonalPage,
+    RegistrationDataRolePage,
+    EmailConfirmationPage,
+    RegistrationWaitingConfirmation,
+    RegistrationDataRolePageDescription,
 
     OpenLeadStatusesPage,
 
@@ -184,8 +204,8 @@ export function providers() {
         Deposited,
         Open,
         Customer,
-        // Push,
-        FCM,
+        Push,
+        // FCM,
 
         OpenLeadOrganizer,
 

@@ -26,7 +26,7 @@ registration-data {
     padding: 10px 5px;
     border-radius: 20px;
 
-    li{
+    li {
       padding: 5px 0;
     }
 
@@ -36,6 +36,50 @@ registration-data {
 
   .active_opportunity_item {
     background: #5CB65C;
+  }
+
+  .main_block_title {
+    font-size: 14px;
+    color: #337AB7;
+    margin-top: 10px;
+    margin-bottom: 30px;
+
+  }
+
+  .switchItem {
+    margin-left: 25%;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding: 15px 0;
+    font-size: 18px;
+    color: grey;
+    cursor: pointer;
+
+    .icon_span {
+      padding-right: 5px;
+    }
+
+  }
+
+  .apply {
+    color: #34B05A !important;
+  }
+
+  .main_block_button {
+    margin-top: 30px;
+  }
+
+  .role_matching_data {
+    font-size: 16px;
+
+    li {
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+  }
+
+  .button_block{
+    margin-top: 20px;
   }
 
 }

@@ -31,4 +31,31 @@ page-obtain {
     margin-top: 3px;
   }
 
+  .no_leads_row {
+
+    color: grey;
+    margin-top: 20px;
+
+    .icon {
+      color: #EAEAEA;
+      font-size: 50px;
+      //font-weight: 400;
+    }
+
+    .leads_text {
+      margin-top: 20px;
+      color: grey;
+      font-size: 14px;
+
+      .take_leads {
+        margin-top: 10px;
+      }
+    }
+
+    .mask_button{
+      margin-top: 20px;
+    }
+
+  }
+
 }

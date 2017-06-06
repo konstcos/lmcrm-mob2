@@ -1,11 +1,29 @@
 page-credits {
 
   .item_status {
+    font-size: 13px;
+  }
+
+  .waiting_processing {
+    color: grey;
+  }
+
+  .waiting_payment {
     color: #BC900B;
   }
 
+  .waiting_confirmed {
+    color: grey;
+  }
+
   .status_confirmed {
-    color: blue;
+    color: green;
+  }
+
+  .exchange_id {
+    font-size: 16px;
+    color: dimgrey;
+    font-weight: 700;
   }
 
   .item_type {
@@ -17,47 +35,82 @@ page-credits {
 
   }
 
+  .amount {
+    font-size: 18px;
+  }
+
   .withdrawal {
-    background: #337AB7;
-    color: #C3DEF5;
+    // background: #337AB7;
+    color: red;
   }
 
   .replenishment {
-    background: #32DB64;
-    color: #EBFDF1;
+    // background: #32DB64;
+    color: #009800;
   }
+  //
+  //.item_main_data {
+  //
+  //  padding: 8px 10px 10px;
+  //
+  //  .amount {
+  //    font-size: 18px;
+  //    font-weight: 600;
+  //    color: grey;
+  //  }
+  //
+  //  .date {
+  //    font-size: 12px;
+  //    color: grey;
+  //    margin-top: 2px;
+  //
+  //    .time {
+  //      font-size: 10px;
+  //    }
+  //
+  //  }
+  //
+  //}
 
-  .item_main_data {
+  .date {
+    font-size: 12px;
+    color: grey;
+    margin-top: 2px;
 
-    padding: 8px 10px 10px;
-
-    .amount {
-      font-size: 18px;
-      font-weight: 600;
-      color: grey;
-    }
-
-    .date {
-      font-size: 12px;
-      color: grey;
-      margin-top: 2px;
-
-      .time {
-        font-size: 10px;
-      }
-
+    .time {
+      font-size: 10px;
     }
 
   }
 
   .card {
     margin-top: 10px;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
   }
 
-  .requisites{
+  .pay_button_block {
 
-    p{
+    margin-top: 5px;
+    color: dimgrey;
+
+    .pay_button {
+      font-size: 16px;
+
+      .waiting_payment {
+        font-size: 20px;
+        color: #BC900B;
+      }
+
+      .already_payed {
+        font-size: 20px;
+        color: green;
+      }
+    }
+  }
+
+  .requisites {
+
+    p {
       margin: 0;
       color: grey;
       font-weight: 600;

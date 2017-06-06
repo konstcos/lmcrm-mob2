@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
+import {NavController, NavParams, Events} from 'ionic-angular';
 
 
 /**
@@ -23,6 +23,14 @@ import {Deposited} from "../../providers/deposited";
 })
 export class AddLeadPage {
 
+    public errors: any = {
+
+        phone: {
+            empty: false,
+            notEnough: false
+        }
+
+    };
 
     lead: any = {
         name: '',
@@ -40,7 +48,8 @@ export class AddLeadPage {
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 public user: User,
-                public deposited: Deposited) {
+                public deposited: Deposited,
+                public events: Events) {
 
         this.getSpheres();
 
@@ -115,6 +124,10 @@ export class AddLeadPage {
      */
     typeChange() {
 
+        // console.log('тип')
+        // this.events.publish("lead:new_added");
+
+
         if (this.lead.type == '2') {
 
             // console.log('load group')
@@ -174,6 +187,78 @@ export class AddLeadPage {
     }
 
 
+    /**
+     * Валидация телефона когда убирается фокус с поля
+     *
+     */
+    phoneValidate() {
+
+        if (this.lead.phone == '') {
+
+            this.errors.phone.empty = true;
+            this.errors.phone.notEnough = false;
+            // console.log('error 1')
+
+        } else if (this.lead.phone.length < 9 || this.lead.phone.length > 10) {
+
+            this.errors.phone.empty = false;
+            this.errors.phone.notEnough = true;
+            // console.log('error 2')
+
+        } else {
+
+            this.errors.phone.empty = false;
+            this.errors.phone.notEnough = false;
+            // console.log('success 1')
+        }
+
+    }
+
+    /**
+     * Проверка поля с телефонным номером при вводе нового символа
+     *
+     */
+    phoneChange(event) {
+
+        // сохраняем старые данные
+        let oldData = this.lead.phone;
+
+        // проверка на максимальную длину номера телефона
+        if (event.length > 10) {
+
+            // возвращаем старые данные
+            setTimeout(() => {
+                    this.lead.phone = oldData;
+                }
+                , 0);
+
+            return false;
+        }
+
+
+        // перебираем все символы новых данных
+        for (let item = 0; item < event.length; item++) {
+
+            // если символ из новых данных не равняется символу в старых данных
+            // (выбор нового введенного символа)
+            if (event[item] != this.lead.phone[item]) {
+
+                // проверка нового символа на integer
+                if (!Number(event[item]) && event[item] != '0') {
+                    // если новый символ не цифра
+
+                    // возвращаем старые данные
+                    setTimeout(() => {
+                            this.lead.phone = oldData;
+                        }
+                        , 0);
+                }
+
+                // выходим из цикла
+                break;
+            }
+        }
+    }
 
     /**
      * Добавление лида в систему
@@ -181,6 +266,11 @@ export class AddLeadPage {
      */
     addLead() {
 
+        if (this.lead.phone == '') {
+            console.log('нету телефона');
+            this.errors.phone.empty = true;
+            return false;
+        }
 
         // если есть участники группы
         if (this.lead.member) {
@@ -207,7 +297,10 @@ export class AddLeadPage {
                 // переводим ответ в json
                 let data = result.json();
 
-                console.log(data);
+                // console.log(data);
+
+                this.events.publish("lead:new_added");
+
 
                 this.goBackPop();
 

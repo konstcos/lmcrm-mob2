@@ -14,29 +14,116 @@
         </ion-buttons>
 
         <ion-buttons right text-center class="right_button">
-            <button ion-button (click)="presentActionSheet()">
-                Add &nbsp;
+            <!--<button ion-button (click)="presentActionSheet()">-->
+            <button ion-button (click)="addItem()">
+                Add
                 <!--<ion-icon name="md-alarm"></ion-icon>-->
             </button>
         </ion-buttons>
 
     </ion-navbar>
 
+    <ion-toolbar>
+        <div class="segment_control_block">
+            <ion-segment [(ngModel)]="organizerBlocks">
+
+                <ion-segment-button value="reminders" class="organizer-name">
+                    <ion-icon name="alarm"></ion-icon> Reminders
+                </ion-segment-button>
+                <ion-segment-button value="comments" class="organizer-name">
+                    <ion-icon name="ios-paper-outline"></ion-icon> Comments
+                </ion-segment-button>
+
+            </ion-segment>
+        </div>
+    </ion-toolbar>
+
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
-    <ion-list>
-        <ion-item *ngFor="let item of items" text-right>
+    <div *ngIf="items">
 
-            <ion-icon *ngIf="item.type == 1" name="alarm"></ion-icon>
-            <ion-icon *ngIf="item.type != 1" name="ios-document-outline"></ion-icon>
+        <div [ngSwitch]="organizerBlocks">
+
+            <ion-row *ngSwitchCase="'reminders'">
+                <ion-col>
+                    <ion-row *ngFor="let item of items['reminders']" class="organizer-row" (click)="itemActionSheet(item)">
+
+                        <ion-col col-1 align-self-center>
+                            <ion-icon class="status_icon_pending" *ngIf="item.status == 'pending'" name="md-square-outline"></ion-icon>
+                            <ion-icon class="status_icon_overdue" *ngIf="item.status == 'overdue'" name="md-square"></ion-icon>
+                            <ion-icon class="status_icon_done" *ngIf="item.status == 'done'" name="md-checkbox-outline"></ion-icon>
+                        </ion-col>
+
+                        <ion-col col-5 text-left align-self-center>
+                            <!--<ion-icon name="alarm"></ion-icon>-->
+                            <div class="date"> <span class="time">{{ item.date.time }}</span> {{ item.date.date }} </div>
+
+                        </ion-col>
+
+                        <ion-col class="organizer-data" text-right no-padding>
+
+                            <!--<div class="date"> <span class="time">{{ item.date.time }}</span> {{ item.date.date }} </div>-->
+                            <div *ngIf="item.status == 'pending'" class="status_pending">pending</div>
+                            <div *ngIf="item.status == 'overdue'" class="status_overdue">overdue</div>
+                            <div *ngIf="item.status == 'done'" class="status_done">done</div>
+
+                            <div class="comment">{{ item.text }}</div>
+                        </ion-col>
+
+                    </ion-row>
 
 
-            {{ item.text }}
+                </ion-col>
+            </ion-row>
 
-        </ion-item>
-    </ion-list>
+            <ion-row *ngSwitchCase="'comments'">
+                <ion-col>
+                    <ion-row *ngFor="let item of items['comments']" class="organizer-row" (click)="itemActionSheet(item)">
+
+                        <ion-col class="organizer-data" text-right>
+
+                            <div class="comment">{{ item.text }}</div>
+                        </ion-col>
+
+                    </ion-row>
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+    </div>
+
+    <!--<ion-row *ngFor="let item of items" class="organizer-row">-->
+
+        <!--<ion-col col-2 text-center align-self-center>-->
+            <!--<ion-icon *ngIf="item.type == 2" name="alarm"></ion-icon>-->
+            <!--<ion-icon *ngIf="item.type == 1" name="ios-paper-outline"></ion-icon>-->
+        <!--</ion-col>-->
+
+        <!--<ion-col class="organizer-data" text-right>-->
+
+            <!--<div *ngIf="item.type == 2" class="date"> <span class="time">{{ item.date.time }}</span> {{ item.date.date }} </div>-->
+            <!--<div *ngIf="item.type == 1" class="date"> &nbsp; </div>-->
+            <!--<div>{{ item.text }}</div>-->
+
+        <!--</ion-col>-->
+
+    <!--</ion-row>-->
+
+
+    <!--<ion-list>-->
+        <!--<ion-item *ngFor="let item of items" text-right>-->
+
+            <!--<ion-icon *ngIf="item.type == 2" name="alarm"></ion-icon>-->
+            <!--<ion-icon *ngIf="item.type == 1" name="ios-paper-outline"></ion-icon>-->
+
+
+            <!--{{ item.text }}-->
+
+        <!--</ion-item>-->
+    <!--</ion-list>-->
 
 </ion-content>

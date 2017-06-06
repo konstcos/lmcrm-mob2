@@ -1,9 +1,23 @@
 import {Component} from '@angular/core';
-import {NavController, ToastController, Nav, LoadingController, AlertController} from 'ionic-angular';
+import {
+    NavController,
+    ToastController,
+    Nav,
+    LoadingController,
+    AlertController,
+    ModalController,
+    NavParams
+} from 'ionic-angular';
 
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
+// import {OpenPage} from '../open/open'
+
 import {LoginPage} from '../login/login'
+import {RegistrationDataSpheresPage} from '../registration-data-spheres/registration-data-spheres'
+import {RegistrationDataPersonalPage} from '../registration-data-personal/registration-data-personal'
+import {RegistrationDataRolePage} from '../registration-data-role/registration-data-role'
+import {RegistrationWaitingConfirmation} from '../registration-waiting-confirmation/registration-waiting-confirmation'
 import {User} from '../../providers/user';
 
 /*
@@ -17,141 +31,182 @@ import {User} from '../../providers/user';
     templateUrl: 'registration-data.html'
 })
 export class RegistrationDataPage {
-    // The account fields for the login form.
-    // If you're using the username field with or without email, make
-    // sure to add it to the type
-    account: {email: string, password: string, confirmPassword: string} = {
-        email: 'test@example.com',
-        password: 'test',
-        confirmPassword: 'test'
-    };
-
-    spheres: any = {
-        '1': 'Celebration halls',
-        '2': 'tet',
-        '3': 'test',
-        '4': 'test',
-        '5': 'test1',
-        '6': 'test 11.28.2016',
-    };
-
-    sphereSelected: any = [];
 
 
-    opportunity: any = {
-
-        1: true,
-        2: false,
-        3: false,
-
+    /**
+     * Подтверждение соответствующего этапа
+     */
+    public confirmation: any = {
+        sphere: false,
+        personal: false,
+        role: false,
     };
 
 
-    // Our translated text strings
-    private signupErrorString: string;
+    /**
+     * Сферы выбранные пользователем
+     *
+     */
+    public sphereSelected: any = [];
+
+
+    /**
+     * Персональные данные пользователя
+     *
+     */
+    public personalData: any = {
+        firstName: '',
+        lastName: '',
+        company: '',
+        phone: '',
+    };
+
+
+    /**
+     * Выбранная агентом роль
+     *
+     */
+    public role: number = 0;
 
     constructor(public navCtrl: NavController,
+                public navParams: NavParams,
                 public user: User,
                 public nav: Nav,
                 public toastCtrl: ToastController,
                 public loadingCtrl: LoadingController,
                 public alertCtrl: AlertController,
-                public translateService: TranslateService) {
-
+                public translateService: TranslateService,
+                public modalCtrl: ModalController) {
 
     }
 
 
-    showSpheres() {
-        let alert = this.alertCtrl.create();
-        alert.setTitle('Which planets have you visited?');
+    /**
+     * Выбор сферы системы
+     *
+     */
+    selectSpheres() {
 
-        alert.addInput({
-            type: 'checkbox',
-            label: 'Celebration halls',
-            value: '1',
-            checked: true
+        // модальное окно со сферами системы
+        let dataSpheres = this.modalCtrl.create(RegistrationDataSpheresPage, {spheres: this.sphereSelected});
+        // показ модального окна со сферами
+        dataSpheres.present();
+
+        // сценарий при закрытии модального окна со сферами
+        dataSpheres.onDidDismiss(data => {
+            // сохранение выбранных сфер в модели
+            this.sphereSelected = data;
+            // пометка пройденного этапа, или наоборот - что этап не пройден
+            this.confirmation.sphere = this.sphereSelected.length != 0;
         });
-
-        alert.addInput({
-            type: 'checkbox',
-            label: 'tet',
-            value: '2'
-        });
-
-        alert.addInput({
-            type: 'checkbox',
-            label: 'test',
-            value: '3'
-        });
-
-        alert.addInput({
-            type: 'checkbox',
-            label: 'test',
-            value: '4'
-        });
-
-        alert.addInput({
-            type: 'checkbox',
-            label: 'test1',
-            value: '5'
-        });
-
-        alert.addInput({
-            type: 'checkbox',
-            label: 'test 11.28.2016',
-            value: '6'
-        });
-
-        alert.addButton('Cancel');
-        alert.addButton({
-            text: 'Okay',
-            handler: data => {
-                console.log('Checkbox data:', data);
-                // this.testCheckboxOpen = false;
-                this.sphereSelected = data;
-                console.log(this.spheres)
-            }
-
-        });
-        alert.present();
     }
 
 
-// <ion-select>
-// <ion-option value="1">Celebration halls</ion-option>
-// <ion-option value="2">tet</ion-option>
-//     <ion-option value="3">test</ion-option>
-//     <ion-option value="4">test</ion-option>
-//     <ion-option value="5">test1</ion-option>
-//     <ion-option value="6">test 11.28.2016</ion-option>
-// </ion-select>
+    /**
+     * Заполнение персонральных данных агента
+     *
+     */
+    fillingPersonal() {
 
-    opportunityItemClick(itemId) {
+        // модальное окно со сферами системы
+        let personalData = this.modalCtrl.create(RegistrationDataPersonalPage, {personal: this.personalData});
+        // показ модального окна со сферами
+        personalData.present();
 
-        // console.log(itemId);
+        // сценарий при закрытии модального окна со сферами
+        personalData.onDidDismiss(data => {
+            // сохранение выбранных сфер в модели
+            this.personalData = data.personal;
 
-        for(let oItem in this.opportunity){
+            // проверка валидности данных по личным данным
+            this.confirmation.personal = data.status;
 
-            // console.log(oItem);
+            // console.log('закрытие модального окна с персональными данными');
+            // console.log(data);
+        });
+    }
 
-            this.opportunity[oItem] = oItem == itemId;
 
-            // if(oItem == itemId){
-            //
-            //     this.opportunity[oItem] = true;
-            //
-            // }else{
-            //
-            //     this.opportunity[oItem] = false;
-            // }
+    /**
+     * Выбор на соответствие роли
+     *
+     */
+    roleMatching() {
 
+        // модальное окно со сферами системы
+        let personalData = this.modalCtrl.create(RegistrationDataRolePage, {role: this.role});
+        // показ модального окна со сферами
+        personalData.present();
+
+        // сценарий при закрытии модального окна со сферами
+        personalData.onDidDismiss(data => {
+            // сохранение выбранных сфер в модели
+            this.role = data.role;
+
+            // проверка валидности данных по личным данным
+            this.confirmation.role = this.role != 0;
+
+            console.log('закрытие модального окна с ролями');
+            console.log(data);
+        });
+    }
+
+
+    /**
+     * Сохранение данных
+     *
+     */
+    saveRegistrationData() {
+
+        // проверка данных
+        if(!(this.confirmation.sphere && this.confirmation.personal && this.confirmation.role)){
+            // если не все данные заполненны
+            // выходим из метода
+            console.log('не все данные заполненны');
+            return false;
         }
 
+        console.log('начало отправки данных');
+
+        // данные для отправки на сервер
+        let data = {
+            spheres: this.sphereSelected,
+            personal: this.personalData,
+            role: this.role
+        };
+
+
+        // сохранение данных
+        this.user.saveAgentData(data)
+            .subscribe(result => {
+                // If the API returned a successful response, mark the user as logged in
+
+                let data = result.json();
+
+                console.log(data);
+
+                if (data.status == 'success') {
+                    this.nav.setRoot(RegistrationWaitingConfirmation);
+                }
+
+
+                // loading.dismiss();
+
+            }, err => {
+                console.error('ERROR', err);
+                // alert('ERROR: ' + err);
+                // loading.dismiss();
+            });
+
+        // console.log('работаю');
+        // console.log(data);
     }
 
 
     goBack() {
+        // метод разлогинивания
+        this.user.logout();
+        // переходим на страницу логина
         this.nav.setRoot(LoginPage);
     }
 

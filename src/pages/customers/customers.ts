@@ -7,6 +7,8 @@ import {MasksPage} from '../masks/masks'
 
 import {Customer} from '../../providers/customer';
 import {SalesmenPage} from '../salesmen/salesmen';
+import {EditMaskPage} from '../edit-mask/edit-mask'
+
 
 /*
  Generated class for the Ustomers page.
@@ -118,33 +120,24 @@ export class CustomersPage {
             this.nav.setRoot(MasksPage, {sphereId: sphere.id});
         }
 
+    }
 
 
-        // this.customer.getSphereMasks( sphere.id )
-        //
-        //     .subscribe(result => {
-        //         // при получении итемов
-        //
-        //         // переводим ответ в json
-        //         let data = result.json();
-        //
-        //         // console.log(data);
-        //
-        //         // this.spheres = data;
-        //
-        //         this.nav.setRoot(MasksPage, { sphere: data });
-        //
-        //
-        //     }, err => {
-        //         // в случае ошибки
-        //
-        //         console.log('ERROR: ' + err);
-        //
-        //         // todo выводится сообщение об ошибке (нету связи и т.д.)
-        //
-        //         // отключаем окно индикатора загрузки
-        //         // loading.dismiss();
-        //     });
+    /**
+     * Создание новой маски
+     *
+     */
+    createNewMask(sphereId){
+        // console.log('создаю новую маску');
+
+        if( this.subRole ){
+
+            this.nav.setRoot(EditMaskPage, { sphereId: sphereId, appointment: 'newMask', sourcePage: 'customer', subRole: 'salesman', salesmenData: this.salesmenData });
+
+        }else{
+
+            this.nav.setRoot(EditMaskPage, { sphereId: sphereId, appointment: 'newMask', sourcePage: 'customer',});
+        }
 
     }
 

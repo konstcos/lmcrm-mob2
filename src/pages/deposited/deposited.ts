@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, LoadingController, ModalController} from 'ionic-angular';
+import {NavController, NavParams, LoadingController, ModalController, Events} from 'ionic-angular';
 
 import {DepositedDetailPage} from "../deposited-detail/deposited-detail";
 
@@ -45,7 +45,8 @@ export class DepositedPage {
         public settings: Settings,
         public deposited: Deposited,
         public loadingCtrl: LoadingController,
-        public modalCtrl: ModalController) {
+        public modalCtrl: ModalController,
+        public events: Events) {
 
     }
 
@@ -55,15 +56,41 @@ export class DepositedPage {
     ionViewDidLoad() {
         // console.log('ionViewDidLoad DepositedPage');
 
+        this.events.subscribe("lead:new_added", () => {
+            // this.notices = 0;
+
+            console.log('отданные лиды, добавлен новый лид');
+            this.loadItems();
+        });
+
+
     }
 
+
+    /**
+     * Сценарий при загрузке страницы
+     *
+     */
     ionViewWillEnter() {
         console.log('DepositedPage View');
         // console.log( this.settings.settings )
         // загрузка новых итемов
+
+        // событие на смену страницы
+        this.events.publish("page:change", {page: 'deposited'});
+
+        // todo событие по смене фильтра
+        this.events.subscribe('depositedFilter', () => {
+
+            console.log('событие по фильтру в отданных лидах');
+
+            this.filter = JSON.parse(localStorage.getItem('depositedFilter'));
+
+            this.loadItems();
+        });
+
+
         this.loadItems();
-
-
     }
 
 
@@ -280,6 +307,12 @@ export class DepositedPage {
     detail(item) {
         let modal = this.modalCtrl.create(DepositedDetailPage, {item: item});
         modal.present();
+    }
+
+
+    customerPage() {
+
+        this.events.publish("main:openCustomer");
     }
 
 }

@@ -1,0 +1,72 @@
+<!--
+  Generated template for the OpenLeadOrganizer page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="primary">
+        <ion-buttons left text-center class="left_button">
+            <button ion-button (click)="close()">
+                close
+            </button>
+        </ion-buttons>
+
+        <ion-buttons right text-center class="right_button">
+            <button ion-button (click)="save()">
+                Save &nbsp;
+            </button>
+        </ion-buttons>
+
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-list *ngIf="itemData">
+
+        <ion-item *ngIf="type == 'reminder'" margin-bottom>
+            <ion-label text-right stacked>Date</ion-label>
+            <ion-datetime
+                    text-right
+                    displayFormat="DD/MM/YYYY"
+                    min="{{nowDate}}"
+                    max="2040-12-31"
+                    [(ngModel)]="itemData.dateDate"
+                    (ionChange)="dateChange()"
+                    class="date">
+
+            </ion-datetime>
+        </ion-item>
+
+
+        <ion-item *ngIf="type == 'reminder'" margin-bottom>
+            <ion-label text-right stacked>Time</ion-label>
+            <ion-datetime
+                    text-right
+                    displayFormat="HH:mm"
+                    [(ngModel)]="itemData.dateTime"
+                    min="{{nowTime}}"
+                    class="time">
+
+            </ion-datetime>
+        </ion-item>
+
+
+        <ion-item margin-bottom>
+            <ion-label text-right stacked>comment</ion-label>
+            <ion-textarea
+                    rows="4"
+                    text-right [(ngModel)]="itemData.text"
+                    class="add_lead_value">
+
+            </ion-textarea>
+        </ion-item>
+
+    </ion-list>
+
+
+</ion-content>

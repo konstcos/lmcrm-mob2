@@ -42,7 +42,6 @@ export class User {
                 public s: Settings) {
     }
 
-// , public nav: Nav
 
     /**
      * Send a POST request to our login endpoint with the data
@@ -65,13 +64,16 @@ export class User {
                 // } else {
                 // }
 
-                if (res.status == 'Ok') {
+                if (res.status == 'success') {
                     this._loggedIn(res);
                     // return { status: 'success'};
 
-                } else if (res == 'invalid_credentials') {
+                } else if (res.info == 'invalid_credentials') {
 
                     // return { status: 'invalid', detail: 'invalid_credentials' };
+
+                } else if (res.info == 'unfinished_registration') {
+                    this._loggedIn(res);
 
                 } else {
 
@@ -91,33 +93,34 @@ export class User {
      * Send a POST request to our signup endpoint with the data
      * the user entered on the form.
      */
-    signup(accountInfo: any) {
-        let seq = this.api.post('signup', accountInfo).share();
+    registrationStepOne(accountInfo: any) {
+
+        let seq = this.api.post('api/registrationStepOne', accountInfo);
 
         // console.log('user');
         // console.log(seq);
 
-        seq
-            .map(res => res.json())
-            .subscribe(res => {
-                // If the API returned a successful response, mark the user as logged in
-
-                alert(res);
-                // console.log(res);
-                // if (res.status == 'success') {
-                //     this._loggedIn(res);
-                // }
-
-                if (res.status == 'Ok') {
-                    this._loggedIn(res);
-                }
-
-
-            }, err => {
-                console.error('ERROR', err);
-                // alert('ERROR: ' + err);
-
-            });
+        // seq
+        //     .map(res => res.json())
+        //     .subscribe(res => {
+        //         // If the API returned a successful response, mark the user as logged in
+        //
+        //         // alert(res);
+        //         // console.log(res);
+        //         if (res.status == 'success') {
+        //             this._loggedIn(res);
+        //         }
+        //
+        //         // if (res.status == 'Ok') {
+        //         //     this._loggedIn(res);
+        //         // }
+        //
+        //
+        //     }, err => {
+        //         console.error('ERROR', err);
+        //         // alert('ERROR: ' + err);
+        //
+        //     });
 
         return seq;
     }
@@ -165,12 +168,49 @@ export class User {
 
 
     /**
+     * Получение регионов пользователя
+     *
+     */
+    getRegions(regionId: number) {
+
+        let seq = this.api.post('api/getRegions', {regionId: regionId}).share();
+
+        return seq;
+    }
+
+
+
+    /**
+     * Получение всех сфер пользователя
+     *
+     */
+    getSphereStatuses(sphereId: number) {
+
+        let seq = this.api.post('api/getSphereStatuses', {sphereId: sphereId}).share();
+
+        return seq;
+    }
+
+
+    /**
+     * Получение описание роли
+     *
+     */
+    getRoleDescription(roleId: number, lang: string){
+
+        let seq = this.api.post('api/getRoleDescription', {roleId: roleId, lang: lang}).share();
+
+        return seq;
+    }
+
+
+    /**
      * Получение всех сфер пользователя
      *
      */
     getGroupMembers() {
 
-        console.log('getGroup');
+        // console.log('getGroup');
 
         let seq = this.api.post('api/getGroupMembers', {}).share();
 
@@ -214,6 +254,46 @@ export class User {
         let fcm_token = localStorage.getItem('fcm_token');
 
         return this.api.post('api/authCheck', {fcm_token: fcm_token}).share();
+    }
+
+
+    /**
+     * Получение всех сфер пользователя
+     *
+     */
+    getAllSystemSpheres() {
+
+        return this.api.post('api/getAllSpheres', {}).share();
+    }
+
+
+    /**
+     * Активация нового пользователя (подтверждение мэила)
+     *
+     */
+    activate(code: String) {
+
+        return this.api.post('api/activate', {code: code});
+    }
+
+
+    /**
+     * Сохранение необходимых данных агента
+     *
+     */
+    saveAgentData(data: any) {
+
+        return this.api.post('api/saveAgentData', data);
+    }
+
+
+    /**
+     * Проверка подтверждения учетной записи агента акк. менеджером
+     *
+     */
+    confirmationCheck() {
+
+        return this.api.post('api/confirmationCheck', {});
     }
 
 
