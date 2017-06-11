@@ -4,6 +4,16 @@ registration-data-personal {
     color: grey;
   }
 
+  .region_data_row {
+
+    .label {
+      color: grey;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+  }
+
   .personal_data_row {
 
     margin-bottom: 20px;
@@ -61,20 +71,75 @@ registration-data-personal {
     text-align: right;
   }
 
-  .region_input {
+  .region_item {
     color: grey;
+    font-size: 12px;
+    margin-top: 20px;
+    cursor: pointer;
+
+    $rightPadding: 20px;
+
+    & + .region_item {
+      margin-right: $rightPadding;
+
+      & + .region_item {
+        margin-right: $rightPadding * 2;
+
+        & + .region_item {
+          margin-right: $rightPadding * 3;
+
+          & + .region_item {
+            margin-right: $rightPadding * 4;
+
+            & + .region_item {
+              margin-right: $rightPadding * 5;
+
+              & + .region_item {
+                margin-right: $rightPadding * 6;
+
+                & + .region_item {
+                  margin-right: $rightPadding * 7;
+
+                  & + .region_item {
+                    margin-right: $rightPadding * 8;
+
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .region_selected_name {
+      color: #337AB7;
+      font-size: 14px;
+    }
+
+    .dell_region_button {
+      color: #FF7B7B;
+    }
+
   }
 
-  .region_block {
-    margin-top: 20px;
-    margin-left: 30%;
+  //.region_item + .region_item {
+  //  margin-right: 30px;
+  //}
 
-    .region_item {
-      padding: 6px 0;
-      margin: 3px 0;
+  .region_variant_block {
+    margin-top: 30px;
+    //margin-left: 30%;
+
+    .region_variant_item {
+      padding: 10px 0;
+      margin: 12px 20px;
       font-size: 12px;
       cursor: pointer;
-      color: #3F51B5;
+      color: grey;
+      font-weight: 500;
+      border-bottom: solid 1px #CACACA;
+      border-radius: 20px;
     }
 
   }

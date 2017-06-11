@@ -1,5 +1,17 @@
 page-main {
 
+  .filter_reset_icon {
+    color: white;
+  }
+
+  .filter_icon_on {
+    color: #337AB7;
+  }
+
+  .filter_text_button_on {
+    //color: #337AB7;
+  }
+
   ion-content.no-scroll {
 
     > .scroll-content {
@@ -55,21 +67,21 @@ page-main {
 
     }
 
-    .period_filter_item{
+    .period_filter_item {
       //padding: 10px 0;
       margin: 10px 0;
     }
 
-    .item-block{
+    .item-block {
       min-height: 0;
       //padding: 5px 0;
     }
 
-    ion-label{
+    ion-label {
       margin: 5px 0;
     }
 
-    ion-datetime{
+    ion-datetime {
       padding: 0;
     }
 

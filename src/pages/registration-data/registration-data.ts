@@ -14,6 +14,7 @@ import {TranslateService} from 'ng2-translate/ng2-translate';
 // import {OpenPage} from '../open/open'
 
 import {LoginPage} from '../login/login'
+import {MainPage} from '../main/main'
 import {RegistrationDataSpheresPage} from '../registration-data-spheres/registration-data-spheres'
 import {RegistrationDataPersonalPage} from '../registration-data-personal/registration-data-personal'
 import {RegistrationDataRolePage} from '../registration-data-role/registration-data-role'
@@ -40,6 +41,7 @@ export class RegistrationDataPage {
         sphere: false,
         personal: false,
         role: false,
+        agreement: false,
     };
 
 
@@ -186,7 +188,7 @@ export class RegistrationDataPage {
                 console.log(data);
 
                 if (data.status == 'success') {
-                    this.nav.setRoot(RegistrationWaitingConfirmation);
+                    this.nav.setRoot(MainPage);
                 }
 
 
@@ -200,6 +202,15 @@ export class RegistrationDataPage {
 
         // console.log('работаю');
         // console.log(data);
+    }
+
+
+    /**
+     * Подтверждение пользовательского соглашения
+     *
+     */
+    confirmUserAgreement(){
+        this.confirmation.agreement = !this.confirmation.agreement;
     }
 
 

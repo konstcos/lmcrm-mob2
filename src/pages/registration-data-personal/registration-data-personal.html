@@ -239,59 +239,62 @@
 
 
     <!-- Поле с регионом -->
-    <!--<div class="personal_data_row">-->
+    <div class="region_data_row">
 
-        <!--<ion-row>-->
+        <ion-row>
 
-            <!--&lt;!&ndash; Иконка валидации &ndash;&gt;-->
-            <!--<ion-col col-1 align-self-center text-right class="validation_block">-->
-                <!--&lt;!&ndash; Успешная валидация &ndash;&gt;-->
-                <!--<ion-icon *ngIf="state.region == 2" class="success" name="md-checkmark"></ion-icon>-->
-                <!--&lt;!&ndash; Ошибка валидации &ndash;&gt;-->
-                <!--<ion-icon *ngIf="state.region == 3" class="alert" name="md-alert"></ion-icon>-->
-            <!--</ion-col>-->
 
-            <!--&lt;!&ndash; Блок с именем пользователя &ndash;&gt;-->
-            <!--<ion-col class="data_block">-->
-                <!--&lt;!&ndash; Лейбл ввода имени &ndash;&gt;-->
-                <!--<div class="label">Region</div>-->
-                <!--&lt;!&ndash; Инпут имени пользователя &ndash;&gt;-->
-                <!--&lt;!&ndash;<ion-input&ndash;&gt;-->
-                        <!--&lt;!&ndash;class="input_row"&ndash;&gt;-->
-                        <!--&lt;!&ndash;[(ngModel)]="personalData.company"&ndash;&gt;-->
-                        <!--&lt;!&ndash;type="text"&ndash;&gt;-->
-                        <!--&lt;!&ndash;text-right&ndash;&gt;-->
-                        <!--&lt;!&ndash;(blur)="companyNameValidate()"&ndash;&gt;-->
-                        <!--&lt;!&ndash;name="firstName">&ndash;&gt;-->
-                <!--&lt;!&ndash;</ion-input>&ndash;&gt;-->
+            <!-- Блок с именем пользователя -->
+            <ion-col class="" text-right>
+                <!-- Лейбл ввода имени -->
+                <div class="label" text-right>Region</div>
+                <!-- Инпут имени пользователя -->
+                <!--<ion-input-->
+                        <!--class="input_row"-->
+                        <!--[(ngModel)]="personalData.company"-->
+                        <!--type="text"-->
+                        <!--text-right-->
+                        <!--(blur)="companyNameValidate()"-->
+                        <!--name="firstName">-->
+                <!--</ion-input>-->
 
-                <!--<div (click)="switchRegion(1)" text-right class="region_input">-->
-                    <!--Israel-->
+                <div text-right class="region_item" (click)="clearRegions()">
 
-                    <!--<span *ngFor="let selectRegion of selectRegions">-->
-                        <!--&gt; {{ selectRegion.name }}-->
-                    <!--</span>-->
+                    <ion-col class="region_selected_name">
+                        Israel
+                    </ion-col>
+                    <ion-col col-1 text-center>
+                    </ion-col>
 
-                <!--</div>-->
+                </div>
 
-                <!--&lt;!&ndash; Разделительная черта &ndash;&gt;-->
-                <!--<div>-->
-                    <!--<hr class="personal_data_row_separator" [ngClass]="(state.company == 3) ? 'red' : '' ">-->
-                <!--</div>-->
+                <div *ngFor="let selectRegion of selectRegions" class="region_item" (click)="dellRegion(selectRegion)">
 
-            <!--</ion-col>-->
-        <!--</ion-row>-->
+                    <ion-row>
+                        <ion-col class="region_selected_name">
+                            {{ selectRegion.name }}
+                        </ion-col>
+                        <ion-col col-1 text-center>
+                            <ion-icon class="dell_region_button" name="md-close"></ion-icon>
+                        </ion-col>
+                    </ion-row>
 
-        <!--<div class="region_block">-->
+                    <!--<span>{{ selectRegion.name }}</span> <ion-icon name="md-close"></ion-icon>-->
+                </div>
 
-            <!--<div *ngFor="let region of regions" class="region_item" (click)="switchRegion(region)">-->
+            </ion-col>
+        </ion-row>
 
-                <!--{{ region.name }}-->
-            <!--</div>-->
+        <div class="region_variant_block">
 
-        <!--</div>-->
+            <div *ngFor="let region of regions" class="region_variant_item" text-center (click)="switchRegion(region)">
 
-    <!--</div>-->
+                {{ region.name }}
+            </div>
+
+        </div>
+
+    </div>
 
 
 

@@ -13,17 +13,26 @@
 
     <ion-navbar color="primary" hideBackButton="true">
 
-        <ion-buttons left text-center class="left_button">
+        <ion-buttons left text-center>
             <button ion-button (click)="goBack()">
-                close
+                <ion-icon name="ios-arrow-back" class="back_arrow"></ion-icon>
             </button>
         </ion-buttons>
 
-        <ion-buttons right text-center class="right_button">
-            <!--<button ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">-->
-            <!--add lead-->
+        <ion-title>Statistics</ion-title>
+
+
+        <!--<ion-buttons left text-center class="left_button">-->
+            <!--<button ion-button (click)="goBack()">-->
+                <!--close-->
             <!--</button>-->
-        </ion-buttons>
+        <!--</ion-buttons>-->
+
+        <!--<ion-buttons right text-center class="right_button">-->
+            <!--&lt;!&ndash;<button ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">&ndash;&gt;-->
+            <!--&lt;!&ndash;add lead&ndash;&gt;-->
+            <!--&lt;!&ndash;</button>&ndash;&gt;-->
+        <!--</ion-buttons>-->
 
     </ion-navbar>
 
@@ -31,9 +40,9 @@
 
         <ion-row no-padding>
 
-            <ion-col col-1 no-padding text-center align-self-center class="statistic_data_header_button">
-                <ion-icon name="ios-arrow-up"></ion-icon>
-            </ion-col>
+            <!--<ion-col col-1 no-padding text-center align-self-center class="statistic_data_header_button">-->
+                <!--<ion-icon name="ios-arrow-up"></ion-icon>-->
+            <!--</ion-col>-->
 
             <ion-col no-padding class="statistic_data_header">
                 <ion-item>
@@ -61,7 +70,15 @@
 
                 <ion-row *ngIf="periodBlock" class="statistic_data_date" color="light">
 
-                    <ion-col text-center color="light" align-self-center>
+
+                    <ion-col col-2 no-padding text-right>
+                        <div class="date_label"> from: </div>
+                    </ion-col>
+
+                    <ion-col text-left no-padding color="light" align-self-center>
+
+                        <!--<span> from: </span>-->
+
                         <ion-datetime
                                 displayFormat="DD/MM/YYYY"
                                 pickerFormat="DD-MM-YYYY"
@@ -71,7 +88,12 @@
                         </ion-datetime>
                     </ion-col>
 
-                    <ion-col text-center color="light" align-self-center>
+                    <ion-col col-2 no-padding text-right>
+                        <div class="date_label"> to: </div>
+                    </ion-col>
+
+                    <ion-col text-left no-padding color="light" align-self-center>
+
                         <ion-datetime
                                 displayFormat="DD/MM/YYYY"
                                 pickerFormat="DD-MM-YYYY"
@@ -116,6 +138,12 @@
                             <ion-row>
                                 <ion-col text-center class="title">
                                     Leads
+                                </ion-col>
+                            </ion-row>
+
+                            <ion-row>
+                                <ion-col class="item_data" text-right>
+                                    <span class="period legend">by period</span> / <span class="all legend">by all</span>
                                 </ion-col>
                             </ion-row>
 
@@ -221,6 +249,12 @@
                                 </ion-col>
                             </ion-row>
 
+                            <ion-row>
+                                <ion-col class="item_data" text-right>
+                                    <span class="period legend">by period</span> / <span class="all legend">by all</span>
+                                </ion-col>
+                            </ion-row>
+
                         </div>
 
                         <!-- Данные салеманов -->
@@ -238,6 +272,12 @@
                                 <ion-row>
                                     <ion-col class="salesmen_name">
                                         {{ salesmen.user.email }}
+                                    </ion-col>
+                                </ion-row>
+
+                                <ion-row>
+                                    <ion-col class="item_data" text-right>
+                                        <span class="period legend">by period</span> / <span class="all legend">by all</span>
                                     </ion-col>
                                 </ion-row>
 
@@ -316,6 +356,21 @@
 
         <ion-row *ngSwitchCase="'statuses'">
             <ion-col no-padding>
+
+
+                <!-- легенда к таблицам -->
+                <ion-row>
+                    <ion-col class="label">
+
+                    </ion-col>
+                    <ion-col text-center class="item_data_legend">
+                        <span class="period legend">by period</span> / <span class="all legend">by all</span>
+                    </ion-col>
+                    <ion-col text-center class="item_data_legend">
+                        <span class="period legend">by period</span> / <span class="all legend">by all</span>
+                    </ion-col>
+                </ion-row>
+
 
                 <!-- лиды без статуса -->
                 <div class="statistic_status_block statistic_status_no_status">
@@ -454,6 +509,19 @@
 
                 </div>
 
+                <!-- легенда к таблицам -->
+                <ion-row>
+                    <ion-col class="label">
+
+                    </ion-col>
+                    <ion-col text-center class="item_data_legend">
+                        <span class="period legend">by period</span> / <span class="all legend">by all</span>
+                    </ion-col>
+                    <ion-col text-center class="item_data_legend">
+                        <span class="period legend">by period</span> / <span class="all legend">by all</span>
+                    </ion-col>
+                </ion-row>
+
             </ion-col>
         </ion-row>
 
@@ -461,18 +529,42 @@
             <ion-col no-padding>
 
                 <ion-row *ngFor="let transition of statisticData.transitions" class="statistic_transition_item">
+
+
                     <ion-col no-padding>
 
-                        <!-- направление транзита -->
-                        <ion-row class="direction_row">
+                        <!-- Статус от которого идем -->
+                        <ion-row class="status_from_row">
 
                             <ion-col text-center>
                                 {{ transition.fromStatus }}
                             </ion-col>
 
-                            <ion-col col-2 text-center>
-                                <ion-icon name="md-arrow-forward"></ion-icon>
+                        </ion-row>
+
+
+                        <!-- Оценки -->
+                        <ion-row>
+
+                            <ion-col text-center>
+                                <div class="legend period">period</div>
+                                <div class="statistic_data">{{ transition.percentPeriod }}% <span class="rating {{ transition.ratingPeriod }}">{{ transition.ratingPeriod }}</span></div>
                             </ion-col>
+
+                            <ion-col col-1 text-center align-self-center class="status_arrow">
+                                <ion-icon name="md-arrow-down"></ion-icon>
+                            </ion-col>
+
+                            <ion-col text-center>
+                                <div class="legend all">all</div>
+                                <div class="statistic_data"> {{ transition.percentAll }}% <span class="rating {{ transition.ratingAll }}">{{ transition.ratingAll }}</span></div>
+                            </ion-col>
+
+                        </ion-row>
+
+
+                        <!-- Статус к которому пришли -->
+                        <ion-row class="status_to_row">
 
                             <ion-col text-center>
                                 {{ transition.toStatus }}
@@ -480,47 +572,115 @@
 
                         </ion-row>
 
-                        <!-- Данные по периоду -->
-                        <ion-row class="legend_row">
 
-                            <ion-col text-center>
-                                period
-                            </ion-col>
 
-                            <ion-col text-center>
-                                all
-                            </ion-col>
 
-                        </ion-row>
 
-                        <!-- Данные по периоду -->
-                        <ion-row class="percent_row">
+                        <!-- периоды -->
+                        <!--<ion-row class="legend_row">-->
 
-                            <ion-col text-center no-padding>
-                                {{ transition.percentPeriod }}%
-                            </ion-col>
+                            <!--<ion-col text-center>-->
+                                <!--period-->
+                            <!--</ion-col>-->
 
-                            <ion-col text-center no-padding>
-                                {{ transition.percentAll }}%
-                            </ion-col>
+                            <!--<ion-col text-center>-->
+                                <!--all-->
+                            <!--</ion-col>-->
 
-                        </ion-row>
+                        <!--</ion-row>-->
 
-                        <!-- Данные по периоду -->
-                        <ion-row class="rating_row">
+                        <!-- Проценты -->
+                        <!--<ion-row class="percent_row">-->
 
-                            <ion-col text-center>
-                                {{ transition.ratingPeriod }}
-                            </ion-col>
+                            <!--<ion-col text-center no-padding>-->
+                                <!--{{ transition.percentPeriod }}%-->
+                            <!--</ion-col>-->
 
-                            <ion-col text-center>
-                                {{ transition.ratingAll }}
-                            </ion-col>
+                            <!--<ion-col text-center no-padding>-->
+                                <!--{{ transition.percentAll }}%-->
+                            <!--</ion-col>-->
 
-                        </ion-row>
+                        <!--</ion-row>-->
 
+                        <!-- Оценка периода -->
+                        <!--<ion-row class="rating_row">-->
+
+                            <!--<ion-col text-center>-->
+                                <!--{{ transition.ratingPeriod }}-->
+                            <!--</ion-col>-->
+
+                            <!--<ion-col text-center>-->
+                                <!--{{ transition.ratingAll }}-->
+                            <!--</ion-col>-->
+
+                        <!--</ion-row>-->
 
                     </ion-col>
+
+
+
+
+
+
+                    <!--<ion-col no-padding>-->
+
+                        <!--&lt;!&ndash; Названия статусов &ndash;&gt;-->
+                        <!--<ion-row class="direction_row">-->
+
+                            <!--<ion-col text-center>-->
+                                <!--{{ transition.fromStatus }}-->
+                            <!--</ion-col>-->
+
+                            <!--<ion-col col-2 text-center>-->
+                                <!--<ion-icon name="md-arrow-forward"></ion-icon>-->
+                            <!--</ion-col>-->
+
+                            <!--<ion-col text-center>-->
+                                <!--{{ transition.toStatus }}-->
+                            <!--</ion-col>-->
+
+                        <!--</ion-row>-->
+
+                        <!--&lt;!&ndash; периоды &ndash;&gt;-->
+                        <!--<ion-row class="legend_row">-->
+
+                            <!--<ion-col text-center>-->
+                                <!--period-->
+                            <!--</ion-col>-->
+
+                            <!--<ion-col text-center>-->
+                                <!--all-->
+                            <!--</ion-col>-->
+
+                        <!--</ion-row>-->
+
+                        <!--&lt;!&ndash; Проценты &ndash;&gt;-->
+                        <!--<ion-row class="percent_row">-->
+
+                            <!--<ion-col text-center no-padding>-->
+                                <!--{{ transition.percentPeriod }}%-->
+                            <!--</ion-col>-->
+
+                            <!--<ion-col text-center no-padding>-->
+                                <!--{{ transition.percentAll }}%-->
+                            <!--</ion-col>-->
+
+                        <!--</ion-row>-->
+
+                        <!--&lt;!&ndash; Оценка периода &ndash;&gt;-->
+                        <!--<ion-row class="rating_row">-->
+
+                            <!--<ion-col text-center>-->
+                                <!--{{ transition.ratingPeriod }}-->
+                            <!--</ion-col>-->
+
+                            <!--<ion-col text-center>-->
+                                <!--{{ transition.ratingAll }}-->
+                            <!--</ion-col>-->
+
+                        <!--</ion-row>-->
+
+                    <!--</ion-col>-->
 
                 </ion-row>
 

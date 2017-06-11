@@ -37,6 +37,8 @@ import {StatisticsPage} from '../statistics/statistics'
 import {CreditsPage} from '../credits/credits'
 // страница сообщений
 import {MessagesPage} from '../messages/messages'
+// страница приватной группы
+import {PrivateGroupPage} from '../private-group/private-group'
 
 /*
  Основная страница приложения.
@@ -95,10 +97,10 @@ export class MainPage {
      */
     filter: any = {
         sphere: 0,
-        mask: 0,
-        openLeadStatus: 0,
-        leadStatus: 0,
-        source: 0,
+        mask: [],
+        openLeadStatus: [{id: 0, name: 'No status', status: false}],
+        leadStatus: [],
+        source: [],
         notOpenOnly: 0,
         period: {
             from: null,
@@ -133,8 +135,8 @@ export class MainPage {
      *
      */
     leadStatuses: any = [
-        {id: 1, name: 'New Lead', status: false},
-        {id: 2, name: 'Operator', status: false},
+        {id: 1, name: 'Bad lead', status: false},
+        {id: 2, name: 'New Lead', status: false},
         {id: 3, name: 'Auction', status: false},
         {id: 4, name: 'Closed Deal', status: false},
     ];
@@ -145,7 +147,9 @@ export class MainPage {
      *
      */
     leadSources: any = [
-        {id: 1, name: 'Private Group', status: false},
+        {id: 1, name: 'Auction', status: false},
+        {id: 2, name: 'For Deals', status: false},
+        {id: 3, name: 'Private Group', status: false},
     ];
 
     /**
@@ -161,6 +165,10 @@ export class MainPage {
      *    obtainFilter
      *
      */
+
+
+
+    public isFilterOn: boolean = false;
 
 
     /**
@@ -201,7 +209,8 @@ export class MainPage {
             {title: 'Customers filters', component: CustomersPage},
             {title: 'Salesmen', component: SalesmenPage},
             {title: 'Statistic', component: StatisticsPage},
-            {title: 'Credits', component: CreditsPage}
+            {title: 'Credits', component: CreditsPage},
+            {title: 'Private Group', component: PrivateGroupPage}
         ];
 
 
@@ -296,7 +305,7 @@ export class MainPage {
 
 
             // пересчет данных фильтра
-            this.filterRecount();
+            this.filterUpdate();
 
             console.log('сменилась страница');
             console.log(data);
@@ -375,28 +384,55 @@ export class MainPage {
      */
     selectMaskFilter(mask) {
 
+
         // перебираем все сферы и добавляем status
         for (let currentMask in this.currentMasks) {
 
+            // если этот итем маски уже отмечен (совпадают id и статус "true")
             if (this.currentMasks[currentMask]['id'] == mask['id'] && this.currentMasks[currentMask]['status']) {
 
+                // убираем отметку с этой маски
                 this.currentMasks[currentMask]['status'] = false;
-                this.filter.mask = 0;
+
+
+                let maskData = [];
+                // перебираем фильтр и убираем маску из результата
+                // this.filter.mask = 0;
+                this.filter.mask.forEach(function (maskId, key) {
+
+                    if (maskId != mask['id']) {
+                        maskData.push(maskId);
+                    }
+
+                    // console.log('перечисляю фильтр');
+                    // console.log(mask['id']);
+                    // console.log(maskId);
+                });
+
+                this.filter.mask = maskData;
+
+                // прерываем цикл
                 break;
             }
 
+            // помечаем маску не помеченной среди списка масок
+            // this.currentMasks[currentMask]['status'] = false;
 
-            this.currentMasks[currentMask]['status'] = false;
-
+            // если id маски, равен id маски в списке масок
             if (this.currentMasks[currentMask]['id'] == mask['id']) {
+                // помечаем его как отмеченный
                 this.currentMasks[currentMask]['status'] = true;
 
-                this.filter.mask = mask['id'];
+                // добавляем маску
+                // this.filter.mask = mask['id'];
+                this.filter.mask.push(mask['id']);
 
                 // todo запоминать по локалСтореджу
             }
 
         }
+
+        console.log(this.filter.mask);
 
     }
 
@@ -418,19 +454,49 @@ export class MainPage {
 
                     this.openLeadStatuses = data.statuses;
 
+                    this.openLeadStatuses.unshift({id: 0, name: 'No status', status: false});
+
+                    // {id: 0, name: 'No status', status: false}
+
                     // перебираем все сферы и добавляем status
                     for (let openLeadStatus in this.openLeadStatuses) {
 
-                        if (this.openLeadStatuses[openLeadStatus]['id'] == this.filter.openLeadStatus) {
+                        this.openLeadStatuses[openLeadStatus]['status'] = false;
 
-                            this.openLeadStatuses[openLeadStatus]['status'] = true;
+                        this.filter.openLeadStatus.forEach((openLeadStatusId) => {
 
-                        } else {
+                            if (this.openLeadStatuses[openLeadStatus]['id'] == openLeadStatusId) {
 
-                            this.openLeadStatuses[openLeadStatus]['status'] = false;
-                        }
+                                this.openLeadStatuses[openLeadStatus]['status'] = true;
+
+                            }
+
+                        });
 
                     }
+
+                    console.log('статусы сферы');
+                    console.log(this.openLeadStatuses);
+
+
+                    // for (let openLeadStatus in data.statuses) {
+                    //
+                    //     data.statuses[openLeadStatus]['status'] = false;
+                    //
+                    //     this.filter.openLeadStatus.forEach((openLeadStatusId) => {
+                    //
+                    //         if (data.statuses['id'] == openLeadStatusId) {
+                    //
+                    //             data.statuses['status'] = true;
+                    //
+                    //         }
+                    //
+                    //     });
+                    //
+                    //     this.openLeadStatuses.push(data.statuses[openLeadStatus]);
+                    // }
+
+
                 }
 
             }, err => {
@@ -455,17 +521,36 @@ export class MainPage {
             if (this.openLeadStatuses[openLeadStatus]['id'] == status['id'] && this.openLeadStatuses[openLeadStatus]['status']) {
 
                 this.openLeadStatuses[openLeadStatus]['status'] = false;
-                this.filter.openLeadStatus = 0;
+                // this.filter.openLeadStatus = 0;
+
+
+                let openLeadStatusData = [];
+                // перебираем фильтр и убираем маску из результата
+                // this.filter.mask = 0;
+                this.filter.openLeadStatus.forEach(function (openLeadStatusId, key) {
+
+                    if (openLeadStatusId != status['id']) {
+                        openLeadStatusData.push(openLeadStatusId);
+                    }
+
+                    // console.log('перечисляю фильтр');
+                    // console.log(mask['id']);
+                    // console.log(maskId);
+                });
+
+                this.filter.openLeadStatus = openLeadStatusData;
+
                 break;
             }
 
 
-            this.openLeadStatuses[openLeadStatus]['status'] = false;
+            // this.openLeadStatuses[openLeadStatus]['status'] = false;
 
             if (this.openLeadStatuses[openLeadStatus]['id'] == status['id']) {
                 this.openLeadStatuses[openLeadStatus]['status'] = true;
 
-                this.filter.openLeadStatus = status['id'];
+                // this.filter.openLeadStatus = status['id'];
+                this.filter.openLeadStatus.push(status['id']);
 
                 // todo запоминать по локалСтореджу
             }
@@ -487,25 +572,51 @@ export class MainPage {
             if (this.leadStatuses[leadStatus]['id'] == status['id'] && this.leadStatuses[leadStatus]['status']) {
 
                 this.leadStatuses[leadStatus]['status'] = false;
-                this.filter.leadStatus = 0;
+                // this.filter.leadStatus = 0;
+
+                let leadStatusData = [];
+                this.filter.leadStatus.forEach(function (leadStatusId, key) {
+
+                    if (leadStatusId != status['id']) {
+                        leadStatusData.push(leadStatusId);
+                    }
+
+                    // console.log('перечисляю фильтр');
+                    // console.log(mask['id']);
+                    // console.log(maskId);
+                });
+
+                this.filter.leadStatus = leadStatusData;
+
                 break;
             }
 
 
-            this.leadStatuses[leadStatus]['status'] = false;
+            // this.leadStatuses[leadStatus]['status'] = false;
 
             if (this.leadStatuses[leadStatus]['id'] == status['id']) {
                 this.leadStatuses[leadStatus]['status'] = true;
 
-                this.filter.leadStatus = status['id'];
+                this.filter.leadStatus.push(status['id']);
 
                 // todo запоминать по локалСтореджу
             }
 
         }
 
+        // console.log(this.filter.leadStatus);
     }
 
+
+    /**
+     * Очистка статусов лида
+     *
+     */
+    clearLeadStatuses() {
+        this.filter.leadStatus = [];
+
+        this.filterRecount();
+    }
 
     /**
      * Выбор статуса лида
@@ -519,23 +630,39 @@ export class MainPage {
             if (this.leadSources[leadSource]['id'] == source['id'] && this.leadSources[leadSource]['status']) {
 
                 this.leadSources[leadSource]['status'] = false;
-                this.filter.source = 0;
+                // this.filter.source = 0;
+
+                let sourceData = [];
+                this.filter.source.forEach(function (sourceId, key) {
+
+                    if (sourceId != source['id']) {
+                        sourceData.push(sourceId);
+                    }
+
+                    // console.log('перечисляю фильтр');
+                    // console.log(mask['id']);
+                    // console.log(maskId);
+                });
+
+                this.filter.source = sourceData;
+
                 break;
             }
 
 
-            this.leadSources[leadSource]['status'] = false;
+            // this.leadSources[leadSource]['status'] = false;
 
             if (this.leadSources[leadSource]['id'] == source['id']) {
                 this.leadSources[leadSource]['status'] = true;
 
-                this.filter.source = source['id'];
+                this.filter.source.push(source['id']);
 
                 // todo запоминать по локалСтореджу
             }
 
         }
 
+        console.log(this.filter.source);
     }
 
 
@@ -605,16 +732,18 @@ export class MainPage {
         if (!storageData) {
             this.filter = {
                 sphere: 0,
-                mask: 0,
-                openLeadStatus: 0,
-                leadStatus: 0,
-                source: 0,
+                mask: [],
+                openLeadStatus: [],
+                leadStatus: [],
+                source: [],
                 notOpenOnly: 0,
                 period: {
                     from: null,
                     to: null,
                 },
             };
+
+            this.isFilterOn = false;
 
         } else {
 
@@ -636,6 +765,8 @@ export class MainPage {
      */
     filterRecount() {
 
+        this.isFilterOn = false;
+
         // пересчет сферы
         // перебираем все сферы и добавляем status
         for (let currentSphere in this.spheres) {
@@ -643,6 +774,8 @@ export class MainPage {
             this.spheres[currentSphere]['status'] = false;
 
             if (this.spheres[currentSphere]['id'] == this.filter.sphere) {
+
+                this.isFilterOn = true;
 
                 this.spheres[currentSphere]['status'] = true;
 
@@ -661,13 +794,17 @@ export class MainPage {
 
             this.currentMasks[currentMask]['status'] = false;
 
-            if (this.currentMasks[currentMask]['id'] == this.filter.mask) {
+            this.filter.mask.forEach((maskId) => {
 
-                this.currentMasks[currentMask]['status'] = true;
+                if (this.currentMasks[currentMask]['id'] == maskId) {
 
-                // todo запоминать по локалСтореджу
-            }
+                    this.isFilterOn = true;
 
+                    this.currentMasks[currentMask]['status'] = true;
+
+                    // todo запоминать по локалСтореджу
+                }
+            });
         }
 
 
@@ -679,29 +816,61 @@ export class MainPage {
 
             this.leadStatuses[leadStatus]['status'] = false;
 
-            if (this.leadStatuses[leadStatus]['id'] == this.filter.leadStatus) {
 
-                this.leadStatuses[leadStatus]['status'] = true;
+            this.filter.leadStatus.forEach((status) => {
 
-                // todo запоминать по локалСтореджу
-            }
+                if (this.leadStatuses[leadStatus]['id'] == status) {
+
+                    this.isFilterOn = true;
+
+                    this.leadStatuses[leadStatus]['status'] = true;
+
+                }
+            });
+
+            // if (this.leadStatuses[leadStatus]['id'] == this.filter.leadStatus) {
+            //
+            //     this.leadStatuses[leadStatus]['status'] = true;
+            //
+            // }
 
         }
 
 
-        // todo пересчет источника
+        // пересчет источника
         for (let leadSource in this.leadSources) {
 
             this.leadSources[leadSource]['status'] = false;
 
-            if (this.leadSources[leadSource]['id'] == this.filter.source) {
 
-                this.leadSources[leadSource]['status'] = true;
+            this.filter.source.forEach((source) => {
 
-                // todo запоминать по локалСтореджу
-            }
+                if (this.leadSources[leadSource]['id'] == source) {
+
+                    this.isFilterOn = true;
+
+                    this.leadSources[leadSource]['status'] = true;
+                }
+
+
+                // if (this.leadStatuses[leadStatus]['id'] == status) {
+                //
+                //     this.leadStatuses[leadStatus]['status'] = true;
+                //
+                // }
+            });
+
+
+            // if (this.leadSources[leadSource]['id'] == this.filter.source) {
+            //
+            //     this.leadSources[leadSource]['status'] = true;
+            //
+            //     // todo запоминать по локалСтореджу
+            // }
 
         }
+
+        console.log(this.isFilterOn);
 
     }
 
@@ -732,29 +901,33 @@ export class MainPage {
             this.events.publish('obtainFilter');
         }
 
+        this.filterRecount();
+
         // todo публикация события на обновление данных на странице
 
     }
 
 
     /**
-     * Применение фильтра
+     * Очистка фильтра
      *
      */
     filterReset() {
 
         this.filter = {
             sphere: 0,
-            mask: 0,
-            openLeadStatus: 0,
-            leadStatus: 0,
-            source: 0,
+            mask: [],
+            openLeadStatus: [],
+            leadStatus: [],
+            source: [],
             notOpenOnly: 0,
             period: {
                 from: null,
                 to: null,
             },
         };
+
+        this.isFilterOn = false;
 
         // сохранение фильтра в локласторедже, в зависимости от страницы
         if (this.childPage == 'open') {
@@ -788,6 +961,50 @@ export class MainPage {
     openSalesmen() {
 
         this.nav.setRoot(SalesmenPage);
+    }
+
+
+    /**
+     * Очистка фильтра масок
+     *
+     */
+    clearMasksFilter() {
+        this.filter.mask = [];
+
+        this.filterRecount();
+    }
+
+
+    /**
+     * Очистка назначения лида
+     *
+     */
+    clearLeadSource() {
+        this.filter.source = [];
+
+        this.filterRecount();
+    }
+
+
+    /**
+     * Очистка статусов открытого лида
+     *
+     */
+    clearOpenLeadStatusesFilter() {
+        this.filter.openLeadStatus = [];
+
+        this.filterRecount();
+    }
+
+
+    /**
+     * Очистка сфер
+     *
+     */
+    clearSphereFilter() {
+        this.filter.sphere = 0;
+
+        this.filterRecount();
     }
 
 

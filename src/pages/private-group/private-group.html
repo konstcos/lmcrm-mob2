@@ -1,0 +1,202 @@
+<!--
+  Generated template for the EditMask page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="primary">
+
+        <ion-buttons left text-center>
+            <button ion-button (click)="goToMainPage()">
+                <ion-icon name="ios-arrow-back" class="back_arrow"></ion-icon>
+            </button>
+        </ion-buttons>
+
+        <ion-title>Private Group</ion-title>
+
+        <!--<ion-buttons left text-center class="left_button">-->
+            <!--<button ion-button (click)="goToMainPage()">-->
+                <!--close-->
+            <!--</button>-->
+        <!--</ion-buttons>-->
+
+
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content no-padding>
+
+    <div *ngIf="existsMembers">
+
+
+        <ion-list>
+
+            <ion-item-sliding *ngFor="let member of members['active']" #slidingItem>
+                <ion-item (click)="memberAction(member, slidingItem)">
+                    <div item-left class="status active">active</div>
+
+                    <div text-right item-right class="member_data">
+                        <div class="member_date"> <span class="time">{{ member.date.time }}</span> {{ member.date.date }}</div>
+                        <div class="member_name">{{ member.name }} {{ member.surname }}</div>
+                        <div class="member_email">{{ member.email }}</div>
+                    </div>
+                </ion-item>
+
+                <ion-item-options side="right">
+                    <button ion-button color="danger" (click)="memberDeleteConfirmation(member, slidingItem)">
+                        <ion-icon name="md-trash"></ion-icon>
+                        dell
+                    </button>
+                </ion-item-options>
+            </ion-item-sliding>
+
+            <ion-item-sliding *ngFor="let member of members['waiting']" >
+                <ion-item (click)="memberAction(member)">
+                    <div item-left class="status waiting">waiting</div>
+
+                    <div text-right item-right class="member_data">
+                        <div class="member_date"> <span class="time">{{ member.date.time }}</span> {{ member.date.date }}</div>
+                        <div class="member_name">{{ member.name }} {{ member.surname }}</div>
+                        <div class="member_email">{{ member.email }}</div>
+                    </div>
+                </ion-item>
+
+                <ion-item-options side="right">
+                    <button ion-button color="danger" (click)="memberDeleteConfirmation(member)">
+                        <ion-icon name="md-trash"></ion-icon>
+                        dell
+                    </button>
+                </ion-item-options>
+            </ion-item-sliding>
+
+            <ion-item-sliding *ngFor="let member of members['rejected']" >
+                <ion-item (click)="memberAction(member)">
+                    <div item-left class="status rejected">rejected</div>
+
+                    <div text-right item-right class="member_data">
+                        <div class="member_date"> <span class="time">{{ member.date.time }}</span> {{ member.date.date }}</div>
+                        <div class="member_name">{{ member.name }} {{ member.surname }}</div>
+                        <div class="member_email">{{ member.email }}</div>
+                    </div>
+                </ion-item>
+
+                <ion-item-options side="right">
+                    <button ion-button color="danger" (click)="memberDeleteConfirmation(member)">
+                        <ion-icon name="md-trash"></ion-icon>
+                        dell
+                    </button>
+                </ion-item-options>
+            </ion-item-sliding>
+
+        </ion-list>
+
+
+
+        <!--<div *ngFor="let member of members['active']" class="member_item">-->
+
+            <!--<div class="status active" text-right>-->
+                <!--active-->
+            <!--</div>-->
+
+            <!--<div>-->
+                <!--<ion-row >-->
+                    <!--<ion-col>-->
+                        <!--<div>-->
+                            <!--{{ member.name }} {{ member.surname }}-->
+                        <!--</div>-->
+
+                        <!--<div>-->
+                            <!--{{ member.email }}-->
+                        <!--</div>-->
+                    <!--</ion-col>-->
+
+                    <!--<ion-col col-1 align-self-center class="member_dell_button">-->
+                        <!--<ion-icon color="danger" name="md-trash"></ion-icon>-->
+                    <!--</ion-col>-->
+                <!--</ion-row>-->
+            <!--</div>-->
+
+        <!--</div>-->
+
+
+
+        <!--<ion-row *ngFor="let member of members['waiting']" class="member_item">-->
+            <!--<ion-col>{{ member.email }}</ion-col>-->
+            <!--<ion-col></ion-col>-->
+        <!--</ion-row>-->
+
+        <!--<ion-row *ngFor="let member of members['rejected']" class="member_item">-->
+            <!--<ion-col>{{ member.email }}</ion-col>-->
+            <!--<ion-col></ion-col>-->
+        <!--</ion-row>-->
+
+    </div>
+
+    <div *ngIf="noMembers">
+
+        <ion-row>
+            <ion-col>
+                No members in group
+            </ion-col>
+        </ion-row>
+
+    </div>
+
+
+
+    <!--<div *ngIf="mask">-->
+
+        <!--<ion-row class="main-data-block">-->
+            <!--<ion-col no-padding text-right>-->
+                <!--<div class="mask_label">mask name*</div>-->
+                <!--<ion-input type="text" placeholder="name" [(ngModel)]="mask.name" text-right class="input-value"></ion-input>-->
+            <!--</ion-col>-->
+        <!--</ion-row>-->
+
+        <!--<ion-row class="main-data-block">-->
+            <!--<ion-col no-padding text-right>-->
+                <!--<div class="mask_label">description</div>-->
+                <!--<ion-textarea [(ngModel)]="mask.description" text-right class="input-value"></ion-textarea>-->
+            <!--</ion-col>-->
+        <!--</ion-row>-->
+
+        <!--<ion-row *ngFor="let filter of mask.filter" class="checkbox-data-block">-->
+            <!--<ion-col no-padding text-right>-->
+                <!--<div class="mask_label">{{ filter.name }}</div>-->
+
+                <!--<ion-list>-->
+                    <!--<ion-item *ngFor="let option of filter.options" class="checkbox-data-row">-->
+
+                        <!--<ion-label text-right>{{ option.name }}</ion-label>-->
+                        <!--<ion-checkbox color="primary" [(ngModel)]="option.value"></ion-checkbox>-->
+                    <!--</ion-item>-->
+                <!--</ion-list>-->
+
+            <!--</ion-col>-->
+        <!--</ion-row>-->
+
+        <!--<ion-row>-->
+            <!--<ion-col text-center>-->
+                <!--<button outline round small ion-button (click)="save()">-->
+                    <!--Save-->
+                <!--</button>-->
+            <!--</ion-col>-->
+        <!--</ion-row>-->
+
+    <!--</div>-->
+
+
+
+
+</ion-content>
+
+<ion-footer>
+
+    <div text-center>
+        <button ion-button small round outline (click)="searchMember()">add member</button>
+    </div>
+
+</ion-footer>

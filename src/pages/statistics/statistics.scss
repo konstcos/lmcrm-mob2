@@ -1,5 +1,16 @@
 page-statistics {
 
+  .back_arrow {
+    font-size: 20px;
+    padding-left: 10px;
+  }
+
+  .date_label {
+    padding-top: 5px;
+    color: grey;
+    font-size: 12px;
+  }
+
   .segment_control_block {
     padding-bottom: 5px;
   }
@@ -34,6 +45,8 @@ page-statistics {
       .statistic_data_date {
         background: #FFFFFF;
         color: #337AB7;
+        padding-left: 10%;
+        padding-right: 10%;
 
         .datetime-md {
           padding: 6px 5px 6px 5px;
@@ -74,6 +87,10 @@ page-statistics {
       .period {
         font-size: 11px;
         color: #565656;
+      }
+
+      .legend {
+        font-size: 10px;
       }
 
     }
@@ -165,6 +182,49 @@ page-statistics {
     margin-top: 10px;
     margin-bottom: 15px;
 
+    .legend {
+      font-size: 10px;
+      color: #B7B7B7;
+
+      &.period {
+        text-align: left;
+      }
+
+      &.all {
+        text-align: right;
+      }
+    }
+
+    .statistic_data {
+      font-size: 11px;
+      color: #565656;
+      margin-top: 3px;
+
+      .rating {
+
+        &.Col {
+          color: #FF4A4A;
+        }
+
+        &.Badly {
+          color: #ED7D31;
+        }
+
+        &.Secondary{
+          color: #478295;
+        }
+
+        &.Satisfactorily {
+          color: #73AD35;
+        }
+
+        &.Good {
+          color: #00B050;
+        }
+
+      }
+    }
+
     .direction_row {
       background: grey;
       color: white;
@@ -186,6 +246,42 @@ page-statistics {
       color: #4C4C4C;
     }
 
+  }
+
+  .item_data_legend {
+
+    .all {
+      color: #337AB7;
+    }
+
+    .period {
+      font-size: 11px;
+      color: #565656;
+    }
+
+    .legend {
+      font-size: 10px;
+    }
+
+  }
+
+  .status_from_row {
+    //background: grey;
+    color: #AFAFAF;
+    font-weight: 600;
+    border-top: solid #6AA4D6 1px;
+    border-radius: 20px;
+  }
+
+  .status_arrow {
+    color: #AFAFAF;
+  }
+
+  .status_to_row {
+    color: grey;
+    font-weight: 600;
+    border-bottom: solid #337AB7 1px;
+    border-radius: 20px;
   }
 
 }

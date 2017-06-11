@@ -60,6 +60,9 @@ import {EmailConfirmationPage} from '../pages/email-confirmation/email-confirmat
 import {RegistrationWaitingConfirmation} from '../pages/registration-waiting-confirmation/registration-waiting-confirmation'
 import {RegistrationDataRolePageDescription} from '../pages/registration-data-role-description/registration-data-role-description'
 
+import {PrivateGroupPage} from '../pages/private-group/private-group'
+import {PrivateGroupSearchMemberPage} from '../pages/private-group-search-members/private-group-search-members'
+import {PrivateGroupAddMemberPage} from '../pages/private-group-add-member/private-group-add-member'
 
 import {WelcomePage} from '../pages/welcome/welcome';
 import {ListMasterPage} from '../pages/list-master/list-master';
@@ -177,6 +180,10 @@ let pages = [
     EmailConfirmationPage,
     RegistrationWaitingConfirmation,
     RegistrationDataRolePageDescription,
+
+    PrivateGroupPage,
+    PrivateGroupSearchMemberPage,
+    PrivateGroupAddMemberPage,
 
     OpenLeadStatusesPage,
 

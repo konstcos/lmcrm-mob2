@@ -1,0 +1,131 @@
+<!--
+  Generated template for the EditMask page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="primary">
+
+        <ion-buttons left text-center>
+            <button ion-button (click)="close()">
+                <ion-icon name="ios-arrow-back" class="back_arrow"></ion-icon>
+            </button>
+        </ion-buttons>
+
+        <ion-title>Search a members</ion-title>
+
+        <!--<ion-buttons left text-center class="left_button">-->
+        <!--<button ion-button (click)="goToMainPage()">-->
+        <!--close-->
+        <!--</button>-->
+        <!--</ion-buttons>-->
+
+
+    </ion-navbar>
+
+    <div *ngIf="searchHeaderKey" class="search_header_input_block">
+
+        <ion-row class="search_header_input" *ngIf="true">
+
+            <ion-col
+                    text-center
+                    align-self-center
+                    col-1
+                    (click)="startSearch()"
+                    class="search_button">
+                <ion-icon name="md-search"></ion-icon>
+            </ion-col>
+
+            <ion-col class="header_input">
+                <ion-input #headerInput type="text" [(ngModel)]="keyword" name="keyword" placeholder="Enter name, email or phone"></ion-input>
+            </ion-col>
+
+            <ion-col
+                    *ngIf="keyword.length > 0"
+                    text-center
+                    align-self-center
+                    col-1
+                    (click)="clearSearchResult()"
+                    class="clear_button">
+                x
+            </ion-col>
+        </ion-row>
+
+    </div>
+
+</ion-header>
+
+<ion-content no-padding>
+
+
+    <!--добавление участника в группу-->
+
+
+    <!-- Данные для поиска на странице -->
+    <div *ngIf="searchFormKey">
+
+        <ion-row class="search_input">
+            <ion-col>
+                <ion-input type="text" [(ngModel)]="keyword" name="keyword" placeholder="Enter name, email or phone"></ion-input>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="search_button">
+            <ion-col text-center>
+                <button ion-button round (click)="startSearch()">Search</button>
+            </ion-col>
+        </ion-row>
+
+    </div>
+
+
+    <!-- Поисковые результаты -->
+    <div *ngIf="searchContentKey">
+
+        <!-- Если агенты найденны -->
+        <div *ngIf="agents.length > 0" class="agents_block">
+
+            <ion-row *ngFor="let agent of agents" class="agent_row" (click)="addAgentConfirmation(agent)">
+                <ion-col col-3 text-center align-self-center>
+                    <!--<button ion-button small round outline>-->
+                    <!--<ion-icon name="ios-person-add"></ion-icon>-->
+                    <!--</button>-->
+                    <ion-icon class="add_person" name="ios-person-add"></ion-icon>
+                </ion-col>
+                <ion-col text-right align-self-center class="agent_data">
+                    <div class="name">{{ agent.last_name }} {{ agent.first_name }}</div>
+                    <div class="email">{{ agent.email }}</div>
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+
+        <!-- если поиск не дал результата -->
+        <ion-row *ngIf="agents == 0">
+            <ion-col text-center>
+                No result
+            </ion-col>
+        </ion-row>
+
+    </div>
+
+
+    <!-- Индикатор загрузки -->
+    <div *ngIf="spinnerKey" class="spinnerBlock">
+        <ion-spinner color="primary" name="crescent"></ion-spinner>
+    </div>
+
+</ion-content>
+
+
+
+<!--<ion-footer>-->
+
+<!--<div text-right>-->
+<!--<button ion-button small round outline>add member</button>-->
+<!--</div>-->
+
+<!--</ion-footer>-->

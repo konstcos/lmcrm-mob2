@@ -27,7 +27,7 @@ export class RegistrationDataPersonalPage {
         lastName: '',
         company: '',
         phone: '',
-        region: ''
+        region: 1
     };
 
 
@@ -115,6 +115,9 @@ export class RegistrationDataPersonalPage {
         if (this.personalData.phone != '') {
             this.phoneValidate();
         }
+
+        this.switchRegion(1);
+
     }
 
 
@@ -228,17 +231,17 @@ export class RegistrationDataPersonalPage {
      * Переключить регион
      *
      */
-    switchRegion(region){
+    switchRegion(region) {
 
         let regionId;
 
-        if(region != 1){
+        if (region != 1) {
 
             this.selectRegions.push(region);
 
             regionId = region.id;
 
-        }else{
+        } else {
 
             regionId = 1;
         }
@@ -276,6 +279,76 @@ export class RegistrationDataPersonalPage {
 
 
     /**
+     * Очистка регионов
+     *
+     */
+    clearRegions() {
+        this.selectRegions = [];
+        this.personalData.region = 1;
+        this.switchRegion(1);
+    }
+
+
+    /**
+     * Удаление региона
+     *
+     */
+    dellRegion(region) {
+
+        // console.log('регионы');
+
+        // console.log(this.selectRegions);
+
+        let newRegions = [];
+
+        let regionIndex: any;
+
+        for (regionIndex in this.selectRegions) {
+
+            if (region.id == this.selectRegions[regionIndex].id) {
+
+                if(regionIndex == '0'){
+
+                    this.personalData.region = 1;
+
+                    this.selectRegions = [];
+                    this.switchRegion(1);
+                    break;
+
+                }else{
+
+                    console.log('конец');
+
+                    // console.log(newRegions);
+                    // console.log(this.selectRegions[regionIndex]);
+                    // console.log(this.selectRegions[regionIndex-1]);
+
+                    this.personalData.region = this.selectRegions[regionIndex-1].id;
+
+                    this.switchRegion(this.selectRegions[regionIndex-1]);
+                    this.selectRegions = newRegions;
+                    break;
+
+
+                }
+
+            } else {
+
+                newRegions.push(this.selectRegions[regionIndex]);
+            }
+
+            // console.log(this.selectRegions[regionIndex]);
+        }
+
+
+        // this.regions.forEach((region, key) => {
+        //
+        // });
+
+        // console.log(region);
+    }
+
+    /**
      * Проверка статуса
      *
      */
@@ -283,12 +356,12 @@ export class RegistrationDataPersonalPage {
 
         this.status = (this.state.firstName == 2) && (this.state.lastName == 2) && (this.state.company == 2) && (this.state.phone == 2);
 
-    // state: any = {
-    //         firstName: 2,
-    //         lastName: 2,
-    //         company: 2,
-    //         phone: 2,
-    //     };
+        // state: any = {
+        //         firstName: 2,
+        //         lastName: 2,
+        //         company: 2,
+        //         phone: 2,
+        //     };
 
     }
 

@@ -1,0 +1,99 @@
+private-group-search-members {
+
+  .back_arrow {
+    font-size: 20px;
+    padding-left: 10px;
+  }
+
+  .agents_block {
+
+    margin-top: 20px;
+
+    .agent_row {
+      margin: 5px 5px 8px;
+      border-bottom: 1px solid #C5C5C5;
+      border-radius: 3px;
+      padding-bottom: 3px;
+      cursor: pointer;
+
+      .add_person {
+        color: #6E9EC6;
+        font-size: 35px;
+        cursor: pointer;
+      }
+
+      .agent_data {
+        font-size: 12px;
+        color: grey;
+
+        .name {
+          font-size: 14px;
+          font-weight: 600;
+        }
+
+        .email {
+
+        }
+      }
+
+    }
+
+  }
+
+  .search_header_input_block {
+
+    margin: 7px 0;
+
+    .search_button {
+      color: #337AB7;
+      cursor: pointer;
+    }
+
+    .search_header_input {
+
+      ion-col.col {
+
+        input {
+          margin: 0;
+          color: #525252;
+        }
+      }
+
+      .clear_button {
+        cursor: pointer;
+      }
+
+    }
+
+  }
+
+  .search_input {
+    border-bottom: 1px solid #337AB7;
+    margin: 30% 18% 20px 18%;
+
+    ion-col.col {
+      padding-right: 0;
+      padding-left: 0;
+
+      input {
+        font-size: 16px;
+        margin: 0;
+        color: #525252;
+      }
+    }
+
+  }
+
+  .spinnerBlock {
+    text-align: center;
+    margin-top: 20%;
+  }
+
+}
+
+.alert_private_group_confirmation_name {
+  color: #5E5E5E;
+  font-weight: 600;
+  font-size: 17px;
+  margin-bottom: 10px;
+}

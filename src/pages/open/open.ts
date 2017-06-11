@@ -197,6 +197,8 @@ export class OpenPage {
      */
     loadItems() {
 
+        // console.log('привет от фильтра');
+
         // очищаем итемы
         this.items = [];
 

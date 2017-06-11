@@ -333,18 +333,21 @@ export class EditMaskPage {
 
                     // this.nav.setRoot(MasksPage, {sphereId: this.sphereId});
 
-                    if (this.subRole) {
 
-                        this.nav.setRoot(MasksPage, {
-                            sphereId: this.sphereId,
-                            subRole: 'salesman',
-                            salesmenData: this.salesmenData
-                        });
+                    this.goBack();
 
-                    } else {
-
-                        this.nav.setRoot(MasksPage, {sphereId: this.sphereId});
-                    }
+                    // if (this.subRole) {
+                    //
+                    //     this.nav.setRoot(MasksPage, {
+                    //         sphereId: this.sphereId,
+                    //         subRole: 'salesman',
+                    //         salesmenData: this.salesmenData
+                    //     });
+                    //
+                    // } else {
+                    //
+                    //     this.nav.setRoot(MasksPage, {sphereId: this.sphereId});
+                    // }
 
                 }
 
@@ -373,29 +376,23 @@ export class EditMaskPage {
             .subscribe(result => {
                 // при получении итемов
 
-                if (this.subRole) {
 
-                    this.nav.setRoot(MasksPage, {
-                        sphereId: this.sphereId,
-                        subRole: 'salesman',
-                        salesmenData: this.salesmenData
-                    });
-
-                } else {
-
-                    this.nav.setRoot(MasksPage, {sphereId: this.sphereId});
-                }
+                this.goBack();
 
 
-                // переводим ответ в json
-                // let data = result.json();
+                // if (this.subRole) {
                 //
-                // if (data.status == 'true') {
+                //     this.nav.setRoot(MasksPage, {
+                //         sphereId: this.sphereId,
+                //         subRole: 'salesman',
+                //         salesmenData: this.salesmenData
+                //     });
                 //
-                //     // this.mask = data.maskData;
+                // } else {
                 //
                 //     this.nav.setRoot(MasksPage, {sphereId: this.sphereId});
                 // }
+
 
             }, err => {
                 // в случае ошибки

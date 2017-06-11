@@ -18,6 +18,8 @@
             <button menuClose ion-item (click)="openSalesmen()">Salesmen</button>
             <button menuClose ion-item (click)="openPage(pages[0])">{{ pages[0].title }}</button>
 
+            <button menuClose ion-item (click)="openPage(pages[4])">{{ pages[4].title }}</button>
+
             <button menuClose ion-item (click)="openPage(pages[2])">{{ pages[2].title }}</button>
 
             <button menuClose ion-item (click)="logout()">Logout</button>
@@ -116,6 +118,21 @@
                 </ion-col>
             </ion-row>
 
+
+            <ion-row class="sphere_filter_item" (click)="clearSphereFilter()">
+                <ion-col col-2 text-center>
+
+                    <ion-icon *ngIf="filter.sphere == 0" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>
+                    <ion-icon *ngIf="filter.sphere != 0" name="md-square-outline"></ion-icon>
+
+                </ion-col>
+
+                <ion-col>
+                    All spheres
+                </ion-col>
+            </ion-row>
+
+
             <ion-row class="sphere_filter_item" *ngFor="let sphere of spheres" (click)="selectSphereFilter(sphere)">
                 <ion-col col-2 text-center>
 
@@ -139,6 +156,21 @@
                     Masks
                 </ion-col>
             </ion-row>
+
+
+            <ion-row class="sphere_filter_item" *ngIf="currentMasks.length != 0" (click)="clearMasksFilter()">
+                <ion-col col-2 text-center>
+
+                    <ion-icon *ngIf="filter.mask.length == 0" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>
+                    <ion-icon *ngIf="filter.mask.length != 0" name="md-square-outline"></ion-icon>
+
+                </ion-col>
+
+                <ion-col>
+                    All masks
+                </ion-col>
+            </ion-row>
+
 
             <ion-row class="sphere_filter_item" *ngFor="let mask of currentMasks" (click)="selectMaskFilter(mask)">
                 <ion-col col-2 text-center>
@@ -175,6 +207,35 @@
                 </ion-col>
             </ion-row>
 
+
+            <ion-row class="sphere_filter_item" *ngIf="openLeadStatuses.length != 0" (click)="clearOpenLeadStatusesFilter()">
+                <ion-col col-2 text-center>
+
+                    <ion-icon *ngIf="filter.openLeadStatus.length == 0" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>
+                    <ion-icon *ngIf="filter.openLeadStatus.length != 0" name="md-square-outline"></ion-icon>
+
+                </ion-col>
+
+                <ion-col>
+                    All statuses
+                </ion-col>
+            </ion-row>
+
+
+            <!--<ion-row class="sphere_filter_item" *ngIf="openLeadStatuses.length != 0" (click)="clearOpenLeadStatusesFilter()">-->
+                <!--<ion-col col-2 text-center>-->
+
+                    <!--<ion-icon *ngIf="filter.openLeadStatus.length == 0" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>-->
+                    <!--<ion-icon *ngIf="filter.openLeadStatus.length != 0" name="md-square-outline"></ion-icon>-->
+
+                <!--</ion-col>-->
+
+                <!--<ion-col>-->
+                    <!--No status-->
+                <!--</ion-col>-->
+            <!--</ion-row>-->
+
+
             <ion-row class="sphere_filter_item" *ngFor="let status of openLeadStatuses" (click)="selectOpenLeadStatuses(status)">
                 <ion-col col-2 text-center>
 
@@ -200,6 +261,21 @@
                 </ion-col>
             </ion-row>
 
+
+            <ion-row class="sphere_filter_item" (click)="clearLeadStatuses(status)">
+                <ion-col col-2 text-center>
+
+
+                    <ion-icon *ngIf="filter.leadStatus.length == 0" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>
+                    <ion-icon *ngIf="filter.leadStatus.length != 0" name="md-square-outline"></ion-icon>
+
+                </ion-col>
+
+                <ion-col>
+                    All statuses
+                </ion-col>
+            </ion-row>
+
             <ion-row class="sphere_filter_item" *ngFor="let status of leadStatuses" (click)="selectLeadStatuses(status)">
                 <ion-col col-2 text-center>
 
@@ -222,7 +298,21 @@
 
             <ion-row class="filter_name">
                 <ion-col>
-                    Source
+                    Purpose
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="sphere_filter_item" (click)="clearLeadSource(source)">
+                <ion-col col-2 text-center>
+
+
+                    <ion-icon *ngIf="filter.source.length == 0" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>
+                    <ion-icon *ngIf="filter.source.length != 0" name="md-square-outline"></ion-icon>
+
+                </ion-col>
+
+                <ion-col>
+                    All purposes
                 </ion-col>
             </ion-row>
 
@@ -344,10 +434,39 @@
 <!-- Футер страницы меню -->
 <ion-footer>
 
-    <button no-margin ion-button full (click)="filterOpen()" color="dark">
-        <ion-icon name="ios-funnel"></ion-icon>
-        <span padding-left>Filter</span>
-    </button>
+    <div *ngIf="!isFilterOn">
+        <button no-margin ion-button full (click)="filterOpen()" color="dark">
+            <ion-icon name="ios-funnel"></ion-icon>
+            <span padding-left>Filter</span>
+        </button>
+    </div>
+
+    <div *ngIf="isFilterOn">
+        <ion-row>
+
+            <ion-col no-padding>
+                <button no-margin ion-button full (click)="filterReset()" color="danger">
+                    <ion-icon class="filter_reset_icon" name="md-close"></ion-icon>
+                </button>
+            </ion-col>
+
+            <ion-col col-9 no-padding>
+                <button no-margin ion-button full (click)="filterOpen()" color="dark">
+                    <ion-icon class="filter_icon_on" name="ios-funnel"></ion-icon>
+                    <span padding-left class="filter_text_button_on">Filter</span>
+                </button>
+            </ion-col>
+
+        </ion-row>
+
+
+    </div>
+
+
+    <!--<button no-margin ion-button full (click)="filterOpen()" color="dark">-->
+        <!--<ion-icon name="ios-funnel"></ion-icon>-->
+        <!--<span padding-left>Filter</span>-->
+    <!--</button>-->
 
     <!--<ion-toolbar>-->
         <!--<ion-title>Footer</ion-title>-->

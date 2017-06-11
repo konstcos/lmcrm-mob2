@@ -73,11 +73,30 @@
                     ion-button
                     color="primary"
                     block
+                    [attr.disabled]="!(confirmation.agreement && confirmation.sphere  && confirmation.personal && confirmation.role) ? '' : null"
                     (click)="saveRegistrationData()">
                 Start getting customers &nbsp;
                 <ion-icon name="ios-arrow-forward"></ion-icon>
             </button>
         </div>
+
+        <div class="user_agreement_block" (click)="confirmUserAgreement()">
+            <!-- Заполнение персональных данных агента -->
+            <div class="user_agreement" [ngClass]="confirmation.agreement ? 'apply' : ''" text-center>
+                <span *ngIf="confirmation.agreement" class="icon_span">
+                    <ion-icon name="md-checkbox-outline"></ion-icon>
+                </span>
+                <span *ngIf="!confirmation.agreement" class="icon_span">
+                    <ion-icon name="md-square-outline"></ion-icon>
+                </span>
+                I confirm the user agreements
+            </div>
+        </div>
+
+        <div class="user_agreement_text" text-center>
+            <a href="#">read the user agreements</a>
+        </div>
+
     </div>
 
 </ion-content>

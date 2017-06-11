@@ -7,17 +7,27 @@
 <ion-header>
 
     <ion-navbar color="primary">
-        <ion-buttons left text-center class="left_button">
+
+        <ion-buttons left text-center>
             <button ion-button (click)="close()">
-                close
+                <ion-icon name="ios-arrow-back" class="back_arrow"></ion-icon>
             </button>
         </ion-buttons>
 
-        <ion-buttons right text-center class="right_button">
-            <button ion-button (click)="save()">
-                Save &nbsp;
-            </button>
-        </ion-buttons>
+        <ion-title *ngIf="type == 'reminder'">Edit Reminder</ion-title>
+        <ion-title *ngIf="type != 'reminder'">Edit Comment</ion-title>
+
+        <!--<ion-buttons left text-center class="left_button">-->
+            <!--<button ion-button (click)="close()">-->
+                <!--close-->
+            <!--</button>-->
+        <!--</ion-buttons>-->
+
+        <!--<ion-buttons right text-center class="right_button">-->
+            <!--<button ion-button (click)="save()">-->
+                <!--Save &nbsp;-->
+            <!--</button>-->
+        <!--</ion-buttons>-->
 
     </ion-navbar>
 
@@ -68,5 +78,19 @@
 
     </ion-list>
 
+    <div class="save_button" text-right>
+        <button ion-button small round (click)="save()">
+            Save &nbsp;
+        </button>
+    </div>
 
 </ion-content>
+
+
+<!--<ion-footer>-->
+    <!--<div text-left>-->
+        <!--<button ion-button small outline round (click)="save()">-->
+            <!--Save &nbsp;-->
+        <!--</button>-->
+    <!--</div>-->
+<!--</ion-footer>-->
