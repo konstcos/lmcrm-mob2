@@ -7,6 +7,10 @@
     </ion-refresher>
     <!-- конец Обновление страницы -->
 
+    <!-- спинер загрузки -->
+    <div *ngIf="isLoading" class="spinnerLoading">
+        <ion-spinner color="primary" name="crescent"></ion-spinner>
+    </div>
 
     <ion-card *ngFor="let item of items" class="open_card">
 
@@ -54,7 +58,7 @@
     </ion-card>
 
 
-    <ion-row *ngIf="items.length == 0" class="no_leads_row" text-center>
+    <ion-row *ngIf="noItems && !isFilterOn && roles.role == 'agent'" class="no_leads_row" text-center>
         <ion-col>
             <div class="icon"><ion-icon name="md-contract"></ion-icon></div>
 
@@ -63,6 +67,34 @@
                 <div class="take_leads"> To get the leads, select the mask</div>
                 <div class="take_leads">on the client filter page</div>
                 <button small ion-button color="primary" class="mask_button" (click)="customerPage()"> Select mask </button>
+            </div>
+
+        </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="noItems && !isFilterOn && roles.role != 'agent'" class="no_leads_row" text-center>
+        <ion-col>
+            <div class="icon"><ion-icon name="md-contract"></ion-icon></div>
+
+            <div class="leads_text">
+                <div> You do not have any leads</div>
+                <!--<div class="take_leads"> To get the leads, select the mask</div>-->
+                <!--<div class="take_leads">on the client filter page</div>-->
+                <!--<button small ion-button color="primary" class="mask_button" (click)="customerPage()"> Select mask </button>-->
+            </div>
+
+        </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="noItems && isFilterOn" class="no_leads_row" text-center>
+        <ion-col>
+            <div class="icon"><ion-icon name="md-contract"></ion-icon></div>
+
+            <div class="leads_text">
+                <div> No open leads by filter</div>
+                <!--<div class="take_leads"> To get the leads, select the mask</div>-->
+                <!--<div class="take_leads">on the client filter page</div>-->
+                <!--<button small ion-button color="primary" class="mask_button" (click)="customerPage()"> Select mask </button>-->
             </div>
 
         </ion-col>

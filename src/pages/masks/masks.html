@@ -9,18 +9,27 @@
     <ion-navbar color="primary">
 
 
-
-        <ion-buttons left text-center class="left_button">
+        <ion-buttons left text-center>
             <button ion-button (click)="goBack()">
-                close
+                <ion-icon name="ios-arrow-back" class="back_arrow"></ion-icon>
             </button>
         </ion-buttons>
 
-        <ion-buttons right text-center class="right_button">
-            <button ion-button (click)="createNewMask()">
-                new mask
-            </button>
-        </ion-buttons>
+        <ion-title>Masks <span *ngIf="sphere"> of {{ sphere.name }} </span></ion-title>
+
+
+
+        <!--<ion-buttons left text-center class="left_button">-->
+            <!--<button ion-button (click)="goBack()">-->
+                <!--close-->
+            <!--</button>-->
+        <!--</ion-buttons>-->
+
+        <!--<ion-buttons right text-center class="right_button">-->
+            <!--<button ion-button (click)="createNewMask()">-->
+                <!--new mask-->
+            <!--</button>-->
+        <!--</ion-buttons>-->
 
     </ion-navbar>
 
@@ -47,11 +56,11 @@
     <div *ngIf="sphere">
 
         <!-- Заголовок (имя сферы) -->
-        <ion-row>
-            <ion-col text-right class="sphere_name">
-                Masks of {{ sphere.name }}
-            </ion-col>
-        </ion-row>
+        <!--<ion-row>-->
+            <!--<ion-col text-right class="sphere_name">-->
+                <!--Masks of {{ sphere.name }}-->
+            <!--</ion-col>-->
+        <!--</ion-row>-->
 
         <ion-card *ngFor="let mask of masks" class="open_card">
 
@@ -112,3 +121,14 @@
     </div>
 
 </ion-content>
+
+<ion-footer>
+
+    <div text-center>
+        <button ion-button round small outline (click)="createNewMask()">
+            new mask
+        </button>
+    </div>
+
+
+</ion-footer>

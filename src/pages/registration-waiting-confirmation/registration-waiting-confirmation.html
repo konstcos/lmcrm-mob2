@@ -1,18 +1,29 @@
 <ion-header>
 
-    <ion-navbar color="primary" hideBackButton="true">
+    <ion-navbar color="clear" hideBackButton="true">
 
-        <ion-buttons left text-center class="left_button">
-            <button ion-button (click)="goBack()">
-                back to login
+
+        <ion-buttons left>
+            <button color="primary" ion-button (click)="goBack()">
+                <ion-icon name="ios-arrow-back" class="back_arrow"></ion-icon>
+            </button>
+            <button color="primary" ion-button (click)="goBack()">
+                back to login 111111111111
             </button>
         </ion-buttons>
 
-        <ion-buttons right text-center class="right_button">
-            <!--<button ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">-->
-            <!--add lead-->
+
+        <!--<ion-buttons left text-center class="left_button">-->
+            <!--<button ion-button (click)="goBack()">-->
+                <!--back to login-->
             <!--</button>-->
-        </ion-buttons>
+        <!--</ion-buttons>-->
+
+        <!--<ion-buttons right text-center class="right_button">-->
+            <!--&lt;!&ndash;<button ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">&ndash;&gt;-->
+            <!--&lt;!&ndash;add lead&ndash;&gt;-->
+            <!--&lt;!&ndash;</button>&ndash;&gt;-->
+        <!--</ion-buttons>-->
 
     </ion-navbar>
 

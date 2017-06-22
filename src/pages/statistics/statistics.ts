@@ -77,6 +77,20 @@ export class StatisticsPage {
 
 
     /**
+     * Индикатор загрузки
+     *
+     */
+    public isLoading = true;
+
+
+    /**
+     * Показывать/прятать блок отсутствия сфер
+     *
+     */
+    public noSphereBlockShow = false;
+
+
+    /**
      * Данные по временным периодом
      *
      */
@@ -99,7 +113,6 @@ export class StatisticsPage {
 // <ion-option value="4">This month</ion-option>
 // <ion-option value="5">Previous month</ion-option>
 // <ion-option value="6">Custom Range</ion-option>
-
 
 
     constructor(public navCtrl: NavController,
@@ -137,11 +150,12 @@ export class StatisticsPage {
         // this.dateTo
 
         let rawDateFrom = new Date(this.dateFrom);
-        let timeFrom = rawDateFrom.getFullYear() + '-' + (rawDateFrom.getMonth()+1) + '-' + (rawDateFrom.getDate()-1);
+        let timeFrom = rawDateFrom.getFullYear() + '-' + (rawDateFrom.getMonth() + 1) + '-' + (rawDateFrom.getDate() - 1);
 
         let rawDateTo = new Date(this.dateTo);
-        let timeTo = rawDateTo.getFullYear() + '-' + (rawDateTo.getMonth()+1) + '-' + (rawDateTo.getDate()-1);
+        let timeTo = rawDateTo.getFullYear() + '-' + (rawDateTo.getMonth() + 1) + '-' + (rawDateTo.getDate() - 1);
 
+        this.noSphereBlockShow = false;
 
 
         // получение итемов с сервера
@@ -155,6 +169,8 @@ export class StatisticsPage {
 
                 console.log(data);
 
+                this.isLoading = false;
+
                 if (data.status == 'success') {
 
                     this.spheres = data.spheres;
@@ -162,9 +178,13 @@ export class StatisticsPage {
 
                     this.statisticData = data.statistic;
 
+                    this.noSphereBlockShow = false;
                     this.sphereExist = true;
 
                 } else {
+
+                    this.noSphereBlockShow = true;
+                    this.sphereExist = false;
 
                 }
 
@@ -201,6 +221,23 @@ export class StatisticsPage {
                 // отключаем окно индикатора загрузки
                 // loading.dismiss();
             });
+
+    }
+
+
+    /**
+     * Проверка, является ли переменная массивом, или нет
+     *
+     */
+    isTypeArray(type) {
+
+        console.log('тип, блин');
+        console.log(type);
+        console.log(Array.isArray(type));
+        console.log(typeof type);
+
+        // return typeof(type) == 'array';
+        return Array.isArray(type);
 
     }
 
@@ -304,7 +341,7 @@ export class StatisticsPage {
      */
     dateFromChange() {
 
-        if(this.dateFrom > this.dateTo){
+        if (this.dateFrom > this.dateTo) {
 
             this.dateTo = this.dateFrom;
         }
@@ -320,7 +357,7 @@ export class StatisticsPage {
      */
     dateToChange() {
 
-        if(this.dateFrom > this.dateTo){
+        if (this.dateFrom > this.dateTo) {
 
             this.dateFrom = this.dateTo;
         }

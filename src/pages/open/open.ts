@@ -47,6 +47,32 @@ export class OpenPage {
      */
     isThereStillItems = true;
 
+    /**
+     * Спинер загрузки
+     *
+     */
+    public isLoading: boolean = true;
+
+    /**
+     * Нет итемов
+     *
+     */
+    public noItems: boolean = false;
+
+    /**
+     * Фильтр включен или выключен
+     *
+     */
+    public isFilterOn: boolean = false;
+
+    /**
+     * Роли пользователя
+     *
+     */
+    public roles: any = {
+        role: 'any',
+        subRole: 'any',
+    };
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
@@ -113,16 +139,11 @@ export class OpenPage {
     ionViewDidLoad() {
         console.log('ionViewDidLoad OpenPage');
         console.log(this.settings.settings);
-    }
 
+        // отписываемся от события по смене фильтра
+        this.events.unsubscribe('openLeadFilter');
 
-    ionViewWillEnter() {
-        console.log('OpenPage View');
-
-        // событие на смену страницы
-        this.events.publish("page:change", {page: 'open'});
-
-        // todo событие по смене фильтра
+        // событие по смене фильтра
         this.events.subscribe('openLeadFilter', () => {
 
             console.log('событие по фильтру в открытых лидах');
@@ -131,6 +152,36 @@ export class OpenPage {
 
             this.loadItems();
         });
+
+
+        this.events.unsubscribe('openLeadFilterChange');
+
+        // событие по смене фильтра
+        this.events.subscribe('openLeadFilterChange', (data) => {
+
+            this.isFilterOn = data.status;
+        });
+    }
+
+
+    ionViewWillEnter() {
+        // console.log('OpenPage View');
+
+        this.isFilterOn = localStorage.getItem('openLeadFilterOn') &&  localStorage.getItem('openLeadFilterOn') == 'true';
+
+
+        // событие на смену страницы
+        this.events.publish("page:change", {page: 'open'});
+
+        // todo событие по смене фильтра
+        // this.events.subscribe('openLeadFilter', () => {
+        //
+        //     console.log('событие по фильтру в открытых лидах');
+        //
+        //     this.filter = JSON.parse(localStorage.getItem('openLeadFilter'));
+        //
+        //     this.loadItems();
+        // });
 
         this.loadItems();
     }
@@ -144,6 +195,8 @@ export class OpenPage {
 
         // очищаем итемы
         this.items = [];
+
+        this.noItems = false;
 
         // заводим переменную с присутствующими лидами в true
         this.isThereStillItems = true;
@@ -171,7 +224,7 @@ export class OpenPage {
                     // если итемов нет
 
                     // todo сообщаем что итемов нет
-
+                    this.noItems = true;
                 }
 
                 // отключаем окно индикатора загрузки
@@ -192,6 +245,15 @@ export class OpenPage {
 
 
     /**
+     * Метод проверки уведомлений
+     *
+     */
+    checkNotices(notices) {
+        this.events.publish('notice:new', notices);
+    }
+
+
+    /**
      * Загрузк итемов открытых лидов в модель
      *
      */
@@ -205,13 +267,17 @@ export class OpenPage {
         // заводим переменную с присутствующими лидами в true
         this.isThereStillItems = true;
 
+        this.noItems = false;
+
+        this.isLoading = true;
+
         // инициация окна загрузки
-        let loading = this.loadingCtrl.create({
-            content: 'Receiving leads, please wait...'
-        });
+        // let loading = this.loadingCtrl.create({
+        //     content: 'Receiving leads, please wait...'
+        // });
 
         // показ окна загрузки
-        loading.present();
+        // loading.present();
 
 
         // получение итемов с сервера
@@ -226,8 +292,17 @@ export class OpenPage {
                 console.log('получил open: ');
                 console.log(data);
 
+                this.checkNotices(data.notices);
+
+                localStorage.setItem('roles', JSON.stringify(data.roles));
+                this.events.publish('roles:get', data.roles);
+
+                this.roles = data.roles;
+
                 // вычесляем количество итемов
                 let itemsLength = data.openedLeads.length;
+
+                this.isLoading = false;
 
                 // обработка итемов
                 if (itemsLength != 0) {
@@ -240,21 +315,23 @@ export class OpenPage {
                     // если итемов нет
 
                     // todo показываем оповещение что итемов нет
-
+                    this.noItems = true;
                 }
 
                 // отключаем окно индикатора загрузки
-                loading.dismiss();
+                // loading.dismiss();
 
             }, err => {
                 // в случае ошибки
+
+                this.isLoading = false;
 
                 console.log('ERROR: ' + err);
 
                 // todo выводится сообщение об ошибке (нету связи и т.д.)
 
                 // отключаем окно индикатора загрузки
-                loading.dismiss();
+                // loading.dismiss();
             });
 
     }
@@ -404,29 +481,36 @@ export class OpenPage {
         let modal = this.modalCtrl.create(OpenLeadStatusesPage, {item: item});
 
         modal.onDidDismiss(data => {
-            item.status_info = data.status;
-            item.status = data.status.id;
 
-            for (let type in item.statuses) {
+            console.log('данные по статусу');
+            console.log(data);
 
-                for (let stat of item.statuses[type]) {
+            if(data.status){
+                item.status_info = data.status;
+                item.status = data.status.id;
 
-                    if (stat.id == data.status.id) {
+                for (let type in item.statuses) {
 
-                        stat.checked = false;
-                        stat.lock = true;
+                    for (let stat of item.statuses[type]) {
 
-                    } else {
+                        if (stat.id == data.status.id) {
 
-                        stat.checked = false;
+                            stat.checked = false;
+                            stat.lock = true;
+
+                        } else {
+
+                            stat.checked = false;
+                        }
+
                     }
-
                 }
+
+
             }
 
-
-            console.log(item);
-            console.log(data);
+            // console.log(item);
+            // console.log(data);
         });
 
         modal.present();

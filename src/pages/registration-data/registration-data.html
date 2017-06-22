@@ -1,12 +1,21 @@
-<ion-header>
+<ion-header no-border>
 
-    <ion-navbar color="primary" hideBackButton="true">
+    <ion-navbar color="clear" hideBackButton="true">
 
-        <ion-buttons left text-center class="left_button">
-            <button ion-button (click)="goBack()">
+        <ion-buttons left>
+            <button color="primary" ion-button (click)="goBack()">
+                <ion-icon name="ios-arrow-back" class="back_arrow"></ion-icon>
+            </button>
+            <button color="primary" ion-button (click)="goBack()">
                 back to login
             </button>
         </ion-buttons>
+
+        <!--<ion-buttons left text-center class="left_button">-->
+            <!--<button ion-button (click)="goBack()">-->
+                <!--back to login-->
+            <!--</button>-->
+        <!--</ion-buttons>-->
 
         <ion-buttons right text-center class="right_button">
             <!--<button ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">-->
@@ -25,22 +34,22 @@
     <div class="main_block">
 
 
-        <div text-center class="main_block_title">
-            To continue you must fill this data
-        </div>
+        <!--<div text-center class="main_block_title">-->
+            <!--To continue you must fill this data-->
+        <!--</div>-->
 
 
         <div>
 
-            <!-- Выбор сфер деятельности агента -->
-            <div class="switchItem" (click)="selectSpheres()" [ngClass]="confirmation.sphere ? 'apply' : ''">
-                <span *ngIf="confirmation.sphere" class="icon_span">
+            <!-- Заполнение персональных данных агента -->
+            <div class="switchItem" (click)="roleMatching()" [ngClass]="confirmation.role ? 'apply' : ''">
+                <span *ngIf="confirmation.role" class="icon_span">
                     <ion-icon name="md-checkbox-outline"></ion-icon>
                 </span>
-                <span *ngIf="!confirmation.sphere" class="icon_span">
+                <span *ngIf="!confirmation.role" class="icon_span">
                     <ion-icon name="md-square-outline"></ion-icon>
                 </span>
-                Sphere of influence
+                Your role matching
             </div>
 
             <!-- Заполнение персональных данных агента -->
@@ -54,15 +63,15 @@
                 Personal data
             </div>
 
-            <!-- Заполнение персональных данных агента -->
-            <div class="switchItem" (click)="roleMatching()" [ngClass]="confirmation.role ? 'apply' : ''">
-                <span *ngIf="confirmation.role" class="icon_span">
+            <!-- Выбор сфер деятельности агента -->
+            <div *ngIf="confirmation.role" class="switchItem" (click)="selectSpheres()" [ngClass]="confirmation.sphere ? 'apply' : ''">
+                <span *ngIf="confirmation.sphere" class="icon_span">
                     <ion-icon name="md-checkbox-outline"></ion-icon>
                 </span>
-                <span *ngIf="!confirmation.role" class="icon_span">
+                <span *ngIf="!confirmation.sphere" class="icon_span">
                     <ion-icon name="md-square-outline"></ion-icon>
                 </span>
-                Your role matching
+                Sphere of influence
             </div>
 
         </div>
@@ -71,6 +80,7 @@
             <!--<button ion-button color="primary" block>{{ 'SIGNUP_BUTTON' | translate }}</button>-->
             <button
                     ion-button
+                    round
                     color="primary"
                     block
                     [attr.disabled]="!(confirmation.agreement && confirmation.sphere  && confirmation.personal && confirmation.role) ? '' : null"

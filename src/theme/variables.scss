@@ -13,6 +13,18 @@ $font-path: "../assets/fonts";
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
 
 
+// высота рефрешера
+$refresher-height: 100px;
+
+// цвет границы рефрешера
+$refresher-border-color: none;
+
+// Цвет спинера загрузки рефреша страницы
+$refresher-icon-color: #337AB7;
+
+// Цвет спинера загрузки инфинити
+$infinite-scroll-loading-color: #337AB7;
+
 // Минимльная высота тулбара
 $toolbar-md-height: 4.9rem;
 $toolbar-ios-height: 45px;

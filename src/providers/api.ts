@@ -14,6 +14,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class Api {
     url: string = 'http://lmcrm.cos';
+    // url: string = 'http://lmcrm.biz.tm';
 
 
     user: any = User;

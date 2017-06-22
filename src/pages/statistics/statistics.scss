@@ -1,5 +1,20 @@
 page-statistics {
 
+  .no_sphere_text {
+    font-size: 14px;
+    color: #C5C5C5;
+  }
+
+  .spinnerLoading {
+    margin-top: 70px;
+  }
+
+  .additional_title {
+    font-size: 14px;
+    font-style: italic;
+    color: #97C6EE;
+  }
+
   .back_arrow {
     font-size: 20px;
     padding-left: 10px;
@@ -210,7 +225,7 @@ page-statistics {
           color: #ED7D31;
         }
 
-        &.Secondary{
+        &.Secondary {
           color: #478295;
         }
 

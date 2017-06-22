@@ -12,6 +12,8 @@ import {EmailConfirmationPage} from '../pages/email-confirmation/email-confirmat
 import {RegistrationDataPage} from '../pages/registration-data/registration-data';
 import {RegistrationWaitingConfirmation} from '../pages/registration-waiting-confirmation/registration-waiting-confirmation';
 
+import {MessagesPage} from '../pages/messages/messages';
+
 
 import {Push, PushObject, PushOptions} from "@ionic-native/push";
 

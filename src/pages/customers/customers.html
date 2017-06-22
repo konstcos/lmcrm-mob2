@@ -4,18 +4,20 @@
     <ion-navbar color="primary">
         <!--<ion-title>Customers</ion-title>-->
 
-        <!--<ion-buttons right>-->
-            <!--<button ion-button clear (click)="goToMainPage()">-->
-                <!--<ion-icon name="md-arrow-forward"></ion-icon>-->
-            <!--</button>-->
-        <!--</ion-buttons>-->
-
-
-        <ion-buttons left text-center class="left_button">
+        <ion-buttons left text-center>
             <button ion-button (click)="goToMainPage()">
-                close
+                <ion-icon name="ios-arrow-back" class="back_arrow"></ion-icon>
             </button>
         </ion-buttons>
+
+        <ion-title>Customer Filter Spheres</ion-title>
+
+
+        <!--<ion-buttons left text-center class="left_button">-->
+            <!--<button ion-button (click)="goToMainPage()">-->
+                <!--close-->
+            <!--</button>-->
+        <!--</ion-buttons>-->
 
 
     </ion-navbar>
@@ -34,11 +36,11 @@
 <ion-content class="customers-content">
 
     <!-- Заголовок (имя сферы) -->
-    <ion-row>
-        <ion-col text-right class="customers-title">
-            Customer Filter Spheres
-        </ion-col>
-    </ion-row>
+    <!--<ion-row>-->
+        <!--<ion-col text-right class="customers-title">-->
+            <!--Customer Filter Spheres-->
+        <!--</ion-col>-->
+    <!--</ion-row>-->
 
 
     <ion-card *ngFor="let sphere of spheres"  class="open_card">

@@ -22,12 +22,12 @@ export class ObtainPage {
      * Массив с итемами на странице
      *
      */
-    items: any = [];
+    public items: any = [];
 
     /**
      * Данные по фильтру
      */
-    filter: any = {
+    public filter: any = {
         sphere: '',
         mask: '',
         opened: ''
@@ -37,7 +37,34 @@ export class ObtainPage {
      * Переменная которая помнит есть ли еще итемы на сервере
      * нужно ли их еще подгружать или нет
      */
-    isThereStillItems = true;
+    public isThereStillItems: boolean = true;
+
+    /**
+     * Спинер загрузки
+     *
+     */
+    public isLoading: boolean = true;
+
+    /**
+     * Нет итемов
+     *
+     */
+    public noItems: boolean = false;
+
+    /**
+     * Фильтр включен или выключен
+     *
+     */
+    public isFilterOn: boolean = false;
+
+    /**
+     * Роли пользователя
+     *
+     */
+    public roles: any = {
+        role: 'any',
+        subRole: 'any',
+    };
 
 
     /**
@@ -54,19 +81,10 @@ export class ObtainPage {
 
     ionViewDidLoad() {
         // console.log('ionViewDidLoad ObtainPage');
-    }
 
+        this.events.unsubscribe('obtainFilter');
 
-    /**
-     * Срабатывает когда открывается страница
-     *
-     */
-    ionViewWillEnter() {
-
-        // событие на смену страницы
-        this.events.publish("page:change", {page: 'obtain'});
-
-        // todo событие по смене фильтра
+        // событие по смене фильтра
         this.events.subscribe('obtainFilter', () => {
 
             console.log('событие по фильтру в полученных лидах');
@@ -76,6 +94,32 @@ export class ObtainPage {
             this.loadItems();
         });
 
+
+        this.events.unsubscribe('obtainFilterChange');
+
+        // событие по смене фильтра
+        this.events.subscribe('obtainFilterChange', (data) => {
+
+            this.isFilterOn = data.status;
+        });
+    }
+
+    // ionViewWillUnload() {
+    //
+    //     this.events.unsubscribe('obtainFilter');
+    // }
+
+
+    /**
+     * Срабатывает когда открывается страница
+     *
+     */
+    ionViewWillEnter() {
+
+        this.isFilterOn = localStorage.getItem('obtainFilterOn') &&  localStorage.getItem('obtainFilterOn') == 'true';
+
+        // событие на смену страницы
+        this.events.publish("page:change", {page: 'obtain'});
         // загрузка новых итемов
         this.loadItems();
 
@@ -90,6 +134,8 @@ export class ObtainPage {
 
         // очищаем итемы
         this.items = [];
+
+        this.noItems = false;
 
         // заводим переменную с присутствующими лидами в true
         this.isThereStillItems = true;
@@ -121,8 +167,9 @@ export class ObtainPage {
                 } else {
                     // если итемов нет
 
-                    // todo сообщаем что итемов нет
-
+                    // todo проверка включенного фильтра
+                    // сообщаем что итемов нет
+                    this.noItems = true;
                 }
 
                 // отключаем окно индикатора загрузки
@@ -143,6 +190,15 @@ export class ObtainPage {
 
 
     /**
+     * Метод проверки уведомлений
+     *
+     */
+    checkNotices(notices) {
+        this.events.publish('notice:new', notices);
+    }
+
+
+    /**
      * Загрузк итемов открытых лидов в модель
      *
      */
@@ -154,13 +210,19 @@ export class ObtainPage {
         // заводим переменную с присутствующими лидами в true
         this.isThereStillItems = true;
 
+        this.noItems = false;
+
+        this.isLoading = true;
+
+        // todo показываем индикатор загрузки
+
         // инициация окна загрузки
-        let loading = this.loadingCtrl.create({
-            content: 'Receiving leads, please wait...'
-        });
+        // let loading = this.loadingCtrl.create({
+        //     content: 'Receiving leads, please wait...'
+        // });
 
         // показ окна загрузки
-        loading.present();
+        // loading.present();
 
 
         // получение итемов с сервера
@@ -172,10 +234,21 @@ export class ObtainPage {
                 // переводим ответ в json
                 let data = result.json();
 
-                // console.log(data);
+
+                console.log(data);
+
+                localStorage.setItem('roles', JSON.stringify(data.roles));
+                this.events.publish('roles:get', data.roles);
+
+                this.roles = data.roles;
+
+                this.checkNotices(data.notices);
+
 
                 // вычесляем количество итемов
                 let itemsLength = data.auctionItems.length;
+
+                this.isLoading = false;
 
                 // обработка итемов
                 if (itemsLength != 0) {
@@ -189,22 +262,26 @@ export class ObtainPage {
                 } else {
                     // если итемов нет
 
-                    // todo показываем оповещение что итемов нет
+                    // todo проверка включенного фильтра
 
+                    // показываем оповещение что итемов нет
+                    this.noItems = true;
                 }
 
                 // отключаем окно индикатора загрузки
-                loading.dismiss();
+                // loading.dismiss();
 
             }, err => {
                 // в случае ошибки
 
                 console.log('ERROR: ' + err);
 
+                this.isLoading = false;
+
                 // todo выводится сообщение об ошибке (нету связи и т.д.)
 
                 // отключаем окно индикатора загрузки
-                loading.dismiss();
+                // loading.dismiss();
             });
 
     }

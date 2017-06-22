@@ -16,20 +16,6 @@
 
         <ion-title>Organizer</ion-title>
 
-        <!--<ion-buttons left text-center class="left_button">-->
-            <!--<button ion-button (click)="close()">-->
-                <!--close-->
-            <!--</button>-->
-        <!--</ion-buttons>-->
-
-        <!--<ion-buttons right text-center class="right_button">-->
-            <!--&lt;!&ndash;<button ion-button (click)="presentActionSheet()">&ndash;&gt;-->
-            <!--<button ion-button (click)="addItem()">-->
-                <!--Add-->
-                <!--&lt;!&ndash;<ion-icon name="md-alarm"></ion-icon>&ndash;&gt;-->
-            <!--</button>-->
-        <!--</ion-buttons>-->
-
     </ion-navbar>
 
     <ion-toolbar>
@@ -105,42 +91,12 @@
 
     </div>
 
-    <!--<ion-row *ngFor="let item of items" class="organizer-row">-->
-
-        <!--<ion-col col-2 text-center align-self-center>-->
-            <!--<ion-icon *ngIf="item.type == 2" name="alarm"></ion-icon>-->
-            <!--<ion-icon *ngIf="item.type == 1" name="ios-paper-outline"></ion-icon>-->
-        <!--</ion-col>-->
-
-        <!--<ion-col class="organizer-data" text-right>-->
-
-            <!--<div *ngIf="item.type == 2" class="date"> <span class="time">{{ item.date.time }}</span> {{ item.date.date }} </div>-->
-            <!--<div *ngIf="item.type == 1" class="date"> &nbsp; </div>-->
-            <!--<div>{{ item.text }}</div>-->
-
-        <!--</ion-col>-->
-
-    <!--</ion-row>-->
-
-
-    <!--<ion-list>-->
-        <!--<ion-item *ngFor="let item of items" text-right>-->
-
-            <!--<ion-icon *ngIf="item.type == 2" name="alarm"></ion-icon>-->
-            <!--<ion-icon *ngIf="item.type == 1" name="ios-paper-outline"></ion-icon>-->
-
-
-            <!--{{ item.text }}-->
-
-        <!--</ion-item>-->
-    <!--</ion-list>-->
-
 </ion-content>
 
 
 <ion-footer>
-    <div text-right>
-        <button ion-button small round outline (click)="addItem()">
+    <div text-center>
+        <button ion-button small round (click)="addItem()">
             Add
             <!--<ion-icon name="md-alarm"></ion-icon>-->
         </button>

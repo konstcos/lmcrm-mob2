@@ -19,7 +19,9 @@
             </button>
         </ion-buttons>
 
-        <ion-title>Statistics</ion-title>
+        <ion-title>Statistics
+        <span class="additional_title">(<span *ngIf="statisticBlocks == 'leads'">Leads</span><span *ngIf="statisticBlocks == 'statuses'">Statuses</span><span *ngIf="statisticBlocks == 'transitions'">Transitions</span>)</span>
+        </ion-title>
 
 
         <!--<ion-buttons left text-center class="left_button">-->
@@ -117,12 +119,16 @@
 <ion-content padding>
 
     <!-- Если сфера отсутствует -->
-    <ion-row *ngIf="!sphereExist">
-        <ion-col>
+    <ion-row *ngIf="noSphereBlockShow">
+        <ion-col text-center class="no_sphere_text">
             No sphere
         </ion-col>
     </ion-row>
 
+    <!-- спинер загрузки -->
+    <div *ngIf="isLoading" class="spinnerLoading" text-center>
+        <ion-spinner color="primary" name="crescent"></ion-spinner>
+    </div>
 
     <div [ngSwitch]="statisticBlocks">
         <ion-row *ngSwitchCase="'leads'">
@@ -135,17 +141,24 @@
                         <!-- Сумарные данные по лидам (агента и его салесманов) -->
                         <div class="lead_statistic_block lead_summary_block">
 
-                            <ion-row>
-                                <ion-col text-center class="title">
-                                    Leads
-                                </ion-col>
-                            </ion-row>
 
                             <ion-row>
                                 <ion-col class="item_data" text-right>
                                     <span class="period legend">by period</span> / <span class="all legend">by all</span>
                                 </ion-col>
                             </ion-row>
+
+                            <ion-row>
+                                <ion-col text-center class="title">
+                                    Leads
+                                </ion-col>
+                            </ion-row>
+
+                            <!--<ion-row>-->
+                                <!--<ion-col class="item_data" text-right>-->
+                                    <!--<span class="period legend">by period</span> / <span class="all legend">by all</span>-->
+                                <!--</ion-col>-->
+                            <!--</ion-row>-->
 
                             <ion-row>
                                 <ion-col class="item_label">
@@ -249,11 +262,11 @@
                                 </ion-col>
                             </ion-row>
 
-                            <ion-row>
-                                <ion-col class="item_data" text-right>
-                                    <span class="period legend">by period</span> / <span class="all legend">by all</span>
-                                </ion-col>
-                            </ion-row>
+                            <!--<ion-row>-->
+                                <!--<ion-col class="item_data" text-right>-->
+                                    <!--<span class="period legend">by period</span> / <span class="all legend">by all</span>-->
+                                <!--</ion-col>-->
+                            <!--</ion-row>-->
 
                         </div>
 
@@ -275,11 +288,11 @@
                                     </ion-col>
                                 </ion-row>
 
-                                <ion-row>
-                                    <ion-col class="item_data" text-right>
-                                        <span class="period legend">by period</span> / <span class="all legend">by all</span>
-                                    </ion-col>
-                                </ion-row>
+                                <!--<ion-row>-->
+                                    <!--<ion-col class="item_data" text-right>-->
+                                        <!--<span class="period legend">by period</span> / <span class="all legend">by all</span>-->
+                                    <!--</ion-col>-->
+                                <!--</ion-row>-->
 
                                 <ion-row>
                                     <ion-col class="item_label">
@@ -344,6 +357,12 @@
                                     </ion-col>
                                 </ion-row>
 
+                                <ion-row>
+                                    <ion-col class="item_data" text-right>
+                                        <span class="period legend">by period</span> / <span class="all legend">by all</span>
+                                    </ion-col>
+                                </ion-row>
+
                             </div>
 
                         </div>
@@ -391,7 +410,7 @@
 
 
                 <!-- лиды с прогрессивными статусами -->
-                <div class="statistic_status_block statistic_status_progress">
+                <div class="statistic_status_block statistic_status_progress" *ngIf="isTypeArray(statisticData.statuses.type[1]) && statisticData.statuses.type[1].length != 0">
 
                     <ion-row>
                         <ion-col text-center class="title">
@@ -415,7 +434,7 @@
 
 
                 <!-- лиды с неопределенными статусами -->
-                <div class="statistic_status_block statistic_status_uncertain">
+                <div class="statistic_status_block statistic_status_uncertain" *ngIf="isTypeArray(statisticData.statuses.type[2]) && statisticData.statuses.type[2].length != 0">
 
                     <ion-row>
                         <ion-col text-center class="title">
@@ -439,7 +458,7 @@
 
 
                 <!-- лиды с отказными статусами -->
-                <div class="statistic_status_block statistic_status_refuseniks">
+                <div class="statistic_status_block statistic_status_refuseniks" *ngIf="isTypeArray(statisticData.statuses.type[3]) && statisticData.statuses.type[3].length != 0">
 
                     <ion-row>
                         <ion-col text-center class="title">
@@ -463,7 +482,7 @@
 
 
                 <!-- лиды с плохими статусами -->
-                <div class="statistic_status_block statistic_status_bad">
+                <div class="statistic_status_block statistic_status_bad" *ngIf="isTypeArray(statisticData.statuses.type[4]) && statisticData.statuses.type[4].length != 0">
 
                     <ion-row>
                         <ion-col text-center class="title">
@@ -487,7 +506,7 @@
 
 
                 <!-- лиды с плохими статусами -->
-                <div class="statistic_status_block statistic_status_close_deal">
+                <div class="statistic_status_block statistic_status_close_deal" *ngIf="isTypeArray(statisticData.statuses.type[5]) && statisticData.statuses.type[5].length != 0">
 
                     <ion-row>
                         <ion-col text-center class="title">

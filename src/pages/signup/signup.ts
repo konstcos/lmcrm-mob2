@@ -19,21 +19,48 @@ import {User} from '../../providers/user';
     templateUrl: 'signup.html'
 })
 export class SignupPage {
-    // The account fields for the login form.
-    // If you're using the username field with or without email, make
-    // sure to add it to the type
-    account: {email: string, password: string, confirmPassword: string} = {
+
+    /**
+     * Данные регистрации
+     *
+     */
+    public account: {email: string, password: string, confirmPassword: string} = {
         email: '',
         password: '',
         confirmPassword: ''
     };
 
-    confirmationCode: string = '';
 
-    waitConfirmation: boolean = false;
+    /**
+     * Состояние введенных данных
+     *
+     *
+     * name
+     *   0 - нету ввода
+     *   1 - успешный ввод
+     *   2 - поле пустое
+     *   3 - невалидный мэил
+     *   4 - такой адрес уже есть
+     *
+     * password
+     *   0 - нету ввода
+     *   1 - успешный ввод
+     *   2 - поле пустое
+     *   3 - недостаточное количество символов в пароле
+     *
+     * confirmPassword
+     *   0 - нету ввода
+     *   1 - успешный ввод
+     *   2 - поле пустое
+     *   3 - пароль не соответствует подтверждению
+     *
+     */
+    public state: any = {
+        name: 0,
+        password: 0,
+        confirmPassword: 0
+    };
 
-    // Our translated text strings
-    private signupErrorString: string;
 
     constructor(public navCtrl: NavController,
                 public user: User,
@@ -42,36 +69,100 @@ export class SignupPage {
                 public loadingCtrl: LoadingController,
                 public translateService: TranslateService) {
 
+    }
 
-        let confirmatio = localStorage.getItem('waitConfirmation');
 
-        if (confirmatio == 'true') {
-            this.waitConfirmation = true;
+    /**
+     * Валидация имени
+     *
+     */
+    nameValidate() {
+
+        // убираем ошибку
+        this.state.name = 0;
+
+        // todo проверка на заполнение поля
+        if (this.account.email == '') {
+            // пустой адрес
+            this.state.name = 2;
+            return false;
+        }
+
+        // todo адрес не валидный
+        if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.account.email.trim())) {
+            // невалидный мэил
+            this.state.name = 3;
+            return false;
+        }
+
+        // todo такой адрес уже есть
+
+        // помечаем что ввод успешен
+        this.state.name = 1;
+        return true;
+
+        // console.log('Валидация имени');
+    }
+
+
+    /**
+     * Валидация пароля
+     *
+     */
+    passwordValidate() {
+
+        // убираем ошибку
+        this.state.password = 0;
+
+        // todo проверка на заполнение поля
+        if (this.account.password == '') {
+            // пустое поле пароля
+            this.state.password = 2;
+            return false;
+        }
+
+        // todo длина пароля
+        if (this.account.password.length < 5) {
+            // если поле меньше определенного количества (5)
+            this.state.password = 3;
+            return false;
         }
 
 
-        this.translateService.get('SIGNUP_ERROR').subscribe((value) => {
-            this.signupErrorString = value;
-        })
+        // помечаем что ввод успешен
+        this.state.password = 1;
+        return true;
+
+        // console.log('Валидация пароля');
     }
 
-    // doSignup() {
-    //     // Attempt to login in through our User service
-    //     this.user.signup(this.account).subscribe((resp) => {
-    //         this.navCtrl.push(MainPage);
-    //     }, (err) => {
-    //
-    //         this.navCtrl.push(MainPage); // TODO: Remove this when you add your signup endpoint
-    //
-    //         // Unable to sign up
-    //         let toast = this.toastCtrl.create({
-    //             message: this.signupErrorString,
-    //             duration: 3000,
-    //             position: 'top'
-    //         });
-    //         toast.present();
-    //     });
-    // }
+
+    /**
+     * Валидация подтверждения пароля
+     *
+     */
+    passwordConfirmValidate() {
+
+
+        // todo проверка на заполнение поля
+        if (this.account.confirmPassword == '') {
+            // пустое поле подтверждения пароля
+            this.state.confirmPassword = 2;
+            return true;
+        }
+
+        // todo проверка подтверждения пароля
+        if (this.account.confirmPassword != this.account.password) {
+            // подтверждение не соответствует паролю
+            this.state.confirmPassword = 3;
+            return true;
+        }
+
+        // помечаем что ввод успешен
+        this.state.confirmPassword = 1;
+        return true;
+        // console.log('Валидация подтверждение пароля');
+    }
 
 
     /**
@@ -83,12 +174,34 @@ export class SignupPage {
     }
 
 
+    /**
+     * Процесс регистрации
+     *
+     */
     doRegistration() {
+
+
+        // проверка на наличия емила
+        if (this.account.email.trim() == '') {
+            return false;
+        }
+
+        if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.account.email.trim())) {
+            console.log('не валидный мэил');
+            return false;
+        }
+
+        // проверка на наличия пароля
+        if (this.account.password.trim() == '') {
+            return false;
+        }
+
 
         // проверка на подтверждение пароля
         if (this.account.password != this.account.confirmPassword) {
             return false;
         }
+
 
         // инициация окна загрузки
         let loading = this.loadingCtrl.create({
@@ -108,7 +221,9 @@ export class SignupPage {
 
                 console.log(data);
 
+                // результат регистрации
                 if (data.status == 'success') {
+                    // регистрация успешна
 
                     // отправка запроса на залогинивание
                     this.user.login(this.account)
@@ -128,6 +243,29 @@ export class SignupPage {
                             // Unable to log in
                             loading.dismiss();
                         });
+
+                } else {
+                    // регистрация отменена
+
+                    // если такой адрес уже существует
+                    if(data.data == 'email_exists'){
+
+                        // обнуляем пароль
+                        this.account.password = '';
+
+                        // обнуляем подтверждение пароля
+                        this.account.confirmPassword = '';
+
+                        // обнуляем ошибки
+                        this.state = {
+                            name: 4,
+                            password: 0,
+                            confirmPassword: 0
+                        };
+                    }
+
+
+                    loading.dismiss();
                 }
 
                 // if (res.status == 'Ok') {
@@ -153,21 +291,6 @@ export class SignupPage {
         //     loading.dismiss();
         //
         // }, 1000);
-
-    }
-
-
-    newRegistration() {
-
-        localStorage.setItem('waitConfirmation', 'false');
-
-        this.waitConfirmation = false;
-    }
-
-
-    doConfirmation() {
-
-        this.nav.setRoot(RegistrationDataPage);
 
     }
 

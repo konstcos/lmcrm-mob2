@@ -1,9 +1,12 @@
-<ion-header>
+<ion-header no-border>
 
-    <ion-navbar color="primary" hideBackButton="true">
+    <ion-navbar color="clear" hideBackButton="true">
 
-        <ion-buttons left text-center class="left_button">
-            <button ion-button (click)="goBack()">
+        <ion-buttons left>
+            <button color="primary" ion-button (click)="goBack()">
+                <ion-icon name="ios-arrow-back" class="back_arrow"></ion-icon>
+            </button>
+            <button color="primary" ion-button (click)="goBack()">
                 back to login
             </button>
         </ion-buttons>
@@ -19,88 +22,232 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content class="no-scroll" padding>
 
     <div *ngIf="!waitConfirmation">
 
-        <form (submit)="doSignup()">
-            <ion-list>
+
+
+        <!-- Поле с почтой пользователя -->
+        <div class="signup_data_row">
+
+            <ion-row>
+
+                <!-- Иконка валидации -->
+                <ion-col col-1 align-self-center text-right class="validation_block">
+                    <!-- Успешная валидация -->
+                    <ion-icon *ngIf="state.name == 1" class="success" name="md-checkmark"></ion-icon>
+                    <!-- Ошибка валидации -->
+                    <ion-icon *ngIf="state.name > 1" class="alert" name="md-alert"></ion-icon>
+                    <!--<ion-icon *ngIf="state.lastName == 3" class="alert" name="md-alert"></ion-icon>-->
+                </ion-col>
+
+                <!-- Блок с именем пользователя -->
+                <ion-col class="data_block">
+                    <!-- Лейбл ввода имени -->
+                    <div class="label">{{ 'EMAIL' | translate }}</div>
+                    <!-- Инпут имени пользователя -->
+                    <ion-input
+                            class="input_row"
+                            [(ngModel)]="account.email"
+                            type="text"
+                            text-right
+                            (blur)="nameValidate()"
+                            name="firstName">
+                    </ion-input>
+
+
+                    <!-- Разделительная черта -->
+                    <div>
+                        <hr class="signup_data_row_separator" [ngClass]="(state.name > 1) ? 'red' : '' ">
+                    </div>
+                </ion-col>
+            </ion-row>
+
+
+            <!-- Сообщение с ошибкой -->
+
+            <!-- пустое поле -->
+            <ion-row
+                    class="error_message"
+                    *ngIf="state.name == 2">
+                <ion-col>
+                    this field required
+                </ion-col>
+            </ion-row>
+
+            <!-- невалидный мэил -->
+            <ion-row
+                    class="error_message"
+                    *ngIf="state.name == 3">
+                <ion-col>
+                    enter valid email address
+                </ion-col>
+            </ion-row>
+
+            <!-- такой мэил уже существует -->
+            <ion-row
+                    class="error_message"
+                    *ngIf="state.name == 4">
+                <ion-col>
+                    this email address already exists
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+
+
+        <!-- пароль -->
+        <div class="signup_data_row">
+
+            <ion-row>
+
+                <!-- Иконка валидации -->
+                <ion-col col-1 align-self-center text-right class="validation_block">
+                    <!-- Успешная валидация -->
+                    <ion-icon *ngIf="state.password == 1" class="success" name="md-checkmark"></ion-icon>
+                    <!-- Ошибка валидации -->
+                    <ion-icon *ngIf="state.password > 1" class="alert" name="md-alert"></ion-icon>
+                    <!--<ion-icon *ngIf="state.lastName == 3" class="alert" name="md-alert"></ion-icon>-->
+                </ion-col>
+
+                <!-- Блок с именем пользователя -->
+                <ion-col class="data_block">
+                    <!-- Лейбл ввода имени -->
+                    <div class="label">{{ 'PASSWORD' | translate }}</div>
+                    <!-- Инпут имени пользователя -->
+                    <ion-input
+                            class="input_row"
+                            [(ngModel)]="account.password"
+                            type="password"
+                            text-right
+                            (blur)="passwordValidate()"
+                            name="firstName">
+                    </ion-input>
+
+
+                    <!-- Разделительная черта -->
+                    <div>
+                        <hr class="signup_data_row_separator" [ngClass]="(state.password > 1) ? 'red' : '' ">
+                    </div>
+                </ion-col>
+            </ion-row>
+
+
+            <!-- Сообщение с ошибкой -->
+
+            <!-- поле пустое -->
+            <ion-row
+                    class="error_message"
+                    *ngIf="state.password == 2">
+                <ion-col>
+                    this field required
+                </ion-col>
+            </ion-row>
+
+            <!-- недостаточное количество символов в пароле -->
+            <ion-row
+                    class="error_message"
+                    *ngIf="state.password == 3">
+                <ion-col>
+                    in the password must be at least 5 characters
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+
+
+        <!-- Подтверждение пароля -->
+        <div class="signup_data_row">
+
+            <ion-row>
+
+                <!-- Иконка валидации -->
+                <ion-col col-1 align-self-center text-right class="validation_block">
+                    <!-- Успешная валидация -->
+                    <ion-icon *ngIf="state.confirmPassword == 1" class="success" name="md-checkmark"></ion-icon>
+                    <!-- Ошибка валидации -->
+                    <ion-icon *ngIf="state.confirmPassword > 1" class="alert" name="md-alert"></ion-icon>
+                    <!--<ion-icon *ngIf="state.lastName == 3" class="alert" name="md-alert"></ion-icon>-->
+                </ion-col>
+
+                <!-- Блок с именем пользователя -->
+                <ion-col class="data_block">
+                    <!-- Лейбл ввода имени -->
+                    <div class="label">Confirm Password</div>
+                    <!-- Инпут имени пользователя -->
+                    <ion-input
+                            class="input_row"
+                            [(ngModel)]="account.confirmPassword"
+                            type="password"
+                            text-right
+                            (blur)="passwordConfirmValidate()"
+                            name="firstName">
+                    </ion-input>
+
+
+                    <!-- Разделительная черта -->
+                    <div>
+                        <hr class="signup_data_row_separator" [ngClass]="(state.confirmPassword > 1) ? 'red' : '' ">
+                    </div>
+                </ion-col>
+            </ion-row>
+
+
+            <!-- Сообщение с ошибкой -->
+
+            <!-- пустое поле -->
+            <ion-row
+                    class="error_message"
+                    *ngIf="state.confirmPassword == 2">
+                <ion-col>
+                    this field required
+                </ion-col>
+            </ion-row>
+
+            <!-- несовпадение с паролем -->
+            <ion-row
+                    class="error_message"
+                    *ngIf="state.confirmPassword == 3">
+                <ion-col>
+                    does not match the password
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+
+
+        <!--<form (submit)="doSignup()">-->
+            <!--<ion-list>-->
 
                 <!--<ion-item>-->
-                <!--<ion-label fixed>{{ 'NAME' | translate }}</ion-label>-->
-                <!--<ion-input type="text" [(ngModel)]="account.name" name="name"></ion-input>-->
+                    <!--<ion-label stacked>{{ 'EMAIL' | translate }}</ion-label>-->
+                    <!--<ion-input type="email" [(ngModel)]="account.email" name="email"></ion-input>-->
                 <!--</ion-item>-->
 
-                <ion-item>
-                    <ion-label stacked>{{ 'EMAIL' | translate }}</ion-label>
-                    <ion-input type="email" [(ngModel)]="account.email" name="email"></ion-input>
-                </ion-item>
+                <!--<ion-item>-->
+                    <!--<ion-label stacked>{{ 'PASSWORD' | translate }}</ion-label>-->
+                    <!--<ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>-->
+                <!--</ion-item>-->
 
-                <!--
-                Want to add a Username? Here you go:
+                <!--<ion-item>-->
+                    <!--<ion-label stacked>Confirm Password</ion-label>-->
+                    <!--<ion-input type="password" [(ngModel)]="account.confirmPassword" name="password"></ion-input>-->
+                <!--</ion-item>-->
 
-                <ion-item>
-                  <ion-label floating>Username</ion-label>
-                  <ion-input type="text" [(ngModel)]="account.username" name="username"></ion-input>
-                </ion-item>
-                -->
+            <!--</ion-list>-->
+        <!--</form>-->
 
-                <ion-item>
-                    <ion-label stacked>{{ 'PASSWORD' | translate }}</ion-label>
-                    <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
-                </ion-item>
-
-                <ion-item>
-                    <ion-label stacked>Confirm Password</ion-label>
-                    <ion-input type="password" [(ngModel)]="account.confirmPassword" name="password"></ion-input>
-                </ion-item>
-
-
-
-            </ion-list>
-        </form>
-
-        <div padding>
+        <div padding text-center>
             <!--<button ion-button color="primary" block>{{ 'SIGNUP_BUTTON' | translate }}</button>-->
-            <button ion-button color="primary" block (click)="doRegistration()"> REGISTER </button>
+            <button ion-button round small (click)="doRegistration()"> REGISTER </button>
         </div>
 
 
     </div>
-
-    <div *ngIf="waitConfirmation">
-
-        <form (submit)="doSignup()">
-            <ion-list>
-
-                <ion-item>
-                    <ion-label stacked>Confirmation code</ion-label>
-                    <ion-input type="text" [(ngModel)]="confirmationCode" name="confirmation" placeholder="enter code"></ion-input>
-                </ion-item>
-
-            </ion-list>
-
-
-
-        </form>
-
-
-        <div padding>
-            <!--<button ion-button color="primary" block>{{ 'SIGNUP_BUTTON' | translate }}</button>-->
-            <button ion-button color="primary" block (click)="doConfirmation()"> CONFIRM </button>
-        </div>
-
-    </div>
-
-
 
 </ion-content>
 
-<ion-footer *ngIf="waitConfirmation">
-
-    <div padding>
-        <!--<button ion-button color="primary" block>{{ 'SIGNUP_BUTTON' | translate }}</button>-->
-        <button ion-button color="primary" block (click)="newRegistration()"> NEW REGISTRATION </button>
-    </div>
-
-</ion-footer>

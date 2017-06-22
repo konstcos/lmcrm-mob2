@@ -13,14 +13,16 @@
 
             <!--<button menuClose ion-item>Salesmen</button>-->
 
-            <button menuClose ion-item (click)="openPage(pages[3])">{{ pages[3].title }}</button>
+            <button *ngIf="roles.role == 'agent'" menuClose ion-item (click)="openPage(pages[3])">{{ pages[3].title }}</button>
 
-            <button menuClose ion-item (click)="openSalesmen()">Salesmen</button>
-            <button menuClose ion-item (click)="openPage(pages[0])">{{ pages[0].title }}</button>
+            <button menuClose ion-item (click)="openPage(pages[5])">{{ pages[5].title }}</button>
 
-            <button menuClose ion-item (click)="openPage(pages[4])">{{ pages[4].title }}</button>
+            <button *ngIf="roles.role == 'agent'" menuClose ion-item (click)="openSalesmen()">Salesmen</button>
+            <button *ngIf="roles.role == 'agent'" menuClose ion-item (click)="openPage(pages[0])">{{ pages[0].title }}</button>
 
-            <button menuClose ion-item (click)="openPage(pages[2])">{{ pages[2].title }}</button>
+            <button *ngIf="roles.role == 'agent'" menuClose ion-item (click)="openPage(pages[4])">{{ pages[4].title }}</button>
+
+            <button *ngIf="roles.role == 'agent'" menuClose ion-item (click)="openPage(pages[2])">{{ pages[2].title }}</button>
 
             <button menuClose ion-item (click)="logout()">Logout</button>
 
@@ -57,21 +59,6 @@
             </ion-row>
 
             <!-- Начало периода -->
-            <!--<ion-row class="period_filter_from">-->
-                <!--<ion-col col-3 text-right>-->
-                    <!--From:-->
-                <!--</ion-col>-->
-
-                <!--<ion-col>-->
-                    <!--<ion-datetime-->
-                            <!--displayFormat="DD/MM/YYYY"-->
-                            <!--pickerFormat="DD-MM-YYYY"-->
-                            <!--[(ngModel)]="filter.period.from">-->
-
-                    <!--</ion-datetime>-->
-                <!--</ion-col>-->
-            <!--</ion-row>-->
-
             <ion-item class="period_filter_item period_filter_from">
                 <ion-label>From</ion-label>
                 <ion-datetime
@@ -93,17 +80,6 @@
 
             <!-- Кнопка обнуления -->
             <button small ion-button round color="danger" (click)="resetPeriod()">reset period</button>
-
-            <!-- Конец периода -->
-            <!--<ion-row class="period_filter_from">-->
-                <!--<ion-col col-3 text-right>-->
-                    <!--To:-->
-                <!--</ion-col>-->
-
-                <!--<ion-col>-->
-                    <!--период-->
-                <!--</ion-col>-->
-            <!--</ion-row>-->
 
         </div>
 
@@ -359,30 +335,12 @@
         </div>
 
 
-
-        <!--<ion-list>-->
-
-            <!--<div *ngIf="childPage=='open'">-->
-                <!--Открытые лиды-->
-            <!--</div>-->
-
-            <!--<div *ngIf="childPage=='deposited'">-->
-                <!--Отданные лиды-->
-            <!--</div>-->
-
-            <!--<div *ngIf="childPage=='obtain'">-->
-                <!--Отфильтрованные лиды-->
-            <!--</div>-->
-
-
-        <!--</ion-list>-->
-
     </ion-content>
 
     <ion-footer>
         <ion-toolbar color="dark">
-            <button menuClose small (click)="filterApply()" ion-button>Apply</button>
-            <button menuClose small (click)="filterReset()" ion-button color="danger">Reset</button>
+            <button menuClose (click)="filterApply()" ion-button>Apply</button>
+            <button menuClose (click)="filterReset()" ion-button color="danger">Reset</button>
         </ion-toolbar>
     </ion-footer>
 
@@ -412,7 +370,8 @@
 
 
         <ion-buttons left>
-            <button ion-button icon-only (click)="testClick()">
+            <!--<button ion-button icon-only (click)="testClick()">-->
+            <button ion-button icon-only>
                 <ion-icon name="search"></ion-icon>
             </button>
 

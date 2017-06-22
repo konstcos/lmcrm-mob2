@@ -24,7 +24,7 @@ export class Obtain {
      * Получение с сервера итемов обтэин
      */
     get(data: any){
-        return this.api.post('api/obtain', data);
+        return this.api.post('api/obtain', data).share();
     }
 
 

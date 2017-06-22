@@ -39,6 +39,34 @@ export class DepositedPage {
      */
     isThereStillItems = true;
 
+    /**
+     * Спинер загрузки
+     *
+     */
+    public isLoading: boolean = true;
+
+    /**
+     * Нет итемов
+     *
+     */
+    public noItems: boolean = false;
+
+    /**
+     * Фильтр включен или выключен
+     *
+     */
+    public isFilterOn: boolean = false;
+
+    /**
+     * Роли пользователя
+     *
+     */
+    public roles: any = {
+        role: 'any',
+        subRole: 'any',
+    };
+
+
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
@@ -56,6 +84,10 @@ export class DepositedPage {
     ionViewDidLoad() {
         // console.log('ionViewDidLoad DepositedPage');
 
+        // отписываемся от события по добавлению нового лида
+        this.events.unsubscribe("lead:new_added");
+
+        // событие добавления нового лида
         this.events.subscribe("lead:new_added", () => {
             // this.notices = 0;
 
@@ -63,6 +95,27 @@ export class DepositedPage {
             this.loadItems();
         });
 
+        // отписываемся от событие по смене фильтра
+        this.events.unsubscribe('depositedFilter');
+
+        // событие по смене фильтра
+        this.events.subscribe('depositedFilter', () => {
+
+            console.log('событие по фильтру в отданных лидах');
+
+            this.filter = JSON.parse(localStorage.getItem('depositedFilter'));
+
+            this.loadItems();
+        });
+
+
+        this.events.unsubscribe('depositedFilterChange');
+
+        // событие по смене фильтра
+        this.events.subscribe('depositedFilterChange', (data) => {
+
+            this.isFilterOn = data.status;
+        });
 
     }
 
@@ -80,17 +133,27 @@ export class DepositedPage {
         this.events.publish("page:change", {page: 'deposited'});
 
         // todo событие по смене фильтра
-        this.events.subscribe('depositedFilter', () => {
+        // this.events.subscribe('depositedFilter', () => {
+        //
+        //     console.log('событие по фильтру в отданных лидах');
+        //
+        //     this.filter = JSON.parse(localStorage.getItem('depositedFilter'));
+        //
+        //     this.loadItems();
+        // });
 
-            console.log('событие по фильтру в отданных лидах');
-
-            this.filter = JSON.parse(localStorage.getItem('depositedFilter'));
-
-            this.loadItems();
-        });
-
+        this.isFilterOn = localStorage.getItem('depositedFilterOn') &&  localStorage.getItem('depositedFilterOn') == 'true';
 
         this.loadItems();
+    }
+
+
+    /**
+     * Метод проверки уведомлений
+     *
+     */
+    checkNotices(notices) {
+        this.events.publish('notice:new', notices);
     }
 
 
@@ -103,6 +166,8 @@ export class DepositedPage {
         // очищаем итемы
         this.items = [];
 
+        this.noItems = false;
+
         // заводим переменную с присутствующими лидами в true
         this.isThereStillItems = true;
 
@@ -114,6 +179,8 @@ export class DepositedPage {
 
                 // переводим ответ в json
                 let data = result.json();
+
+                this.checkNotices(data.notices);
 
                 // вычесляем количество итемов
                 let itemsLength = data.leads.length;
@@ -129,7 +196,7 @@ export class DepositedPage {
                     // если итемов нет
 
                     // todo сообщаем что итемов нет
-
+                    this.noItems = true;
                 }
 
                 // отключаем окно индикатора загрузки
@@ -163,13 +230,17 @@ export class DepositedPage {
         // заводим переменную с присутствующими лидами в true
         this.isThereStillItems = true;
 
+        this.noItems = false;
+
+        this.isLoading = true;
+
         // инициация окна загрузки
-        let loading = this.loadingCtrl.create({
-            content: 'Receiving leads, please wait...'
-        });
+        // let loading = this.loadingCtrl.create({
+        //     content: 'Receiving leads, please wait...'
+        // });
 
         // показ окна загрузки
-        loading.present();
+        // loading.present();
 
 
         // получение итемов с сервера
@@ -184,8 +255,17 @@ export class DepositedPage {
                 console.log('получил депозитед: ');
                 console.log(data);
 
+                localStorage.setItem('roles', JSON.stringify(data.roles));
+                this.events.publish('roles:get', data.roles);
+
+                this.roles = data.roles;
+
+                this.checkNotices(data.notices);
+
                 // вычесляем количество итемов
                 let itemsLength = data.leads.length;
+
+                this.isLoading = false;
 
                 // обработка итемов
                 if (itemsLength != 0) {
@@ -198,11 +278,11 @@ export class DepositedPage {
                     // если итемов нет
 
                     // todo показываем оповещение что итемов нет
-
+                    this.noItems = true;
                 }
 
                 // отключаем окно индикатора загрузки
-                loading.dismiss();
+                // loading.dismiss();
 
             }, err => {
                 // в случае ошибки
@@ -210,9 +290,10 @@ export class DepositedPage {
                 console.log('ERROR: ' + err);
 
                 // todo выводится сообщение об ошибке (нету связи и т.д.)
+                this.isLoading = false;
 
                 // отключаем окно индикатора загрузки
-                loading.dismiss();
+                // loading.dismiss();
             });
 
     }

@@ -9,18 +9,28 @@
     <ion-navbar color="primary" hideBackButton="true">
         <!--<ion-title>OpenLeadStatuses</ion-title>-->
 
-        <ion-buttons left text-center class="left_button">
+        <ion-buttons left text-center>
             <button ion-button (click)="close()">
-                close
+                <ion-icon name="ios-arrow-back" class="back_arrow"></ion-icon>
             </button>
         </ion-buttons>
+
+        <ion-title>Open Lead Status</ion-title>
+
+        <!--<ion-buttons left text-center class="left_button">-->
+            <!--<button ion-button (click)="close()">-->
+                <!--close-->
+            <!--</button>-->
+        <!--</ion-buttons>-->
         <!--<ion-title>OpenDetail</ion-title>-->
 
-        <ion-buttons right text-center class="right_button">
-            <button ion-button [attr.disabled]="checkedStatus ? null : true" (click)="applyStatus()">
-                Apply
-            </button>
-        </ion-buttons>
+        <!--<ion-buttons right text-center class="right_button">-->
+        <!--<ion-buttons right text-center >-->
+            <!--<button ion-button [attr.disabled]="checkedStatus ? null : true" (click)="applyStatus()">-->
+                <!--&lt;!&ndash;Apply&ndash;&gt;-->
+                <!--<ion-icon name="md-checkmark"></ion-icon>-->
+            <!--</button>-->
+        <!--</ion-buttons>-->
 
     </ion-navbar>
 
@@ -130,3 +140,11 @@
 
 
 </ion-content>
+
+
+<ion-footer>
+        <button ion-button no-margin full [attr.disabled]="checkedStatus ? null : true" (click)="applyStatus()">
+            Apply
+            <!--<ion-icon name="md-checkmark"></ion-icon>-->
+        </button>
+</ion-footer>

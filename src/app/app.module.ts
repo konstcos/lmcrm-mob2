@@ -45,10 +45,12 @@ import {OpenLeadOrganizerEditPage} from '../pages/open-lead-organizer-edit/open-
 import {StatisticsPage} from '../pages/statistics/statistics';
 
 import {MessagesPage} from '../pages/messages/messages';
+import {MessagesFilterPage} from '../pages/messages-filter/messages-filter';
 
 import {OpenLeadStatusesPage} from '../pages/open-lead-statuses/open-lead-statuses';
 
 import {OpenLeadOrganizerPage} from '../pages/open-lead-organizer/open-lead-organizer';
+import {OrganizerPage} from '../pages/organizer/organizer';
 
 import {SalesmenPage} from '../pages/salesmen/salesmen'
 import {EditSalesmenPage} from '../pages/edit-salesmen/edit-salesmen'
@@ -72,10 +74,13 @@ import {MenuPage} from '../pages/menu/menu';
 import {SettingsPage} from '../pages/settings/settings';
 import {SearchPage} from '../pages/search/search';
 
+import {LeadStatusPage} from '../pages/lead-status/lead-status';
+
 import {User} from '../providers/user';
 import {Api} from '../providers/api';
 import {Settings} from '../providers/settings';
 import {Customer} from '../providers/customer';
+import {Notification} from '../providers/notification';
 import {OpenLeadOrganizer} from '../providers/open-lead-organizer';
 import {Items} from '../mocks/providers/items';
 
@@ -170,6 +175,7 @@ let pages = [
     EditMaskPage,
 
     MessagesPage,
+    MessagesFilterPage,
 
     OpenLeadOrganizerEditPage,
 
@@ -184,8 +190,10 @@ let pages = [
     PrivateGroupPage,
     PrivateGroupSearchMemberPage,
     PrivateGroupAddMemberPage,
+    LeadStatusPage,
 
     OpenLeadStatusesPage,
+    OrganizerPage,
 
     OpenLeadOrganizerPage,
 
@@ -212,6 +220,7 @@ export function providers() {
         Open,
         Customer,
         Push,
+        Notification,
         // FCM,
 
         OpenLeadOrganizer,

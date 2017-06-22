@@ -1,36 +1,87 @@
-<ion-header>
+<ion-header no-border>
 
-    <ion-navbar color="primary" hideBackButton="true">
+    <ion-navbar color="clear" hideBackButton="true">
 
-        <ion-buttons left text-center class="left_button">
-            <button ion-button (click)="goBack()">
+        <ion-buttons left>
+            <button color="primary" ion-button (click)="goBack()">
+                <ion-icon name="ios-arrow-back" class="back_arrow"></ion-icon>
+            </button>
+            <button color="primary" ion-button (click)="goBack()">
                 back to login
             </button>
         </ion-buttons>
 
-        <ion-buttons right text-center class="right_button">
-            <!--<button ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">-->
-            <!--add lead-->
+        <!--<ion-buttons left text-center class="left_button">-->
+            <!--<button ion-button (click)="goBack()">-->
+                <!--back to login-->
             <!--</button>-->
-        </ion-buttons>
+        <!--</ion-buttons>-->
+
+        <!--<ion-buttons right text-center class="right_button">-->
+            <!--&lt;!&ndash;<button ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">&ndash;&gt;-->
+            <!--&lt;!&ndash;add lead&ndash;&gt;-->
+            <!--&lt;!&ndash;</button>&ndash;&gt;-->
+        <!--</ion-buttons>-->
 
     </ion-navbar>
 
 </ion-header>
 
 
-<ion-content>
+<ion-content class="no-scroll" padding>
 
-    <ion-list>
+    <!-- Ввод кода на подтверждение -->
+    <div class="confirmation_data_row">
 
-        <ion-item>
-            <ion-label stacked>Confirmation code</ion-label>
-            <ion-input type="text" [(ngModel)]="confirmationCode" name="confirmation" placeholder="enter code"></ion-input>
-        </ion-item>
+        <ion-row>
 
-    </ion-list>
+            <!-- Блок с именем пользователя -->
+            <ion-col class="data_block">
+                <!-- Лейбл ввода имени -->
+                <div class="label">Confirmation code</div>
+                <!-- Инпут имени пользователя -->
+                <ion-input
+                        class="input_row"
+                        [(ngModel)]="confirmationCode"
+                        (focus)="onFocus($event)"
+                        type="text"
+                        text-right
+                        placeholder="enter code"
+                        name="confirmationCode">
+                </ion-input>
 
-    <button ion-button color="primary" clear (click)="confirm()"> confirm </button>
+                <!-- Разделительная черта -->
+                <div>
+                    <hr class="confirmation_data_row_separator">
+                    <!--<hr class="signup_data_row_separator" [ngClass]="(state.name > 1) ? 'red' : '' ">-->
+                </div>
+            </ion-col>
+        </ion-row>
+
+
+        <!-- todo Сообщение об ошибке -->
+        <ion-row
+                class="error_message"
+                *ngIf="error">
+            <ion-col>
+                wrong code
+            </ion-col>
+        </ion-row>
+
+    </div>
+
+    <!--<ion-list>-->
+
+        <!--<ion-item>-->
+            <!--<ion-label stacked>Confirmation code</ion-label>-->
+            <!--<ion-input type="text" [(ngModel)]="confirmationCode" name="confirmation" placeholder="enter code"></ion-input>-->
+        <!--</ion-item>-->
+
+    <!--</ion-list>-->
+
+    <div text-center>
+        <button ion-button color="primary" round small (click)="confirm()"> confirm </button>
+    </div>
 
 </ion-content>
 

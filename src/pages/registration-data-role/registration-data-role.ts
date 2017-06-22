@@ -28,7 +28,7 @@ export class RegistrationDataRolePage {
      *   2 - диалмейкер
      *
      */
-    public role: number = 1;
+    public role: number = 0;
 
     constructor(public translate: TranslateService,
                 public navCtrl: NavController,
@@ -66,7 +66,16 @@ export class RegistrationDataRolePage {
      *
      */
     selectRole(roleNum) {
-        this.role = roleNum;
+
+        if (this.role == roleNum) {
+
+            this.role = 0;
+
+        } else {
+
+            this.role = roleNum;
+        }
+
     }
 
 
@@ -74,7 +83,7 @@ export class RegistrationDataRolePage {
      * Подробное описание роли
      *
      */
-    roleDescription(roleId){
+    roleDescription(roleId) {
         this.navCtrl.push(RegistrationDataRolePageDescription, {roleId: roleId});
     }
 
@@ -83,7 +92,7 @@ export class RegistrationDataRolePage {
      * Страница с сравнением ролей
      *
      */
-    roleComparison(){
+    roleComparison() {
         this.navCtrl.push(RegistrationDataRolePageDescription, {roleId: 3});
     }
 

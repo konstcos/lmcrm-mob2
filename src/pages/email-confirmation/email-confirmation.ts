@@ -23,7 +23,14 @@ export class EmailConfirmationPage {
      * Код подтверждения
      *
      */
-    confirmationCode: string = '';
+    public confirmationCode: string = '';
+
+
+    /**
+     * Сообщение об ошибке
+     *
+     */
+    public error: boolean = false;
 
     constructor(public navCtrl: NavController,
                 public user: User,
@@ -37,6 +44,13 @@ export class EmailConfirmationPage {
     }
 
 
+    onFocus(event) {
+
+        this.error = false;
+        console.log('focus');
+    }
+
+
     /**
      *  Подтверждение мэила
      *
@@ -44,7 +58,7 @@ export class EmailConfirmationPage {
     confirm() {
 
         // проверка на заполнение поля
-        if(this.confirmationCode.trim() == ''){
+        if (this.confirmationCode.trim() == '') {
             // если поле пустое - выходим из метода
             return false;
         }
@@ -54,7 +68,7 @@ export class EmailConfirmationPage {
 
         // отправка запроса на подтверждение кода
         this.user.activate(this.confirmationCode.trim())
-            // ожидание ответа сервера
+        // ожидание ответа сервера
             .subscribe(resp => {
 
                 // преобразование ответа в json
@@ -72,6 +86,8 @@ export class EmailConfirmationPage {
 
                 } else {
                     // при ошибке активации
+
+                    this.error = true;
 
                     // сообщаем об ошибке активации
                     console.log('неверный код подтверждения');

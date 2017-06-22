@@ -39,6 +39,8 @@ import {CreditsPage} from '../credits/credits'
 import {MessagesPage} from '../messages/messages'
 // страница приватной группы
 import {PrivateGroupPage} from '../private-group/private-group'
+// страница органайзера
+import {OrganizerPage} from '../organizer/organizer'
 
 /*
  Основная страница приложения.
@@ -70,6 +72,7 @@ export class MainPage {
 
 
     notices: number = 0;
+
 
 
     /**
@@ -167,15 +170,26 @@ export class MainPage {
      */
 
 
-
+    /**
+     * Фильтр включен или выключен
+     *
+     */
     public isFilterOn: boolean = false;
-
 
     /**
      * Страницы меню
+     *
      */
-
     pages: Array<{title: string, component: any}>;
+
+    /**
+     * Роли пользователя
+     *
+     */
+    public roles: any = {
+        role: 'any',
+        subRole: 'any',
+    };
 
 
     /**
@@ -187,16 +201,40 @@ export class MainPage {
                 public nav: Nav,
                 public user: User,
                 public menuCtrl: MenuController,
-                public events: Events,
-                // public content: Content
-    ) {
+                public events: Events) {
 
 
-        this.notices = Number(localStorage.getItem('notice'));
+        // this.notices = Number(localStorage.getItem('notice'));
+
+        this.events.unsubscribe("notices:clear");
 
         this.events.subscribe("notices:clear", () => {
             this.notices = 0;
         });
+
+
+        this.events.unsubscribe("roles:get",);
+        this.events.subscribe("roles:get", (roles) => {
+            // this.setNewNotices(items);
+
+            // this.notices = data;
+
+            this.roles.role = roles.role;
+            this.roles.subRole = roles.subRole;
+
+            console.log('Роли из главного компонента:');
+            console.log(this.roles);
+
+            // : any = {
+            //     role: false,
+            //     subRole: false,
+            // };
+
+            // this.content.resize();
+
+            // alert('catch event ' +items);
+        });
+
 
         // events.subscribe("child:test", (items)=> {
         //     this.setNewNotices(items);
@@ -207,10 +245,21 @@ export class MainPage {
 
             // страница клиентов (тут будут все сферы)
             {title: 'Customers filters', component: CustomersPage},
+
+            // Страница продавцов
             {title: 'Salesmen', component: SalesmenPage},
+
+            // Статистика
             {title: 'Statistic', component: StatisticsPage},
+
+            // Деньги
             {title: 'Credits', component: CreditsPage},
-            {title: 'Private Group', component: PrivateGroupPage}
+
+            // Приватная группа
+            {title: 'Private Group', component: PrivateGroupPage},
+
+            // Органайзер
+            {title: 'Organizer', component: OrganizerPage}
         ];
 
 
@@ -264,6 +313,17 @@ export class MainPage {
                 // loading.dismiss();
             });
 
+        this.events.unsubscribe("notice:new");
+
+        this.events.subscribe("notice:new", (items) => {
+
+            console.log('нотификации');
+            console.log(items);
+
+            this.notices = items;
+
+        });
+
 
     }
 
@@ -286,11 +346,26 @@ export class MainPage {
      */
     ionViewDidLoad() {
 
+
+
+        // включение главного меню
+        this.menuCtrl.enable(true, 'main_menu');
+        // отключение фильтра лидов и фильтра сообщений
+        this.menuCtrl.enable(false, 'filter');
+        this.menuCtrl.enable(false, 'massages_filter');
+
+
+
+        this.events.unsubscribe("main:openCustomer");
+
         this.events.subscribe("main:openCustomer", () => {
             // alert('открытие страницами');
             this.nav.setRoot(CustomersPage);
         });
 
+
+
+        this.events.unsubscribe("page:change");
 
         /**
          * Смена основной страницы пользователя
@@ -314,7 +389,18 @@ export class MainPage {
 
         this.menuCtrl.swipeEnable(false, 'filter');
 
+        this.events.unsubscribe("notice:new");
+        this.events.subscribe("notice:new", (items) => {
 
+            console.log('нотификации');
+            console.log(items);
+
+            this.notices = items;
+
+        });
+
+
+        this.events.unsubscribe("child:test",);
         this.events.subscribe("child:test", (items) => {
             // this.setNewNotices(items);
 
@@ -325,6 +411,43 @@ export class MainPage {
             // alert('catch event ' +items);
         });
 
+
+        // this.events.unsubscribe("roles:get",);
+        // this.events.subscribe("roles:get", (roles) => {
+        //     // this.setNewNotices(items);
+        //
+        //     // this.notices = data;
+        //
+        //     this.roles.role = roles.role;
+        //     this.roles.subRole = roles.subRole;
+        //
+        //     console.log('Роли из главного компонента:');
+        //     console.log(this.roles);
+        //
+        //     // : any = {
+        //     //     role: false,
+        //     //     subRole: false,
+        //     // };
+        //
+        //     // this.content.resize();
+        //
+        //     // alert('catch event ' +items);
+        // });
+
+    }
+
+
+    /**
+     * Срабатывает когда открывается страница
+     *
+     */
+    ionViewWillEnter() {
+        // включение главного меню
+        this.menuCtrl.enable(true, 'main_menu');
+        // отключение фильтра лидов и фильтра сообщений
+        this.menuCtrl.enable(false, 'filter');
+        this.menuCtrl.enable(false, 'massages_filter');
+        this.menuCtrl.enable(false, 'notice_filter');
     }
 
 
@@ -444,7 +567,6 @@ export class MainPage {
 
         this.user.getSphereStatuses(sphereId)
             .subscribe(result => {
-                // If the API returned a successful response, mark the user as logged in
 
                 let data = result.json();
 
@@ -455,8 +577,6 @@ export class MainPage {
                     this.openLeadStatuses = data.statuses;
 
                     this.openLeadStatuses.unshift({id: 0, name: 'No status', status: false});
-
-                    // {id: 0, name: 'No status', status: false}
 
                     // перебираем все сферы и добавляем status
                     for (let openLeadStatus in this.openLeadStatuses) {
@@ -566,7 +686,7 @@ export class MainPage {
      */
     selectLeadStatuses(status) {
 
-        // перебираем все сферы и добавляем status
+        // перебираем все статусы
         for (let leadStatus in this.leadStatuses) {
 
             if (this.leadStatuses[leadStatus]['id'] == status['id'] && this.leadStatuses[leadStatus]['status']) {
@@ -591,8 +711,6 @@ export class MainPage {
                 break;
             }
 
-
-            // this.leadStatuses[leadStatus]['status'] = false;
 
             if (this.leadStatuses[leadStatus]['id'] == status['id']) {
                 this.leadStatuses[leadStatus]['status'] = true;
@@ -824,16 +942,8 @@ export class MainPage {
                     this.isFilterOn = true;
 
                     this.leadStatuses[leadStatus]['status'] = true;
-
                 }
             });
-
-            // if (this.leadStatuses[leadStatus]['id'] == this.filter.leadStatus) {
-            //
-            //     this.leadStatuses[leadStatus]['status'] = true;
-            //
-            // }
-
         }
 
 
@@ -885,20 +995,26 @@ export class MainPage {
         if (this.childPage == 'open') {
             // страница открытых лидов
             localStorage.setItem('openLeadFilter', JSON.stringify(this.filter));
+            localStorage.setItem('openLeadFilterOn', 'true');
 
             this.events.publish('openLeadFilter');
+            this.events.publish('openLeadFilterChange', {status: true});
 
         } else if (this.childPage == 'deposited') {
             // страница отданных лидов
             localStorage.setItem('depositedFilter', JSON.stringify(this.filter));
+            localStorage.setItem('depositedFilterOn', 'true');
 
             this.events.publish('depositedFilter');
+            this.events.publish('depositedFilterChange', {status: true});
 
         } else if (this.childPage == 'obtain') {
             // страница фильтра
             localStorage.setItem('obtainFilter', JSON.stringify(this.filter));
+            localStorage.setItem('obtainFilterOn', 'true');
 
             this.events.publish('obtainFilter');
+            this.events.publish('obtainFilterChange', {status: true});
         }
 
         this.filterRecount();
@@ -933,20 +1049,27 @@ export class MainPage {
         if (this.childPage == 'open') {
             // страница открытых лидов
             localStorage.setItem('openLeadFilter', JSON.stringify(this.filter));
+            localStorage.setItem('openLeadFilterOn', 'false');
 
             this.events.publish('openLeadFilter');
+            this.events.publish('openLeadFilterChange', {status: false});
+
 
         } else if (this.childPage == 'deposited') {
             // страница отданных лидов
             localStorage.setItem('depositedFilter', JSON.stringify(this.filter));
+            localStorage.setItem('depositedFilterOn', 'false');
 
             this.events.publish('depositedFilter');
+            this.events.publish('depositedFilterChange', {status: false});
 
         } else if (this.childPage == 'obtain') {
             // страница фильтра
             localStorage.setItem('obtainFilter', JSON.stringify(this.filter));
+            localStorage.setItem('obtainFilterOn', 'false');
 
             this.events.publish('obtainFilter');
+            this.events.publish('obtainFilterChange', {status: false});
         }
 
         // todo публикация события на обновление данных на странице
@@ -1076,7 +1199,7 @@ export class MainPage {
 
     openMessages() {
 
-        this.nav.setRoot(MessagesPage);
+        this.navCtrl.setRoot(MessagesPage);
 
     }
 

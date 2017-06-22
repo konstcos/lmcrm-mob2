@@ -290,6 +290,7 @@ export class EditMaskPage {
             for (let option of filter.options) {
 
                 option.value = option.value == 'true';
+                option.error = false;
             }
         }
 
@@ -303,8 +304,7 @@ export class EditMaskPage {
      */
     save() {
 
-        // console.log( this.mask );
-
+        // проверка наличия имени маски
         if (this.mask.name == '') {
 
             let toast = this.toast.create({
@@ -317,6 +317,48 @@ export class EditMaskPage {
             return false;
         }
 
+
+        let filtersErrors = false;
+
+        // проверка чтобы в каждом блоке была хотябы одна отметка
+        for(let filter in this.mask.filter){
+            // перебираем все фильтры
+
+            let error = true;
+
+            for(let option in this.mask.filter[filter].options){
+
+                // если заполнена хоть одна опция - убираем ошибку
+                if(this.mask.filter[filter].options[option].value){
+                    error = false;
+                }
+
+                // console.log(this.mask.filter[filter].options[option]);
+
+            }
+
+            this.mask.filter[filter].error = error;
+
+            if(error){
+                filtersErrors = true;
+            }
+        }
+
+
+        if(filtersErrors){
+
+            let toast = this.toast.create({
+                message: 'Each filter must have at least one option',
+                duration: 3000,
+                position: 'bottom'
+            });
+            toast.present();
+
+            return false;
+        }
+
+
+        // запрос на сохранение маски
         this.customer.saveMask(this.mask, this.newMask, this.salesmenId)
 
             .subscribe(result => {
