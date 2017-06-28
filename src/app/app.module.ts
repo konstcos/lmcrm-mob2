@@ -6,7 +6,7 @@ import {Storage, IonicStorageModule} from '@ionic/storage';
 // import { FCM } from '@ionic-native';
 
 import {Push, PushObject, PushOptions} from "@ionic-native/push";
-
+import { Badge } from '@ionic-native/badge';
 // import { FCM } from '@ionic-native/fcm';
 
 
@@ -35,6 +35,7 @@ import {DepositedDetailPage} from "../pages/deposited-detail/deposited-detail";
 
 import {OpenPage} from '../pages/open/open';
 import {OpenDetailPage} from '../pages/open-detail/open-detail'
+import {OpenLeadDealPage} from '../pages/open-lead-deal/open-lead-deal'
 
 import {CustomersPage} from '../pages/customers/customers';
 import {MasksPage} from '../pages/masks/masks';
@@ -72,6 +73,7 @@ import {ItemCreatePage} from '../pages/item-create/item-create';
 import {ItemDetailPage} from '../pages/item-detail/item-detail';
 import {MenuPage} from '../pages/menu/menu';
 import {SettingsPage} from '../pages/settings/settings';
+import {ProfilePage} from '../pages/profile/profile';
 import {SearchPage} from '../pages/search/search';
 
 import {LeadStatusPage} from '../pages/lead-status/lead-status';
@@ -174,6 +176,8 @@ let pages = [
     MasksPage,
     EditMaskPage,
 
+    ProfilePage,
+
     MessagesPage,
     MessagesFilterPage,
 
@@ -193,6 +197,7 @@ let pages = [
     LeadStatusPage,
 
     OpenLeadStatusesPage,
+    OpenLeadDealPage,
     OrganizerPage,
 
     OpenLeadOrganizerPage,
@@ -220,6 +225,7 @@ export function providers() {
         Open,
         Customer,
         Push,
+        Badge,
         Notification,
         // FCM,
 

@@ -3,6 +3,7 @@ import {
     NavController,
     LoadingController,
     MenuController,
+    ModalController,
     Content
 } from 'ionic-angular';
 
@@ -10,11 +11,13 @@ import {TranslateService} from 'ng2-translate/ng2-translate';
 
 import {LoginPage} from '../login/login'
 import {MainPage} from '../main/main'
+import {OpenLeadOrganizerPage} from '../open-lead-organizer/open-lead-organizer'
 
 import {MessagesFilterPage} from '../messages-filter/messages-filter'
 
 import {User} from '../../providers/user';
 import {Notification} from '../../providers/notification';
+import {menuManager} from "../../providers/menuManager";
 
 /*
  Generated class for the Signup page.
@@ -24,7 +27,8 @@ import {Notification} from '../../providers/notification';
  */
 @Component({
     selector: 'messages',
-    templateUrl: 'messages.html'
+    templateUrl: 'messages.html',
+    providers: [menuManager]
 })
 export class MessagesPage {
 
@@ -134,7 +138,9 @@ export class MessagesPage {
                 public notification: Notification,
                 public loadingCtrl: LoadingController,
                 public translateService: TranslateService,
-                public menuCtrl: MenuController) {
+                public menuCtrl: MenuController,
+                public menuManager: menuManager,
+                public modalCtrl: ModalController) {
 
         let noticesFilter = localStorage.getItem('noticesFilter');
 
@@ -169,24 +175,27 @@ export class MessagesPage {
      */
     ionViewWillEnter() {
 
+        this.menuCtrl.enable(true, 'notice_filter');
+
+
         // отключение главного меню
-        this.menuCtrl.enable(false, 'main_menu');
-
-
-        if (this.segmentSwitch == 'notice') {
-
-            // отключение фильтра сообщений
-            this.menuCtrl.enable(false, 'messages_filter');
-            // включение фильтра
-            this.menuCtrl.enable(true, 'notice_filter');
-
-        } else {
-
-            // отключение фильтра сообщений
-            this.menuCtrl.enable(false, 'notice_filter');
-            // включение фильтра
-            this.menuCtrl.enable(true, 'messages_filter');
-        }
+        // this.menuCtrl.enable(false, 'main_menu');
+        //
+        //
+        // if (this.segmentSwitch == 'notice') {
+        //
+        //     // отключение фильтра сообщений
+        //     this.menuCtrl.enable(false, 'messages_filter');
+        //     // включение фильтра
+        //     this.menuCtrl.enable(true, 'notice_filter');
+        //
+        // } else {
+        //
+        //     // отключение фильтра сообщений
+        //     this.menuCtrl.enable(false, 'notice_filter');
+        //     // включение фильтра
+        //     this.menuCtrl.enable(true, 'messages_filter');
+        // }
 
     }
 
@@ -413,7 +422,6 @@ export class MessagesPage {
 
         }
 
-
     }
 
 
@@ -466,14 +474,14 @@ export class MessagesPage {
         if (this.segmentSwitch == 'notice') {
 
             // отключение фильтра сообщений
-            this.menuCtrl.enable(false, 'messages_filter');
+            // this.menuCtrl.enable(false, 'messages_filter');
             // включение фильтра
             this.menuCtrl.enable(true, 'notice_filter');
 
         } else {
 
             // отключение фильтра сообщений
-            this.menuCtrl.enable(false, 'notice_filter');
+            // this.menuCtrl.enable(false, 'notice_filter');
             // включение фильтра
             this.menuCtrl.enable(true, 'messages_filter');
         }
@@ -756,6 +764,51 @@ export class MessagesPage {
         }
 
         return true;
+    }
+
+
+    /**
+     * Открытие данных по реминдеру открытого лида
+     *
+     */
+    openReminderData(notice) {
+
+        if(notice.event_id == 2){
+
+            console.log(notice);
+            // console.log(notice.notice.subject * 1);
+
+            let reminderId = notice.notice.subject * 1;
+
+            // itemsId: itemData.open_lead_id
+
+            let modal = this.modalCtrl.create(OpenLeadOrganizerPage, {reminderId: reminderId});
+
+            modal.onDidDismiss(data => {
+
+                console.log(data);
+
+                this.loadNotifications();
+
+
+                // if (data.state != 'cancel') {
+                //
+                //     this.loadOrganizerItems();
+                // }
+
+            });
+
+            modal.present();
+
+            // загрузка типов нотификаций
+            // this.getNotificationTypes();
+
+
+
+        }else{
+
+            return false;
+        }
     }
 
 

@@ -298,17 +298,17 @@
 
             <!-- блок с итемами -->
             <div *ngIf="true">
-                <ion-row *ngFor="let notice of notices" [hidden]="!showNoticeItem(notice)" class="notice_row" (click)="markNotice(notice)">
+                <ion-row *ngFor="let notice of notices" [hidden]="!showNoticeItem(notice)" class="notice_row">
                 <!--<ion-row *ngFor="let notice of notices" *ngIf="showNoticeItem(notice)" class="notice_row" (click)="markNotice(notice)">-->
 
-                    <ion-col col-1 text-center>
+                    <ion-col col-1 text-center (click)="markNotice(notice)">
 
                         <ion-icon class="checked" *ngIf="notice.status != 0" name="md-checkbox-outline"></ion-icon>
                         <ion-icon *ngIf="notice.status == 0" name="md-square-outline"></ion-icon>
 
                     </ion-col>
 
-                    <ion-col text-right>
+                    <ion-col text-right (click)="openReminderData(notice)">
                         <div class="date"> <span class="time">{{ notice.date.time }}</span> {{ notice.date.date }} </div>
                         <div class="notice_name">{{ notice.event.name }}</div>
                     </ion-col>

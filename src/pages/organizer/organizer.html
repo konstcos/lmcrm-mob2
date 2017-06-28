@@ -1,9 +1,168 @@
-<!--
-  Generated template for the OpenLeadOrganizer page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
+
+<!-- Основное меню -->
+<ion-menu side="right" [content]="content" id="organizer_filter" (ionClose)="whenFilterMenuClose()">
+
+    <ion-header no-border>
+        <ion-toolbar color="dark" no-border>
+            <ion-title>Filter</ion-title>
+
+            <ion-buttons right text-center>
+                <button ion-button (click)="menuToggle()">
+                    <ion-icon name="md-close" class="back_arrow"></ion-icon>
+                </button>
+            </ion-buttons>
+
+        </ion-toolbar>
+
+    </ion-header>
+
+    <ion-content>
+
+        <!-- Фильтр по периоду -->
+        <!--<div class="filter_block">-->
+
+        <!--<ion-row class="filter_name">-->
+        <!--<ion-col>-->
+        <!--Period-->
+        <!--</ion-col>-->
+        <!--</ion-row>-->
+
+        <!--&lt;!&ndash; Начало периода &ndash;&gt;-->
+        <!--<ion-item class="period_filter_item period_filter_from">-->
+        <!--<ion-label>From</ion-label>-->
+        <!--<ion-datetime-->
+        <!--displayFormat="DD/MM/YYYY"-->
+        <!--pickerFormat="DD-MM-YYYY"-->
+        <!--[(ngModel)]="noticesFilter.period.from">-->
+        <!--</ion-datetime>-->
+        <!--</ion-item>-->
+
+        <!--&lt;!&ndash; Конец периода &ndash;&gt;-->
+        <!--<ion-item class="period_filter_item period_filter_from">-->
+        <!--<ion-label>To</ion-label>-->
+        <!--<ion-datetime-->
+        <!--displayFormat="DD/MM/YYYY"-->
+        <!--pickerFormat="DD-MM-YYYY"-->
+        <!--[(ngModel)]="noticesFilter.period.to">-->
+        <!--</ion-datetime>-->
+        <!--</ion-item>-->
+
+        <!--&lt;!&ndash; Кнопка обнуления &ndash;&gt;-->
+        <!--<button small ion-button round color="danger" (click)="resetPeriod()">reset period</button>-->
+
+        <!--</div>-->
+
+
+        <!-- Фильтр по типам статусам оповещений -->
+        <!--<div class="filter_block">-->
+
+        <!--<ion-row class="filter_name">-->
+        <!--<ion-col>-->
+        <!--Statuses-->
+        <!--</ion-col>-->
+        <!--</ion-row>-->
+
+        <!--&lt;!&ndash; Показывать все статусы &ndash;&gt;-->
+        <!--<ion-row class="sphere_filter_item" (click)="selectStatus('all')">-->
+        <!--<ion-col col-2 text-center>-->
+
+        <!--<ion-icon *ngIf="noticesFilter.status == 'all'" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>-->
+        <!--<ion-icon *ngIf="noticesFilter.status != 'all'" name="md-square-outline"></ion-icon>-->
+
+        <!--</ion-col>-->
+
+        <!--<ion-col>-->
+        <!--All statuses-->
+        <!--</ion-col>-->
+        <!--</ion-row>-->
+
+        <!--&lt;!&ndash; Показывать только не отмеченные &ndash;&gt;-->
+        <!--<ion-row class="sphere_filter_item" (click)="selectStatus('not_market')">-->
+        <!--<ion-col col-2 text-center>-->
+
+        <!--<ion-icon *ngIf="noticesFilter.status == 'not_market'" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>-->
+        <!--<ion-icon *ngIf="noticesFilter.status != 'not_market'" name="md-square-outline"></ion-icon>-->
+
+        <!--</ion-col>-->
+
+        <!--<ion-col>-->
+        <!--Not market-->
+        <!--</ion-col>-->
+        <!--</ion-row>-->
+
+
+        <!--&lt;!&ndash; Показывать только отмеченные &ndash;&gt;-->
+        <!--<ion-row class="sphere_filter_item" (click)="selectStatus('marked')">-->
+        <!--<ion-col col-2 text-center>-->
+
+        <!--<ion-icon *ngIf="noticesFilter.status == 'marked'" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>-->
+        <!--<ion-icon *ngIf="noticesFilter.status != 'marked'" name="md-square-outline"></ion-icon>-->
+
+        <!--</ion-col>-->
+
+        <!--<ion-col>-->
+        <!--Market-->
+        <!--</ion-col>-->
+        <!--</ion-row>-->
+
+        <!--</div>-->
+
+
+        <!--Фильтр по типам оповещений-->
+        <div class="filter_block">
+
+            <ion-row class="filter_name">
+                <ion-col>
+                    Type
+                </ion-col>
+            </ion-row>
+
+
+            <ion-row class="sphere_filter_item" (click)="clearStateFilter()">
+                <ion-col col-2 text-center>
+
+                    <ion-icon *ngIf="filter.state.length == 0" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>
+                    <ion-icon *ngIf="filter.state.length != 0" name="md-square-outline"></ion-icon>
+
+                </ion-col>
+
+                <ion-col>
+                    All
+                </ion-col>
+            </ion-row>
+
+
+            <ion-row class="sphere_filter_item" *ngFor="let state of allStates" (click)="selectState(state)">
+                <ion-col col-2 text-center align-self-center>
+
+                    <!--todo-->
+                    <ion-icon *ngIf="state.status" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>
+                    <ion-icon *ngIf="!state.status" name="md-square-outline"></ion-icon>
+
+                </ion-col>
+
+                <ion-col>
+                    {{ state.name }}
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+    </ion-content>
+
+    <ion-footer>
+        <ion-toolbar color="dark">
+            <button menuClose (click)="filterApply()" ion-button>Apply</button>
+            <button menuClose (click)="filterReset()" ion-button color="danger">Reset</button>
+        </ion-toolbar>
+    </ion-footer>
+
+</ion-menu>
+<!-- конец Основное меню -->
+
+
+
 <ion-header>
 
     <ion-navbar color="primary">
@@ -16,29 +175,63 @@
 
         <ion-title>Organizer</ion-title>
 
+        <ion-buttons right text-right>
+            <!--<button ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">-->
+            <!--add lead-->
+            <!--</button>-->
+            <button ion-button icon-only (click)="menuToggle()">
+                <!--<button ion-button icon-only menuToggle="right">-->
+
+                <!--<ion-icon *ngIf="isNoticeFilterOn" class="notice_filter_on_header" name="md-square"></ion-icon>-->
+
+                <!--<ion-icon [ngClass]="isNoticeFilterOn ? 'notice_filter_on' : '' " name="ios-funnel"></ion-icon>-->
+                <ion-icon name="ios-funnel"></ion-icon>
+            </button>
+
+            <!--<button ion-button icon-only (click)="presentPopover($event)">-->
+            <!--<ion-icon name="more"></ion-icon>-->
+            <!--</button>-->
+        </ion-buttons>
+
     </ion-navbar>
 
 </ion-header>
 
 
-<ion-content>
+<ion-content #content>
 
-    <div *ngIf="items">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
 
-        <ion-row *ngFor="let item of items" class="organizer-row" (click)="itemActionSheet(item)">
+    <!-- сообщение что нет итемов органайзера -->
+    <div *ngIf="isOrganizerEmpty" class="no_notification_items">
+        <div class="no_notification_items_icon">
+            <ion-icon name="contract"></ion-icon>
+        </div>
+        no items
+    </div>
+
+    <div *ngIf="isLoading" text-center padding class="loading_block">
+        <ion-spinner color="primary" name="crescent"></ion-spinner>
+    </div>
+
+    <div *ngIf="!isLoading">
+    <!--<div *ngIf="items">-->
+
+        <ion-row *ngFor="let item of items" class="organizer-row" (click)="itemActionSheet(item)" [ngClass]="item.dell ? 'dell' : ''">
 
             <ion-col col-1 align-self-center>
-                <!--<ion-icon class="status_icon_pending" *ngIf="item.status == 'pending'" name="md-square-outline"></ion-icon>-->
-                <!--<ion-icon class="status_icon_overdue" *ngIf="item.status == 'overdue'" name="md-square"></ion-icon>-->
-                <!--<ion-icon class="status_icon_done" *ngIf="item.status == 'done'" name="md-checkbox-outline"></ion-icon>-->
-                <ion-icon class="status_icon_done" name="md-checkbox-outline"></ion-icon>
+                <ion-icon class="status_icon_pending" *ngIf="item.status == 0" name="md-square-outline"></ion-icon>
+                <ion-icon class="status_icon_overdue" *ngIf="item.status == 2" name="md-square"></ion-icon>
+                <ion-icon class="status_icon_done" *ngIf="item.status == 1" name="md-checkbox-outline"></ion-icon>
+                <!--<ion-icon class="status_icon_done" name="md-checkbox-outline"></ion-icon>-->
             </ion-col>
 
-            <ion-col col-5 text-left align-self-center>
-                <!--<ion-icon name="alarm"></ion-icon>-->
-                <!--<div class="date"> <span class="time">{{ item.date.time }}</span> {{ item.date.date }} </div>-->
-                <div> {{ item.name }} </div>
-
+            <ion-col text-right align-self-center>
+                <div class="date"> <span class="time">{{ timeFormat(item.time) }}</span> {{ dateFormat(item.time) }}</div>
+                <div class="name"> {{ item.surname }} {{ item.name }} </div>
+                <div class="comment"> {{ item.comment }} </div>
             </ion-col>
 
             <!--<ion-col class="organizer-data" text-right no-padding>-->
@@ -54,6 +247,14 @@
         </ion-row>
 
     </div>
+
+
+    <!-- Подгрузка следующей партии итемов -->
+    <ion-infinite-scroll *ngIf="isLastPageReached()" (ionInfinite)="loadMore($event)">
+    <!--<ion-infinite-scroll (ionInfinite)="loadMore($event)">-->
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    <!-- конец Подгрузка следующей партии итемов -->
 
 </ion-content>
 

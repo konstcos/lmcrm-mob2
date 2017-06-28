@@ -4,6 +4,7 @@ import {NavController, NavParams, LoadingController, ModalController, Events} fr
 import {OpenDetailPage} from '../open-detail/open-detail'
 import {OpenLeadStatusesPage} from "../open-lead-statuses/open-lead-statuses";
 import {OpenLeadOrganizerPage} from "../open-lead-organizer/open-lead-organizer";
+import {OpenLeadDealPage} from "../open-lead-deal/open-lead-deal";
 
 import {OpenLeadOrganizer} from '../../providers/open-lead-organizer';
 import {User} from '../../providers/user';
@@ -32,6 +33,7 @@ export class OpenPage {
      */
     items: any = [];
 
+
     /**
      * Данные по фильтру
      */
@@ -41,11 +43,13 @@ export class OpenPage {
         opened: ''
     };
 
+
     /**
      * Переменная которая помнит есть ли еще итемы на сервере
      * нужно ли их еще подгружать или нет
      */
     isThereStillItems = true;
+
 
     /**
      * Спинер загрузки
@@ -53,17 +57,20 @@ export class OpenPage {
      */
     public isLoading: boolean = true;
 
+
     /**
      * Нет итемов
      *
      */
     public noItems: boolean = false;
 
+
     /**
      * Фильтр включен или выключен
      *
      */
     public isFilterOn: boolean = false;
+
 
     /**
      * Роли пользователя
@@ -73,6 +80,7 @@ export class OpenPage {
         role: 'any',
         subRole: 'any',
     };
+
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
@@ -167,7 +175,7 @@ export class OpenPage {
     ionViewWillEnter() {
         // console.log('OpenPage View');
 
-        this.isFilterOn = localStorage.getItem('openLeadFilterOn') &&  localStorage.getItem('openLeadFilterOn') == 'true';
+        this.isFilterOn = localStorage.getItem('openLeadFilterOn') && localStorage.getItem('openLeadFilterOn') == 'true';
 
 
         // событие на смену страницы
@@ -293,6 +301,8 @@ export class OpenPage {
                 console.log(data);
 
                 this.checkNotices(data.notices);
+                this.events.publish('badge:set', data.notices);
+
 
                 localStorage.setItem('roles', JSON.stringify(data.roles));
                 this.events.publish('roles:get', data.roles);
@@ -424,8 +434,33 @@ export class OpenPage {
      *
      */
     detail(item) {
+
+        // todo перебрать все статусы
+        // this.item.statuses.forEach();
+
+        // console.log(item);
+
+        // console.log(item.status_info);
+        //
+        // if (item.status_info.type == 5) {
+        //
+        //     console.log('сделка');
+        //
+        // } else {
+        //
+        //     // модальное окно со статусами
+        //     let modal = this.modalCtrl.create(OpenDetailPage, {item: item});
+        //     modal.present();
+        // }
+
+
+        // todo если текущий статус - сделка
+        // todo открыть другое окно
+
+        // модальное окно со статусами
         let modal = this.modalCtrl.create(OpenDetailPage, {item: item});
         modal.present();
+
     }
 
 
@@ -477,43 +512,123 @@ export class OpenPage {
     changeStatus(item) {
         // this.navCtrl.setRoot(OpenLeadStatusesPage);
 
-        // console.log(statuses);
-        let modal = this.modalCtrl.create(OpenLeadStatusesPage, {item: item});
 
-        modal.onDidDismiss(data => {
+        if (item.status_info && item.status_info.type == 5) {
 
-            console.log('данные по статусу');
-            console.log(data);
+            console.log('сделка');
+            // OpenLeadDealPage
 
-            if(data.status){
-                item.status_info = data.status;
-                item.status = data.status.id;
+            // console.log(statuses);
+            let modal = this.modalCtrl.create(OpenLeadDealPage, {item: item});
 
-                for (let type in item.statuses) {
+            modal.onDidDismiss(data => {
 
-                    for (let stat of item.statuses[type]) {
+                console.log('данные по сделкам');
+                console.log(data);
 
-                        if (stat.id == data.status.id) {
+                // if (data.status) {
+                //     item.status_info = data.status;
+                //     item.status = data.status.id;
+                //
+                //     for (let type in item.statuses) {
+                //
+                //         for (let stat of item.statuses[type]) {
+                //
+                //             if (stat.id == data.status.id) {
+                //
+                //                 stat.checked = false;
+                //                 stat.lock = true;
+                //
+                //             } else {
+                //
+                //                 stat.checked = false;
+                //             }
+                //
+                //         }
+                //     }
+                // }
 
-                            stat.checked = false;
-                            stat.lock = true;
+                // console.log(item);
+                // console.log(data);
+            });
 
-                        } else {
+            modal.present();
 
-                            stat.checked = false;
+        } else {
+
+            // console.log(statuses);
+            let modal = this.modalCtrl.create(OpenLeadStatusesPage, {item: item});
+
+            modal.onDidDismiss(data => {
+
+                console.log('данные по статусу');
+                console.log(data);
+
+                if (data.status) {
+                    item.status_info = data.status;
+                    item.status = data.status.id;
+
+                    for (let type in item.statuses) {
+
+                        for (let stat of item.statuses[type]) {
+
+                            if (stat.id == data.status.id) {
+
+                                stat.checked = false;
+                                stat.lock = true;
+
+                            } else {
+
+                                stat.checked = false;
+                            }
+
                         }
-
                     }
                 }
 
+                // console.log(item);
+                // console.log(data);
+            });
 
-            }
+            modal.present();
+        }
 
-            // console.log(item);
-            // console.log(data);
-        });
 
-        modal.present();
+        // // console.log(statuses);
+        // let modal = this.modalCtrl.create(OpenLeadStatusesPage, {item: item});
+        //
+        // modal.onDidDismiss(data => {
+        //
+        //     console.log('данные по статусу');
+        //     console.log(data);
+        //
+        //     if (data.status) {
+        //         item.status_info = data.status;
+        //         item.status = data.status.id;
+        //
+        //         for (let type in item.statuses) {
+        //
+        //             for (let stat of item.statuses[type]) {
+        //
+        //                 if (stat.id == data.status.id) {
+        //
+        //                     stat.checked = false;
+        //                     stat.lock = true;
+        //
+        //                 } else {
+        //
+        //                     stat.checked = false;
+        //                 }
+        //
+        //             }
+        //         }
+        //     }
+        //
+        //     // console.log(item);
+        //     // console.log(data);
+        // });
+        //
+        // modal.present();
     }
 
     customerPage() {

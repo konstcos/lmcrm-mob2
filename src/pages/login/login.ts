@@ -76,6 +76,8 @@ export class LoginPage {
                 // преобразование результата в json
                 let res = resp.json();
 
+                console.log(res);
+
                 // сценарий в зависимости от статуса ответа
                 if (res.status == 'success') {
                     // успешное залогинивание

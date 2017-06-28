@@ -40,23 +40,27 @@ export class OpenDetailPage {
 
         modal.onDidDismiss(data => {
 
-            item.status_info = data.status;
-            item.status = data.status.id;
 
-            for (let type in this.item.statuses) {
 
-                for (let stat of this.item.statuses[type]) {
+            if(data.status) {
+                item.status_info = data.status;
+                item.status = data.status.id;
 
-                    if (stat.id == data.status.id) {
+                for (let type in this.item.statuses) {
 
-                        stat.checked = false;
-                        stat.lock = true;
+                    for (let stat of this.item.statuses[type]) {
 
-                    } else {
+                        if (stat.id == data.status.id) {
 
-                        stat.checked = false;
+                            stat.checked = false;
+                            stat.lock = true;
+
+                        } else {
+
+                            stat.checked = false;
+                        }
+
                     }
-
                 }
             }
 

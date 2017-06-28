@@ -1,5 +1,12 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, ViewController, ActionSheetController, ModalController} from 'ionic-angular';
+import {
+    NavController,
+    NavParams,
+    ViewController,
+    ActionSheetController,
+    ModalController,
+    MenuController
+} from 'ionic-angular';
 
 
 import {OpenLeadOrganizerEditPage} from "../open-lead-organizer-edit/open-lead-organizer-edit";
@@ -18,9 +25,81 @@ import {OpenLeadOrganizer} from '../../providers/open-lead-organizer';
 })
 export class OpenLeadOrganizerPage {
 
+
+    /**
+     * Данные по итемам
+     *
+     */
     public items: any = false;
 
+
+    /**
+     * id итемов
+     *
+     */
     public itemsId: any = false;
+
+
+    /**
+     * Идентификатор реминдера
+     *
+     */
+    public reminderId: any = false;
+
+
+    /**
+     * Данные фильтра
+     *
+     */
+    public filter: any = {
+        state: []
+    };
+
+
+    /**
+     * Данные рабочего фильтра
+     *
+     */
+    public filterApplied: any = {
+        state: []
+    };
+
+
+    /**
+     * Индикатор загрузки
+     *
+     */
+    public isLoading: any = false;
+
+
+    /**
+     * Данные лида (имя и фамилия
+     */
+    public leadData: any = {
+        name: '',
+        surname: '',
+    };
+
+
+    /**
+     * Включен фильтр или выключен
+     *
+     */
+    public isFilterOn: boolean = false;
+
+
+    /**
+     * Состояние итемов
+     *
+     * просроченный, завершенный, в ожидании
+     *
+     */
+    public allStates: any = [
+        {id: 1, name: 'Pending', status: false},
+        {id: 2, name: 'Overdue', status: false},
+        {id: 3, name: 'Done', status: false},
+    ];
+
 
     public organizerBlocks: String = 'reminders';
 
@@ -29,31 +108,51 @@ export class OpenLeadOrganizerPage {
                 public view: ViewController,
                 public actionSheetCtrl: ActionSheetController,
                 public organizer: OpenLeadOrganizer,
-                public modalCtrl: ModalController) {
+                public modalCtrl: ModalController,
+                public menuCtrl: MenuController) {
+
+
+        let filter = localStorage.getItem('openLeadOrganizerFilter');
+
+        if (filter) {
+
+            this.filterApplied = JSON.parse(filter);
+            this.filter = JSON.parse(filter);
+
+            this.filterRecount();
+        }
 
 
         this.itemsId = this.navParams.get('itemsId');
 
+        if (!this.itemsId) {
+            this.reminderId = this.navParams.get('reminderId');
+        }
 
-        this.organizer.get({ openLeadId: this.itemsId })
-            .subscribe(result => {
+        // console.log(this.itemsId);
+        // console.log('reminder: ');
+        // console.log(this.reminderId);
 
-                // переводим ответ в json
-                let data = result.json();
+        // this.organizer.get({openLeadId: this.itemsId})
+        //     .subscribe(result => {
+        //
+        //         // переводим ответ в json
+        //         let data = result.json();
+        //
+        //         // let modal = this.modalCtrl.create(OpenLeadOrganizerPage, {items: data});
+        //         //
+        //         // modal.present();
+        //
+        //         this.items = data.organizer;
+        //
+        //         // console.log(data);
+        //
+        //     }, err => {
+        //
+        //         console.log('ERROR: ' + err);
+        //     });
 
-                // let modal = this.modalCtrl.create(OpenLeadOrganizerPage, {items: data});
-                //
-                // modal.present();
-
-                this.items = data.organizer;
-
-                // console.log(data);
-
-            }, err => {
-
-                console.log('ERROR: ' + err);
-            });
-
+        this.loadOrganizerItems();
 
         console.log(this.items);
     }
@@ -61,6 +160,198 @@ export class OpenLeadOrganizerPage {
 
     ionViewDidLoad() {
         console.log('ionViewDidLoad OpenLeadOrganizerPage');
+
+        this.menuCtrl.enable(true, 'open_lead_organizer_filter');
+    }
+
+
+    /**
+     * Выбор статуса
+     *
+     */
+    selectState(selectedState) {
+
+        // перебираем все статусы
+        for (let state in this.allStates) {
+
+            if (this.allStates[state]['id'] == selectedState['id'] && this.allStates[state]['status']) {
+
+                this.allStates[state]['status'] = false;
+                // this.filter.leadStatus = 0;
+
+                let stateData = [];
+                this.filter.state.forEach(function (typeId, key) {
+
+                    if (typeId != selectedState['id']) {
+                        stateData.push(typeId);
+                    }
+
+                    // console.log('перечисляю фильтр');
+                    // console.log(mask['id']);
+                    // console.log(maskId);
+                });
+
+                this.filter.state = stateData;
+
+                break;
+            }
+
+
+            if (this.allStates[state]['id'] == selectedState['id']) {
+                this.allStates[state]['status'] = true;
+
+                this.filter.state.push(selectedState['id']);
+            }
+
+        }
+
+    }
+
+
+    /**
+     * Очистка состояния фильтра
+     *
+     */
+    clearStateFilter() {
+
+        // перебираем все состояния итемов
+        for (let stateId in this.allStates) {
+
+            this.allStates[stateId]['status'] = false;
+        }
+
+        this.filter.state = [];
+    }
+
+
+    /**
+     * Применить фильтр
+     *
+     */
+    filterApply() {
+        // сохранение примененного фильтра из рабочего в примененный
+        for (let filterData in this.filterApplied) {
+
+            switch (filterData) {
+
+                case 'state':
+
+                    this.filterApplied['state'] = JSON.parse(JSON.stringify(this.filter['state']));
+                    break;
+
+            }
+        }
+
+        // сохранение фильтра в локалсторедже
+        localStorage.setItem('openLeadOrganizerFilter', JSON.stringify(this.filterApplied));
+
+        // пересчет фильтра
+        this.filterRecount();
+
+        // обновление итемов на странице с сервера
+        this.loadOrganizerItems()
+    }
+
+
+    /**
+     * Обнуление фильтра
+     *
+     */
+    filterReset() {
+
+        // обнуление рабочих данных
+        this.filter = {
+            state: []
+        };
+
+        // обнулние примененных данных
+        this.filterApplied = {
+            state: []
+        };
+
+        // сохранение в локалсторедже
+        localStorage.setItem('openLeadOrganizerFilter', JSON.stringify(this.filterApplied));
+
+        // пересчет данных по фильтру
+        this.filterRecount();
+
+        // обновление итемов на странице с сервера
+        this.loadOrganizerItems()
+
+    }
+
+
+    /**
+     * Пересчет данных по фильтру
+     *
+     */
+    filterRecount() {
+
+        // выключение фильтра
+        this.isFilterOn = false;
+
+        // пересчет выбранных состояний итемов
+        for (let state in this.allStates) {
+
+            this.allStates[state]['status'] = false;
+
+            this.filter['state'].forEach(selectedState => {
+
+                if (this.allStates[state]['id'] == selectedState) {
+
+                    this.isFilterOn = true;
+
+                    this.allStates[state]['status'] = true;
+                }
+            });
+        }
+
+        console.log(this.isFilterOn);
+    }
+
+
+    /**
+     * Переключение меню
+     *
+     */
+    menuToggle() {
+
+        this.whenFilterMenuClose();
+
+        if (this.organizerBlocks == 'reminders') {
+            this.menuCtrl.toggle('right');
+        }
+    }
+
+
+    /**
+     * Закрытие меню
+     *
+     */
+    whenFilterMenuClose() {
+        // сохранение примененного фильтра из рабочего в примененный
+        for (let filterData in this.filterApplied) {
+
+            switch (filterData) {
+
+                case 'state':
+                    // this.filterApplied['state'] = JSON.parse(JSON.stringify(this.filter['state']));
+
+                    this.filter['state'] = JSON.parse(JSON.stringify(this.filterApplied['state']));
+                    break;
+
+            }
+        }
+
+        console.log('срабатывает когда меню закрывается: ');
+
+        console.log(this.filter['state']);
+
+        // сохранение фильтра в локалсторедже
+        localStorage.setItem('openLeadOrganizerFilter', JSON.stringify(this.filterApplied));
+
+        // пересчет фильтра
+        this.filterRecount();
     }
 
 
@@ -72,7 +363,7 @@ export class OpenLeadOrganizerPage {
 
         let type = 'reminder';
 
-        if(this.organizerBlocks != 'reminders'){
+        if (this.organizerBlocks != 'reminders') {
 
             type = 'comment';
         }
@@ -82,7 +373,7 @@ export class OpenLeadOrganizerPage {
 
         modal.onDidDismiss(data => {
 
-            this.organizer.get({ openLeadId: this.itemsId })
+            this.organizer.get({openLeadId: this.itemsId})
                 .subscribe(result => {
 
                     // переводим ответ в json
@@ -117,7 +408,7 @@ export class OpenLeadOrganizerPage {
 
         let type = 'reminder';
 
-        if(itemData.type != 2){
+        if (itemData.type != 2) {
 
             type = 'comment';
         }
@@ -127,7 +418,7 @@ export class OpenLeadOrganizerPage {
 
         modal.onDidDismiss(data => {
 
-            this.organizer.get({ openLeadId: this.itemsId })
+            this.organizer.get({openLeadId: this.itemsId})
                 .subscribe(result => {
 
                     // переводим ответ в json
@@ -137,7 +428,10 @@ export class OpenLeadOrganizerPage {
                     //
                     // modal.present();
 
-                    this.items = data.organizer;
+                    // this.items = data.organizer;
+
+                    this.loadOrganizerItems();
+
 
                     // console.log(data);
 
@@ -160,7 +454,7 @@ export class OpenLeadOrganizerPage {
      */
     dellItem(itemData) {
 
-        this.organizer.dell({ organizerId: itemData.id })
+        this.organizer.dell({organizerId: itemData.id})
             .subscribe(result => {
 
                 // переводим ответ в json
@@ -172,7 +466,7 @@ export class OpenLeadOrganizerPage {
 
                 // this.items = data.organizer;
 
-                this.organizer.get({ openLeadId: this.itemsId })
+                this.organizer.get({openLeadId: this.itemsId})
                     .subscribe(result => {
 
                         // переводим ответ в json
@@ -182,7 +476,9 @@ export class OpenLeadOrganizerPage {
                         //
                         // modal.present();
 
-                        this.items = data.organizer;
+                        // this.items = data.organizer;
+
+                        this.loadOrganizerItems();
 
                         // console.log(data);
 
@@ -190,7 +486,6 @@ export class OpenLeadOrganizerPage {
 
                         console.log('ERROR: ' + err);
                     });
-
 
 
                 console.log(data);
@@ -208,7 +503,18 @@ export class OpenLeadOrganizerPage {
      */
     applyItem(itemData) {
 
-        this.organizer.apply({ organizerId: itemData.id })
+        let status;
+
+        if (itemData.status != 'done') {
+
+            status = 'apply';
+
+        } else {
+
+            status = 'notApply';
+        }
+
+        this.organizer.apply({organizerId: itemData.id, status: status})
             .subscribe(result => {
 
                 // переводим ответ в json
@@ -217,15 +523,15 @@ export class OpenLeadOrganizerPage {
                 console.log(data);
 
 
-
-
-                this.organizer.get({ openLeadId: this.itemsId })
+                this.organizer.get({openLeadId: this.itemsId})
                     .subscribe(result => {
 
                         // переводим ответ в json
                         let data = result.json();
 
-                        this.items = data.organizer;
+                        // this.items = data.organizer;
+
+                        this.loadOrganizerItems();
 
                         // console.log(data);
 
@@ -233,7 +539,6 @@ export class OpenLeadOrganizerPage {
 
                         console.log('ERROR: ' + err);
                     });
-
 
 
                 console.log(data);
@@ -277,6 +582,68 @@ export class OpenLeadOrganizerPage {
 
 
     /**
+     * Загрузка данных органайзера
+     *
+     */
+    loadOrganizerItems() {
+
+        this.isLoading = true;
+
+        let data = {};
+
+        if (this.itemsId) {
+
+            data['openLeadId'] = this.itemsId;
+
+        } else {
+
+            data['reminderId'] = this.reminderId
+        }
+
+        data['filter'] = this.filterApplied;
+
+        // console.log(this.itemsId);
+        console.log('reminder: ');
+        console.log(data);
+
+        // data = {
+        //     openLeadId: this.itemsId,
+        //     filter: this.filterApplied
+        // };
+
+        this.organizer.get(data)
+            .subscribe(result => {
+
+                // переводим ответ в json
+                let data = result.json();
+
+                console.log(data);
+
+                this.leadData = {
+                    name: data.leadData.name,
+                    surname: data.leadData.surname,
+                };
+
+                // let modal = this.modalCtrl.create(OpenLeadOrganizerPage, {items: data});
+                //
+                // modal.present();
+
+                this.itemsId = data.openLead.id;
+
+                this.items = data.organizer;
+
+                this.isLoading = false;
+
+                // console.log(data);
+
+            }, err => {
+
+                console.log('ERROR: ' + err);
+            });
+    }
+
+
+    /**
      * Меню итема
      *
      */
@@ -288,7 +655,7 @@ export class OpenLeadOrganizerPage {
 
         let actionSheet;
 
-        if (itemData.type == 2){
+        if (itemData.type == 2) {
             title = itemData.date.time + ' ' + itemData.date.date;
 
             actionSheet = this.actionSheetCtrl.create({
@@ -331,7 +698,7 @@ export class OpenLeadOrganizerPage {
                 ]
             });
 
-        }else{
+        } else {
             actionSheet = this.actionSheetCtrl.create({
                 title: title,
                 buttons: [
@@ -369,8 +736,17 @@ export class OpenLeadOrganizerPage {
     }
 
 
+    /**
+     * Закрытие окна
+     *
+     */
     close() {
-        this.view.dismiss();
+
+        this.menuCtrl.enable(true, 'main_menu');
+
+        this.view.dismiss({
+            state: 'cancel',
+        });
     }
 
 }

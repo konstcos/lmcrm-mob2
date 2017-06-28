@@ -1,5 +1,58 @@
 page-open-lead-organizer {
 
+  .loading_block {
+    margin-top: 50px;
+  }
+
+  .no_reminders {
+    color: #BFBFBF;
+    margin-top: 60px;
+  }
+
+  .no_filter_reminders {
+    color: #BFBFBF;
+    margin-top: 60px;
+  }
+
+  .filter_block {
+    margin: 10px 0 30px 15px;
+
+    .filter_name {
+      color: grey;
+      font-weight: 600;
+    }
+
+    .sphere_filter_item {
+      color: grey;
+      padding-top: 10px;
+      cursor: pointer;
+
+      .selected_sphere_icon {
+        color: green;
+      }
+
+    }
+
+    .period_filter_item {
+      //padding: 10px 0;
+      margin: 10px 0;
+    }
+
+    .item-block {
+      min-height: 0;
+      //padding: 5px 0;
+    }
+
+    ion-label {
+      margin: 5px 0;
+    }
+
+    ion-datetime {
+      padding: 0;
+    }
+
+  }
+
   .back_arrow {
     font-size: 20px;
     padding-left: 10px;
@@ -17,9 +70,9 @@ page-open-lead-organizer {
     font-size: 14px;
   }
 
-  .organizer-name{
+  .organizer-name {
 
-    .icon{
+    .icon {
       font-size: 16px;
       padding-right: 5px;
     }
@@ -37,22 +90,22 @@ page-open-lead-organizer {
       padding-right: 20px;
       color: #3A3A3A;
 
-      .status_pending{
+      .status_pending {
         color: blue;
         font-size: 10px;
       }
 
-      .status_overdue{
+      .status_overdue {
         color: red;
         font-size: 10px;
       }
 
-      .status_done{
+      .status_done {
         color: green;
         font-size: 10px;
       }
 
-      .comment{
+      .comment {
         color: grey;
         font-size: 12px;
         margin-top: 5px;
@@ -60,15 +113,15 @@ page-open-lead-organizer {
 
     }
 
-    .status_icon_pending{
+    .status_icon_pending {
       color: blue;
     }
 
-    .status_icon_overdue{
+    .status_icon_overdue {
       color: red;
     }
 
-    .status_icon_done{
+    .status_icon_done {
       color: green;
     }
 

@@ -88,6 +88,11 @@ export class CustomersPage {
 
     }
 
+
+    /**
+     * Возврат на главную страницу
+     *
+     */
     goToMainPage() {
 
         if (this.subRole) {
@@ -100,6 +105,7 @@ export class CustomersPage {
         }
 
     }
+
 
     ionViewDidLoad() {
         // console.log('ionViewDidLoad UstomersPage');

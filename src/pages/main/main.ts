@@ -11,6 +11,7 @@ import {NavController, NavParams, Nav, MenuController, Events, Content} from 'io
 
 // модель пользователя
 import {User} from "../../providers/user";
+import {menuManager} from "../../providers/menuManager";
 
 
 /**
@@ -41,6 +42,8 @@ import {MessagesPage} from '../messages/messages'
 import {PrivateGroupPage} from '../private-group/private-group'
 // страница органайзера
 import {OrganizerPage} from '../organizer/organizer'
+// страница редактирования профиля
+import {ProfilePage} from '../profile/profile'
 
 /*
  Основная страница приложения.
@@ -52,7 +55,7 @@ import {OrganizerPage} from '../organizer/organizer'
 @Component({
     selector: 'page-main',
     templateUrl: 'main.html',
-    // providers: [Content]
+    providers: [menuManager]
 
 })
 export class MainPage {
@@ -201,8 +204,11 @@ export class MainPage {
                 public nav: Nav,
                 public user: User,
                 public menuCtrl: MenuController,
-                public events: Events) {
+                public events: Events,
+                public menuManager: menuManager) {
 
+
+        this.menuManager.test();
 
         // this.notices = Number(localStorage.getItem('notice'));
 
@@ -259,7 +265,10 @@ export class MainPage {
             {title: 'Private Group', component: PrivateGroupPage},
 
             // Органайзер
-            {title: 'Organizer', component: OrganizerPage}
+            {title: 'Organizer', component: OrganizerPage},
+
+            // Редактирование профиля
+            {title: 'Profile', component: ProfilePage}
         ];
 
 

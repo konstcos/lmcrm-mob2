@@ -11,10 +11,10 @@ import {Open} from '../../providers/open';
  Ionic pages and navigation.
  */
 @Component({
-    selector: 'page-open-lead-statuses',
-    templateUrl: 'open-lead-statuses.html'
+    selector: 'page-open-lead-deal',
+    templateUrl: 'open-lead-deal.html'
 })
-export class OpenLeadStatusesPage {
+export class OpenLeadDealPage {
 
     public item: any;
     public statuses: any;
@@ -150,21 +150,21 @@ export class OpenLeadStatusesPage {
     close( stat=false ) {
         // todo доработать
 
-        for (let type in this.statuses) {
-
-            for (let stat of this.statuses[type]) {
-
-                stat.checked = false;
-            }
-        }
-
-        if(!stat){
-            stat = this.newStatus;
-        }
-
-
-        console.log('из close');
-        console.log(stat);
+        // for (let type in this.statuses) {
+        //
+        //     for (let stat of this.statuses[type]) {
+        //
+        //         stat.checked = false;
+        //     }
+        // }
+        //
+        // if(!stat){
+        //     stat = this.newStatus;
+        // }
+        //
+        //
+        // console.log('из close');
+        // console.log(stat);
 
         this.view.dismiss({status: stat});
     }

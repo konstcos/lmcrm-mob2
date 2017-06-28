@@ -179,7 +179,6 @@ export class User {
     }
 
 
-
     /**
      * Получение всех сфер пользователя
      *
@@ -196,7 +195,7 @@ export class User {
      * Получение описание роли
      *
      */
-    getRoleDescription(roleId: number, lang: string){
+    getRoleDescription(roleId: number, lang: string) {
 
         let seq = this.api.post('api/getRoleDescription', {roleId: roleId, lang: lang}).share();
 
@@ -296,6 +295,25 @@ export class User {
         return this.api.post('api/confirmationCheck', {});
     }
 
+
+    /**
+     * Получение профиля пользователя
+     *
+     */
+    getAgentProfile() {
+
+        return this.api.post('api/profile/get', {});
+    }
+
+
+    /**
+     * Сохранение профиля пользователя
+     *
+     */
+    saveAgentProfile(data: any) {
+
+        return this.api.post('api/profile/save', data);
+    }
 
     /**
      * Process a login/signup response to store user data

@@ -16,7 +16,7 @@ import {MessagesPage} from '../pages/messages/messages';
 
 
 import {Push, PushObject, PushOptions} from "@ionic-native/push";
-
+import { Badge } from '@ionic-native/badge';
 // import { FCM } from '@ionic-native';
 
 
@@ -48,7 +48,14 @@ export class MyApp {
                 public loadingCtrl: LoadingController,
                 public user: User,
                 public events: Events,
-                private push: Push) {
+                private push: Push,
+                private badge: Badge) {
+
+
+        this.events.subscribe("badge:set", (date) => {
+            // this.noticeCount = 0;
+            badge.set(date)
+        });
 
 
         this.events.subscribe("notices:clear", () => {
@@ -293,12 +300,12 @@ export class MyApp {
             // toast.present();
 
 
-            this.noticeCount = this.noticeCount + 1;
+            // this.noticeCount = this.noticeCount + 1;
 
-            localStorage.setItem('notice', String(this.noticeCount));
+            // localStorage.setItem('notice', String(this.noticeCount));
 
 
-            this.events.publish("child:test", this.noticeCount);
+            // this.events.publish("child:test", this.noticeCount);
 
             // this.content.resize();
 

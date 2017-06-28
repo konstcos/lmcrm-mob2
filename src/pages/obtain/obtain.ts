@@ -243,6 +243,7 @@ export class ObtainPage {
                 this.roles = data.roles;
 
                 this.checkNotices(data.notices);
+                this.events.publish('badge:set', data.notices);
 
 
                 // вычесляем количество итемов

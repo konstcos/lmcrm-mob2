@@ -28,8 +28,8 @@ export class Organizer {
     /**
      * Получение с сервера итемов органайзера
      */
-    get() {
-        return this.api.post('api/getAgentOrganizerData', {});
+    get(offset: number, filter: any) {
+        return this.api.post('api/getAgentOrganizerData', {offset: offset, filter: filter});
     }
 
 

@@ -41,8 +41,8 @@
 
 
     <!-- Статусы плохих лидов -->
-    <ion-card>
-        <ion-card-header text-right class="status_card_header bad_status_color">
+    <ion-card *ngIf="item.status == 0">
+        <ion-card-header text-right class="status_card_header bad_status_color_header">
             Bad
         </ion-card-header>
 
@@ -62,7 +62,7 @@
 
     <!-- Отказные статусы -->
     <ion-card>
-        <ion-card-header text-right class="status_card_header uncertain_status_color">
+        <ion-card-header text-right class="status_card_header uncertain_status_color_header">
             Uncertain
         </ion-card-header>
 
@@ -82,7 +82,7 @@
 
     <!-- Процессные статусы -->
     <ion-card>
-        <ion-card-header text-right class="status_card_header process_status_color">
+        <ion-card-header text-right class="status_card_header process_status_color_header">
             Process
         </ion-card-header>
 
@@ -93,7 +93,6 @@
                 <ion-icon *ngIf="!status.lock && !status.checked" name="md-square-outline"></ion-icon>
                 <ion-icon *ngIf="!status.lock && status.checked" name="md-checkbox-outline"></ion-icon>
             </ion-item>
-
         </ion-list>
     </ion-card>
     <!-- конец Процессные статусы -->
@@ -102,7 +101,7 @@
 
     <!-- Отказники -->
     <ion-card>
-        <ion-card-header text-right class="status_card_header refuseniks_status_color">
+        <ion-card-header text-right class="status_card_header refuseniks_status_color_header">
             Refuseniks
         </ion-card-header>
 
@@ -121,8 +120,8 @@
 
 
     <!-- Отказники -->
-    <ion-card>
-        <ion-card-header text-right class="status_card_header deals_status_color">
+    <ion-card *ngIf="statuses[5].length > 0">
+        <ion-card-header text-right class="status_card_header deals_status_color_header">
             Deals
         </ion-card-header>
 

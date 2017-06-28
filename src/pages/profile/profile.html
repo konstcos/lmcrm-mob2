@@ -1,0 +1,569 @@
+
+<ion-header>
+
+    <ion-navbar color="primary">
+        <!--<ion-title>Customers</ion-title>-->
+
+        <ion-buttons left text-center>
+            <button ion-button (click)="goToMainPage()">
+                <ion-icon name="ios-arrow-back" class="back_arrow"></ion-icon>
+            </button>
+        </ion-buttons>
+
+        <ion-title>Profile</ion-title>
+
+    </ion-navbar>
+
+    <!--<ion-row *ngIf="subRole" class="subHeader">-->
+        <!--<ion-col>-->
+            <!--<div class="salesmen-row">-->
+                <!--salesmen: {{ salesmenData.name }} {{ salesmenData.surname }}-->
+            <!--</div>-->
+        <!--</ion-col>-->
+    <!--</ion-row>-->
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <!--<ion-title>Profile</ion-title>-->
+
+    <!-- Поле с данными пользователями -->
+    <div>
+
+        <!-- Поле с именем пользователя -->
+        <div class="personal_data_row">
+
+            <ion-row>
+
+                <!-- Иконка валидации -->
+                <ion-col col-1 align-self-center text-right class="validation_block">
+                    <!-- Успешная валидация -->
+                    <!--<ion-icon *ngIf="state.firstName == 2" class="success" name="md-checkmark"></ion-icon>-->
+                    <!-- Ошибка валидации -->
+                    <!--<ion-icon *ngIf="state.firstName == 3" class="alert" name="md-alert"></ion-icon>-->
+                </ion-col>
+
+                <!-- Блок с именем пользователя -->
+                <ion-col class="data_block">
+                    <!-- Лейбл ввода имени -->
+                    <div class="label">First name</div>
+                    <!-- Инпут имени пользователя -->
+                    <ion-input
+                            class="input_row"
+                            type="text"
+                            [(ngModel)]="profileData.first_name"
+                            text-right
+                            name="first_name">
+                    </ion-input>
+
+                    <!--(blur)="firstNameValidate()"-->
+
+                    <!-- Разделительная черта -->
+                    <div>
+                        <!--<hr class="personal_data_row_separator" [ngClass]="(state.firstName == 3) ? 'red' : '' ">-->
+                        <hr class="personal_data_row_separator">
+                    </div>
+
+                </ion-col>
+            </ion-row>
+
+
+            <!-- Сообщение с ошибкой -->
+            <ion-row
+                    class="error_message"
+                    *ngIf="false">
+                <ion-col>
+                    this field required
+                </ion-col>
+            </ion-row>
+
+        </div>
+        <!-- Конец Поле с именем пользователя -->
+
+
+        <!-- Поле с фамилией пользователя -->
+        <div class="personal_data_row">
+
+            <ion-row>
+
+                <!-- Иконка валидации -->
+                <ion-col col-1 align-self-center text-right class="validation_block">
+                    <!-- Успешная валидация -->
+                    <!--<ion-icon *ngIf="state.firstName == 2" class="success" name="md-checkmark"></ion-icon>-->
+                    <!-- Ошибка валидации -->
+                    <!--<ion-icon *ngIf="state.firstName == 3" class="alert" name="md-alert"></ion-icon>-->
+                </ion-col>
+
+                <!-- Блок с именем пользователя -->
+                <ion-col class="data_block">
+                    <!-- Лейбл ввода имени -->
+                    <div class="label">Last name</div>
+                    <!-- Инпут имени пользователя -->
+                    <ion-input
+                            class="input_row"
+                            type="text"
+                            [(ngModel)]="profileData.last_name"
+                            text-right
+                            name="last_name">
+                    </ion-input>
+
+                    <!--(blur)="firstNameValidate()"-->
+                    <!--[(ngModel)]="personalData.firstName"-->
+
+                    <!-- Разделительная черта -->
+                    <div>
+                        <!--<hr class="personal_data_row_separator" [ngClass]="(state.firstName == 3) ? 'red' : '' ">-->
+                        <hr class="personal_data_row_separator">
+                    </div>
+
+                </ion-col>
+            </ion-row>
+
+
+            <!-- Сообщение с ошибкой -->
+            <ion-row
+                    class="error_message"
+                    *ngIf="false">
+                <ion-col>
+                    this field required
+                </ion-col>
+            </ion-row>
+
+        </div>
+        <!-- Конец Поле с фамилией пользователя -->
+
+
+        <!-- Поле с компанией пользователя -->
+        <div class="personal_data_row">
+
+            <ion-row>
+
+                <!-- Иконка валидации -->
+                <ion-col col-1 align-self-center text-right class="validation_block">
+                    <!-- Успешная валидация -->
+                    <!--<ion-icon *ngIf="state.firstName == 2" class="success" name="md-checkmark"></ion-icon>-->
+                    <!-- Ошибка валидации -->
+                    <!--<ion-icon *ngIf="state.firstName == 3" class="alert" name="md-alert"></ion-icon>-->
+                </ion-col>
+
+                <!-- Блок с именем пользователя -->
+                <ion-col class="data_block">
+                    <!-- Лейбл ввода имени -->
+                    <div class="label">Company</div>
+                    <!-- Инпут имени пользователя -->
+                    <ion-input
+                            class="input_row"
+                            type="text"
+                            [(ngModel)]="profileData.company"
+                            text-right
+                            name="company">
+                    </ion-input>
+
+                    <!--(blur)="firstNameValidate()"-->
+                    <!--[(ngModel)]="personalData.firstName"-->
+
+                    <!-- Разделительная черта -->
+                    <div>
+                        <!--<hr class="personal_data_row_separator" [ngClass]="(state.firstName == 3) ? 'red' : '' ">-->
+                        <hr class="personal_data_row_separator">
+                    </div>
+
+                </ion-col>
+            </ion-row>
+
+
+            <!-- Сообщение с ошибкой -->
+            <ion-row
+                    class="error_message"
+                    *ngIf="false">
+                <ion-col>
+                    this field required
+                </ion-col>
+            </ion-row>
+
+        </div>
+        <!-- Конец Поле с компанией пользователя -->
+
+
+        <!-- Поле с комментарием -->
+        <div class="personal_data_row">
+
+            <ion-row>
+
+                <!-- Иконка валидации -->
+                <ion-col col-1 align-self-center text-right class="validation_block">
+                    <!-- Успешная валидация -->
+                    <!--<ion-icon *ngIf="state.firstName == 2" class="success" name="md-checkmark"></ion-icon>-->
+                    <!-- Ошибка валидации -->
+                    <!--<ion-icon *ngIf="state.firstName == 3" class="alert" name="md-alert"></ion-icon>-->
+                </ion-col>
+
+                <!-- Блок с именем пользователя -->
+                <ion-col class="data_block">
+                    <!-- Лейбл ввода имени -->
+                    <div class="label">About</div>
+                    <!-- Инпут имени пользователя -->
+                    <ion-textarea
+                            class="input_row"
+                            text-right
+                            [(ngModel)]="profileData.comment"
+                            rows="4"
+                            name="comment">
+                    </ion-textarea>
+
+                    <!--(blur)="firstNameValidate()"-->
+                    <!--[(ngModel)]="personalData.firstName"-->
+
+                    <!-- Разделительная черта -->
+                    <div>
+                        <!--<hr class="personal_data_row_separator" [ngClass]="(state.firstName == 3) ? 'red' : '' ">-->
+                        <hr class="personal_data_row_separator">
+                    </div>
+
+                </ion-col>
+            </ion-row>
+
+
+            <!-- Сообщение с ошибкой -->
+            <ion-row
+                    class="error_message"
+                    *ngIf="false">
+                <ion-col>
+                    this field required
+                </ion-col>
+            </ion-row>
+
+        </div>
+        <!-- Конец Поле с комментарием -->
+
+
+        <!-- Поле с паролем -->
+        <div class="personal_data_row">
+
+            <ion-row>
+
+                <!-- Иконка валидации -->
+                <ion-col col-1 align-self-center text-right class="validation_block">
+                    <!-- Успешная валидация -->
+                    <!--<ion-icon *ngIf="state.firstName == 2" class="success" name="md-checkmark"></ion-icon>-->
+                    <!-- Ошибка валидации -->
+                    <!--<ion-icon *ngIf="state.firstName == 3" class="alert" name="md-alert"></ion-icon>-->
+                </ion-col>
+
+                <!-- Блок с именем пользователя -->
+                <ion-col class="data_block">
+                    <!-- Лейбл ввода имени -->
+                    <div class="label">Password</div>
+                    <!-- Инпут имени пользователя -->
+                    <ion-input
+                            class="input_row"
+                            type="password"
+                            [(ngModel)]="profileData.password"
+                            text-right
+                            name="password">
+                    </ion-input>
+
+                    <!--(blur)="firstNameValidate()"-->
+                    <!--[(ngModel)]="personalData.firstName"-->
+
+                    <!-- Разделительная черта -->
+                    <div>
+                        <!--<hr class="personal_data_row_separator" [ngClass]="(state.firstName == 3) ? 'red' : '' ">-->
+                        <hr class="personal_data_row_separator">
+                    </div>
+
+                </ion-col>
+            </ion-row>
+
+
+            <!-- Сообщение с ошибкой -->
+            <ion-row
+                    class="error_message"
+                    *ngIf="false">
+                <ion-col>
+                    this field required
+                </ion-col>
+            </ion-row>
+
+        </div>
+        <!-- Конец Поле с паролем -->
+
+
+        <!-- Поле с подтверждение пароля -->
+        <div class="personal_data_row">
+
+            <ion-row>
+
+                <!-- Иконка валидации -->
+                <ion-col col-1 align-self-center text-right class="validation_block">
+                    <!-- Успешная валидация -->
+                    <!--<ion-icon *ngIf="state.firstName == 2" class="success" name="md-checkmark"></ion-icon>-->
+                    <!-- Ошибка валидации -->
+                    <!--<ion-icon *ngIf="state.firstName == 3" class="alert" name="md-alert"></ion-icon>-->
+                </ion-col>
+
+                <!-- Блок с именем пользователя -->
+                <ion-col class="data_block">
+                    <!-- Лейбл ввода имени -->
+                    <div class="label">Password confirmation</div>
+                    <!-- Инпут имени пользователя -->
+                    <ion-input
+                            class="input_row"
+                            type="password"
+                            [(ngModel)]="profileData.password_confirmation"
+                            text-right
+                            name="password_confirmation">
+                    </ion-input>
+
+                    <!--(blur)="firstNameValidate()"-->
+                    <!--[(ngModel)]="personalData.firstName"-->
+
+                    <!-- Разделительная черта -->
+                    <div>
+                        <!--<hr class="personal_data_row_separator" [ngClass]="(state.firstName == 3) ? 'red' : '' ">-->
+                        <hr class="personal_data_row_separator">
+                    </div>
+
+                </ion-col>
+            </ion-row>
+
+
+            <!-- Сообщение с ошибкой -->
+            <ion-row
+                    class="error_message"
+                    *ngIf="false">
+                <ion-col>
+                    this field required
+                </ion-col>
+            </ion-row>
+
+        </div>
+        <!-- Конец Поле с подтверждение пароля -->
+
+        <div text-right class="payment_title">
+            Payment information
+        </div>
+
+
+        <!-- Поле с компанией пользователя по оплате -->
+        <div class="personal_data_row">
+
+            <ion-row>
+
+                <!-- Иконка валидации -->
+                <ion-col col-1 align-self-center text-right class="validation_block">
+                    <!-- Успешная валидация -->
+                    <!--<ion-icon *ngIf="state.firstName == 2" class="success" name="md-checkmark"></ion-icon>-->
+                    <!-- Ошибка валидации -->
+                    <!--<ion-icon *ngIf="state.firstName == 3" class="alert" name="md-alert"></ion-icon>-->
+                </ion-col>
+
+                <!-- Блок с именем пользователя -->
+                <ion-col class="data_block">
+                    <!-- Лейбл ввода имени -->
+                    <div class="label">Company</div>
+                    <!-- Инпут имени пользователя -->
+                    <ion-input
+                            class="input_row"
+                            type="text"
+                            [(ngModel)]="profileData.payment_company"
+                            text-right
+                            name="payment_company">
+                    </ion-input>
+
+                    <!--(blur)="firstNameValidate()"-->
+                    <!--[(ngModel)]="personalData.firstName"-->
+
+                    <!-- Разделительная черта -->
+                    <div>
+                        <!--<hr class="personal_data_row_separator" [ngClass]="(state.firstName == 3) ? 'red' : '' ">-->
+                        <hr class="personal_data_row_separator">
+                    </div>
+
+                </ion-col>
+            </ion-row>
+
+
+            <!-- Сообщение с ошибкой -->
+            <ion-row
+                    class="error_message"
+                    *ngIf="false">
+                <ion-col>
+                    this field required
+                </ion-col>
+            </ion-row>
+
+        </div>
+        <!-- Конец Поле с компанией пользователя по оплате -->
+
+
+        <!-- Поле банк -->
+        <div class="personal_data_row">
+
+            <ion-row>
+
+                <!-- Иконка валидации -->
+                <ion-col col-1 align-self-center text-right class="validation_block">
+                    <!-- Успешная валидация -->
+                    <!--<ion-icon *ngIf="state.firstName == 2" class="success" name="md-checkmark"></ion-icon>-->
+                    <!-- Ошибка валидации -->
+                    <!--<ion-icon *ngIf="state.firstName == 3" class="alert" name="md-alert"></ion-icon>-->
+                </ion-col>
+
+                <!-- Блок с именем пользователя -->
+                <ion-col class="data_block">
+                    <!-- Лейбл ввода имени -->
+                    <div class="label">Bank</div>
+                    <!-- Инпут имени пользователя -->
+                    <ion-input
+                            class="input_row"
+                            type="text"
+                            [(ngModel)]="profileData.bank"
+                            text-right
+                            name="bank">
+                    </ion-input>
+
+                    <!--(blur)="firstNameValidate()"-->
+                    <!--[(ngModel)]="personalData.firstName"-->
+
+                    <!-- Разделительная черта -->
+                    <div>
+                        <!--<hr class="personal_data_row_separator" [ngClass]="(state.firstName == 3) ? 'red' : '' ">-->
+                        <hr class="personal_data_row_separator">
+                    </div>
+
+                </ion-col>
+            </ion-row>
+
+
+            <!-- Сообщение с ошибкой -->
+            <ion-row
+                    class="error_message"
+                    *ngIf="false">
+                <ion-col>
+                    this field required
+                </ion-col>
+            </ion-row>
+
+        </div>
+        <!-- Конец Поля банк -->
+
+
+        <!-- Поле Branch_number -->
+        <div class="personal_data_row">
+
+            <ion-row>
+
+                <!-- Иконка валидации -->
+                <ion-col col-1 align-self-center text-right class="validation_block">
+                    <!-- Успешная валидация -->
+                    <!--<ion-icon *ngIf="state.firstName == 2" class="success" name="md-checkmark"></ion-icon>-->
+                    <!-- Ошибка валидации -->
+                    <!--<ion-icon *ngIf="state.firstName == 3" class="alert" name="md-alert"></ion-icon>-->
+                </ion-col>
+
+                <!-- Блок с именем пользователя -->
+                <ion-col class="data_block">
+                    <!-- Лейбл ввода имени -->
+                    <div class="label">Branch number</div>
+                    <!-- Инпут имени пользователя -->
+                    <ion-input
+                            class="input_row"
+                            type="text"
+                            [(ngModel)]="profileData.branch_number"
+                            text-right
+                            name="branch_number">
+                    </ion-input>
+
+                    <!--(blur)="firstNameValidate()"-->
+                    <!--[(ngModel)]="personalData.firstName"-->
+
+                    <!-- Разделительная черта -->
+                    <div>
+                        <!--<hr class="personal_data_row_separator" [ngClass]="(state.firstName == 3) ? 'red' : '' ">-->
+                        <hr class="personal_data_row_separator">
+                    </div>
+
+                </ion-col>
+            </ion-row>
+
+
+            <!-- Сообщение с ошибкой -->
+            <ion-row
+                    class="error_message"
+                    *ngIf="false">
+                <ion-col>
+                    this field required
+                </ion-col>
+            </ion-row>
+
+        </div>
+        <!-- Конец Поля Branch_number -->
+
+
+        <!-- Поле Invoice_number -->
+        <div class="personal_data_row">
+
+            <ion-row>
+
+                <!-- Иконка валидации -->
+                <ion-col col-1 align-self-center text-right class="validation_block">
+                    <!-- Успешная валидация -->
+                    <!--<ion-icon *ngIf="state.firstName == 2" class="success" name="md-checkmark"></ion-icon>-->
+                    <!-- Ошибка валидации -->
+                    <!--<ion-icon *ngIf="state.firstName == 3" class="alert" name="md-alert"></ion-icon>-->
+                </ion-col>
+
+                <!-- Блок с именем пользователя -->
+                <ion-col class="data_block">
+                    <!-- Лейбл ввода имени -->
+                    <div class="label">Invoice number</div>
+                    <!-- Инпут имени пользователя -->
+                    <ion-input
+                            class="input_row"
+                            type="text"
+                            [(ngModel)]="profileData.invoice_number"
+                            text-right
+                            name="invoice_number">
+                    </ion-input>
+
+                    <!--(blur)="firstNameValidate()"-->
+                    <!--[(ngModel)]="personalData.firstName"-->
+
+                    <!-- Разделительная черта -->
+                    <div>
+                        <!--<hr class="personal_data_row_separator" [ngClass]="(state.firstName == 3) ? 'red' : '' ">-->
+                        <hr class="personal_data_row_separator">
+                    </div>
+
+                </ion-col>
+            </ion-row>
+
+
+            <!-- Сообщение с ошибкой -->
+            <ion-row
+                    class="error_message"
+                    *ngIf="false">
+                <ion-col>
+                    this field required
+                </ion-col>
+            </ion-row>
+
+        </div>
+        <!-- Конец Поля Invoice_number -->
+
+
+    </div>
+
+
+
+
+</ion-content>
+
+<ion-footer>
+    <button ion-button small full no-margin (click)="saveData()">
+        Save
+    </button>
+</ion-footer>

@@ -31,6 +31,9 @@ export class OpenLeadOrganizerEditPage {
         this.type = this.navParams.get('type');
         this.itemData = this.navParams.get('itemData');
 
+        // console.log('Редактирование');
+        // console.log(this.type);
+        // console.log(this.itemData);
 
 
         // console.log(this.itemData);
@@ -92,7 +95,7 @@ export class OpenLeadOrganizerEditPage {
             type: this.itemData.type,
         };
 
-        console.log(dataToUpdate);
+        // console.log(dataToUpdate);
 
         // обновление данных
         this.organizer.update(dataToUpdate)
@@ -101,9 +104,13 @@ export class OpenLeadOrganizerEditPage {
                 // переводим ответ в json
                 let data = result.json();
 
+                // console.log('Из редактирования: ');
                 // console.log(data);
 
-                this.view.dismiss();
+                this.view.dismiss({
+                    date: data.organizer,
+                    state: 'saved'
+                });
 
 
             }, err => {
@@ -126,7 +133,9 @@ export class OpenLeadOrganizerEditPage {
 
 
     close() {
-        this.view.dismiss();
+        this.view.dismiss({
+            state: 'cancel'
+        });
     }
 
 }

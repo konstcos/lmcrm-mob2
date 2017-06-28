@@ -154,6 +154,7 @@ export class DepositedPage {
      */
     checkNotices(notices) {
         this.events.publish('notice:new', notices);
+        this.events.publish('badge:set', notices);
     }
 
 
