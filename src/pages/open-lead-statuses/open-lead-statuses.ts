@@ -1,8 +1,15 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, ViewController} from 'ionic-angular';
+import {
+    NavController,
+    NavParams,
+    ViewController,
+    ModalController,
+    LoadingController
+} from 'ionic-angular';
+
+import {OpenLeadStatusesDealPage} from '../open-lead-statuses-deal/open-lead-statuses-deal';
 
 import {Open} from '../../providers/open';
-
 
 /*
  Generated class for the OpenLeadStatuses page.
@@ -20,11 +27,40 @@ export class OpenLeadStatusesPage {
     public statuses: any;
     public newStatus: any;
 
+
+    /**
+     * id выбранного статуса
+     *
+     */
     public checkedStatus: any = false;
+
+
+    /**
+     * данные выбранного статуса
+     *
+     */
+    public checkedStatusData: any = false;
+
+
+    /**
+     * Блок статусов
+     *
+     */
+    public statusBlock: boolean = true;
+
+
+    /**
+     * Блок с дополнительными данными по сделке
+     *
+     */
+    public dealBlock: boolean = false;
+
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 public open: Open,
+                public modalCtrl: ModalController,
+                public loadingCtrl: LoadingController,
                 public view: ViewController) {
 
 
@@ -61,6 +97,7 @@ export class OpenLeadStatusesPage {
 
             status.checked = false;
             this.checkedStatus = false;
+            this.checkedStatusData = false;
 
         } else {
 
@@ -74,6 +111,7 @@ export class OpenLeadStatusesPage {
 
                         stat.checked = true;
                         this.checkedStatus = status.id;
+                        this.checkedStatusData = status;
 
                     } else {
 
@@ -93,7 +131,51 @@ export class OpenLeadStatusesPage {
      */
     applyStatus() {
 
-        this.open.changeStatus({ openedLeadId: this.item.id, status: this.checkedStatus })
+
+        if (this.checkedStatusData.type == 5) {
+
+            let modal = this.modalCtrl.create(OpenLeadStatusesDealPage, {status: this.checkedStatusData});
+
+            modal.onDidDismiss(data => {
+
+                if (data.status) {
+
+                    this.changeStatus(data.price, data.comment);
+                    console.log('данные: ');
+                    console.log(data);
+
+                } else {
+
+                    console.log('нету статуса');
+                }
+
+
+                // this.changeStatus();
+
+            });
+
+            modal.present();
+
+        } else {
+
+            this.changeStatus();
+        }
+    }
+
+
+    /**
+     * Изменение статуса на сервере
+     *
+     */
+    changeStatus(price: any = false, comments: string = '') {
+
+        // показывает окно загрузки
+        let loading = this.loadingCtrl.create({
+            content: 'Changing status, please wait...'
+        });
+        loading.present();
+
+        this.open.changeStatus({openedLeadId: this.item.id, status: this.checkedStatus, price: price, comments: comments})
             .subscribe(result => {
                 // при получении итемов
 
@@ -102,44 +184,36 @@ export class OpenLeadStatusesPage {
 
                 console.log(data);
 
-                if(data.status == 'success'){
+                if (data.status == 'success') {
 
                     this.newStatus = data.status_info;
                     this.close(data.status_info);
 
-                }else{
+                } else {
                     this.close();
                 }
-                // вычесляем количество итемов
-                // let itemsLength = data.openedLeads.length;
 
-                // // обработка итемов
-                // if (itemsLength != 0) {
-                //     // если больше нуля
-                //
-                //     // добавляем полученные итемы на страницу
-                //     this.items = data.openedLeads;
-                //
-                // } else {
-                //     // если итемов нет
-                //
-                //     // todo сообщаем что итемов нет
-                //
-                // }
-
-                // отключаем окно индикатора загрузки
-                // refresher.complete();
+                loading.dismiss();
 
             }, err => {
                 // в случае ошибки
 
+                loading.dismiss();
                 console.log('ERROR: ' + err);
 
                 // todo выводится сообщение об ошибке (нету связи и т.д.)
 
-                // отключаем окно индикатора загрузки
-                // refresher.complete();
             });
+    }
+
+
+    /**
+     * Возврат к статусам
+     *
+     */
+    backToStatuses() {
+        this.statusBlock = true;
+        this.dealBlock = false;
     }
 
 
@@ -147,7 +221,7 @@ export class OpenLeadStatusesPage {
      * Закрытие страницы
      *
      */
-    close( stat=false ) {
+    close(stat = false) {
         // todo доработать
 
         for (let type in this.statuses) {
@@ -158,7 +232,7 @@ export class OpenLeadStatusesPage {
             }
         }
 
-        if(!stat){
+        if (!stat) {
             stat = this.newStatus;
         }
 

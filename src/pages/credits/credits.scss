@@ -1,34 +1,272 @@
 page-credits {
 
+  .transactions_block {
+    margin-top: 10px;
+
+    .transaction_item {
+      margin: 3px 10px;
+      padding: 3px 10px 3px;
+      border-bottom: 1px solid #EFEFEF;
+
+      .data {
+
+        .transaction_number {
+          color: #337AB7;
+          font-size: 12px;
+
+          .number {
+            font-size: 10px;
+          }
+        }
+
+        .transaction_name {
+          color: #888888;
+          font-size: 12px;
+        }
+
+      }
+
+      .amount {
+        font-size: 16px;
+
+        &.positive {
+          color: #139913;
+
+          .sign {
+            font-size: 12px;
+          }
+        }
+
+        &.negative {
+          color: #D94242;
+
+          .sign {
+            font-size: 12px;
+          }
+        }
+
+      }
+
+      .date {
+        font-size: 10px;
+        color: #9C9C9C;
+        margin-top: 2px;
+
+        .time {
+          font-size: 8px;
+        }
+
+      }
+
+    }
+  }
+
+  .annotation {
+    text-align: center;
+    color: #B2B2B2;
+    font-size: 12px;
+  }
+
+  .no_transactions {
+    color: #A7A7A7;
+    margin-top: 30%;
+  }
+
+  .spinnerLoading {
+    text-align: center;
+    margin-top: 20%;
+  }
+
+  .wallet_amount_block {
+    text-align: center;
+    padding-top: 60px;
+
+    .wallet_amount {
+      //margin-top: 10%;
+      //margin-left: 0;
+      //margin-right: 0;
+
+      margin: 0 5%;
+      padding: 5px 20px 40px;
+
+      text-align: center;
+      color: #337AB7;
+      font-size: 24px;
+      font-weight: 500;
+      border-bottom: 1px solid #337AB7;
+
+      border-radius: 100px;
+
+      .sign {
+        font-size: 15px;
+      }
+
+    }
+  }
+
+  .wallet_button_block {
+    margin-top: 15px;
+    margin-right: 10px;
+
+    .wallet_button {
+      margin: 5px 0;
+      padding: 10px 5px;
+      cursor: pointer;
+
+      .wallet_button_name {
+        color: #337AB7;
+        font-size: 16px;
+        text-transform: uppercase;
+
+        .wallet_button_icon {
+          margin-right: 5px;
+        }
+
+      }
+
+      .wallet_button_comment {
+        margin-top: 2px;
+        color: grey;
+        font-size: 11px;
+
+      }
+
+    }
+
+  }
+
+  // todo тут
+  .statement_row {
+    margin-top: 15px;
+    padding: 5px 10px;
+    cursor: pointer;
+    //border-right: 1px solid #AFAFAF;
+
+    &.statement_row_waiting_processing{
+      border-left: 3px solid #B1B1B1;
+    }
+
+    &.statement_row_waiting_payment{
+      border-left: 3px solid #C7A233;
+    }
+
+    &.statement_row_waiting_confirmed{
+      border-left: 3px solid #B1B1B1;
+    }
+
+    &.statement_row_status_confirmed{
+      border-left: 3px solid #369B36;
+    }
+
+    &.statement_row_status_rejected{
+      border-left: 3px solid #AB4747;
+    }
+
+    .status_block {
+
+      .action_menu {
+        font-size: 14px;
+
+        ion-icon {
+          color: #337AB7;
+          background: #EFEFEF;
+          padding: 5px 7px;
+          margin-bottom: 10px;
+          border-radius: 20px;
+        }
+
+        //color: grey;
+        //background: #337AB7;
+      }
+
+      .item_status {
+        font-size: 11px;
+
+        &.waiting_processing {
+          color: grey;
+        }
+
+        &.waiting_payment {
+          color: #BC900B;
+        }
+
+        &.waiting_confirmed {
+          color: grey;
+        }
+
+        &.status_confirmed {
+          color: green;
+        }
+
+        &.status_rejected {
+          color: darkred;
+        }
+      }
+    }
+
+    .data {
+
+      .exchange_id {
+        color: #337AB7;
+        font-size: 12px;
+      }
+
+      .amount {
+        font-size: 16px;
+        margin-top: 4px;
+
+        &.withdrawal {
+          color: #D94242;
+        }
+
+        &.replenishment {
+          color: #139913;
+        }
+      }
+
+      .date {
+        color: grey;
+        font-size: 10px;
+        margin-top: 2px;
+
+        .time {
+          font-size: 8px;
+        }
+      }
+    }
+
+    .indicator_icon {
+        font-size: 20px;
+
+      .indicator_icon_waiting_processing{
+        color: #E4E4E4;
+      }
+
+      .indicator_icon_waiting_payment{
+        color: #EAB518;
+      }
+
+      .indicator_icon_waiting_confirmed{
+        color: #E0E0E0;
+      }
+
+      .indicator_icon_status_confirmed{
+        color: #57B557;
+      }
+
+      .indicator_icon_status_rejected{
+        color: #E59595;
+      }
+
+
+
+    }
+
+  }
+
   .back_arrow {
     font-size: 20px;
     padding-left: 10px;
-  }
-
-  .item_status {
-    font-size: 13px;
-  }
-
-  .waiting_processing {
-    color: grey;
-  }
-
-  .waiting_payment {
-    color: #BC900B;
-  }
-
-  .waiting_confirmed {
-    color: grey;
-  }
-
-  .status_confirmed {
-    color: green;
-  }
-
-  .exchange_id {
-    font-size: 16px;
-    color: dimgrey;
-    font-weight: 700;
   }
 
   .item_type {
@@ -40,58 +278,10 @@ page-credits {
 
   }
 
-  .amount {
-    font-size: 18px;
-  }
-
-  .withdrawal {
-    // background: #337AB7;
-    color: red;
-  }
-
-  .replenishment {
-    // background: #32DB64;
-    color: #009800;
-  }
-  //
-  //.item_main_data {
-  //
-  //  padding: 8px 10px 10px;
-  //
-  //  .amount {
-  //    font-size: 18px;
-  //    font-weight: 600;
-  //    color: grey;
-  //  }
-  //
-  //  .date {
-  //    font-size: 12px;
-  //    color: grey;
-  //    margin-top: 2px;
-  //
-  //    .time {
-  //      font-size: 10px;
-  //    }
-  //
-  //  }
-  //
+  //.card {
+  //  margin-top: 10px;
+  //  margin-bottom: 15px;
   //}
-
-  .date {
-    font-size: 12px;
-    color: grey;
-    margin-top: 2px;
-
-    .time {
-      font-size: 10px;
-    }
-
-  }
-
-  .card {
-    margin-top: 10px;
-    margin-bottom: 15px;
-  }
 
   .pay_button_block {
 

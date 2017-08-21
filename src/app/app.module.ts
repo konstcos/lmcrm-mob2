@@ -7,6 +7,8 @@ import {Storage, IonicStorageModule} from '@ionic/storage';
 
 import {Push, PushObject, PushOptions} from "@ionic-native/push";
 import { Badge } from '@ionic-native/badge';
+import { File } from '@ionic-native/file';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 // import { FCM } from '@ionic-native/fcm';
 
 
@@ -19,11 +21,15 @@ import {MapPage} from '../pages/map/map';
 import {SignupPage} from '../pages/signup/signup';
 import {TabsPage} from '../pages/tabs/tabs';
 import {TutorialPage} from '../pages/tutorial/tutorial';
+import {MainPopoverPage} from '../pages/main-popover/main-popover';
 
 
 import {MainPage} from '../pages/main/main';
 
 import {CreditsPage} from '../pages/credits/credits';
+import {CreditReplenishmentPage} from '../pages/credit-replenishment/credit-replenishment';
+import {CreditWithdrawalPage} from '../pages/credit-withdrawal/credit-withdrawal';
+import {CreditCardPaymentPage} from '../pages/credit-card-payment/credit-card-payment';
 
 import {AddLeadPage} from '../pages/add-lead/add-lead';
 
@@ -31,11 +37,15 @@ import {ObtainPage} from '../pages/obtain/obtain';
 import {ObtainDetailPage} from "../pages/obtain-detail/obtain-detail";
 
 import {DepositedPage} from '../pages/deposited/deposited';
+import {OpenLeadStatusesDealPage} from '../pages/open-lead-statuses-deal/open-lead-statuses-deal';
 import {DepositedDetailPage} from "../pages/deposited-detail/deposited-detail";
 
 import {OpenPage} from '../pages/open/open';
 import {OpenDetailPage} from '../pages/open-detail/open-detail'
 import {OpenLeadDealPage} from '../pages/open-lead-deal/open-lead-deal'
+import {DealPaymentWalletPage} from '../pages/deal-payment-wallet/deal-payment-wallet'
+import {DealPaymentCardPage} from '../pages/deal-payment-card/deal-payment-card'
+import {DealPaymentManuallyPage} from '../pages/deal-payment-manually/deal-payment-manually'
 
 import {CustomersPage} from '../pages/customers/customers';
 import {MasksPage} from '../pages/masks/masks';
@@ -46,12 +56,14 @@ import {OpenLeadOrganizerEditPage} from '../pages/open-lead-organizer-edit/open-
 import {StatisticsPage} from '../pages/statistics/statistics';
 
 import {MessagesPage} from '../pages/messages/messages';
+import {CorrespondencePage} from '../pages/correspondence/correspondence';
 import {MessagesFilterPage} from '../pages/messages-filter/messages-filter';
 
 import {OpenLeadStatusesPage} from '../pages/open-lead-statuses/open-lead-statuses';
 
 import {OpenLeadOrganizerPage} from '../pages/open-lead-organizer/open-lead-organizer';
 import {OrganizerPage} from '../pages/organizer/organizer';
+import {AdvantagesPage} from '../pages/advantages/advantages';
 
 import {SalesmenPage} from '../pages/salesmen/salesmen'
 import {EditSalesmenPage} from '../pages/edit-salesmen/edit-salesmen'
@@ -67,6 +79,8 @@ import {PrivateGroupPage} from '../pages/private-group/private-group'
 import {PrivateGroupSearchMemberPage} from '../pages/private-group-search-members/private-group-search-members'
 import {PrivateGroupAddMemberPage} from '../pages/private-group-add-member/private-group-add-member'
 
+import {CreditCalculatorPage} from '../pages/credit-calculator/credit-calculator'
+
 import {WelcomePage} from '../pages/welcome/welcome';
 import {ListMasterPage} from '../pages/list-master/list-master';
 import {ItemCreatePage} from '../pages/item-create/item-create';
@@ -75,6 +89,7 @@ import {MenuPage} from '../pages/menu/menu';
 import {SettingsPage} from '../pages/settings/settings';
 import {ProfilePage} from '../pages/profile/profile';
 import {SearchPage} from '../pages/search/search';
+import {SupportPage} from '../pages/support/support';
 
 import {LeadStatusPage} from '../pages/lead-status/lead-status';
 
@@ -158,8 +173,12 @@ let pages = [
     SearchPage,
 
     MainPage,
+    MainPopoverPage,
 
     CreditsPage,
+    CreditReplenishmentPage,
+    CreditWithdrawalPage,
+    CreditCardPaymentPage,
 
     AddLeadPage,
 
@@ -171,6 +190,10 @@ let pages = [
 
     OpenPage,
     OpenDetailPage,
+    OpenLeadStatusesDealPage,
+    DealPaymentWalletPage,
+    DealPaymentCardPage,
+    DealPaymentManuallyPage,
 
     CustomersPage,
     MasksPage,
@@ -179,7 +202,10 @@ let pages = [
     ProfilePage,
 
     MessagesPage,
+    CorrespondencePage,
     MessagesFilterPage,
+
+    CreditCalculatorPage,
 
     OpenLeadOrganizerEditPage,
 
@@ -199,6 +225,8 @@ let pages = [
     OpenLeadStatusesPage,
     OpenLeadDealPage,
     OrganizerPage,
+    SupportPage,
+    AdvantagesPage,
 
     OpenLeadOrganizerPage,
 
@@ -227,6 +255,9 @@ export function providers() {
         Push,
         Badge,
         Notification,
+        File,
+        FileTransfer,
+        FileTransferObject,
         // FCM,
 
         OpenLeadOrganizer,

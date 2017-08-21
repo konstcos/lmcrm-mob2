@@ -1,3 +1,244 @@
 page-open-lead-deal {
 
+  ion-content {
+    background: #F8F8F8 !important;
+    margin-top: 20px;
+
+    //.delete_confirmation {
+    //  background: red;
+    //
+    //  .alert-head{
+    //    background: red;
+    //  }
+    //
+    //}
+
+    .payment_button {
+      margin-top: 15%;
+    }
+
+    .segment_block {
+
+      padding: 0 10px 0 10px;
+
+      .deal_block {
+        padding-top: 10px;
+
+        .deal_comment {
+          padding: 0 10px;
+          margin-top: 15px;
+
+          .name {
+            color: grey;
+            font-size: 11px;
+          }
+
+          .data {
+            color: #337AB7;
+            font-size: 13px;
+            text-align: right;
+            border-top: 1px solid #D0DCE8;
+            //border-radius: 5px;
+            padding: 5px 10px 8px;
+            margin-top: 3px;
+          }
+
+        }
+
+        .deal_item {
+          color: grey;
+          border-bottom: solid #D0DCE8 1px;
+          margin-bottom: 3px;
+          border-radius: 0 8px 8px 0;
+
+          .name {
+            font-size: 11px;
+            background: #337AB7;
+            color: white;
+            //padding-left: 5px;
+            padding: 12px 0 12px 10px;
+            border-radius: 0 8px 8px 0;
+          }
+
+          .data {
+            font-size: 14px;
+            color: #4C779D;
+            padding-right: 10px;
+
+            .time {
+              font-size: 10px;
+            }
+          }
+
+          .info {
+            color: #4C779D;
+            cursor: pointer;
+          }
+
+        }
+
+        .transaction_item {
+          color: grey;
+          border-bottom: solid #D0DCE8 1px;
+          //padding-top: 8px;
+          //padding-bottom: 8px;
+          padding: 8px 5px 8px 5px;
+          margin-bottom: 10px;
+
+          .amount {
+            font-size: 25px;
+            color: #337AB7;
+
+            .sign {
+              font-size: 12px;
+            }
+
+          }
+
+          .data {
+            font-size: 12px;
+
+            .transaction_id {
+              color: #739CBE;
+
+              .number {
+                font-weight: 600;
+              }
+
+            }
+
+            .date {
+
+              .time {
+                font-size: 10px;
+              }
+
+            }
+
+          }
+
+        }
+
+        .no_transactions {
+          margin-top: 30px;
+          color: #9E9E9E;
+        }
+
+        .no_files {
+          margin-top: 30px;
+          color: #9E9E9E;
+        }
+
+        .file_item {
+          border-bottom: solid 1px #DADADA;
+          margin-top: 10px;
+          margin-bottom: 10px;
+          padding-top: 10px;
+          padding-bottom: 10px;
+
+          .file_icon {
+            font-size: 23px;
+            color: grey;
+
+            .word {
+              color: #115EA0;
+            }
+
+            .pdf {
+              color: #E66B6B;
+            }
+
+            .archive {
+              color: #4C9634;
+            }
+
+            .undefined {
+              color: #C1C1C1;
+            }
+
+            .text {
+              color: #E28434;
+            }
+
+            .image {
+              color: #D2BC11;
+            }
+
+          }
+
+          .file_name {
+            color: #616161;
+            font-size: 12px;
+          }
+
+          .file_dell_button {
+            color: #C5C5C5;
+            cursor: pointer;
+          }
+
+        }
+
+      }
+    }
+
+  }
+
+  .action_open_lead_deal {
+    color: red;
+  }
+
+  .header_deal_user {
+    color: grey;
+    padding-right: 25px;
+    font-weight: 600;
+
+  }
+
+  .header_deal_type {
+    color: grey;
+    font-size: 12px;
+
+    .header_deal_type_label {
+      //color: #4C779D;
+      font-weight: 600;
+    }
+
+  }
+
+  .file_input {
+    display: none;
+  }
+
 }
+
+.action_open_lead_deal_title {
+
+  .action-sheet-title{
+    color: #337AB7;
+  }
+
+}
+
+.action_open_lead_deal {
+
+  .button-inner {
+    color: #505050;
+  }
+
+}
+
+.deal_file_delete_confirmation {
+
+  .alert-button-group {
+
+    .alert-button + .alert-button {
+      color: #E75E5E;
+    }
+
+  }
+
+}
+
+
+
+

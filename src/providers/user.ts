@@ -297,12 +297,30 @@ export class User {
 
 
     /**
+     * Получение данных агента по кредитам
+     *
+     */
+    getAgentCreditsData() {
+        return this.api.post('api/agent/credit/data', {});
+    }
+
+
+    /**
      * Получение профиля пользователя
      *
      */
     getAgentProfile() {
 
         return this.api.post('api/profile/get', {});
+    }
+
+
+    /**
+     * Получение данных по поддержке пользователя
+     *
+     */
+    getSupport() {
+        return this.api.post('api/support/get', {});
     }
 
 
@@ -314,6 +332,7 @@ export class User {
 
         return this.api.post('api/profile/save', data);
     }
+
 
     /**
      * Process a login/signup response to store user data

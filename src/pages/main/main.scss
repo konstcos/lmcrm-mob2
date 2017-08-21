@@ -1,5 +1,117 @@
 page-main {
 
+  .logo_image img {
+    height: 25px;
+    float: right;
+    margin-right: 15px;
+  }
+
+  .main_menu_header {
+    background: #337AB7;
+    color: #F5F5F5;
+
+    .user_data {
+      margin: 35px 10px 10px;
+
+      .name {
+        font-size: 18px;
+        margin: 2px 0 3px;
+        font-weight: 500;
+        color: #E4F3FF;
+      }
+
+      .email {
+        font-size: 12px;
+        margin: 2px 0 3px;
+        color: #BEDCF5;
+      }
+
+      .role {
+        font-size: 12px;
+        margin: 2px 0 3px;
+        color: #BEDCF5;
+      }
+
+    }
+
+  }
+
+  .menu_block {
+    font-size: 18px;
+    color: grey;
+    border-bottom: 1px solid #E4E4E4;
+    margin: 10px 0;
+    padding-bottom: 10px;
+
+    .all_credits_with_masks {
+      font-size: 14px;
+      padding: 10px 20px;
+      background: grey;
+      color: white;
+      border-radius: 0 0 20px 20px;
+
+      .leads_count_row {
+        margin: 10px 0;
+        padding: 10px 5px;
+        border-bottom: solid 1px #BDBDBD;
+
+        .name {
+          font-weight: 500;
+        }
+
+        .count {
+          font-size: 12px;
+        }
+
+      }
+
+      .sphere_name {
+        margin: 5px 0 20px;
+
+        .name {
+          font-weight: 500;
+          margin-bottom: 5px;
+        }
+
+        .mask_row {
+          font-size: 12px;
+          margin: 0 10px 0 10px;
+          padding: 5px 20px;
+          border-bottom: 1px solid #BDBDBD;
+          border-radius: 0 0 10px 0;
+        }
+
+      }
+
+    }
+
+    .menu_block_row {
+      padding: 5px 0;
+
+      &.number_of_openings {
+        padding-right: 10px;
+        cursor: pointer;
+
+        .arrow {
+          font-size: 16px;
+          font-weight: 600;
+        }
+
+        .label {
+          font-size: 12px;
+        }
+
+      }
+
+    }
+
+  }
+
+  .menu_block:last-child {
+    border-bottom: none;
+
+  }
+
   .filter_reset_icon {
     color: white;
   }

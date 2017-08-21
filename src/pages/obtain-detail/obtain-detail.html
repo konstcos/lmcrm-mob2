@@ -33,11 +33,11 @@
 
     </ion-navbar>
 
-    <div text-center class="open_button">
-        <button no-margin ion-button round color="secondary" (click)="confirmOpen(item)">
-            <ion-icon class="icon_param" name="md-eye"></ion-icon> &nbsp; open lead data
-        </button>
-    </div>
+    <!--<div text-center class="open_button">-->
+        <!--<button no-margin ion-button round color="secondary" (click)="confirmOpen(item)">-->
+            <!--<ion-icon class="icon_param" name="md-eye"></ion-icon> &nbsp; open lead data-->
+        <!--</button>-->
+    <!--</div>-->
 
 </ion-header>
 
@@ -56,10 +56,10 @@
     </div>
 
 
-    <div class="data_block">
+    <div class="data_block pressure" (click)="confirmOpen(item)">
 
         <ion-row align-items-center class="data_block_item">
-            <ion-col col-1 text-left (click)="confirmOpen(item)"><ion-icon class="color_green icon_param" name="md-eye"></ion-icon></ion-col>
+            <ion-col col-1 text-left><ion-icon class="color_green icon_param" name="md-eye"></ion-icon></ion-col>
             <ion-col text-right>
                 <div class="label">phone</div>
                 <div class="value">{{ item.phone }}</div>
@@ -150,7 +150,7 @@
 <ion-footer>
     <div text-center class="open_button">
         <button no-margin ion-button round color="secondary" (click)="confirmOpen(item)">
-            <ion-icon class="icon_param" name="md-eye"></ion-icon> &nbsp; open lead data
+            <ion-icon class="icon_param" name="md-eye"></ion-icon> &nbsp; expose lead data
         </button>
     </div>
 </ion-footer>

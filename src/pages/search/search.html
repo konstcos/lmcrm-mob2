@@ -1,22 +1,98 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>{{ 'SEARCH_TITLE' | translate }}</ion-title>
-  </ion-navbar>
+    <!--<ion-navbar>-->
+    <!--<ion-title>{{ 'SEARCH_TITLE' | translate }}</ion-title>-->
+    <!--</ion-navbar>-->
+
+
+    <ion-navbar color="primary">
+
+        <!--<ion-buttons right>-->
+        <!--<button ion-button clear (click)="close()">-->
+        <!--<ion-icon name="md-arrow-forward"></ion-icon>-->
+        <!--</button>-->
+        <!--</ion-buttons>-->
+
+        <!--<ion-title>OpenDetail</ion-title>-->
+
+
+        <ion-buttons left text-center>
+            <button ion-button (click)="close()">
+                <ion-icon name="ios-arrow-back" class="back_arrow"></ion-icon>
+            </button>
+        </ion-buttons>
+
+        <!--<ion-searchbar-->
+        <!--[(ngModel)]="myInput"-->
+        <!--</ion-searchbar>-->
+
+        <ion-input
+                type="search"
+                [(ngModel)]="searchInput"
+                class="search-input"
+                placeholder="Search...">
+        </ion-input>
+
+        <ion-buttons right text-center>
+
+            <button ion-button (click)="clearInput()">
+                <ion-icon name="ios-close-outline"></ion-icon>
+            </button>
+
+            <button ion-button (click)="runSearch()">
+                <ion-icon name="md-search"></ion-icon>
+            </button>
+
+        </ion-buttons>
+
+
+    </ion-navbar>
+
 
 </ion-header>
 
 
 <ion-content>
-  <ion-searchbar (ionInput)="getItems($event)" placeholder="{{ 'SEARCH_PLACEHOLDER' | translate }}"></ion-searchbar>
-  <ion-list>
-    <button ion-item (click)="openItem(item)" *ngFor="let item of currentItems">
-      <ion-avatar item-left>
-        <img [src]="item.profilePic" />
-      </ion-avatar>
-      <h2>{{item.name}}</h2>
-      <p>{{item.about}}</p>
-      <ion-note item-right *ngIf="item.note">{{item.note}}</ion-note>
-    </button>
-  </ion-list>
+
+    <div *ngIf="isLoading" class="spinnerLoading">
+        <ion-spinner color="primary" name="crescent"></ion-spinner>
+    </div>
+
+    <div *ngIf="!isLoading">
+        <ion-row *ngFor="let item of items" class="item_row" (click)="openData(item)">
+
+            <ion-col col-4 align-self-center text-left>
+                <div *ngIf="item.type == 'open'" class="type open" text-left>
+                    OPEN
+                </div>
+
+                <div *ngIf="item.type == 'deposited'" class="type deposited" text-left>
+                    OUTGOING
+                </div>
+            </ion-col>
+
+            <ion-col text-right>
+
+                <div class="name" text-right>
+                    <span class="surname" text-right>{{ item.surname }}</span> {{ item.name }}
+                </div>
+
+                <div class="email" text-right>
+                    {{ item.email }}
+                </div>
+
+                <div class="phone" text-right>
+                    {{ item.phone }}
+                </div>
+
+            </ion-col>
+
+            <ion-col col-1 align-self-center text-center class="open_icon">
+                <ion-icon name="ios-open-outline"></ion-icon>
+            </ion-col>
+
+        </ion-row>
+    </div>
+
+
 </ion-content>

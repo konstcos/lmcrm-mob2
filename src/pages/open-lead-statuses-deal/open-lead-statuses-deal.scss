@@ -1,0 +1,101 @@
+open-lead-statuses-deal {
+
+  .header_statuses_deal {
+    //background: red;
+  }
+
+  ion-content {
+    background: #F8F8F8 !important;
+  }
+
+  .status_back_button {
+    margin: 10% 0 5%;
+    font-size: 14px;
+    color: #337AB7;
+    cursor: pointer;
+
+    .back_icon {
+      margin-right: 10px;
+      font-size: 12px;
+    }
+
+  }
+
+  .deal_type_name {
+    color: grey;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .deal_legend {
+    color: grey;
+    margin: 10px 50px 10px;
+    font-size: 12px;
+  }
+
+  .price_input {
+    border-bottom: solid #337AB7 1px;
+    width: 120px;
+    margin: 15px auto 5px;
+
+    .price_label {
+      text-align: right;
+      color: #A9A9A9;
+      margin-bottom: 2px;
+      font-size: 13px;
+
+      .price_required {
+        color: #FF6E6E;
+        margin-left: 1px;
+      }
+
+    }
+
+    ion-input.input {
+      display: inline;
+      //width: 20px;
+
+      input.text-input {
+        width: 90px;
+        text-align: right;
+        margin: 0;
+        color: #337AB7;
+        padding: 0 0 5px 0;
+      }
+
+    }
+
+    .currency {
+      color: grey;
+      font-weight: 600;
+    }
+
+  }
+
+  .comment_input {
+    margin: 25px auto 10px;
+    width: 204px;
+
+    .comment_label {
+      text-align: right;
+      color: #A9A9A9;
+      margin-bottom: 2px;
+      font-size: 13px;
+    }
+
+    textarea.text-input {
+      border: solid 1px #D0D0D0;
+      padding: 5px 5px;
+      margin: 0;
+      text-align: right;
+      color: #337AB7;
+    }
+  }
+
+  .close_deal_button {
+    margin: 25px 15% 0 15%;
+  }
+
+}

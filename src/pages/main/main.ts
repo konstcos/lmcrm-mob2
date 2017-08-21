@@ -2,8 +2,19 @@
  * Основные модули приложения
  */
 import {Component, ViewChild} from '@angular/core';
-import {NavController, NavParams, Nav, MenuController, Events, Content} from 'ionic-angular';
-
+import {
+    NavController,
+    NavParams,
+    Nav,
+    MenuController,
+    Events,
+    Content,
+    Tabs,
+    PopoverController,
+    ModalController,
+    AlertController
+} from 'ionic-angular';
+import {Badge} from '@ionic-native/badge';
 
 /**
  * Провайдеры
@@ -11,7 +22,8 @@ import {NavController, NavParams, Nav, MenuController, Events, Content} from 'io
 
 // модель пользователя
 import {User} from "../../providers/user";
-import {menuManager} from "../../providers/menuManager";
+// модель obtain
+import {Obtain} from '../../providers/obtain';
 
 
 /**
@@ -44,6 +56,14 @@ import {PrivateGroupPage} from '../private-group/private-group'
 import {OrganizerPage} from '../organizer/organizer'
 // страница редактирования профиля
 import {ProfilePage} from '../profile/profile'
+// поповер главной страницы
+import {MainPopoverPage} from "../main-popover/main-popover";
+// страница поиска
+import {SearchPage} from "../search/search";
+// страница поддержки
+import {SupportPage} from "../support/support";
+// страница калькулятора
+import {CreditCalculatorPage} from "../credit-calculator/credit-calculator";
 
 /*
  Основная страница приложения.
@@ -54,13 +74,12 @@ import {ProfilePage} from '../profile/profile'
  */
 @Component({
     selector: 'page-main',
-    templateUrl: 'main.html',
-    providers: [menuManager]
-
+    templateUrl: 'main.html'
 })
 export class MainPage {
 
     @ViewChild(Content) content: Content;
+    @ViewChild('mainTabs') tabRef: Tabs;
 
     /**
      * Инициация страниц
@@ -77,7 +96,6 @@ export class MainPage {
     notices: number = 0;
 
 
-
     /**
      * Заголовки табов
      */
@@ -87,7 +105,7 @@ export class MainPage {
     // отданные лиды
     depositedTitle = "OUTGOING";
     // открытые лиды
-    openTitle = "OPEN";
+    openTitle = "EXPOSE";
 
 
     /**
@@ -108,6 +126,8 @@ export class MainPage {
         leadStatus: [],
         source: [],
         notOpenOnly: 0,
+        exposureOnly: 0,
+        archiveShow: 0,
         period: {
             from: null,
             to: null,
@@ -190,9 +210,46 @@ export class MainPage {
      *
      */
     public roles: any = {
-        role: 'any',
-        subRole: 'any',
+        role: '',
+        subRole: '',
     };
+
+
+    /**
+     * Данные агента
+     *
+     */
+    public name: string = '';
+    public surname: string = '';
+    public email: string = '';
+    public prices: any = [];
+    public leadsBySphere: any = [];
+
+    public leadsBySphereSum: number = 0;
+
+    public highestPrice: number = 0;
+
+    /**
+     * Состояние дополнительного блока с кредитами
+     * открыт/закрыт
+     *
+     */
+    public creditsAmountBlock: boolean = false;
+
+
+    /**
+     * Количество лидов по каждой сфере
+     * открыт/закрыт
+     *
+     */
+    public leadCountBlock: boolean = false;
+
+
+    /**
+     * Количество непросмотренных входящих лидов
+     *
+     */
+    public newIncomingLeadsCount: number = 0;
 
 
     /**
@@ -203,48 +260,66 @@ export class MainPage {
                 public navParams: NavParams,
                 public nav: Nav,
                 public user: User,
+                public obtainProvider: Obtain,
                 public menuCtrl: MenuController,
                 public events: Events,
-                public menuManager: menuManager) {
-
-
-        this.menuManager.test();
-
-        // this.notices = Number(localStorage.getItem('notice'));
+                public popoverCtrl: PopoverController,
+                public modalCtrl: ModalController,
+                private badge: Badge,
+                public alertCtrl: AlertController) {
 
         this.events.unsubscribe("notices:clear");
-
         this.events.subscribe("notices:clear", () => {
             this.notices = 0;
         });
 
 
-        this.events.unsubscribe("roles:get",);
-        this.events.subscribe("roles:get", (roles) => {
-            // this.setNewNotices(items);
+        this.events.unsubscribe("agentData:get",);
+        this.events.subscribe("agentData:get", (agentData) => {
 
-            // this.notices = data;
+            // console.log('полученные данные агента: ');
+            // console.log(agentData);
 
-            this.roles.role = roles.role;
-            this.roles.subRole = roles.subRole;
+            this.roles.role = agentData.roles.role;
+            this.roles.subRole = agentData.roles.subRole;
+            this.name = agentData.name;
+            this.surname = agentData.surname;
+            this.email = agentData.email;
+            this.prices = agentData.prices;
+            this.leadsBySphere = agentData.leadsBySphere ? agentData.leadsBySphere : [];
 
-            console.log('Роли из главного компонента:');
-            console.log(this.roles);
+            if (this.leadsBySphere.length != 0) {
 
-            // : any = {
-            //     role: false,
-            //     subRole: false,
-            // };
+                this.leadsBySphereSum = 0;
 
-            // this.content.resize();
+                this.leadsBySphere.forEach((leadsCountData) => {
+                    this.leadsBySphereSum = this.leadsBySphereSum + leadsCountData.count;
+                    console.log(this.leadsBySphereSum);
+                });
 
-            // alert('catch event ' +items);
+            }
+
+            if (this.prices) {
+
+                this.prices.forEach((sphere) => {
+
+                    sphere.masks.forEach((mask) => {
+
+                        if (mask.leadsCount) {
+
+                            if (this.highestPrice < mask.leadsCount) {
+                                this.highestPrice = mask.leadsCount;
+                            }
+                        }
+
+                        // console.log(mask);
+                    });
+                });
+            }
+
+
         });
 
-
-        // events.subscribe("child:test", (items)=> {
-        //     this.setNewNotices(items);
-        // });
 
         // задаются страницы в меню, название и сама страница
         this.pages = [
@@ -300,10 +375,10 @@ export class MainPage {
 
                 }
 
-                console.log(res);
-
-                console.log('сферы: ');
-                console.log(this.spheres);
+                // console.log(res);
+                //
+                // console.log('сферы: ');
+                // console.log(this.spheres);
 
                 // loading.dismiss();
 
@@ -326,8 +401,8 @@ export class MainPage {
 
         this.events.subscribe("notice:new", (items) => {
 
-            console.log('нотификации');
-            console.log(items);
+            // console.log('нотификации');
+            // console.log(items);
 
             this.notices = items;
 
@@ -364,7 +439,6 @@ export class MainPage {
         this.menuCtrl.enable(false, 'massages_filter');
 
 
-
         this.events.unsubscribe("main:openCustomer");
 
         this.events.subscribe("main:openCustomer", () => {
@@ -372,6 +446,12 @@ export class MainPage {
             this.nav.setRoot(CustomersPage);
         });
 
+        this.events.unsubscribe("goTo:open",);
+        // переход на страницу опен
+        this.events.subscribe("goTo:open", () => {
+            // alert('открытие страницами');
+            this.tabRef.select(1);
+        });
 
 
         this.events.unsubscribe("page:change");
@@ -384,6 +464,7 @@ export class MainPage {
 
             this.childPage = data.page;
 
+            // console.log(this.childPage);
 
             // todo получения данных из локалстореджа в зависимости от страницы нахождения
 
@@ -391,8 +472,8 @@ export class MainPage {
             // пересчет данных фильтра
             this.filterUpdate();
 
-            console.log('сменилась страница');
-            console.log(data);
+            // console.log('сменилась страница');
+            // console.log(data);
         });
 
 
@@ -401,8 +482,8 @@ export class MainPage {
         this.events.unsubscribe("notice:new");
         this.events.subscribe("notice:new", (items) => {
 
-            console.log('нотификации');
-            console.log(items);
+            // console.log('нотификации');
+            // console.log(items);
 
             this.notices = items;
 
@@ -421,27 +502,14 @@ export class MainPage {
         });
 
 
-        // this.events.unsubscribe("roles:get",);
-        // this.events.subscribe("roles:get", (roles) => {
-        //     // this.setNewNotices(items);
-        //
-        //     // this.notices = data;
-        //
-        //     this.roles.role = roles.role;
-        //     this.roles.subRole = roles.subRole;
-        //
-        //     console.log('Роли из главного компонента:');
-        //     console.log(this.roles);
-        //
-        //     // : any = {
-        //     //     role: false,
-        //     //     subRole: false,
-        //     // };
-        //
-        //     // this.content.resize();
-        //
-        //     // alert('catch event ' +items);
-        // });
+        // подписываемся на получение количества непросмотренных лидов
+        this.events.unsubscribe("badge:set");
+        this.events.subscribe("badge:set", (data) => {
+
+            this.newIncomingLeadsCount = data;
+            console.log('количество новых непросмотренных лидов: ');
+            console.log(this.newIncomingLeadsCount);
+        });
 
     }
 
@@ -564,7 +632,7 @@ export class MainPage {
 
         }
 
-        console.log(this.filter.mask);
+        // console.log(this.filter.mask);
 
     }
 
@@ -579,7 +647,7 @@ export class MainPage {
 
                 let data = result.json();
 
-                console.log(data);
+                // console.log(data);
 
                 if (data.status == 'success') {
 
@@ -604,8 +672,8 @@ export class MainPage {
 
                     }
 
-                    console.log('статусы сферы');
-                    console.log(this.openLeadStatuses);
+                    // console.log('статусы сферы');
+                    // console.log(this.openLeadStatuses);
 
 
                     // for (let openLeadStatus in data.statuses) {
@@ -633,7 +701,7 @@ export class MainPage {
                 // alert('ERROR: ' + err);
             });
 
-        console.log('Статусы открытого лида');
+        // console.log('Статусы открытого лида');
     }
 
 
@@ -789,7 +857,27 @@ export class MainPage {
 
         }
 
-        console.log(this.filter.source);
+        // console.log(this.filter.source);
+    }
+
+
+    /**
+     * Открытие блока с кредитами
+     *
+     */
+    openCredits() {
+
+        this.creditsAmountBlock = !this.creditsAmountBlock;
+    }
+
+
+    /**
+     * Открытие блока с кредитами
+     *
+     */
+    openLeadsCount() {
+
+        this.leadCountBlock = !this.leadCountBlock;
     }
 
 
@@ -800,6 +888,26 @@ export class MainPage {
     selectNotOpenOnly() {
 
         this.filter.notOpenOnly = !this.filter.notOpenOnly;
+    }
+
+
+    /**
+     * Выбор просмотр архивных открытых лидов
+     *
+     */
+    selectShowArchive() {
+
+        this.filter.archiveShow = !this.filter.archiveShow;
+    }
+
+
+    /**
+     * Выбор только не просмотренных лидов
+     *
+     */
+    selectExposureOnly() {
+
+        this.filter.exposureOnly = !this.filter.exposureOnly;
     }
 
 
@@ -853,8 +961,8 @@ export class MainPage {
 
         }
 
-        console.log('Сохраненные данные по фильтру');
-        console.log(storageData);
+        // console.log('Сохраненные данные по фильтру');
+        // console.log(storageData);
 
         if (!storageData) {
             this.filter = {
@@ -864,6 +972,8 @@ export class MainPage {
                 leadStatus: [],
                 source: [],
                 notOpenOnly: 0,
+                exposureOnly: 0,
+                archiveShow: 0,
                 period: {
                     from: null,
                     to: null,
@@ -875,9 +985,6 @@ export class MainPage {
         } else {
 
             this.filter = JSON.parse(storageData);
-
-            console.log('данные по фильтру');
-            console.log(storageData);
         }
 
 
@@ -989,7 +1096,22 @@ export class MainPage {
 
         }
 
-        console.log(this.isFilterOn);
+        // проверка не просмотренных лидов
+        if(this.filter.exposureOnly == 1){
+            this.isFilterOn = true;
+        }
+
+        // проверка только неоткрытых лидов
+        if(this.filter.notOpenOnly == 1){
+            this.isFilterOn = true;
+        }
+
+        // проверка архивных лидов
+        if(this.filter.archiveShow == 1){
+            this.isFilterOn = true;
+        }
+
+        // console.log(this.isFilterOn);
 
     }
 
@@ -1046,6 +1168,8 @@ export class MainPage {
             leadStatus: [],
             source: [],
             notOpenOnly: 0,
+            exposureOnly: 0,
+            archiveShow: 0,
             period: {
                 from: null,
                 to: null,
@@ -1214,10 +1338,141 @@ export class MainPage {
 
 
     /**
+     * Открыть поповер
+     *
+     */
+    popoverMenu(myEvent) {
+
+        // если нет новых непросмотренных входящих лидов - выходим из метода
+        if (this.newIncomingLeadsCount < 10) {
+            return false;
+        }
+
+        // console.log('Поповер открыт');
+
+        let popover = this.popoverCtrl.create(MainPopoverPage);
+
+        popover.onDidDismiss(data => {
+
+            if (data && data.action == 'markAllIncomingAsViewed') {
+
+                this.confirmMarkSeenAuction();
+            }
+        });
+
+
+        popover.present({
+            ev: myEvent
+        });
+
+
+        // obtainProvider
+    }
+
+
+    /**
+     * Попап на подтверждения отметки всех лидов как просмотренных
+     *
+     */
+    confirmMarkSeenAuction(){
+
+        let confirm = this.alertCtrl.create({
+            title: 'Confirmation',
+            message: 'All new incoming leads will be marked as viewed',
+            buttons: [
+                {
+                    text: 'Cancel',
+                    // handler: () => {
+                    //     console.log('Disagree clicked');
+                    // }
+                },
+                {
+                    text: 'Ok',
+                    handler: () => {
+                        this.markSeenAuction();
+                    }
+                }
+            ]
+        });
+        confirm.present();
+    }
+
+
+    /**
+     * Отметить все входящие новые лиды как увиденные
+     *
+     */
+    markSeenAuction() {
+
+        // помечаем итем что он уже просмотрен
+        this.obtainProvider.markSeenAuction({auctionId: 0})
+        // обработка ответа
+            .subscribe(result => {
+                // при получении ответа
+
+                // переводим ответ в json
+                let data = result.json();
+
+                console.log(data);
+
+                if (data.status == 'success') {
+
+                    this.badge.set(0);
+
+                    if (this.childPage == 'obtain') {
+                        this.events.publish('incoming:mark')
+                    }
+                }
+
+                // console.log('Данные агента: ');
+
+            }, err => {
+                // в случае ошибки
+
+                console.log('ERROR: ' + err);
+            });
+
+    }
+
+
+    /**
+     * Открыть страницу поиска
+     *
+     */
+    openSearchPage() {
+        let modal = this.modalCtrl.create(SearchPage);
+        modal.present();
+    }
+
+
+    /**
+     * Открыть страницу калькуляторя
+     *
+     */
+    openCalculatorPage() {
+        let modal = this.modalCtrl.create(CreditCalculatorPage);
+        modal.present();
+    }
+
+
+    /**
+     * Открыть страницу поддержки
+     *
+     */
+    openSupportPage() {
+        // this.nav.setRoot(SearchPage);
+        let modal = this.modalCtrl.create(SupportPage);
+        modal.present();
+    }
+
+
+    /**
      * Разлогинивание пользователя
      *
      */
     logout() {
+
+        this.badge.set(0);
 
         // метод разлогинивания
         this.user.logout();

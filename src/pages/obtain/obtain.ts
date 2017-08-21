@@ -87,7 +87,7 @@ export class ObtainPage {
         // событие по смене фильтра
         this.events.subscribe('obtainFilter', () => {
 
-            console.log('событие по фильтру в полученных лидах');
+            // console.log('событие по фильтру в полученных лидах');
 
             this.filter = JSON.parse(localStorage.getItem('obtainFilter'));
 
@@ -101,6 +101,15 @@ export class ObtainPage {
         this.events.subscribe('obtainFilterChange', (data) => {
 
             this.isFilterOn = data.status;
+        });
+
+
+        this.events.unsubscribe('incoming:mark');
+
+        // событие по смене фильтра
+        this.events.subscribe('incoming:mark', () => {
+
+            this.loadItems();
         });
     }
 
@@ -116,7 +125,7 @@ export class ObtainPage {
      */
     ionViewWillEnter() {
 
-        this.isFilterOn = localStorage.getItem('obtainFilterOn') &&  localStorage.getItem('obtainFilterOn') == 'true';
+        this.isFilterOn = localStorage.getItem('obtainFilterOn') && localStorage.getItem('obtainFilterOn') == 'true';
 
         // событие на смену страницы
         this.events.publish("page:change", {page: 'obtain'});
@@ -194,7 +203,8 @@ export class ObtainPage {
      *
      */
     checkNotices(notices) {
-        this.events.publish('notice:new', notices);
+        this.events.publish('notice:new', notices.notice);
+        this.events.publish('badge:set', notices.auction);
     }
 
 
@@ -235,15 +245,34 @@ export class ObtainPage {
                 let data = result.json();
 
 
+                // console.log('Данные агента: ');
                 console.log(data);
 
                 localStorage.setItem('roles', JSON.stringify(data.roles));
-                this.events.publish('roles:get', data.roles);
 
+                let agentData = {
+                    roles: data.roles,
+                    name: data.name,
+                    surname: data.surname,
+                    email: data.email,
+                    prices: data.spherePrice,
+                    leadsBySphere: data.leadsBySphere,
+                };
+
+
+                this.events.publish('agentData:get', agentData);
                 this.roles = data.roles;
 
-                this.checkNotices(data.notices);
-                this.events.publish('badge:set', data.notices);
+                /**
+                 * Количество уведомлений
+                 *
+                 */
+                let notices = {
+                    notice: data.notices,
+                    auction: data.auctionCount,
+                };
+
+                this.checkNotices(notices);
 
 
                 // вычесляем количество итемов
@@ -296,7 +325,7 @@ export class ObtainPage {
 
         // todo проверка это конец списка или нет
 
-        console.log('сработал инфинити');
+        // console.log('сработал инфинити');
 
         if (this.isThereStillItems) {
 
@@ -369,6 +398,7 @@ export class ObtainPage {
         return this.items.length != 0 && this.isThereStillItems;
     }
 
+
     /**
      * Подробности по итему
      *
@@ -376,6 +406,30 @@ export class ObtainPage {
     detail(item) {
         let modal = this.modalCtrl.create(ObtainDetailPage, {item: item});
         modal.present();
+
+        // помечаем итем что он уже просмотрен
+        this.obtain.markSeenAuction({auctionId: item.auctionId})
+        // обработка ответа
+            .subscribe(result => {
+                // при получении ответа
+
+                // переводим ответ в json
+                let data = result.json();
+
+                if (data.status == 'success') {
+                    item.isSeen = 1;
+                }
+
+
+                // console.log('Данные агента: ');
+                console.log(data);
+
+            }, err => {
+                // в случае ошибки
+
+                console.log('ERROR: ' + err);
+            });
+
     }
 
 

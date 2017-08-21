@@ -1,0 +1,106 @@
+
+
+
+<ion-header>
+
+    <ion-navbar color="primary" hideBackButton="true">
+
+        <!--<ion-buttons left text-center class="left_button">-->
+        <ion-buttons left text-center>
+            <button ion-button (click)="close()">
+                <ion-icon name="ios-arrow-back" class="back_arrow"></ion-icon>
+            </button>
+        </ion-buttons>
+
+        <ion-title>Correspondence</ion-title>
+
+        <ion-buttons right text-right>
+            <!--<button ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">-->
+            <!--add lead-->
+            <!--</button>-->
+
+            <button ion-button icon-only (click)="messagesReload()">
+                <ion-icon name="md-sync"></ion-icon>
+            </button>
+
+
+        </ion-buttons>
+
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content #content padding>
+
+    <!-- Обновление страницы -->
+    <!--<ion-refresher (ionRefresh)="refresh($event)">-->
+        <!--<ion-refresher-content color="primary"></ion-refresher-content>-->
+    <!--</ion-refresher>-->
+    <!-- конец Обновление страницы -->
+
+
+    <div *ngIf="true">
+
+        <div *ngFor="let message of correspondence" class="massage_block">
+
+            <ion-row *ngIf="!message.owner" class="massage_row owner">
+                <ion-col class="data" col-9>
+                    <div class="name">
+                        {{ message.email }}
+                    </div>
+
+                    <div class="message">
+                        {{ message.message }}
+                    </div>
+
+                    <div class="date">
+                        <span class="time">{{ message.date.time }}</span> {{ message.date.date }}
+                    </div>
+
+                </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="message.owner" class="massage_row not_owner">
+                <ion-col col-3>
+
+                </ion-col>
+                <ion-col text-right class="data">
+
+                    <div class="message">
+                        {{ message.message }}
+                    </div>
+
+                    <div class="date">
+                        <span class="time">{{ message.date.time }}</span> {{ message.date.date }}
+                    </div>
+
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+    </div>
+
+</ion-content>
+
+<ion-footer>
+    <ion-navbar color="clear" class="enter_text_field">
+
+        <!--<ion-buttons left text-center class="left_button">-->
+
+        <ion-input
+                type="text"
+                placeholder="Enter text"
+                [(ngModel)]="messageInput">
+
+        </ion-input>
+
+        <ion-buttons right text-center>
+            <button ion-button (click)="sendMessage()">
+                <ion-icon name="md-send" class="back_arrow"></ion-icon>
+            </button>
+        </ion-buttons>
+
+    </ion-navbar>
+</ion-footer>

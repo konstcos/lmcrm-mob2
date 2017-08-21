@@ -106,13 +106,63 @@
             </ion-col>
         </ion-row>
 
-        <ion-row>
-            <ion-col text-center>
-                <button outline round small ion-button (click)="save()">
-                    Save
-                </button>
-            </ion-col>
-        </ion-row>
+
+        <!-- todo сохранение региона -->
+        <div class="region_data_row">
+
+            <ion-row>
+
+                <!-- Блок с именем пользователя -->
+                <ion-col class="" text-right>
+                    <!-- Лейбл ввода имени -->
+                    <div class="mask_label" text-right>Region</div>
+
+                    <div text-right class="region_item" (click)="clearRegions()">
+
+                        <ion-col class="region_selected_name">
+                            Israel
+                        </ion-col>
+                        <ion-col col-1 text-center>
+                        </ion-col>
+
+                    </div>
+
+                    <div *ngFor="let selectRegion of selectRegions" class="region_item" (click)="dellRegion(selectRegion)">
+
+                        <ion-row>
+                            <ion-col class="region_selected_name">
+                                {{ selectRegion.name }}
+                            </ion-col>
+                            <ion-col col-1 text-center>
+                                <ion-icon class="dell_region_button" name="md-close"></ion-icon>
+                            </ion-col>
+                        </ion-row>
+
+                    </div>
+
+                </ion-col>
+            </ion-row>
+
+            <div class="region_variant_block">
+
+                <div *ngFor="let region of regions" class="region_variant_item" text-center (click)="switchRegion(region)">
+
+                    {{ region.name }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!--<ion-row>-->
+            <!--<ion-col text-center>-->
+                <!--<button outline round small ion-button (click)="save()">-->
+                    <!--Save-->
+                <!--</button>-->
+            <!--</ion-col>-->
+        <!--</ion-row>-->
 
     </div>
 

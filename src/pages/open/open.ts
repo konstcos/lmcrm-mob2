@@ -1,5 +1,13 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, LoadingController, ModalController, Events} from 'ionic-angular';
+import {
+    NavController,
+    NavParams,
+    LoadingController,
+    ModalController,
+    Events,
+    ToastController,
+    AlertController
+} from 'ionic-angular';
 
 import {OpenDetailPage} from '../open-detail/open-detail'
 import {OpenLeadStatusesPage} from "../open-lead-statuses/open-lead-statuses";
@@ -88,9 +96,11 @@ export class OpenPage {
                 public settings: Settings,
                 public storage: Storage,
                 public open: Open,
+                public toastCtrl: ToastController,
                 public loadingCtrl: LoadingController,
                 public modalCtrl: ModalController,
                 public organizer: OpenLeadOrganizer,
+                public alertCtrl: AlertController,
                 public events: Events) {
 
 
@@ -257,7 +267,8 @@ export class OpenPage {
      *
      */
     checkNotices(notices) {
-        this.events.publish('notice:new', notices);
+        this.events.publish('notice:new', notices.notice);
+        this.events.publish('badge:set', notices.auction);
     }
 
 
@@ -300,14 +311,34 @@ export class OpenPage {
                 console.log('получил open: ');
                 console.log(data);
 
-                this.checkNotices(data.notices);
-                this.events.publish('badge:set', data.notices);
+                /**
+                 * Количество уведомлений
+                 *
+                 */
+                let notices = {
+                    notice: data.notices,
+                    auction: data.auctionCount,
+                };
 
+                this.checkNotices(notices);
 
                 localStorage.setItem('roles', JSON.stringify(data.roles));
-                this.events.publish('roles:get', data.roles);
+
+                let agentData = {
+                    roles: data.roles,
+                    name: data.name,
+                    surname: data.surname,
+                    email: data.email,
+                    prices: data.spherePrice,
+                    leadsBySphere: data.leadsBySphere,
+                };
+
+                this.events.publish('agentData:get', agentData);
 
                 this.roles = data.roles;
+
+                console.log('Роли:');
+                console.log(this.roles);
 
                 // вычесляем количество итемов
                 let itemsLength = data.openedLeads.length;
@@ -343,7 +374,6 @@ export class OpenPage {
                 // отключаем окно индикатора загрузки
                 // loading.dismiss();
             });
-
     }
 
 
@@ -435,32 +465,9 @@ export class OpenPage {
      */
     detail(item) {
 
-        // todo перебрать все статусы
-        // this.item.statuses.forEach();
-
-        // console.log(item);
-
-        // console.log(item.status_info);
-        //
-        // if (item.status_info.type == 5) {
-        //
-        //     console.log('сделка');
-        //
-        // } else {
-        //
-        //     // модальное окно со статусами
-        //     let modal = this.modalCtrl.create(OpenDetailPage, {item: item});
-        //     modal.present();
-        // }
-
-
-        // todo если текущий статус - сделка
-        // todo открыть другое окно
-
         // модальное окно со статусами
         let modal = this.modalCtrl.create(OpenDetailPage, {item: item});
         modal.present();
-
     }
 
 
@@ -502,6 +509,95 @@ export class OpenPage {
         //     });
 
 
+    }
+
+
+    /**
+     * Архивировать итем
+     *
+     */
+    archive(item) {
+
+        console.log(item);
+
+        this.open.archive({openLeadId: item.id, archive: !item.archive})
+        // обработка итемов
+            .subscribe(result => {
+                // при получении итемов
+
+                // переводим ответ в json
+                let data = result.json();
+
+                // console.log(data);
+
+                if (data.status == 'success') {
+
+                    item.archive = data.info.archive;
+
+                    let message = 'Archive error';
+
+                    if (item.archive == 0) {
+
+                        message = item.lead.name + ' extraction from archive';
+
+                    } else if (item.archive == 1) {
+
+                        message = item.lead.name + ' sent to the archive';
+                    }
+
+                    let toast = this.toastCtrl.create({
+                        message: message,
+                        duration: 3000,
+                        position: 'bottom'
+                    });
+                    toast.present();
+
+                } else {
+
+                    console.log(data);
+
+                    if (data.info == 'wrong_status') {
+
+
+                        let alert = this.alertCtrl.create({
+                            title: 'Cant archive',
+                            message: 'You can not archive a lead with this status',
+                            buttons: ['OK']
+                        });
+                        alert.present();
+
+
+                        // let toast = this.toastCtrl.create({
+                        //     message: 'Wrong status 123',
+                        //     duration: 3000,
+                        //     position: 'bottom'
+                        // });
+                        // toast.present();
+
+                    } else {
+
+                        let toast = this.toastCtrl.create({
+                            message: 'Error in archiving',
+                            duration: 3000,
+                            position: 'bottom'
+                        });
+                        toast.present();
+                    }
+
+
+                }
+
+
+            }, err => {
+                // в случае ошибки
+
+                console.log('ERROR: ' + err);
+
+                // todo выводится сообщение об ошибке (нету связи и т.д.)
+            });
+
+        // console.log('архивировать: ');
+        // console.log(item.id);
     }
 
 

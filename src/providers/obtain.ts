@@ -35,4 +35,11 @@ export class Obtain {
         return this.api.post('api/openLead', data);
     }
 
+
+    /**
+     * Получение с сервера итемов обтэин
+     */
+    markSeenAuction(data: any){
+        return this.api.post('api/mark/seen/obtain', data);
+    }
 }

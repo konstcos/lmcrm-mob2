@@ -14,25 +14,83 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class Open {
 
-    constructor(
-        public http: Http,
-        public api: Api) {
+    constructor(public http: Http,
+                public api: Api) {
     }
 
 
     /**
-     * Получение с сервера итемов обтэин
+     * Получение с сервера итемов открытых лидов
      */
-    get(data: any){
+    get(data: any) {
         return this.api.post('api/opened', data);
     }
 
 
     /**
-     * Получение с сервера итемов обтэин
+     * Получение с сервера данных открытого лида
      */
-    changeStatus(data: any){
+    loadOpenLeadData(openLeadId: number) {
+        return this.api.post('api/data/opened/lead', {openLeadId: openLeadId});
+    }
+
+
+    /**
+     * Получение с сервера данных открытого лида
+     */
+    loadOpenLeadDataByLeadId(leadId: number) {
+
+        console.log(leadId);
+
+        return this.api.post('api/data/opened/lead', {leadId: leadId});
+    }
+
+
+    /**
+     * Поиск лидов
+     */
+    search(data: any) {
+        return this.api.post('api/lead/search', data);
+    }
+
+
+    /**
+     * Смена статуса открытого лида
+     */
+    changeStatus(data: any) {
         return this.api.post('api/changeOpenLeadStatus', data);
+    }
+
+
+    /**
+     * Смена статуса открытого лида
+     */
+    archive(data: any) {
+        return this.api.post('api/lead/open/archive', data);
+    }
+
+
+    /**
+     * Смена статуса открытого лида
+     */
+    getDealData(data: any) {
+        return this.api.post('api/deal/data', data);
+    }
+
+
+    /**
+     * Загрузка файла
+     */
+    uploadFile(data: any) {
+        return this.api.post('api/file/upload', data);
+    }
+
+
+    /**
+     * Удаление файла
+     */
+    deleteFile(data: any) {
+        return this.api.post('api/file/delete', data);
     }
 
 }

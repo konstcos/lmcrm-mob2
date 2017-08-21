@@ -1,0 +1,178 @@
+<!--
+  Generated template for the OpenLeadStatuses page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar hideBackButton="true" color="primary">
+
+        <ion-buttons left text-center>
+            <button ion-button (click)="close()">
+                <ion-icon name="ios-arrow-back" class="back_arrow"></ion-icon>
+            </button>
+            <!--<button ion-button (click)="close()" color="primary">-->
+            <!--back to statuses-->
+            <!--</button>-->
+        </ion-buttons>
+
+        <ion-title>Credit calculator</ion-title>
+
+    </ion-navbar>
+
+    <div class="direction-switch-block">
+
+        <!--<ion-row class="direction-switch-row" (click)="switchDirection(2)" [ngClass]="{selected: direction == 2}">-->
+
+        <!--<ion-col col-1 text-right>-->
+        <!--<ion-icon *ngIf="direction == 1" name="md-radio-button-off"></ion-icon>-->
+        <!--<ion-icon *ngIf="direction == 2" name="md-radio-button-on"></ion-icon>-->
+        <!--</ion-col>-->
+
+        <!--<ion-col text-left [ngClass]="{text: direction == 2}">-->
+        <!--credit to shekel-->
+        <!--</ion-col>-->
+
+        <!--</ion-row>-->
+
+        <!--<ion-row class="direction-switch-row" (click)="switchDirection(1)" [ngClass]="{selected: direction == 1}">-->
+
+        <!--<ion-col col-1 text-right>-->
+        <!--<ion-icon *ngIf="direction == 2" name="md-radio-button-off"></ion-icon>-->
+        <!--<ion-icon *ngIf="direction == 1" name="md-radio-button-on"></ion-icon>-->
+        <!--</ion-col>-->
+
+        <!--<ion-col text-left [ngClass]="{text: direction == 1}">-->
+        <!--shekel to credit-->
+        <!--</ion-col>-->
+
+        <!--</ion-row>-->
+
+        <ion-row class="direction-switch-row">
+
+            <ion-col text-center (click)="switchDirection(2)" [ngClass]="{selected: direction == 2}">
+                <ion-icon *ngIf="direction == 1" name="md-radio-button-off"></ion-icon>
+                <ion-icon *ngIf="direction == 2" name="md-radio-button-on"></ion-icon>
+                <span [ngClass]="{text: direction == 2}">credit to shekel</span>
+            </ion-col>
+
+            <ion-col text-center (click)="switchDirection(1)" [ngClass]="{selected: direction == 1}">
+                <ion-icon *ngIf="direction == 2" name="md-radio-button-off"></ion-icon>
+                <ion-icon *ngIf="direction == 1" name="md-radio-button-on"></ion-icon>
+                <span [ngClass]="{text: direction == 1}">shekel to credit</span>
+            </ion-col>
+
+        </ion-row>
+
+    </div>
+
+    <div>
+
+        <ion-row>
+
+            <ion-col col-2 align-self-center text-right class="direction_sign">
+                <span *ngIf="direction == 2">credits</span>
+                <span *ngIf="direction == 1">&#8362;</span>
+            </ion-col>
+
+            <ion-col align-self-center>
+
+                <ion-input
+                        class="amount_input"
+                        [(ngModel)]="inputAmount"
+                        text-right
+                        align-self-center>
+                </ion-input>
+
+            </ion-col>
+
+            <ion-col col-4>
+                <button ion-button small (click)="calculate()">
+                    calculate
+                </button>
+            </ion-col>
+
+        </ion-row>
+
+
+    </div>
+
+    <div class="calculated_info_row">
+
+        <div *ngIf="calculatedValue">
+            <span *ngIf="currentDirection == 2">To get <span class="calculated_info_value">{{ calculatedValue }} credits</span> you will need: </span>
+            <span *ngIf="currentDirection == 1">For <span  class="calculated_info_value">&#8362; {{ calculatedValue }}</span> you will receive: </span>
+
+        </div>
+
+        <div *ngIf="!calculatedValue">enter calculated value</div>
+
+    </div>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <!-- Индикатор загрузки -->
+    <div *ngIf="isLoading" text-center padding class="loading_block">
+        <ion-spinner color="primary" name="crescent"></ion-spinner>
+    </div>
+
+    <!-- Расчетные данные -->
+    <div *ngIf="showContent">
+
+        <!-- Блок со всеми сферами -->
+        <div *ngIf="calculatedValue" class="agent_sphere_block">
+
+            <!-- Перебираем все сферы -->
+            <div *ngFor="let sphere of spheres" class="agent_sphere_row">
+
+                <!-- Имя сферы -->
+                <div class="agent_sphere_name">{{ sphere.name }}</div>
+
+                <!-- Блок с масками -->
+                <div class="agent_masks_block">
+
+                    <div *ngFor="let mask of sphere.masks" class="agent_masks_row">
+
+                        <ion-row>
+
+                            <ion-col col-2 text-right align-self-end class="agent_mask_sign">
+                                <span *ngIf="currentDirection == 2">&#8362;</span>
+                                <span *ngIf="currentDirection == 1">credit</span>
+                            </ion-col>
+
+                            <ion-col class="agent_mask_calculated" align-self-center text-left>
+                                {{ mask.calculated }}
+                            </ion-col>
+
+                            <ion-col class="agent_mask_name" col-4 align-self-center text-right>
+                                {{ mask.name }}
+                            </ion-col>
+
+                        </ion-row>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div *ngIf="!calculatedValue" class="no_data_for_calculated">
+
+            no data for calculated
+
+        </div>
+
+
+    </div>
+
+    <!-- Заставка подсчетов -->
+    <!--<div>-->
+    <!--</div>-->
+
+
+</ion-content>

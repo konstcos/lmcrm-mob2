@@ -7,20 +7,13 @@
                 <ion-icon name="ios-arrow-back" class="back_arrow"></ion-icon>
             </button>
             <button color="primary" ion-button (click)="goBack()">
-                back to login
+                {{ 'BACK_TO_LOGIN' | translate }}
             </button>
         </ion-buttons>
 
-        <!--<ion-buttons left text-center class="left_button">-->
-            <!--<button ion-button (click)="goBack()">-->
-                <!--back to login-->
-            <!--</button>-->
-        <!--</ion-buttons>-->
 
         <ion-buttons right text-center class="right_button">
-            <!--<button ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">-->
-            <!--add lead-->
-            <!--</button>-->
+
         </ion-buttons>
 
     </ion-navbar>
@@ -34,11 +27,6 @@
     <div class="main_block">
 
 
-        <!--<div text-center class="main_block_title">-->
-            <!--To continue you must fill this data-->
-        <!--</div>-->
-
-
         <div>
 
             <!-- Заполнение персональных данных агента -->
@@ -49,7 +37,7 @@
                 <span *ngIf="!confirmation.role" class="icon_span">
                     <ion-icon name="md-square-outline"></ion-icon>
                 </span>
-                Your role matching
+                {{ 'ROLE_MATCHING' | translate }}
             </div>
 
             <!-- Заполнение персональных данных агента -->
@@ -60,7 +48,7 @@
                 <span *ngIf="!confirmation.personal" class="icon_span">
                     <ion-icon name="md-square-outline"></ion-icon>
                 </span>
-                Personal data
+                {{ 'PERSONAL_DATA' | translate }}
             </div>
 
             <!-- Выбор сфер деятельности агента -->
@@ -71,7 +59,7 @@
                 <span *ngIf="!confirmation.sphere" class="icon_span">
                     <ion-icon name="md-square-outline"></ion-icon>
                 </span>
-                Sphere of influence
+                {{ 'SPHERE_OF_INFLUENCE' | translate }}
             </div>
 
         </div>
@@ -85,7 +73,7 @@
                     block
                     [attr.disabled]="!(confirmation.agreement && confirmation.sphere  && confirmation.personal && confirmation.role) ? '' : null"
                     (click)="saveRegistrationData()">
-                Start getting customers &nbsp;
+                {{ 'REGISTRATION_DATA_NEXT_BUTTON' | translate }} &nbsp;
                 <ion-icon name="ios-arrow-forward"></ion-icon>
             </button>
         </div>
@@ -99,12 +87,12 @@
                 <span *ngIf="!confirmation.agreement" class="icon_span">
                     <ion-icon name="md-square-outline"></ion-icon>
                 </span>
-                I confirm the user agreements
+                {{ 'REGISTRATION_DATA_AGREEMENTS' | translate }}
             </div>
         </div>
 
         <div class="user_agreement_text" text-center>
-            <a href="#">read the user agreements</a>
+            <a href="#">{{ 'REGISTRATION_DATA_USER_AGREEMENTS' | translate }}</a>
         </div>
 
     </div>

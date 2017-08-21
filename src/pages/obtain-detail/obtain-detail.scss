@@ -79,6 +79,10 @@ page-obtain-detail {
       padding: 0 7px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 
+      &.pressure {
+        cursor: pointer;
+      }
+
       .data_block_item {
         padding: 10px 5px;
         border-top: solid #D2D2D2 1px;
@@ -112,4 +116,34 @@ page-obtain-detail {
 .alert_content {
   font-size: 14px;
   margin-bottom: 20px;
+}
+
+.obtain_detail_alert_confirm {
+
+  .alert-head {
+
+    h2 {
+      text-align: right;
+    }
+  }
+
+  .alert-radio-group {
+
+    .alert-tappable.alert-radio.alert-radio-button {
+
+      .button-inner{
+        direction: rtl;
+
+        .alert-radio-icon{
+          right: 16px;
+          left: 0;
+        }
+
+        .alert-radio-label{
+          text-align: right;
+        }
+      }
+    }
+  }
+
 }

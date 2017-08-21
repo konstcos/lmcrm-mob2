@@ -1,0 +1,131 @@
+credit-replenishment {
+
+  .spinnerLoading {
+    text-align: center;
+    margin-top: 20%;
+  }
+
+  .description {
+    color: #909090;
+    text-align: center;
+    margin: 1px 10px;
+    font-size: 12px;
+  }
+
+  .replenishment_block {
+    margin: 5% 2px 0;
+    font-size: 18px;
+
+    .replenishment_row {
+      margin: 20px 0;
+      padding: 10px 0;
+      cursor: pointer;
+      border: 1px solid #B2C4CF;
+      border-radius: 50px;
+
+      &.selected {
+        background: #F1F3F8;
+        border: 1px solid #337AB7;
+      }
+
+      .replenishment_state {
+        font-size: 15px;
+        color: #B2C4CF;
+
+        .selected_state {
+          color: #337AB7;
+        }
+      }
+
+      .replenishment_amount {
+        color: #337AB7;
+
+        .sign {
+          font-size: 13px;
+        }
+
+        .credits {
+          font-size: 12px;
+          color: grey;
+          margin-top: 2px;
+          padding-left: 15px;
+
+          .text {
+            font-size: 10px;
+          }
+
+        }
+      }
+
+      .all_masks_col {
+
+        border-right: 1px solid #337AB7;
+        font-size: 12px;
+        border-radius: 10px;
+        color: #337AB7;
+      }
+
+    }
+  }
+
+}
+
+.replenishment_credits_alert_title_amount {
+  color: grey;
+
+  .amount {
+    color: #636363;
+    font-weight: 500;
+  }
+
+}
+
+.replenishment_credits_alert {
+
+  .replenishment_row {
+    margin: 2px 5px;
+    padding: 8px 5px 10px;
+    border-bottom: 1px solid #E8E8E8;
+
+    .mask {
+      font-size: 16px;
+      text-align: right;
+    }
+
+    .credits {
+      color: #337AB7;
+      font-size: 16px;
+      text-align: right;
+
+      .text {
+        font-size: 12px;
+        color: #789CBB;
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

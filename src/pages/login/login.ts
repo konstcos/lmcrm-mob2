@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 
-import {Platform, NavController, ToastController, Nav, LoadingController,} from 'ionic-angular';
+import {Platform, NavController, ToastController, Nav, LoadingController, ModalController} from 'ionic-angular';
 
 // import {Push, PushObject, PushOptions} from "@ionic-native/push";
 
@@ -12,6 +12,7 @@ import {SignupPage} from '../signup/signup';
 import {EmailConfirmationPage} from '../email-confirmation/email-confirmation';
 import {RegistrationDataPage} from '../registration-data/registration-data';
 import {RegistrationWaitingConfirmation} from '../registration-waiting-confirmation/registration-waiting-confirmation';
+import {AdvantagesPage} from '../advantages/advantages';
 
 import {User} from '../../providers/user';
 // import {MenuPage} from "../menu/menu";
@@ -44,6 +45,7 @@ export class LoginPage {
                 public translateService: TranslateService,
                 public nav: Nav,
                 public platform: Platform,
+                public modalCtrl: ModalController,
                 public loadingCtrl: LoadingController,
                 // public push: Push
                 // private fcm: FCM
@@ -142,6 +144,17 @@ export class LoginPage {
     singUp(){
         // alert('auth');
         this.nav.setRoot(SignupPage);
+    }
+
+
+    /**
+     * Открыть страницу описания возможностей
+     *
+     */
+    openAdvantagesPage() {
+        // this.nav.setRoot(SearchPage);
+        let modal = this.modalCtrl.create(AdvantagesPage);
+        modal.present();
     }
 
 

@@ -1,0 +1,104 @@
+credit-calculator {
+
+  .direction-switch-block {
+
+    padding: 10px 5px 10px;
+
+    .direction-switch-row {
+      cursor: pointer;
+      color: #6F6F6F;
+
+      //&.selected {
+      //  color: blue;
+      //}
+    }
+
+    .selected {
+      color: #337AB7;
+
+      .text {
+        font-weight: 600;
+      }
+    }
+
+  }
+
+  .direction_sign {
+    color: #337AB7;
+    font-weight: 400;
+    font-size: 12px;
+  }
+
+  .amount_input {
+    border: solid 1px #337AB7;
+
+    .text-input {
+      margin: 5px 5px;
+      color: #426078;
+    }
+
+  }
+
+  .calculated_info_row {
+    margin: 5px 30px 7px 65px;
+    color: grey;
+    font-size: 12px;
+
+    .calculated_info_value {
+      color: #337AB7;
+      font-weight: 600;
+    }
+  }
+
+  .agent_sphere_block {
+
+    .agent_sphere_row {
+      margin-top: 20px;
+
+      .agent_sphere_name {
+        color: #337AB7;
+        text-align: right;
+        font-size: 18px;
+        font-weight: 400;
+        margin-bottom: 10px;
+      }
+
+      .agent_masks_block {
+
+        .agent_masks_row {
+          margin: 10px 10px 5px 5px;
+          padding-right: 15px;
+          color: #7E91A3;
+          border-bottom: 1px solid #E6E6E6;
+          font-size: 15px;
+
+          .agent_mask_sign {
+            font-size: 13px;
+            color: #337AB7;
+          }
+
+          .agent_mask_calculated {
+            color: #337AB7;
+            font-size: 16px;
+            font-weight: 600;
+          }
+
+          .agent_mask_name {
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+  .no_data_for_calculated {
+    text-align: center;
+    color: #BDBDBD;
+    margin-top: 20px;
+  }
+
+}

@@ -1,0 +1,200 @@
+
+<ion-header>
+
+    <ion-navbar color="primary" hideBackButton="true">
+
+
+        <ion-buttons left text-center>
+            <button ion-button (click)="goBack()">
+                <ion-icon name="ios-arrow-back" class="back_arrow"></ion-icon>
+            </button>
+        </ion-buttons>
+
+        <ion-title>Credit Card Payment</ion-title>
+
+
+        <!--<ion-buttons right text-center class="right_button">-->
+        <!--<button ion-button>-->
+        <!--Replenishment-->
+        <!--</button>-->
+
+        <!--<button ion-button>-->
+        <!--Withdrawal-->
+        <!--</button>-->
+
+        <!--</ion-buttons>-->
+
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <!--оплата картой-->
+
+    <!--<div>-->
+        <!--<iframe-->
+            <!--src="https://cgmpi.creditguard.co.il/CGMPI_Server/PerformTransaction?txId=1b167fa7%2D99a6%2D4172%2D90a6%2D8da7e0e4e2b0"-->
+            <!--frameborder="0"-->
+            <!--height="500px"-->
+            <!--width="100%">-->
+
+        <!--</iframe>-->
+    <!--</div>-->
+
+
+
+    <!-- спинер загрузки -->
+    <div *ngIf="isLoading" class="spinnerLoading">
+        <ion-spinner color="primary" name="crescent"></ion-spinner>
+    </div>
+
+    <!-- Блок с данными -->
+    <div *ngIf="dataBlock" class="withdrawal_block">
+
+        <!-- строка с данными -->
+        <div class="withdrawal_row">
+
+            <div class="withdrawal_label" text-right>
+                Name
+            </div>
+
+            <div class="withdrawal_input" text-right>
+
+                <ion-input
+                        [(ngModel)]="data.name"
+                        text-right
+                        type="text">
+
+                </ion-input>
+
+            </div>
+
+        </div>
+        <!-- конец строки с данными -->
+
+        <!-- строка с ошибкой -->
+        <div *ngIf="errors.name" class="withdrawal_error" text-right>
+            This field is required
+        </div>
+        <!-- конец строки с ошибкой -->
+
+
+
+        <!-- строка с данными -->
+        <div class="withdrawal_row">
+
+            <div class="withdrawal_label" text-right>
+                E-Mail
+            </div>
+
+            <div class="withdrawal_input" text-right>
+
+                <ion-input
+                        [(ngModel)]="data.email"
+                        text-right
+                        type="text">
+
+                </ion-input>
+
+            </div>
+
+        </div>
+        <!-- конец строки с данными -->
+
+        <!-- строка с ошибкой -->
+        <div *ngIf="errors.email" class="withdrawal_error" text-right>
+            This field is required
+        </div>
+        <!-- конец строки с ошибкой -->
+
+
+
+        <!-- строка с данными -->
+        <div class="withdrawal_row">
+
+            <div class="withdrawal_label" text-right>
+                Phone
+            </div>
+
+            <div class="withdrawal_input" text-right>
+
+                <ion-input
+                        [(ngModel)]="data.phone"
+                        text-right
+                        type="text">
+
+                </ion-input>
+
+            </div>
+
+        </div>
+        <!-- конец строки с данными -->
+
+        <!-- строка с ошибкой -->
+        <div *ngIf="errors.phone" class="withdrawal_error" text-right>
+            This field is required
+        </div>
+        <!-- конец строки с ошибкой -->
+
+
+
+        <!-- строка с данными -->
+        <div class="withdrawal_row">
+
+            <div class="withdrawal_label" text-right>
+                Amount
+            </div>
+
+            <div class="withdrawal_input amount_input" text-right>
+
+                &#8362;
+
+                <ion-input
+                        [(ngModel)]="data.amount"
+                        text-right
+                        min="0"
+                        type="number">
+
+                </ion-input>
+
+            </div>
+
+        </div>
+        <!-- конец строки с данными -->
+
+        <!-- строка с ошибкой -->
+        <div *ngIf="errors.amount" class="withdrawal_error" text-right>
+            This field is required
+        </div>
+        <!-- конец строки с ошибкой -->
+
+        <div text-center margin-top>
+            <button ion-button round (click)="confirmPayment()"> Confirm </button>
+        </div>
+
+    </div>
+
+    <!-- Блок с данными по проплате -->
+    <div *ngIf="creditBlock">
+
+        <iframe
+                [src]= "webPage()"
+                frameborder="0"
+                height="500px"
+                width="100%">
+
+        </iframe>
+    </div>
+
+</ion-content>
+
+
+<!--<ion-footer text-center>-->
+
+    <!--<button ion-button round (click)="confirmWithdrawal()">-->
+        <!--Make withdrawal-->
+    <!--</button>-->
+
+<!--</ion-footer>-->

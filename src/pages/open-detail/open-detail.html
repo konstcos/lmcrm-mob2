@@ -9,9 +9,9 @@
     <ion-navbar color="primary">
 
         <!--<ion-buttons right>-->
-            <!--<button ion-button clear (click)="close()">-->
-                <!--<ion-icon name="md-arrow-forward"></ion-icon>-->
-            <!--</button>-->
+        <!--<button ion-button clear (click)="close()">-->
+        <!--<ion-icon name="md-arrow-forward"></ion-icon>-->
+        <!--</button>-->
         <!--</ion-buttons>-->
 
         <!--<ion-title>OpenDetail</ion-title>-->
@@ -25,22 +25,12 @@
 
         <ion-title>Open Lead</ion-title>
 
-
-        <!--<ion-buttons left text-center class="left_button">-->
-            <!--<button ion-button (click)="close()">-->
-                <!--close-->
-            <!--</button>-->
-        <!--</ion-buttons>-->
-        <!--<ion-title>OpenDetail</ion-title>-->
-
-        <!--<ion-buttons right text-center class="right_button">-->
         <ion-buttons right text-center>
             <button ion-button (click)="confirmOpen(item)">
                 <!--Organizer &nbsp;-->
-                 <ion-icon name="md-alarm"></ion-icon>
+                <ion-icon name="md-alarm"></ion-icon>
             </button>
         </ion-buttons>
-
 
 
     </ion-navbar>
@@ -50,123 +40,140 @@
 
 <ion-content padding>
 
-    <!--<h2 >{{ item.lead.name }} {{ item.lead.surname }}</h2>-->
-
-    <div class="data_block_header">
-        <ion-row align-items-center>
-            <!--<ion-col text-left class="opened"><ion-icon ios="ios-eye" md="md-eye"></ion-icon> {{ item.opened }}</ion-col>-->
-            <ion-col text-right class="name"> {{ item.lead.name }} {{ item.lead.surname }}</ion-col>
-        </ion-row>
+    <!-- спинер загрузки -->
+    <div *ngIf="isLoading" class="spinnerLoading">
+        <ion-spinner color="primary" name="crescent"></ion-spinner>
     </div>
 
+    <div *ngIf="item && !isLoading">
 
-    <div class="data_block">
+        <div class="data_block_header">
+            <ion-row align-items-center>
+                <ion-col text-right class="name"> {{ item.lead.name }} {{ item.lead.surname }}</ion-col>
+            </ion-row>
+        </div>
 
-        <ion-row align-items-center class="data_block_item">
-            <ion-col col-1 text-left><ion-icon class="color_green icon_param" name="md-eye"></ion-icon></ion-col>
-            <ion-col text-right>
-                <div class="label">phone</div>
-                <div class="value">{{ item.lead.phone.phone }}</div>
-            </ion-col>
-            <ion-col col-1 text-right><ion-icon class="color_green icon_param" name="ios-call"></ion-icon></ion-col>
-        </ion-row>
+
+        <div class="data_block">
+
+            <ion-row align-items-center class="data_block_item">
+                <ion-col col-1 text-left>
+                </ion-col>
+                <ion-col text-right>
+                    <div class="label">phone</div>
+                    <div class="value">{{ item.lead.phone.phone }}</div>
+                </ion-col>
+                <ion-col col-1 text-right>
+                    <ion-icon class="color_green icon_param" name="ios-call"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+        <div class="status_block">
+            <ion-row>
+                <ion-col>
+                    <button ion-button small full (click)="changeStatus(item)">
+                        {{ item.status_info ? item.status_info.stepname : 'No status' }}
+                    </button>
+                </ion-col>
+            </ion-row>
+        </div>
+
+        <div class="data_block">
+
+            <ion-row align-items-center class="data_block_item">
+                <!--<ion-col col-1 text-left><ion-icon class="help_icon" name="md-help-circle"></ion-icon></ion-col>-->
+                <ion-col text-right>
+                    <div class="label">opened</div>
+                    <div class="value">
+                        <span class="date_time">{{ item.date.time }}</span>
+                        <span class="date_date">{{ item.date.date }}</span>
+                    </div>
+                </ion-col>
+                <ion-col col-1 text-right>
+                    <ion-icon class="icon_param calendar_color" name="md-calendar"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+            <ion-row align-items-center class="data_block_item">
+                <!--<ion-col col-1 text-left><ion-icon class="help_icon" name="md-help-circle"></ion-icon></ion-col>-->
+                <ion-col text-right>
+                    <div class="label">opened by</div>
+                    <div class="value">You
+                        <!--<span class="date_time">{{ item.auction_added.time }}</span>-->
+                        <!--<span class="date_date">{{ item.auction_added.date }}</span>-->
+                    </div>
+                </ion-col>
+                <ion-col col-1 text-right>
+                    <ion-icon class="icon_param calendar_color" name="md-calendar"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+
+        <div class="data_block">
+
+            <ion-row align-items-center *ngFor="let filter of item.lead.filter" class="data_block_item">
+                <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
+                <ion-col text-right>
+                    <div class="label">{{ filter.label }}</div>
+                    <div class="value">{{ filter.value ? filter.value : '&nbsp;' }}</div>
+                </ion-col>
+                <ion-col col-1 text-right>
+                    <ion-icon class="icon_param doc_color" name="ios-paper"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+            <ion-row align-items-center *ngFor="let additional of item.lead.additional" class="data_block_item">
+                <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
+                <ion-col text-right>
+                    <div class="label">{{ additional.label }}</div>
+                    <div class="value">{{ additional.value ? additional.value : '&nbsp;' }}</div>
+                </ion-col>
+                <ion-col col-1 text-right>
+                    <ion-icon class="icon_param doc_color" name="ios-paper"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+
+        <div class="data_block">
+
+            <ion-row align-items-center class="data_block_item">
+                <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
+                <ion-col text-right>
+                    <div class="label">sphere</div>
+                    <div class="value">{{ item.lead.sphere.name }}</div>
+                </ion-col>
+                <ion-col col-1 text-right>
+                    <ion-icon class="icon_param sphere_color" name="ios-cloud"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+            <ion-row align-items-center class="data_block_item">
+                <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
+                <ion-col text-right>
+                    <div class="label">mask name</div>
+                    <div class="value">{{ item.mask_name2 ? item.mask_name2.name : 'deleted' }}</div>
+                </ion-col>
+                <ion-col col-1 text-right>
+                    <ion-icon class="icon_param mask_color" name="ios-funnel"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+        </div>
 
     </div>
-
-    <div class="status_block">
-        <ion-row>
-            <ion-col>
-                <button ion-button small full (click)="changeStatus(item)">
-                    {{ item.status_info ? item.status_info.stepname : 'No status' }}
-                </button>
-            </ion-col>
-        </ion-row>
-    </div>
-
-    <div class="data_block">
-
-        <ion-row align-items-center class="data_block_item">
-            <!--<ion-col col-1 text-left><ion-icon class="help_icon" name="md-help-circle"></ion-icon></ion-col>-->
-            <ion-col text-right>
-                <div class="label">opened</div>
-                <div class="value">
-                    <span class="date_time">{{ item.date.time }}</span>
-                    <span class="date_date">{{ item.date.date }}</span>
-                </div>
-            </ion-col>
-            <ion-col col-1 text-right><ion-icon class="icon_param calendar_color" name="md-calendar"></ion-icon></ion-col>
-        </ion-row>
-
-        <ion-row align-items-center class="data_block_item">
-            <!--<ion-col col-1 text-left><ion-icon class="help_icon" name="md-help-circle"></ion-icon></ion-col>-->
-            <ion-col text-right>
-                <div class="label">opened by</div>
-                <div class="value">You
-                    <!--<span class="date_time">{{ item.auction_added.time }}</span>-->
-                    <!--<span class="date_date">{{ item.auction_added.date }}</span>-->
-                </div>
-            </ion-col>
-            <ion-col col-1 text-right><ion-icon class="icon_param calendar_color" name="md-calendar"></ion-icon></ion-col>
-        </ion-row>
-
-    </div>
-
-
-    <div class="data_block">
-
-        <ion-row align-items-center *ngFor="let filter of item.lead.filter" class="data_block_item">
-            <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
-            <ion-col text-right>
-                <div class="label">{{ filter.label }}</div>
-                <div class="value">{{ filter.value ? filter.value : '&nbsp;' }}</div>
-            </ion-col>
-            <ion-col col-1 text-right><ion-icon class="icon_param doc_color" name="ios-paper"></ion-icon></ion-col>
-        </ion-row>
-
-        <ion-row align-items-center *ngFor="let additional of item.lead.additional" class="data_block_item">
-            <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
-            <ion-col text-right>
-                <div class="label">{{ additional.label }}</div>
-                <div class="value">{{ additional.value ? additional.value : '&nbsp;' }}</div>
-            </ion-col>
-            <ion-col col-1 text-right><ion-icon class="icon_param doc_color" name="ios-paper"></ion-icon></ion-col>
-        </ion-row>
-
-    </div>
-
-
-    <div class="data_block">
-
-        <ion-row align-items-center class="data_block_item">
-            <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
-            <ion-col text-right>
-                <div class="label">sphere</div>
-                <div class="value">{{ item.lead.sphere.name }}</div>
-            </ion-col>
-            <ion-col col-1 text-right><ion-icon class="icon_param sphere_color" name="ios-cloud"></ion-icon></ion-col>
-        </ion-row>
-
-        <ion-row align-items-center class="data_block_item">
-            <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
-            <ion-col text-right>
-                <div class="label">mask name</div>
-                <div class="value">{{ item.mask_name2.name }}</div>
-            </ion-col>
-            <ion-col col-1 text-right><ion-icon class="icon_param mask_color" name="ios-funnel"></ion-icon></ion-col>
-        </ion-row>
-
-    </div>
-
-
-
-
 
 </ion-content>
 
 
 <!--<ion-footer>-->
-    <!--<button block no-margin ion-button (click)="confirmOpen(item)">-->
-        <!--Organizer &nbsp;-->
-        <!--<ion-icon name="md-alarm"></ion-icon>-->
-    <!--</button>-->
+<!--<button block no-margin ion-button (click)="confirmOpen(item)">-->
+<!--Organizer &nbsp;-->
+<!--<ion-icon name="md-alarm"></ion-icon>-->
+<!--</button>-->
 <!--</ion-footer>-->

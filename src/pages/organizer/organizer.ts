@@ -14,6 +14,7 @@ import {OpenLeadOrganizerPage} from "../open-lead-organizer/open-lead-organizer"
 import {OpenLeadOrganizer} from '../../providers/open-lead-organizer';
 import {Organizer} from '../../providers/organizer';
 import {MainPage} from '../main/main'
+import {OpenDetailPage} from '../open-detail/open-detail'
 
 
 /*
@@ -298,6 +299,31 @@ export class OrganizerPage {
     //     modal.present();
     //
     // }
+
+
+    /**
+     * Открытие данных по открытому лиду
+     *
+     */
+    openLeadData(itemData) {
+        let modal = this.modalCtrl.create(OpenDetailPage, {openLeadId: itemData.open_lead_id, pageFrom: 'organizer'});
+
+        modal.onDidDismiss(data => {
+
+            // console.log(data);
+
+            this.loadOrganizerItems();
+
+
+            // if (data.state != 'cancel') {
+            //
+            //     this.loadOrganizerItems();
+            // }
+
+        });
+
+        modal.present();
+    }
 
 
     /**
@@ -802,6 +828,15 @@ export class OrganizerPage {
                 {
                     text: 'Open lead',
                     icon: 'ios-open-outline',
+                    handler: () => {
+                        // console.log('Apply clicked');
+                        this.openLeadData(itemData);
+                    }
+                },
+
+                {
+                    text: 'Open lead Organizer',
+                    icon: 'ios-alarm-outline',
                     handler: () => {
                         // console.log('Apply clicked');
                         this.openLeadOrganizer(itemData);

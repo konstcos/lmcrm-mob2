@@ -1,41 +1,38 @@
 <!--
-  Generated template for the Masks page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
 -->
-<ion-header >
+<ion-header>
 
     <!--color="clear"-->
 
     <ion-navbar color="clear">
 
-        <ion-title text-center class="registration_data_title">Role</ion-title>
+        <ion-title text-center class="registration_data_title">{{ "ROLE_PAGE_NAME" | translate }}</ion-title>
 
     </ion-navbar>
 
     <ion-row class="comparison_block_header" padding-right>
         <ion-col no-padding></ion-col>
         <ion-col no-padding col-3 text-center align-self-center (click)="selectRole(1)">
-            lead buyer
+            {{ "LEAD_BUYER" | translate }}
 
             <div *ngIf="role == 1" class="role-apply">
                 <ion-icon name="md-checkmark-circle-outline"></ion-icon>
             </div>
 
             <div *ngIf="role != 1" class="role-button">
-                select
+                {{ "SELECT" | translate }}
             </div>
         </ion-col>
         <ion-col no-padding col-3 text-center align-self-center (click)="selectRole(2)">
-            deal maker
+            {{ "DEAL_MAKER" | translate }}
 
             <div *ngIf="role == 2" class="role-apply">
                 <ion-icon name="md-checkmark-circle-outline"></ion-icon>
             </div>
 
             <div *ngIf="role != 2" class="role-button">
-                select
+                {{ "SELECT" | translate }}
             </div>
         </ion-col>
     </ion-row>
@@ -45,288 +42,67 @@
 
 <ion-content>
 
-
-    <!--<ion-row class="comparison_block_header">-->
-        <!--<ion-col></ion-col>-->
-        <!--<ion-col col-3 text-center align-self-center>lead buyer</ion-col>-->
-        <!--<ion-col col-3 text-center align-self-center>deal maker</ion-col>-->
-    <!--</ion-row>-->
-
     <table class="role-table">
         <tbody>
 
-        <tr class="role-row">
-            <td class="role-label">
-                Payment for successful transactions received from the system, from which I received payment
-            </td>
-
-            <td class="role-opportunity" [ngClass]="role == 1 ? 'role-selected' : ''" (click)="selectRole(1)">
-                <ion-icon class="missed" name="md-close"></ion-icon>
-            </td>
-
-            <td class="role-opportunity" [ngClass]="role == 2 ? 'role-selected' : ''" (click)="selectRole(2)">
-                <ion-icon class="checkmark" name="md-checkmark"></ion-icon>
+        <tr class="role-group">
+            <td class="role-label" colspan="3">
+                {{ "roleGroup.PAYMENT_SYSTEM" | translate }}
             </td>
         </tr>
 
-        <tr class="role-row">
+        <tr class="role-row" *ngFor="let feature of roleFeatures.paymentSystem">
             <td class="role-label">
-                Payment of incoming leads from the system through a credit card
+                {{ feature.description | translate }}
             </td>
 
             <td class="role-opportunity" [ngClass]="role == 1 ? 'role-selected' : ''" (click)="selectRole(1)">
-                <ion-icon class="checkmark" name="md-checkmark"></ion-icon>
+                <ion-icon *ngIf="!feature.leadbuyer" class="missed" name="md-close"></ion-icon>
+                <ion-icon *ngIf="feature.leadbuyer" class="checkmark" name="md-checkmark"></ion-icon>
             </td>
 
             <td class="role-opportunity" [ngClass]="role == 2 ? 'role-selected' : ''" (click)="selectRole(2)">
-                <ion-icon class="missed" name="md-close"></ion-icon>
-            </td>
-        </tr>
-
-        <tr class="role-row">
-            <td class="role-label">
-                Change the non-relevant client to the relevant client
-            </td>
-
-            <td class="role-opportunity" [ngClass]="role == 1 ? 'role-selected' : ''" (click)="selectRole(1)">
-                <ion-icon class="checkmark" name="md-checkmark"></ion-icon>
-            </td>
-
-            <td class="role-opportunity" [ngClass]="role == 2 ? 'role-selected' : ''" (click)="selectRole(2)">
-                <ion-icon class="checkmark" name="md-checkmark"></ion-icon>
-            </td>
-        </tr>
-
-        <tr class="role-row">
-            <td class="role-label">
-                Make money from outgoing leads
-            </td>
-
-            <td class="role-opportunity" [ngClass]="role == 1 ? 'role-selected' : ''" (click)="selectRole(1)">
-                <ion-icon class="checkmark" name="md-checkmark"></ion-icon>
-            </td>
-
-            <td class="role-opportunity" [ngClass]="role == 2 ? 'role-selected' : ''" (click)="selectRole(2)">
-                <ion-icon class="missed" name="md-close"></ion-icon>
-            </td>
-        </tr>
-
-        <tr class="role-row">
-            <td class="role-label">
-                Making money from the added leads to the system
-            </td>
-
-            <td class="role-opportunity" [ngClass]="role == 1 ? 'role-selected' : ''" (click)="selectRole(1)">
-                <ion-icon class="checkmark" name="md-checkmark"></ion-icon>
-            </td>
-
-            <td class="role-opportunity" [ngClass]="role == 2 ? 'role-selected' : ''" (click)="selectRole(2)">
-                <ion-icon class="missed" name="md-close"></ion-icon>
-            </td>
-        </tr>
-
-        <tr class="role-row">
-            <td class="role-label">
-                Replenishment of the wallet from deals of outgoing leads added only for deals
-            </td>
-
-            <td class="role-opportunity" [ngClass]="role == 1 ? 'role-selected' : ''" (click)="selectRole(1)">
-                <ion-icon class="checkmark" name="md-checkmark"></ion-icon>
-            </td>
-
-            <td class="role-opportunity" [ngClass]="role == 2 ? 'role-selected' : ''" (click)="selectRole(2)">
-                <ion-icon class="checkmark" name="md-checkmark"></ion-icon>
-            </td>
-        </tr>
-
-        <tr class="role-row">
-            <td class="role-label">
-                Give the lead to a private group
-            </td>
-
-            <td class="role-opportunity" [ngClass]="role == 1 ? 'role-selected' : ''" (click)="selectRole(1)">
-                <ion-icon class="checkmark" name="md-checkmark"></ion-icon>
-            </td>
-
-            <td class="role-opportunity" [ngClass]="role == 2 ? 'role-selected' : ''" (click)="selectRole(2)">
-                <ion-icon class="checkmark" name="md-checkmark"></ion-icon>
-            </td>
-        </tr>
-
-        <tr class="role-row">
-            <td class="role-label">
-                Exclusively receive leads
-            </td>
-
-            <td class="role-opportunity" [ngClass]="role == 1 ? 'role-selected' : ''" (click)="selectRole(1)">
-                <ion-icon class="checkmark" name="md-checkmark"></ion-icon>
-            </td>
-
-            <td class="role-opportunity" [ngClass]="role == 2 ? 'role-selected' : ''" (click)="selectRole(2)">
-                <ion-icon class="missed" name="md-close"></ion-icon>
-            </td>
-        </tr>
-
-        <tr class="role-row">
-            <td class="role-label">
-                Obligation to mark the status of each lead
-            </td>
-
-            <td class="role-opportunity" [ngClass]="role == 1 ? 'role-selected' : ''" (click)="selectRole(1)">
-                <ion-icon class="missed" name="md-close"></ion-icon>
-            </td>
-
-            <td class="role-opportunity" [ngClass]="role == 2 ? 'role-selected' : ''" (click)="selectRole(2)">
-                <ion-icon class="checkmark" name="md-checkmark"></ion-icon>
+                <ion-icon *ngIf="!feature.dealmaker" class="missed" name="md-close"></ion-icon>
+                <ion-icon *ngIf="feature.dealmaker" class="checkmark" name="md-checkmark"></ion-icon>
             </td>
         </tr>
 
         </tbody>
     </table>
 
-    <!--<ion-row class="comparison_row">-->
-        <!--<ion-col no-padding>Payment for successful transactions received from the system, from which I received payment</ion-col>-->
-        <!--<ion-col no-padding col-3 text-center align-self-center class="marked_col">-->
-            <!--<ion-icon class="missed" name="md-close"></ion-icon>-->
-        <!--</ion-col>-->
-        <!--<ion-col no-padding col-3 text-center align-self-center>-->
-            <!--<ion-icon class="checkmark" name="md-checkmark"></ion-icon>-->
-        <!--</ion-col>-->
-    <!--</ion-row>-->
 
-    <!--<ion-row class="comparison_row">-->
-        <!--<ion-col no-padding>Payment of incoming leads from the system through a credit card</ion-col>-->
-        <!--<ion-col no-padding col-3 text-center align-self-center class="marked_col">-->
-            <!--<ion-icon class="checkmark" name="md-checkmark"></ion-icon>-->
-        <!--</ion-col>-->
-        <!--<ion-col no-padding col-3 text-center align-self-center>-->
-            <!--<ion-icon class="missed" name="md-close"></ion-icon>-->
-        <!--</ion-col>-->
-    <!--</ion-row>-->
+    <table class="role-table">
+        <tbody>
 
-    <!--<ion-row class="comparison_row">-->
-        <!--<ion-col no-padding>Change the non-relevant client to the relevant client</ion-col>-->
-        <!--<ion-col no-padding col-3 text-center align-self-center class="marked_col">-->
-            <!--<ion-icon class="checkmark" name="md-checkmark"></ion-icon>-->
-        <!--</ion-col>-->
-        <!--<ion-col no-padding col-3 text-center align-self-center>-->
-            <!--<ion-icon class="checkmark" name="md-checkmark"></ion-icon>-->
-        <!--</ion-col>-->
-    <!--</ion-row>-->
-
-    <!--<ion-row class="comparison_row">-->
-        <!--<ion-col no-padding>Make money from outgoing leads</ion-col>-->
-        <!--<ion-col no-padding col-3 text-center align-self-center class="marked_col">-->
-            <!--<ion-icon class="checkmark" name="md-checkmark"></ion-icon>-->
-        <!--</ion-col>-->
-        <!--<ion-col no-padding col-3 text-center align-self-center>-->
-            <!--<ion-icon class="missed" name="md-close"></ion-icon>-->
-        <!--</ion-col>-->
-    <!--</ion-row>-->
-
-    <!--<ion-row class="comparison_row">-->
-        <!--<ion-col no-padding>Making money from the added leads to the system</ion-col>-->
-        <!--<ion-col no-padding col-3 text-center align-self-center class="marked_col">-->
-            <!--<ion-icon class="checkmark" name="md-checkmark"></ion-icon>-->
-        <!--</ion-col>-->
-        <!--<ion-col no-padding col-3 text-center align-self-center>-->
-            <!--<ion-icon class="missed" name="md-close"></ion-icon>-->
-        <!--</ion-col>-->
-    <!--</ion-row>-->
-
-    <!--<ion-row class="comparison_row">-->
-        <!--<ion-col no-padding>Replenishment of the wallet from deals of outgoing leads added only for deals</ion-col>-->
-        <!--<ion-col no-padding col-3 text-center align-self-center class="marked_col">-->
-            <!--<ion-icon class="checkmark" name="md-checkmark"></ion-icon>-->
-        <!--</ion-col>-->
-        <!--<ion-col no-padding col-3 text-center align-self-center>-->
-            <!--<ion-icon class="checkmark" name="md-checkmark"></ion-icon>-->
-        <!--</ion-col>-->
-    <!--</ion-row>-->
-
-    <!--<ion-row class="comparison_row">-->
-        <!--<ion-col no-padding>Give the lead to a private group</ion-col>-->
-        <!--<ion-col no-padding col-3 text-center align-self-center class="marked_col">-->
-            <!--<ion-icon class="checkmark" name="md-checkmark"></ion-icon>-->
-        <!--</ion-col>-->
-        <!--<ion-col no-padding col-3 text-center align-self-center>-->
-            <!--<ion-icon class="checkmark" name="md-checkmark"></ion-icon>-->
-        <!--</ion-col>-->
-    <!--</ion-row>-->
-
-    <!--<ion-row class="comparison_row">-->
-        <!--<ion-col no-padding>Exclusively receive leads</ion-col>-->
-        <!--<ion-col no-padding col-3 text-center align-self-center class="marked_col">-->
-            <!--<ion-icon class="checkmark" name="md-checkmark"></ion-icon>-->
-        <!--</ion-col>-->
-        <!--<ion-col no-padding col-3 text-center align-self-center>-->
-            <!--<ion-icon class="missed" name="md-close"></ion-icon>-->
-        <!--</ion-col>-->
-    <!--</ion-row>-->
-
-    <!--<ion-row class="comparison_row">-->
-        <!--<ion-col no-padding>Obligation to mark the status of each lead</ion-col>-->
-        <!--<ion-col no-padding col-3 text-center align-self-center>-->
-            <!--<ion-icon class="missed" name="md-close"></ion-icon>-->
-        <!--</ion-col>-->
-        <!--<ion-col no-padding col-3 text-center align-self-center class="marked_col">-->
-            <!--<ion-icon class="checkmark" name="md-checkmark"></ion-icon>-->
-        <!--</ion-col>-->
-    <!--</ion-row>-->
-
-    <!--<div class="role_block">-->
-
-        <!--&lt;!&ndash; Строка лидбайера &ndash;&gt;-->
-        <!--<ion-row class="role_row">-->
-
-            <!--&lt;!&ndash; чекбокс выбора &ndash;&gt;-->
-            <!--<ion-col col-1 (click)="selectRole(1)">-->
-                <!--<ion-icon *ngIf="role == 1" class="selected_icon" name="md-checkmark"></ion-icon>-->
-            <!--</ion-col>-->
-
-            <!--&lt;!&ndash; название роли &ndash;&gt;-->
-            <!--<ion-col class="role_label" col-9 (click)="selectRole(1)">-->
-                <!--lead buyer-->
-            <!--</ion-col>-->
-
-            <!--&lt;!&ndash; иконка помощи &ndash;&gt;-->
-            <!--<ion-col col-1 offset-1 text-right class="help_col" (click)="roleDescription(1)">-->
-                <!--<ion-icon class="help_icon" name="md-help-circle"></ion-icon>-->
-            <!--</ion-col>-->
-
-        <!--</ion-row>-->
+        <tr class="role-group">
+            <td class="role-label" colspan="3">
+                {{ "roleGroup.WORK_WITH_CLIENTS" | translate }}
+            </td>
+        </tr>
 
 
-        <!--&lt;!&ndash; Строка диалмейкера &ndash;&gt;-->
-        <!--<ion-row class="role_row" >-->
+        <tr class="role-row" *ngFor="let feature of roleFeatures.paymentSystem">
+            <td class="role-label">
+                {{ feature.description | translate }}
+            </td>
 
-            <!--&lt;!&ndash; чекбокс выбора &ndash;&gt;-->
-            <!--<ion-col col-1 (click)="selectRole(2)">-->
-                <!--<ion-icon *ngIf="role == 2"  class="selected_icon" name="md-checkmark"></ion-icon>-->
-            <!--</ion-col>-->
+            <td class="role-opportunity" [ngClass]="role == 1 ? 'role-selected' : ''" (click)="selectRole(1)">
+                <ion-icon *ngIf="!feature.leadbuyer" class="missed" name="md-close"></ion-icon>
+                <ion-icon *ngIf="feature.leadbuyer" class="checkmark" name="md-checkmark"></ion-icon>
+            </td>
 
-            <!--&lt;!&ndash; название роли &ndash;&gt;-->
-            <!--<ion-col class="role_label" col-9 (click)="selectRole(2)">-->
-                <!--deal maker-->
-            <!--</ion-col>-->
+            <td class="role-opportunity" [ngClass]="role == 2 ? 'role-selected' : ''" (click)="selectRole(2)">
+                <ion-icon *ngIf="!feature.dealmaker" class="missed" name="md-close"></ion-icon>
+                <ion-icon *ngIf="feature.dealmaker" class="checkmark" name="md-checkmark"></ion-icon>
+            </td>
+        </tr>
 
-            <!--&lt;!&ndash; иконка помощи &ndash;&gt;-->
-            <!--<ion-col col-1  offset-1 text-right class="help_col" (click)="roleDescription(2)">-->
-                <!--<ion-icon class="help_icon" name="md-help-circle"></ion-icon>-->
-            <!--</ion-col>-->
-
-        <!--</ion-row>-->
-
-    <!--</div>-->
-
-    <!--<div class="difference" (click)="roleComparison()">-->
-        <!--What is the difference?-->
-    <!--</div>-->
-
+        </tbody>
+    </table>
 
 </ion-content>
 
 <ion-footer no-border>
     <!--<button ion-button color="primary" block>{{ 'SIGNUP_BUTTON' | translate }}</button>-->
-    <button ion-button clear color="primary" (click)="goBack()"> Apply</button>
+    <button ion-button clear color="primary" (click)="goBack()"> {{ "APPLY" | translate }}</button>
 </ion-footer>

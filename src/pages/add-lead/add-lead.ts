@@ -78,31 +78,13 @@ export class AddLeadPage {
 
                         this.spheres = data.spheres;
 
+                        console.log(this.spheres);
+
                         this.lead.sphere = data.spheres[0].id;
                     }
                 }
 
-                // вычесляем количество итемов
-                // let itemsLength = data.length;
-
-                // // обработка итемов
-                // if (itemsLength != 0) {
-                //     // если больше нуля
-                //
-                //     // console.log(data.auctionItems);
-                //
-                //     // добавляем полученные итемы на страницу
-                //     this.items = data;
-                //
-                // } else {
-                //     // если итемов нет
-                //
-                //     // todo показываем оповещение что итемов нет
-                //
-                // }
-
-                // отключаем окно индикатора загрузки
-                // loading.dismiss();
+                console.log(data);
 
             }, err => {
                 // в случае ошибки
@@ -111,8 +93,6 @@ export class AddLeadPage {
 
                 // todo выводится сообщение об ошибке (нету связи и т.д.)
 
-                // отключаем окно индикатора загрузки
-                // loading.dismiss();
             });
 
     }

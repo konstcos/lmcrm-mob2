@@ -19,11 +19,29 @@ export class Credits {
 
 
     /**
-     * Получение кредитной истории пользователя
+     * Получение данных агента по заявкам
      *
      */
-    get(data: any) {
-        return this.api.post('api/getCredits', data);
+    getStatements(data: any) {
+        return this.api.post('api/statements/get', data);
+    }
+
+
+    /**
+     * Состояние пользователя по деньгам
+     *
+     */
+    getCreditsData(data: any) {
+        return this.api.post('api/credits/data', data);
+    }
+
+
+    /**
+     * Получение транзакций пользователя
+     *
+     */
+    getTransactions(data: any){
+        return this.api.post('api/credits/transactions', data);
     }
 
 
@@ -37,11 +55,65 @@ export class Credits {
 
 
     /**
+     * Создание запроса на вывод денег
+     *
+     */
+    createWithdrawal(data: any) {
+        return this.api.post('api/credits/create/withdrawal', data);
+    }
+
+
+    /**
      * Оплата запроса на ввод денег
      *
      */
-    payReplenishment(data: any) {
-        return this.api.post('api/payReplenishment', data);
+    payReplenishmentBankTransaction(data: any) {
+        return this.api.post('api/replenishment/bank/transaction/pay', data);
+    }
+
+
+    /**
+     * Получить данные по вводу денег
+     *
+     */
+    getReplenishmentData() {
+        return this.api.post('api/credits/replenishment/data/get', {});
+    }
+
+
+    /**
+     * Получение данных на оплату запроса по кредитной карте
+     *
+     */
+    getDetailCreditCardPayment(data: any) {
+        return this.api.post('api/credit/detail/card/payment', data);
+    }
+
+
+    /**
+     * Оплата через кредитную карту
+     *
+     */
+    creditCardPayment(data: any) {
+        return this.api.post('api/credit/card/payment', data);
+    }
+
+
+    /**
+     * Получить данные по выводу денег
+     *
+     */
+    getWithdrawalData() {
+        return this.api.post('api/credits/withdrawal/data/get', {});
+    }
+
+
+    /**
+     * Получить данные по выводу денег
+     *
+     */
+    cancelStatement(data: any) {
+        return this.api.post('api/credits/payment/cancel', data);
     }
 
 

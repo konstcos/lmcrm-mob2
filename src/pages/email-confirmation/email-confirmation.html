@@ -7,21 +7,9 @@
                 <ion-icon name="ios-arrow-back" class="back_arrow"></ion-icon>
             </button>
             <button color="primary" ion-button (click)="goBack()">
-                back to login
+                {{ 'BACK_TO_LOGIN' | translate }}
             </button>
         </ion-buttons>
-
-        <!--<ion-buttons left text-center class="left_button">-->
-            <!--<button ion-button (click)="goBack()">-->
-                <!--back to login-->
-            <!--</button>-->
-        <!--</ion-buttons>-->
-
-        <!--<ion-buttons right text-center class="right_button">-->
-            <!--&lt;!&ndash;<button ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">&ndash;&gt;-->
-            <!--&lt;!&ndash;add lead&ndash;&gt;-->
-            <!--&lt;!&ndash;</button>&ndash;&gt;-->
-        <!--</ion-buttons>-->
 
     </ion-navbar>
 
@@ -38,7 +26,9 @@
             <!-- Блок с именем пользователя -->
             <ion-col class="data_block">
                 <!-- Лейбл ввода имени -->
-                <div class="label">Confirmation code</div>
+                <div class="label">
+                    {{ 'CONFIRMATION_CODE_LABEL' | translate }}
+                </div>
                 <!-- Инпут имени пользователя -->
                 <ion-input
                         class="input_row"
@@ -46,14 +36,13 @@
                         (focus)="onFocus($event)"
                         type="text"
                         text-right
-                        placeholder="enter code"
+                        placeholder="{{ 'CONFIRMATION_CODE_PLACEHOLDER' | translate }}"
                         name="confirmationCode">
                 </ion-input>
 
                 <!-- Разделительная черта -->
                 <div>
                     <hr class="confirmation_data_row_separator">
-                    <!--<hr class="signup_data_row_separator" [ngClass]="(state.name > 1) ? 'red' : '' ">-->
                 </div>
             </ion-col>
         </ion-row>
@@ -64,32 +53,18 @@
                 class="error_message"
                 *ngIf="error">
             <ion-col>
-                wrong code
+                {{ 'CONFIRMATION_CODE_ERROR' | translate }}
             </ion-col>
         </ion-row>
 
     </div>
 
-    <!--<ion-list>-->
-
-        <!--<ion-item>-->
-            <!--<ion-label stacked>Confirmation code</ion-label>-->
-            <!--<ion-input type="text" [(ngModel)]="confirmationCode" name="confirmation" placeholder="enter code"></ion-input>-->
-        <!--</ion-item>-->
-
-    <!--</ion-list>-->
 
     <div text-center>
-        <button ion-button color="primary" round small (click)="confirm()"> confirm </button>
+        <button ion-button color="primary" round small (click)="confirm()">
+            {{ 'CONFIRMATION_CODE_BUTTON' | translate }}
+        </button>
     </div>
 
 </ion-content>
 
-<!--<ion-footer>-->
-
-    <!--<div padding>-->
-        <!--&lt;!&ndash;<button ion-button color="primary" block>{{ 'SIGNUP_BUTTON' | translate }}</button>&ndash;&gt;-->
-        <!--<button ion-button color="primary" block (click)="newRegistration()"> confirm </button>-->
-    <!--</div>-->
-
-<!--</ion-footer>-->

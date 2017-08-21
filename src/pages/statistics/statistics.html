@@ -125,6 +125,17 @@
         </ion-col>
     </ion-row>
 
+    <!-- Блок показывает что открытых лидов недостаточно для статистики -->
+    <ion-row *ngIf="!isEnoughOpenLeads && !isLoading">
+        <ion-col text-center class="no_sphere_text">
+
+            <div margin>Not enough open leads for statistics</div>
+            <div *ngIf="statisticData"> <b>{{ statisticData.sphere.minOpen }}</b> open leads needed</div>
+            <div *ngIf="statisticData"> you have <b>{{ statisticData.openLeads.all }}</b> </div>
+
+        </ion-col>
+    </ion-row>
+
     <!-- спинер загрузки -->
     <div *ngIf="isLoading" class="spinnerLoading" text-center>
         <ion-spinner color="primary" name="crescent"></ion-spinner>
@@ -135,7 +146,7 @@
             <ion-col no-padding>
 
                 <!-- контент лидов -->
-                <ion-row no-padding *ngIf="sphereExist">
+                <ion-row no-padding *ngIf="sphereExist && isEnoughOpenLeads">
                     <ion-col no-padding>
 
                         <!-- Сумарные данные по лидам (агента и его салесманов) -->
@@ -143,7 +154,10 @@
 
 
                             <ion-row>
-                                <ion-col class="item_data" text-right>
+                                <ion-col>
+
+                                </ion-col>
+                                <ion-col col-4 class="item_data" text-center>
                                     <span class="period legend">by period</span> / <span class="all legend">by all</span>
                                 </ion-col>
                             </ion-row>
@@ -164,7 +178,7 @@
                                 <ion-col class="item_label">
                                     added
                                 </ion-col>
-                                <ion-col text-right class="item_data">
+                                <ion-col col-4 text-center class="item_data">
                                     <span class="period">{{ statisticData.added.period }}</span> / <span class="all">{{ statisticData.added.all }}</span>
                                 </ion-col>
                             </ion-row>
@@ -173,7 +187,7 @@
                                 <ion-col class="item_label">
                                     operator banned
                                 </ion-col>
-                                <ion-col text-right class="item_data">
+                                <ion-col col-4 text-center class="item_data">
                                     <span class="period">{{ statisticData.operatorBad.period }}</span> / <span class="all">{{ statisticData.operatorBad.all }}</span>
                                 </ion-col>
                             </ion-row>
@@ -182,7 +196,7 @@
                                 <ion-col class="item_label">
                                     users banned
                                 </ion-col>
-                                <ion-col text-right class="item_data">
+                                <ion-col col-4 text-center class="item_data">
                                     <span class="period">{{ statisticData.agentBad.period }}</span> / <span class="all">{{ statisticData.agentBad.all }}</span>
                                 </ion-col>
                             </ion-row>
@@ -191,7 +205,7 @@
                                 <ion-col class="item_label">
                                     seen
                                 </ion-col>
-                                <ion-col text-right class="item_data">
+                                <ion-col col-4 text-center class="item_data">
                                     <span class="period">{{ statisticData.auction.period }}</span> / <span class="all">{{ statisticData.auction.all }}</span>
                                 </ion-col>
                             </ion-row>
@@ -200,7 +214,7 @@
                                 <ion-col class="item_label">
                                     open
                                 </ion-col>
-                                <ion-col text-right class="item_data">
+                                <ion-col col-4 text-center class="item_data">
                                     <span class="period">{{ statisticData.openLeads.period }}</span> / <span class="all">{{ statisticData.openLeads.all }}</span>
                                 </ion-col>
                             </ion-row>
@@ -209,7 +223,7 @@
 
 
                         <!-- Данные только агента -->
-                        <div class="lead_statistic_block lead_just_agent_block">
+                        <div *ngIf="isSalesman" class="lead_statistic_block lead_just_agent_block">
 
                             <ion-row>
                                 <ion-col text-center class="title">
@@ -262,16 +276,10 @@
                                 </ion-col>
                             </ion-row>
 
-                            <!--<ion-row>-->
-                                <!--<ion-col class="item_data" text-right>-->
-                                    <!--<span class="period legend">by period</span> / <span class="all legend">by all</span>-->
-                                <!--</ion-col>-->
-                            <!--</ion-row>-->
-
                         </div>
 
                         <!-- Данные салеманов -->
-                        <div class="lead_statistic_block lead_salesmen_block">
+                        <div *ngIf="isSalesman" class="lead_statistic_block lead_salesmen_block">
 
                             <ion-row>
                                 <ion-col text-center class="title">
@@ -374,7 +382,7 @@
         </ion-row>
 
         <ion-row *ngSwitchCase="'statuses'">
-            <ion-col no-padding>
+            <ion-col no-padding *ngIf="sphereExist && isEnoughOpenLeads">
 
 
                 <!-- легенда к таблицам -->
@@ -545,7 +553,7 @@
         </ion-row>
 
         <ion-row *ngSwitchCase="'transitions'">
-            <ion-col no-padding>
+            <ion-col no-padding *ngIf="sphereExist && isEnoughOpenLeads">
 
                 <ion-row *ngFor="let transition of statisticData.transitions" class="statistic_transition_item">
 

@@ -3,6 +3,10 @@ page-obtain {
   color: grey;
   font-size: 12px;
 
+  .price {
+    margin-left: 10px;
+  }
+
   .spinnerLoading {
     text-align: center;
     margin-top: 20%;
@@ -13,6 +17,13 @@ page-obtain {
     font-size: 15px;
     font-weight: 600;
     margin-bottom: 3px;
+
+    .new_obtain {
+      font-size: 10px;
+      font-weight: 100;
+      color: #EC1717;
+      margin-right: 1px;
+    }
   }
 
   .sphere_name {
@@ -32,8 +43,13 @@ page-obtain {
 
   .opened {
     font-size: 12px;
-    color: grey;
     margin-top: 3px;
+    //color: grey;
+    color: #8BB0CF;
+
+    .count {
+      color: #337AB7;
+    }
   }
 
   .no_leads_row {
@@ -57,7 +73,7 @@ page-obtain {
       }
     }
 
-    .mask_button{
+    .mask_button {
       margin-top: 20px;
     }
 

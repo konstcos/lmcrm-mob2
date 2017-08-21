@@ -7,14 +7,8 @@
                 <ion-icon name="ios-arrow-back" class="back_arrow"></ion-icon>
             </button>
             <button color="primary" ion-button (click)="goBack()">
-                back to login
+                {{ 'BACK_TO_LOGIN' | translate }}
             </button>
-        </ion-buttons>
-
-        <ion-buttons right text-center class="right_button">
-            <!--<button ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">-->
-            <!--add lead-->
-            <!--</button>-->
         </ion-buttons>
 
     </ion-navbar>
@@ -25,7 +19,6 @@
 <ion-content class="no-scroll" padding>
 
     <div *ngIf="!waitConfirmation">
-
 
 
         <!-- Поле с почтой пользователя -->
@@ -39,7 +32,6 @@
                     <ion-icon *ngIf="state.name == 1" class="success" name="md-checkmark"></ion-icon>
                     <!-- Ошибка валидации -->
                     <ion-icon *ngIf="state.name > 1" class="alert" name="md-alert"></ion-icon>
-                    <!--<ion-icon *ngIf="state.lastName == 3" class="alert" name="md-alert"></ion-icon>-->
                 </ion-col>
 
                 <!-- Блок с именем пользователя -->
@@ -72,7 +64,7 @@
                     class="error_message"
                     *ngIf="state.name == 2">
                 <ion-col>
-                    this field required
+                    {{ 'REGISTRATION_FIELD_ERROR_REQUIRED' | translate }}
                 </ion-col>
             </ion-row>
 
@@ -81,7 +73,7 @@
                     class="error_message"
                     *ngIf="state.name == 3">
                 <ion-col>
-                    enter valid email address
+                    {{ 'REGISTRATION_FIELD_ERROR_NOT_VALID' | translate }}
                 </ion-col>
             </ion-row>
 
@@ -90,12 +82,11 @@
                     class="error_message"
                     *ngIf="state.name == 4">
                 <ion-col>
-                    this email address already exists
+                    {{ 'REGISTRATION_FIELD_ERROR_MAIL_EXISTS' | translate }}
                 </ion-col>
             </ion-row>
 
         </div>
-
 
 
         <!-- пароль -->
@@ -142,7 +133,7 @@
                     class="error_message"
                     *ngIf="state.password == 2">
                 <ion-col>
-                    this field required
+                    {{ 'REGISTRATION_FIELD_ERROR_REQUIRED' | translate }}
                 </ion-col>
             </ion-row>
 
@@ -151,12 +142,11 @@
                     class="error_message"
                     *ngIf="state.password == 3">
                 <ion-col>
-                    in the password must be at least 5 characters
+                    {{ 'REGISTRATION_FIELD_ERROR_PASSWORD_NOT_MATCH' | translate }}
                 </ion-col>
             </ion-row>
 
         </div>
-
 
 
         <!-- Подтверждение пароля -->
@@ -176,7 +166,7 @@
                 <!-- Блок с именем пользователя -->
                 <ion-col class="data_block">
                     <!-- Лейбл ввода имени -->
-                    <div class="label">Confirm Password</div>
+                    <div class="label">{{ 'CONFIRM_PASSWORD' | translate }}</div>
                     <!-- Инпут имени пользователя -->
                     <ion-input
                             class="input_row"
@@ -204,6 +194,7 @@
                     *ngIf="state.confirmPassword == 2">
                 <ion-col>
                     this field required
+                    {{ 'REGISTRATION_FIELD_ERROR_REQUIRED' | translate }}
                 </ion-col>
             </ion-row>
 
@@ -212,40 +203,16 @@
                     class="error_message"
                     *ngIf="state.confirmPassword == 3">
                 <ion-col>
-                    does not match the password
+                    {{ 'REGISTRATION_FIELD_ERROR_PASSWORD_NOT_ENOUGH' | translate }}
                 </ion-col>
             </ion-row>
 
         </div>
 
-
-
-        <!--<form (submit)="doSignup()">-->
-            <!--<ion-list>-->
-
-                <!--<ion-item>-->
-                    <!--<ion-label stacked>{{ 'EMAIL' | translate }}</ion-label>-->
-                    <!--<ion-input type="email" [(ngModel)]="account.email" name="email"></ion-input>-->
-                <!--</ion-item>-->
-
-                <!--<ion-item>-->
-                    <!--<ion-label stacked>{{ 'PASSWORD' | translate }}</ion-label>-->
-                    <!--<ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>-->
-                <!--</ion-item>-->
-
-                <!--<ion-item>-->
-                    <!--<ion-label stacked>Confirm Password</ion-label>-->
-                    <!--<ion-input type="password" [(ngModel)]="account.confirmPassword" name="password"></ion-input>-->
-                <!--</ion-item>-->
-
-            <!--</ion-list>-->
-        <!--</form>-->
-
         <div padding text-center>
             <!--<button ion-button color="primary" block>{{ 'SIGNUP_BUTTON' | translate }}</button>-->
-            <button ion-button round small (click)="doRegistration()"> REGISTER </button>
+            <button ion-button round small (click)="doRegistration()">{{ 'REGISTER_BUTTON' | translate }}</button>
         </div>
-
 
     </div>
 

@@ -1,10 +1,12 @@
 import {Component, ViewChild, OnInit} from '@angular/core';
-import {Platform, Nav, Config, LoadingController, ToastController, Events} from 'ionic-angular';
+import {Platform, Nav, Config, LoadingController, ToastController, AlertController, Events} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 
 import {Settings} from '../providers/providers';
 
 import {User} from '../providers/user';
+
+import { File } from '@ionic-native/file';
 
 import {LoginPage} from '../pages/login/login';
 import {MainPage} from '../pages/main/main';
@@ -16,7 +18,7 @@ import {MessagesPage} from '../pages/messages/messages';
 
 
 import {Push, PushObject, PushOptions} from "@ionic-native/push";
-import { Badge } from '@ionic-native/badge';
+import {Badge} from '@ionic-native/badge';
 // import { FCM } from '@ionic-native';
 
 
@@ -35,25 +37,39 @@ export class MyApp {
     // @ViewChild(MainPage) MainPage: MainPage;
 
 
-    toast: any = false;
+    /**
+     * Тост лидов
+     *
+     */
+    leadToast: any = false;
+
+
+    /**
+     * Остальные тосты
+     *
+     */
+    atherToast: any = false;
 
     noticeCount: number = 0;
 
     constructor(translate: TranslateService,
                 public platform: Platform,
-                settings: Settings,
-                config: Config,
+                public settings: Settings,
+                public config: Config,
                 public toastCtrl: ToastController,
-                // public fcm: FCM,
+                private alertCtrl: AlertController,
                 public loadingCtrl: LoadingController,
                 public user: User,
                 public events: Events,
                 private push: Push,
+                private file: File,
                 private badge: Badge) {
 
-
+        this.events.unsubscribe("badge:set");
         this.events.subscribe("badge:set", (date) => {
             // this.noticeCount = 0;
+            // console.log('badge set: ');
+            // console.log(date);
             badge.set(date)
         });
 
@@ -134,6 +150,8 @@ export class MyApp {
 
                     console.log(err);
 
+                    this.badge.set(0);
+
                     loading.dismiss();
 
                     // this.navCtrl.push(MainPage);
@@ -145,6 +163,15 @@ export class MyApp {
                     // });
                 });
         });
+
+        // alert('проверка файлов:');
+        // alert(this.file.dataDirectory);
+        // alert(this.file.documentsDirectory);
+
+
+        // this.file.checkDir(this.file.dataDirectory, 'mydir')
+        //     .then(_ => console.log('Directory exists'))
+        //     .catch(err => console.log('Directory doesnt exist'));
 
     }
 
@@ -159,86 +186,6 @@ export class MyApp {
             console.warn("Push notifications not initialized. Cordova is not available - Run in physical device");
             return;
         }
-
-        /**
-         * Получение fcm токена
-         *
-         */
-        // this.fcm.getToken().then(token => {
-        //
-        //     // получение fcm токена,
-        //     // на сервере сохранится только при успешном логине пользователя
-        //     localStorage.setItem('fcm_token', token);
-        // });
-
-        /**
-         * Обновление fcm токена
-         *
-         */
-        // this.fcm.onTokenRefresh().subscribe(token => {
-        //
-        //     // проверка логина
-        //     if( localStorage.getItem('token') && localStorage.getItem('token') != '' ){
-        //         // если токен существует и он не пустой
-        //
-        //         this.user.registerFcmToken(token);
-        //
-        //     }else{
-        //         // todo убиваем fcm токен
-        //
-        //     }
-        //
-        //     // todo проверка залогинен/незалогинен - если залогинен - обновить токен
-        // });
-
-        /**
-         * При получении нотификации
-         *
-         */
-        // this.fcm.onNotification().subscribe(data => {
-        //
-        //     // alert(JSON.stringify(data));
-        //
-        //     // this.nav.setRoot(StatisticsPage);
-        //
-        //     // let toast = this.toastCtrl.create({
-        //     //     message: 'new notification',
-        //     //     showCloseButton: true,
-        //     //     position: 'bottom'
-        //     // });
-        //     // toast.present();
-        //
-        //
-        //
-        //     this.noticeCount = this.noticeCount + 1;
-        //
-        //
-        //     this.events.publish("child:test", this.noticeCount);
-        //
-        //
-        //     if(this.toast){
-        //         this.toast.dismiss();
-        //     }
-        //
-        //     this.toast = this.toastCtrl.create({
-        //         message: 'new notification ' + this.noticeCount,
-        //         showCloseButton: true,
-        //         position: 'bottom'
-        //     });
-        //     this.toast.present();
-        //
-        //
-        //     // this.MainPage.setNewNotices();
-        //
-        //     // if (data['wasPressed']) {
-        //     //     alert("Received in background");
-        //     // } else {
-        //     //     alert("Received in foreground");
-        //     // }
-        //
-        //
-        // });
-
 
         /**
          * Данные по инициации нотификации
@@ -290,49 +237,99 @@ export class MyApp {
 
             // alert(JSON.stringify(data));
 
-            // this.nav.setRoot(StatisticsPage);
+            // data.additionalData.type
 
-            // let toast = this.toastCtrl.create({
-            //     message: 'new notification',
-            //     showCloseButton: true,
-            //     position: 'bottom'
-            // });
-            // toast.present();
+            if (data.additionalData.type == 1) {
 
+                if (this.leadToast) {
+                    // return false;
 
-            // this.noticeCount = this.noticeCount + 1;
+                    return false;
+                }
 
-            // localStorage.setItem('notice', String(this.noticeCount));
+                this.leadToast = this.toastCtrl.create({
+                    // message: 'new notification ' + this.noticeCount,
+                    message: 'you have new lead ',
+                    showCloseButton: true,
+                    position: 'top'
+                });
 
+                this.leadToast.onDidDismiss(() => {
+                    // console.log('Dismissed toast');
+                    this.leadToast = false;
+                });
 
-            // this.events.publish("child:test", this.noticeCount);
+                this.leadToast.present();
 
-            // this.content.resize();
+            }else if(data.additionalData.type == 2) {
 
+                // todo алерт о реминдере
+                let reminder = this.alertCtrl.create({
+                    title: 'Reminder',
+                    message: 'Open Lead Reminder',
+                    buttons: [
+                        // {
+                        //     text: 'Reschedule',
+                        //     // role: 'cancel',
+                        //     handler: () => {
+                        //         // console.log('Cancel clicked');
+                        //         alert('Reschedule');
+                        //
+                        //     }
+                        // },
+                        {
+                            text: 'Ok',
+                            handler: () => {
+                                // console.log('Buy clicked');
+                                // alert('Apply');
+                            }
+                        }
+                    ]
+                });
+                reminder.present();
 
-            // alert(this.noticeCount);
+            }else{
 
+                // if (this.toast) {
+                //     // return false;
+                //
+                //     this.toast.dismiss();
+                // }
+                //
+                // this.toast = this.toastCtrl.create({
+                //     // message: 'new notification ' + this.noticeCount,
+                //     message: 'you have new notification ',
+                //     showCloseButton: true,
+                //     position: 'bottom'
+                // });
+                // this.toast.present();
 
-            if (this.toast) {
-                // return false;
+                if (this.atherToast) {
+                    // return false;
 
-                this.toast.dismiss();
+                    return false;
+                }
+
+                this.atherToast = this.toastCtrl.create({
+                    // message: 'new notification ' + this.noticeCount,
+                    message: 'you have new notification ',
+                    showCloseButton: true,
+                    position: 'bottom'
+                });
+
+                this.atherToast.onDidDismiss(() => {
+                    // console.log('Dismissed toast');
+                    this.atherToast = false;
+                });
+
+                this.atherToast.present();
             }
-
-            this.toast = this.toastCtrl.create({
-                // message: 'new notification ' + this.noticeCount,
-                message: 'you have new notification ',
-                showCloseButton: true,
-                position: 'bottom'
-            });
-            this.toast.present();
-
 
         });
 
         pushObject.on('error').subscribe(error => {
             console.error('Error with Push plugin', error);
-            alert('error');
+            // alert('error');
         });
     }
 

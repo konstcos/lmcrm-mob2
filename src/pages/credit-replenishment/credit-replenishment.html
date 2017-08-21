@@ -1,0 +1,81 @@
+
+<ion-header>
+
+    <ion-navbar color="primary" hideBackButton="true">
+
+
+        <ion-buttons left text-center>
+            <button ion-button (click)="goBack()">
+                <ion-icon name="ios-arrow-back" class="back_arrow"></ion-icon>
+            </button>
+        </ion-buttons>
+
+        <ion-title>Replenishment</ion-title>
+
+
+        <!--<ion-buttons right text-center class="right_button">-->
+            <!--<button ion-button>-->
+            <!--Replenishment-->
+            <!--</button>-->
+
+            <!--<button ion-button>-->
+            <!--Withdrawal-->
+            <!--</button>-->
+
+        <!--</ion-buttons>-->
+
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+
+    <!-- спинер загрузки -->
+    <div *ngIf="isLoading" class="spinnerLoading">
+        <ion-spinner color="primary" name="crescent"></ion-spinner>
+    </div>
+
+    <div *ngIf="!isLoading" class="replenishment_block">
+
+        <div class="description">
+            select the amount of replenishment
+        </div>
+
+        <ion-row *ngFor="let item of items" class="replenishment_row" [ngClass]="{selected: item.state}">
+
+            <ion-col *ngIf="item.masks.length > 0" col-3 align-self-center text-center class="all_masks_col" (click)="showCreditsByAllMasks(item)">
+
+                show all masks
+            </ion-col>
+
+
+            <ion-col text-right align-self-center class="replenishment_amount" (click)="selectItem(item)">
+                <div><span class="sign">&#8362;</span> {{ item.value }}</div>
+                <div class="credits">
+                    {{ item.credits }} <span class="text">credits</span>
+                </div>
+            </ion-col>
+
+
+            <ion-col col-2 text-center align-self-center class="replenishment_state" (click)="selectItem(item)">
+                <ion-icon *ngIf="!item.state" name="md-radio-button-off"></ion-icon>
+                <ion-icon *ngIf="item.state" name="md-radio-button-on" class="selected_state"></ion-icon>
+            </ion-col>
+
+        </ion-row>
+
+    </div>
+
+
+</ion-content>
+
+
+<ion-footer text-center>
+
+    <button ion-button round (click)="confirmReplenishment()">
+        Make replenishment
+    </button>
+
+</ion-footer>

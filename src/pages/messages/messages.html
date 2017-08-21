@@ -198,7 +198,6 @@
 
 
 
-
 <ion-header>
 
     <ion-navbar color="primary" hideBackButton="true">
@@ -217,8 +216,12 @@
             <!--<button ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">-->
                 <!--add lead-->
             <!--</button>-->
-            <button ion-button icon-only (click)="filterMenuOpen()">
-            <!--<button ion-button icon-only menuToggle="right">-->
+
+            <button *ngIf="segmentSwitch == 'messages'" ion-button icon-only (click)="messagesReload()">
+                <ion-icon name="md-sync"></ion-icon>
+            </button>
+
+            <button *ngIf="segmentSwitch != 'messages'" ion-button icon-only (click)="filterMenuOpen()">
 
                 <ion-icon *ngIf="isNoticeFilterOn" class="notice_filter_on_header" name="md-square"></ion-icon>
                 <!--<span class="notice_filter_on_header"></span>-->
@@ -226,21 +229,20 @@
                 <ion-icon [ngClass]="isNoticeFilterOn ? 'notice_filter_on' : '' " name="ios-funnel"></ion-icon>
             </button>
 
-            <!--<button ion-button icon-only (click)="presentPopover($event)">-->
-                <!--<ion-icon name="more"></ion-icon>-->
-            <!--</button>-->
         </ion-buttons>
 
     </ion-navbar>
 
 
     <ion-toolbar>
-        <ion-segment [(ngModel)]="segmentSwitch">
+        <ion-segment [(ngModel)]="segmentSwitch" (ionChange)="segmentChanged($event)">
             <ion-segment-button value="notice">
                 Notice
+                <ion-badge *ngIf="countUnmarkedNotices != 0" class="notifications-badge" color="danger">{{ countUnmarkedNotices }}</ion-badge>
             </ion-segment-button>
             <ion-segment-button value="messages">
                 Messages
+                <ion-badge *ngIf="countUnreadMessages != 0" class="notifications-badge" color="danger">{{ countUnreadMessages }}</ion-badge>
             </ion-segment-button>
         </ion-segment>
     </ion-toolbar>
@@ -258,7 +260,7 @@
     <!-- конец Обновление страницы -->
 
 
-    <div [ngSwitch]="segmentSwitch">
+    <div [ngSwitch]="segmentSwitch" >
 
 
         <!-- страница с оповещениями -->
@@ -297,7 +299,7 @@
             </div>
 
             <!-- блок с итемами -->
-            <div *ngIf="true">
+            <div *ngIf="!isLoading">
                 <ion-row *ngFor="let notice of notices" [hidden]="!showNoticeItem(notice)" class="notice_row">
                 <!--<ion-row *ngFor="let notice of notices" *ngIf="showNoticeItem(notice)" class="notice_row" (click)="markNotice(notice)">-->
 
@@ -316,27 +318,84 @@
                 </ion-row>
             </div>
 
-            <!-- сообщение что по фильтру ничего не найденно -->
-            <!--<div *ngIf="isNoticeFilterOn && notices.length != 0" class="bottom_no_notification_items_button">-->
-
-                <!--<button ion-button small outline round (click)="noticeFilterReset()">-->
-                    <!--reset filter-->
-                <!--</button>-->
-
-            <!--</div>-->
-
         </div>
 
 
         <!-- страница с сообщениями -->
-        <ion-list *ngSwitchCase="'messages'">
-            <ion-item>
-                <ion-thumbnail item-left>
-                </ion-thumbnail>
-                <h2>messages</h2>
-            </ion-item>
-            ...
-        </ion-list>
+        <div *ngSwitchCase="'messages'">
+
+            <!-- спинер загрузки -->
+            <div *ngIf="isLoading" class="spinnerLoading">
+                <ion-spinner color="primary" name="crescent"></ion-spinner>
+            </div>
+
+            <!-- сообщение что нотификаций нет -->
+            <div *ngIf="isMessagesEmpty" class="no_notification_items">
+                <div class="no_notification_items_icon">
+                    <ion-icon name="contract"></ion-icon>
+                </div>
+                no messages
+            </div>
+
+            <!-- сообщение что по фильтру ничего не найденно -->
+            <!--<div *ngIf="noNotificationByFilter" class="no_notification_items filter">-->
+
+                <!--<div class="no_notification_items_icon">-->
+                    <!--<ion-icon name="contract"></ion-icon>-->
+                <!--</div>-->
+
+                <!--<div>-->
+                    <!--no notification by filter-->
+                <!--</div>-->
+
+                <!--<div class="notice_clear_button">-->
+                    <!--<button ion-button small outline round (click)="noticeFilterReset()">-->
+                        <!--reset filter-->
+                    <!--</button>-->
+                <!--</div>-->
+
+            <!--</div>-->
+
+            <!-- блок с итемами -->
+            <div *ngIf="!isLoading">
+                <!-- todo <ion-row *ngFor="let message of messages" [hidden]="!showNoticeItem(message)" class="notice_row">-->
+                <ion-row *ngFor="let message of messages" class="message_subject_row" (click)="openCorrespondence(message)">
+
+                    <!--<ion-col col-1 text-center (click)="markNotice(message)">-->
+                    <ion-col col-1 text-center>
+
+                        <ion-icon *ngIf="message.viewed == 1" class="unread" name="ios-mail-outline"></ion-icon>
+                        <ion-icon *ngIf="message.viewed == 0" class="read" name="ios-mail"></ion-icon>
+
+                    </ion-col>
+
+                    <!--<ion-col text-right (click)="openReminderData(notice)">-->
+                        <!--<div class="date"> <span class="time">{{ notice.date.time }}</span> {{ notice.date.date }} </div>-->
+                        <!--<div class="notice_name">{{ notice.event.name }}</div>-->
+                    <!--</ion-col>-->
+
+                    <ion-col>
+
+                        <div *ngIf="message.typeName == 'deal'">
+                            Deal on {{ message.subjectName }}
+                        </div>
+
+                        <div *ngIf="message.typeName == 'credits_exchange'">
+                            Credits exchange №: {{ message.subjectName }}
+                        </div>
+
+                        <div *ngIf="message.typeName == 'messaging'">
+                            {{ message.subjectName }}
+                        </div>
+
+                    </ion-col>
+
+
+                </ion-row>
+            </div>
+        </div>
+
+
     </div>
 
     <!-- Подгрузка следующей партии итемов -->

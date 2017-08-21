@@ -1,68 +1,191 @@
 {
-  "BACK_BUTTON_TEXT" : "Back",
 
-  "NAME": "Name",
-  "EMAIL": "Email",
-  "USERNAME": "Username",
-  "PASSWORD": "Password",
-  "LOGIN": "Sign in",
-  "SIGNUP": "Sign up",
+    "#0": "Общее: ",
 
-  "TAB1_TITLE": "Items",
-  "TAB2_TITLE": "Search",
-  "TAB3_TITLE": "Settings",
+    "APPLY": "APPLY",
+    "DEAL_MAKER": "deal maker",
+    "LEAD_BUYER": "lead buyer",
 
-  "MAP_TITLE": "Map",
 
-  "TUTORIAL_SKIP_BUTTON" : "Skip",
-  "TUTORIAL_CONTINUE_BUTTON" : "Continue",
+    "#1": "Страница логина (первая страница): ",
 
-  "TUTORIAL_SLIDE1_TITLE": "Welcome to the Ionic Super Starter",
-  "TUTORIAL_SLIDE1_DESCRIPTION": "The <b>Ionic Super Starter</b> is a fully-featured Ionic starter with many pre-built pages and best practices.",
+    "LOGIN_LOGO": "CONTACT",
+    "LOGIN_EMAIL_PLACEHOLDER": "EMAIL",
+    "LOGIN_PASSWORD_PLACEHOLDER": "PASSWORD",
+    "LOGIN_BUTTON": "Sign in",
+    "SIGNUP_TITLE": "QUICK REGISTRATION",
+    "LOGIN_ADVANTAGES": "Why you should use this system?",
 
-  "TUTORIAL_SLIDE2_TITLE": "How to use the Super Starter",
-  "TUTORIAL_SLIDE2_DESCRIPTION": "Assemble the various page types you want and remove the ones you don't. We've provided many common mobile app page layouts, like login and signup pages, tabs, and this tutorial page.",
 
-  "TUTORIAL_SLIDE3_TITLE": "Getting Started",
-  "TUTORIAL_SLIDE3_DESCRIPTION": "Need help? Check out the Super Starter README for a full tutorial",
+    "#2": "Страница с описанием возможностей системы Advantages: ",
 
-  "TUTORIAL_SLIDE4_TITLE": "Ready to Play?",
+    "ADVANTAGES_TITLE": "Advantages",
+    "ADVANTAGES": {
 
-  "WELCOME_INTRO" : "The starting point for your next great Ionic app",
+        "1": {
+            "TITLE": "Aenean dictum commodo enim",
+            "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at mollis libero, vel convallis quam"
+        },
 
-  "SETTINGS_TITLE": "Settings",
-  "SETTINGS_OPTION1": "Option 1",
-  "SETTINGS_OPTION2": "Option 2",
-  "SETTINGS_OPTION3": "Option 3",
-  "SETTINGS_OPTION4": "Option 4",
+        "2": {
+            "TITLE": "Lorem ipsum dolor sit amet, consectetur",
+            "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dictum commodo enim. Duis sit amet ipsum turpis. Integer id quam eu leo egestas placerat"
+        },
 
-  "SETTINGS_PROFILE_BUTTON" : "Edit Profile",
+        "3": {
+            "TITLE": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+            "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dictum commodo enim. Duis sit amet ipsum turpis. Integer id quam eu leo egestas placerat"
+        },
 
-  "SETTINGS_PAGE_PROFILE": "Edit Profile",
+        "4": {
+            "TITLE": "Advantage 4",
+            "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dictum commodo enim. Duis sit amet ipsum turpis. Integer id quam eu leo egestas placerat"
+        },
 
-  "WELCOME_TITLE": "Welcome",
+        "5": {
+            "TITLE": "Advantage 5",
+            "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dictum commodo enim. Duis sit amet ipsum turpis. Integer id quam eu leo egestas placerat"
+        },
 
-  "LOGIN_TITLE": "LM CRM",
-  "LOGIN_ERROR": "Unable to sign in. Please check your account information and try again.",
-  "LOGIN_BUTTON": "Sign in",
-  "SIGNUP_TITLE": "Sign up",
-  "SIGNUP_ERROR": "Unable to create account. Please check your account information and try again.",
-  "SIGNUP_BUTTON": "Sign up",
+        "6": {
+            "TITLE": "Lorem ipsum dolor sit amet, consectetur",
+            "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dictum commodo enim. Duis sit amet ipsum turpis. Integer id quam eu leo egestas placerat. Sed. "
+        }
+    },
 
-  "LIST_MASTER_TITLE": "Items",
 
-  "ITEM_CREATE_TITLE": "New Item",
-  "ITEM_CREATE_CHOOSE_IMAGE": "Add Image",
+    "#3": "Страница регистрации: ",
 
-  "ITEM_NAME_PLACEHOLDER" : "Name",
-  "ITEM_ABOUT_PLACEHOLDER" : "About",
+    "BACK_TO_LOGIN": "back to login",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "CONFIRM_PASSWORD": "Confirm Password",
+    "REGISTER_BUTTON": "REGISTER",
+    "REGISTRATION_FIELD_ERROR_REQUIRED": "this field required",
+    "REGISTRATION_FIELD_ERROR_NOT_VALID": "enter valid email address",
+    "REGISTRATION_FIELD_ERROR_MAIL_EXISTS": "this email address already exists",
+    "REGISTRATION_FIELD_ERROR_PASSWORD_NOT_MATCH": "in the password must be at least 5 characters",
+    "REGISTRATION_FIELD_ERROR_PASSWORD_NOT_ENOUGH": "does not match the password",
 
-  "DONE_BUTTON" : "Done",
-  "CANCEL_BUTTON" : "Cancel",
-  "DELETE_BUTTON" : "Delete",
 
-  "CARDS_TITLE": "Social",
+    "#4": "Подтверждение пароля: ",
 
-  "SEARCH_TITLE": "Search",
-  "SEARCH_PLACEHOLDER" : "Search the items list, e.g. \"Donald Duck\""
+    "CONFIRMATION_CODE_LABEL": "Confirmation code",
+    "CONFIRMATION_CODE_PLACEHOLDER": "enter code",
+    "CONFIRMATION_CODE_ERROR": "wrong code",
+    "CONFIRMATION_CODE_BUTTON": "confirm",
+
+
+    "#5": "Дополнительные данные по регистрации: ",
+
+    "ROLE_MATCHING": "Your role matching",
+    "PERSONAL_DATA": "Personal data",
+    "SPHERE_OF_INFLUENCE": "Sphere of influence",
+    "REGISTRATION_DATA_NEXT_BUTTON": "Start getting customers",
+    "REGISTRATION_DATA_AGREEMENTS": "I confirm the user agreements",
+    "REGISTRATION_DATA_USER_AGREEMENTS": "read the user agreements",
+
+
+    "#6": "Данные по ролям пользователя: ",
+
+    "ROLE_PAGE_NAME": "ROLE",
+    "SELECT": "select",
+
+    "#7": "Название групп особенностей: ",
+    "roleGroup": {
+        "PAYMENT_SYSTEM": "Payment system",
+        "WORK_WITH_CLIENTS": "Work with clients"
+    },
+
+
+    "#8": "Описание особенностей ролей: ",
+    "roleFeatures": {
+        "FEATURE_1": "I can work with your system without making a credit card or any other payment",
+        "FEATURE_2": "For the money received for the introduced irrelevant client, I can open the relevant client",
+        "FEATURE_3": "I can cash out the money received for the deposited customer",
+        "FEATURE_4": "I am willing to pay only with the deals that I closed and got money for them",
+        "FEATURE_5": "I do not have to give a customers in order to get others in return. I can pay for the received relevant customers through a credit card",
+        "FEATURE_6": "I can get monetary benefits for the irrelevant Clients for my business",
+        "FEATURE_7": "I can give away my customers only for deals to earn from successfully closed deals",
+
+        "FEATURE_8": "I can change the irrelevant client to the relevant one",
+        "FEATURE_9": "Give the client to a private group",
+        "FEATURE_10": "I want to be able to work exclusively with a client",
+        "FEATURE_11": "I do not have to record the process of working with my clients",
+        "FEATURE_12": "I can manage my sellers in the system"
+    },
+
+
+    "#9": "Заполнение персональных данных: ",
+
+    "PERSONAL_DATA_TITLE": "Personal data",
+    "PERSONAL_DATA_FIRST_NAME": "First name",
+    "PERSONAL_DATA_FIRST_NAME_ERROR_REQUIRED": "this field required",
+    "PERSONAL_DATA_LAST_NAME": "Last name",
+    "PERSONAL_DATA_COMPANY": "Company",
+    "PERSONAL_DATA_PHONE": "Phone",
+    "PERSONAL_DATA_PHONE_ERROR_LENGTH": "the length of the phone number must be at least 9 digits",
+
+
+    "#10": "Выбор сферы: ",
+
+    "SPHERE_TITLE": "Select spheres",
+
+
+    "#11": "Шапка и основные данные в меню: ",
+
+    "user_can_open_leads": "you can open <b>{{ price }}</b> leads",
+    "user_have_leads": "you have <b>{{ amount }}</b> incoming leads",
+    "main_menu_no_mask": "no mask",
+
+
+
+
+
+
+
+
+    "BACK_BUTTON_TEXT": "Back",
+    "NAME": "Name",
+    "USERNAME": "Username",
+    "LOGIN": "Sign in",
+    "SIGNUP": "Sign up",
+    "TAB1_TITLE": "Items",
+    "TAB2_TITLE": "Search",
+    "TAB3_TITLE": "Settings",
+    "MAP_TITLE": "Map",
+    "TUTORIAL_SKIP_BUTTON": "Skip",
+    "TUTORIAL_CONTINUE_BUTTON": "Continue",
+    "TUTORIAL_SLIDE1_TITLE": "Welcome to the Ionic Super Starter",
+    "TUTORIAL_SLIDE1_DESCRIPTION": "The <b>Ionic Super Starter</b> is a fully-featured Ionic starter with many pre-built pages and best practices.",
+    "TUTORIAL_SLIDE2_TITLE": "How to use the Super Starter",
+    "TUTORIAL_SLIDE2_DESCRIPTION": "Assemble the various page types you want and remove the ones you don't. We've provided many common mobile app page layouts, like login and signup pages, tabs, and this tutorial page.",
+    "TUTORIAL_SLIDE3_TITLE": "Getting Started",
+    "TUTORIAL_SLIDE3_DESCRIPTION": "Need help? Check out the Super Starter README for a full tutorial",
+    "TUTORIAL_SLIDE4_TITLE": "Ready to Play?",
+    "WELCOME_INTRO": "The starting point for your next great Ionic app",
+    "SETTINGS_TITLE": "Settings",
+    "SETTINGS_OPTION1": "Option 1",
+    "SETTINGS_OPTION2": "Option 2",
+    "SETTINGS_OPTION3": "Option 3",
+    "SETTINGS_OPTION4": "Option 4",
+    "SETTINGS_PROFILE_BUTTON": "Edit Profile",
+    "SETTINGS_PAGE_PROFILE": "Edit Profile",
+    "WELCOME_TITLE": "Welcome",
+    "LOGIN_TITLE": "LM CRM",
+    "LOGIN_ERROR": "Unable to sign in. Please check your account information and try again.",
+    "SIGNUP_ERROR": "Unable to create account. Please check your account information and try again.",
+    "SIGNUP_BUTTON": "Sign up",
+    "LIST_MASTER_TITLE": "Items",
+    "ITEM_CREATE_TITLE": "New Item",
+    "ITEM_CREATE_CHOOSE_IMAGE": "Add Image",
+    "ITEM_NAME_PLACEHOLDER": "Name",
+    "ITEM_ABOUT_PLACEHOLDER": "About",
+    "DONE_BUTTON": "Done",
+    "CANCEL_BUTTON": "Cancel",
+    "DELETE_BUTTON": "Delete",
+    "CARDS_TITLE": "Social",
+    "SEARCH_TITLE": "Search",
+    "SEARCH_PLACEHOLDER": "Search the items list, e.g. \"Donald Duck\""
+
 }

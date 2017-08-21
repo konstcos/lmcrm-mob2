@@ -19,9 +19,9 @@
 
 
         <!--<ion-buttons left text-center class="left_button">-->
-            <!--<button ion-button (click)="goBack()">-->
-                <!--close-->
-            <!--</button>-->
+        <!--<button ion-button (click)="goBack()">-->
+        <!--close-->
+        <!--</button>-->
         <!--</ion-buttons>-->
 
         <ion-buttons right text-center class="right_button">
@@ -37,18 +37,36 @@
 
     </ion-navbar>
 
-    <ion-toolbar class="requisites">
-
-        <div [innerHTML]="requisites">
-
-        </div>
-
-        <!--<p>Requisites: 4554-4578-1215-7785</p>-->
-        <!--<p>Requisites description</p>-->
-
-        <!--{{ requisites }}-->
-
+    <ion-toolbar>
+        <ion-segment [(ngModel)]="segment" color="primary" (ionChange)="segmentChanged($event)">
+            <ion-segment-button value="info">
+                Info
+            </ion-segment-button>
+            <ion-segment-button value="transactions">
+                Transactions
+            </ion-segment-button>
+            <ion-segment-button value="statement">
+                Statement
+            </ion-segment-button>
+        </ion-segment>
     </ion-toolbar>
+
+    <!--<ion-toolbar class="requisites">-->
+
+    <!--<div [innerHTML]="requisites">-->
+
+    <!--</div>-->
+
+    <!--<div>-->
+    <!--выводить кредитные данные пользователя ?-->
+    <!--</div>-->
+
+    <!--<p>Requisites: 4554-4578-1215-7785</p>-->
+    <!--<p>Requisites description</p>-->
+
+    <!--{{ requisites }}-->
+
+    <!--</ion-toolbar>-->
 
 </ion-header>
 
@@ -61,206 +79,312 @@
     </ion-refresher>
     <!-- конец Обновление страницы -->
 
-    <ion-card *ngFor="let item of items">
 
-        <ion-row>
+    <!-- блок с данными по сделкам -->
+    <div [ngSwitch]="segment" class="segment_block">
 
-            <ion-col align-self-center col-5>
+        <div *ngSwitchCase="'info'">
 
-                <div class="amount" [ngClass]="item.type==1 ? 'replenishment' : 'withdrawal'">
-                    <span *ngIf="item.type==1">&nbsp;</span><span *ngIf="item.type!=1">-</span> {{ item.amount }}
-                </div>
+            <ion-row>
+                <ion-col text-center class="wallet_amount_block">
 
-                <div class="date">
-                    &nbsp; <span class="time">{{ item.date.time }}</span> {{ item.date.date }}
-                </div>
+                    <div class="annotation">Available</div>
 
-            </ion-col>
+                    <div class="wallet_amount">
+                        <span class="sign">&#8362;</span> {{ walletAmount }}
+                    </div>
 
-            <ion-col text-right>
+                </ion-col>
+            </ion-row>
 
-                <div class="exchange_id">
-                    №{{ item.id }}
-                </div>
+            <div class="wallet_button_block" text-right>
 
-                <!-- Статусы -->
+                <ion-row>
+                    <ion-col></ion-col>
+                    <ion-col text-right>
 
-                <div *ngIf="item.status==1" class="item_status waiting_processing">
-                    {{ statuses[item.status] }}
-                </div>
+                        <div class="wallet_button" (click)="openReplenishment()">
 
+                            <!--<button ion-button round clear>Replenishment</button>-->
 
-                <div *ngIf="item.status==2" class="item_status waiting_payment">
-                    {{ statuses[item.status] }}
-                </div>
+                            <div class="wallet_button_name">
+                                <span class="wallet_button_icon"><ion-icon name="ios-arrow-forward-outline"></ion-icon></span>
+                                Replenishment
+                            </div>
+                            <div class="wallet_button_comment">Input of money into the system account</div>
+                        </div>
 
+                        <div class="wallet_button" (click)="openWithdrawal()">
 
-                <div *ngIf="item.status==3" class="item_status waiting_confirmed">
-                    {{ statuses[item.status] }}
-                </div>
+                            <!--<button ion-button round clear>Withdrawal</button>-->
 
-
-                <div *ngIf="item.status==4" class="item_status status_confirmed">
-                    {{ statuses[item.status] }}
-                </div>
-
-                <!--<div [ngClass]="item.status==4 ? 'status_confirmed' : ''">-->
-                    <!--{{ statuses[item.status] }}-->
-                <!--</div>-->
-
-
-                <!-- конец Статусов -->
+                            <div class="wallet_button_name">
+                                <span class="wallet_button_icon"><ion-icon name="ios-arrow-forward-outline"></ion-icon></span>
+                                Withdrawal
+                            </div>
+                            <div class="wallet_button_comment">Withdrawal of money from the system account</div>
+                        </div>
+                    </ion-col>
+                </ion-row>
 
 
-
-                <div *ngIf="item.type == 1" class="pay_button_block">
-                <!--<div *ngIf="item.status==2">-->
-                    <!-- Ожидает платежа пользователя -->
-                    <span *ngIf="item.status==2" class="pay_button" (click)="payReplenishment(item)">paid <ion-icon class="waiting_payment" name="md-square-outline"></ion-icon></span>
-
-                    <!-- платеж совершен и ожидает подтверждения-->
-                    <span *ngIf="item.status!=2" class="pay_button">paid <ion-icon class="already_payed" name="md-checkbox-outline"></ion-icon></span>
-
-                    <!--<button small color="danger" ion-button (click)="payReplenishment(item)">Paid</button>-->
-                </div>
-
-            </ion-col>
-
-        </ion-row>
+            </div>
 
 
+            <!--<div class="deal_block">-->
+
+            <!--<ion-row class="deal_item" (click)="showInfo(1)">-->
+            <!--<ion-col class="info" col-1 text-center align-self-center>-->
+            <!--<ion-icon name="ios-information-circle"></ion-icon>-->
+            <!--</ion-col>-->
+            <!--<ion-col class="data" text-right align-self-center>-->
+            <!--&#8362; {{ deal.dealInfo.price }}-->
+            <!--</ion-col>-->
+            <!--<ion-col col-3 class="name" text-left align-self-center>price</ion-col>-->
+            <!--</ion-row>-->
+
+            <!--<ion-row class="deal_item" (click)="showInfo(2)">-->
+            <!--<ion-col class="info" col-1 text-center align-self-center>-->
+            <!--<ion-icon name="ios-information-circle"></ion-icon>-->
+            <!--</ion-col>-->
+            <!--<ion-col class="data" text-right align-self-center>-->
+            <!--&#8362; {{ deal.dealInfo.percent }}-->
+            <!--</ion-col>-->
+            <!--<ion-col col-3 class="name" text-left align-self-center>-->
+            <!--share of the system-->
+            <!--</ion-col>-->
+            <!--</ion-row>-->
+
+            <!--<ion-row class="deal_item" (click)="showInfo(3)">-->
+            <!--<ion-col class="info" col-1 text-center align-self-center>-->
+            <!--<ion-icon name="ios-information-circle"></ion-icon>-->
+            <!--</ion-col>-->
+            <!--<ion-col class="data" text-right align-self-center>-->
+            <!--<span class="time">-->
+            <!--{{ deal.dealInfo.date.time }}-->
+            <!--</span>-->
+            <!--{{ deal.dealInfo.date.date }}-->
+            <!--</ion-col>-->
+            <!--<ion-col col-3 class="name" text-left align-self-center>-->
+            <!--date-->
+            <!--</ion-col>-->
+            <!--</ion-row>-->
+
+            <!--<ion-row class="deal_item" (click)="showInfo(4)">-->
+            <!--<ion-col class="info" col-1 text-center align-self-center>-->
+            <!--<ion-icon name="ios-information-circle"></ion-icon>-->
+            <!--</ion-col>-->
+            <!--<ion-col class="data" text-right align-self-center>-->
+            <!--{{ deal.dealInfo.status }}-->
+            <!--</ion-col>-->
+            <!--<ion-col col-3 class="name" text-left align-self-center>-->
+            <!--status-->
+            <!--</ion-col>-->
+            <!--</ion-row>-->
 
 
-        <!-- шапка платежа -->
-        <!--<ion-row>-->
+            <!--<div *ngIf="deal.dealInfo.comment.trim() != ''" class="deal_comment">-->
+            <!--<div class="name" text-right>comment</div>-->
+            <!--<div class="data">-->
+            <!--{{ deal.dealInfo.comment }}-->
+            <!--</div>-->
+            <!--</div>-->
 
-            <!--<ion-col-->
-                    <!--class="item_status"-->
-                    <!--text-center-->
-                    <!--align-self-center-->
-                     <!--[ngClass]="item.status==4 ? 'status_confirmed' : ''">-->
-                <!--{{ statuses[item.status] }}-->
+            <!--<div *ngIf="deal.dealInfo.status == 'waiting for payment'" class="payment_button" text-center>-->
+            <!--<button (click)="makePaymentActionSheet()" ion-button small round color="primary">Make a payment</button>-->
+            <!--</div>-->
+
+            <!--</div>-->
+
+        </div>
+
+        <div *ngSwitchCase="'transactions'">
+
+            <!-- спинер загрузки -->
+            <div *ngIf="isLoading" class="spinnerLoading">
+                <ion-spinner color="primary" name="crescent"></ion-spinner>
+            </div>
+
+            <div *ngIf="!isLoading" class="transactions_block">
+
+                <ion-row *ngFor="let transaction of transactions" class="transaction_item">
+
+                    <ion-col class="data" text-left align-self-center>
+
+                        <div class="transaction_number">
+                            <span class="number">№</span> {{ transaction.transactionId }}
+                        </div>
+
+                        <div class="transaction_name">
+                            {{ transaction.type }}
+                        </div>
+
+                    </ion-col>
+
+                    <ion-col col-5 text-right align-self-center>
+
+                        <div class="amount"
+                             [ngClass]="{'positive': transaction.amount > 0, 'negative': transaction.amount < 0}">
+                            <span class="sign">&#8362;</span> {{ transaction.amount }}
+                        </div>
+
+                        <div class="date">
+                            <span class="time">{{ transaction.date.time }}</span> {{ transaction.date.date }}
+                        </div>
+
+                    </ion-col>
+
+                </ion-row>
+
+                <ion-row *ngIf="noTransactions" class="no_transactions">
+                    <ion-col text-center align-self-center>
+                        No transactions
+                    </ion-col>
+                </ion-row>
+
+            </div>
+
+        </div>
+
+        <div *ngSwitchCase="'statement'">
+
+            <!-- спинер загрузки -->
+            <div *ngIf="isLoading" class="spinnerLoading">
+                <ion-spinner color="primary" name="crescent"></ion-spinner>
+            </div>
+
+            <ion-card
+                    *ngFor="let item of statements"
+                    (click)="statementAction(item)"
+                    [ngClass]="{'statement_row_waiting_processing': item.status == 1, 'statement_row_waiting_payment': item.status == 2, 'statement_row_waiting_confirmed': item.status == 3, 'statement_row_status_confirmed': item.status == 4, 'statement_row_status_rejected': item.status == 5}"
+                    class="statement_row">
+
+                <ion-row>
+
+                    <ion-col col-4 class="status_block">
+
+                        <div *ngIf="item.status == 1 || item.status == 2" class="action_menu">
+                            <ion-icon name="md-menu"></ion-icon>
+                        </div>
+
+
+                        <!-- Статус -->
+                        <div class="item_status" [ngClass]="{'waiting_processing': item.status == 1, 'waiting_payment': item.status == 2, 'waiting_confirmed': item.status==3, 'status_confirmed': item.status==4, 'status_rejected': item.status==5}">
+                            {{ statuses[item.status] }}
+                        </div>
+
+                    </ion-col>
+
+                    <ion-col text-right class="data" align-self-center>
+
+                        <div class="exchange_id">
+                            № {{ item.id }}
+                        </div>
+
+
+                        <div class="amount" [ngClass]="item.type==1 ? 'replenishment' : 'withdrawal'">
+                            &#8362; <span *ngIf="item.type!=1">-</span> {{ item.amount }}
+                        </div>
+
+                        <div class="date">
+                            &nbsp; <span class="time">{{ item.date.time }}</span> {{ item.date.date }}
+                        </div>
+
+                        <!--<div *ngIf="item.type == 1" class="pay_button_block">-->
+                            <!--&lt;!&ndash;<div *ngIf="item.status==2">&ndash;&gt;-->
+                            <!--&lt;!&ndash; Ожидает платежа пользователя &ndash;&gt;-->
+                            <!--<span *ngIf="item.status==2" class="pay_button" (click)="payReplenishment(item)">paid <ion-icon-->
+                                    <!--class="waiting_payment" name="md-square-outline"></ion-icon></span>-->
+
+                            <!--&lt;!&ndash; платеж совершен и ожидает подтверждения&ndash;&gt;-->
+                            <!--<span *ngIf="item.status!=2" class="pay_button">paid <ion-icon class="already_payed"-->
+                                                                                           <!--name="md-checkbox-outline"></ion-icon></span>-->
+
+                            <!--&lt;!&ndash;<button small color="danger" ion-button (click)="payReplenishment(item)">Paid</button>&ndash;&gt;-->
+                        <!--</div>-->
+
+                    </ion-col>
+
+                    <ion-col align-self-center text-center col-2 class="indicator_icon">
+
+                        <ion-icon *ngIf="item.status == 1" name="ios-radio-button-on-outline" class="indicator_icon_waiting_processing"></ion-icon>
+                        <ion-icon *ngIf="item.status == 2" name="ios-arrow-back-outline" class="indicator_icon_waiting_payment"></ion-icon>
+                        <ion-icon *ngIf="item.status == 3" name="md-arrow-dropleft-circle" class="indicator_icon_waiting_confirmed"></ion-icon>
+                        <ion-icon *ngIf="item.status == 4" name="md-checkmark" class="indicator_icon_status_confirmed"></ion-icon>
+                        <ion-icon *ngIf="item.status == 5" name="md-close" class="indicator_icon_status_rejected"></ion-icon>
+
+                    </ion-col>
+
+
+                </ion-row>
+
+            </ion-card>
+
+
+            <!--<div class="deal_block">-->
+
+            <!--<ion-row *ngFor="let file of deal.files" class="file_item">-->
+
+            <!--<ion-col col-2 class="file_dell_button" text-center align-self-center (click)="deleteFile(file)">-->
+            <!--<ion-icon name="md-close"></ion-icon>-->
             <!--</ion-col>-->
 
-            <!--<ion-col text-right class="item_type" [ngClass]="item.type==1 ? 'replenishment' : 'withdrawal'">-->
-                <!--{{ types[item.type] }}-->
+            <!--<ion-col col-8 class="file_name" text-right align-self-center>-->
+            <!--{{ file.name }}-->
             <!--</ion-col>-->
 
-        <!--</ion-row>-->
+            <!--<ion-col col-2 class="file_icon" text-center align-self-center>-->
 
-        <!-- основные данные по платежу -->
-        <!--<ion-row>-->
-
-            <!--<ion-col text-right class="item_main_data">-->
-
-                <!--<div class="amount">{{ item.amount }}</div>-->
-                <!--<div class="date"><span class="time">{{ item.date.time }}</span> {{ item.date.date }}</div>-->
+            <!--<i *ngIf="file.type == 'image'" class="fa fa-picture-o image"></i>-->
 
             <!--</ion-col>-->
 
-        <!--</ion-row>-->
+            <!--</ion-row>-->
 
-        <!-- кнопка проплаты по платежу -->
-        <!--<ion-row *ngIf="item.status==2">-->
-
-            <!--<ion-col text-left>-->
-                <!--<button block small color="danger" ion-button (click)="payReplenishment(item)">Paid</button>-->
+            <!--<ion-row *ngIf="deal.files.length == 0" class="no_files">-->
+            <!--<ion-col text-center align-self-center>-->
+            <!--No files-->
             <!--</ion-col>-->
+            <!--</ion-row>-->
 
-        <!--</ion-row>-->
+            <!--</div>-->
 
-    </ion-card>
+        </div>
+
+    </div>
+
+
+    <!-- Подгрузка следующей партии итемов -->
+    <ion-infinite-scroll *ngIf="isLastPageReached()" (ionInfinite)="loadMore($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    <!-- конец Подгрузка следующей партии итемов -->
+
 
     <!-- При отсутствии итемов в истории -->
-    <ion-row *ngIf="items.length == 0">
-        <ion-col>
-            No credit history
-        </ion-col>
-    </ion-row>
+    <!--<ion-row *ngIf="items.length == 0">-->
+    <!--<ion-col>-->
+    <!--No credit history-->
+    <!--</ion-col>-->
+    <!--</ion-row>-->
 
 </ion-content>
 
 
-<!--<ion-content>-->
+<!--<ion-footer>-->
 
-    <!--&lt;!&ndash; Обновление страницы &ndash;&gt;-->
-    <!--<ion-refresher (ionRefresh)="refresh($event)">-->
-        <!--<ion-refresher-content></ion-refresher-content>-->
-    <!--</ion-refresher>-->
-    <!--&lt;!&ndash; конец Обновление страницы &ndash;&gt;-->
+<!--<ion-toolbar>-->
+<!--<ion-segment [(ngModel)]="segment" color="primary" (ionChange)="segmentChanged($event)">-->
+<!--<ion-segment-button value="info">-->
+<!--Info-->
+<!--</ion-segment-button>-->
+<!--<ion-segment-button value="transactions">-->
+<!--Transactions-->
+<!--</ion-segment-button>-->
+<!--<ion-segment-button value="statement">-->
+<!--Statement-->
+<!--</ion-segment-button>-->
+<!--</ion-segment>-->
+<!--</ion-toolbar>-->
 
-    <!--<ion-card *ngFor="let item of items">-->
-
-        <!--&lt;!&ndash; шапка платежа &ndash;&gt;-->
-        <!--<ion-row>-->
-
-            <!--<ion-col class="item_status" text-center align-self-center-->
-                     <!--[ngClass]="item.status==4 ? 'status_confirmed' : ''">-->
-                <!--{{ statuses[item.status] }}-->
-            <!--</ion-col>-->
-
-            <!--<ion-col text-right class="item_type" [ngClass]="item.type==1 ? 'replenishment' : 'withdrawal'">-->
-                <!--{{ types[item.type] }}-->
-            <!--</ion-col>-->
-
-        <!--</ion-row>-->
-
-        <!--&lt;!&ndash; основные данные по платежу &ndash;&gt;-->
-        <!--<ion-row>-->
-
-            <!--<ion-col text-right class="item_main_data">-->
-
-                <!--<div class="amount">{{ item.amount }}</div>-->
-                <!--<div class="date"><span class="time">{{ item.date.time }}</span> {{ item.date.date }}</div>-->
-
-            <!--</ion-col>-->
-
-        <!--</ion-row>-->
-
-        <!--&lt;!&ndash; кнопка проплаты по платежу &ndash;&gt;-->
-        <!--<ion-row *ngIf="item.status==2">-->
-
-            <!--<ion-col text-left>-->
-                <!--<button block small color="danger" ion-button (click)="payReplenishment(item)">Paid</button>-->
-            <!--</ion-col>-->
-
-        <!--</ion-row>-->
-
-    <!--</ion-card>-->
-
-    <!--&lt;!&ndash; При отсутствии итемов в истории &ndash;&gt;-->
-    <!--<ion-row *ngIf="items.length == 0">-->
-        <!--<ion-col>-->
-            <!--No credit history-->
-        <!--</ion-col>-->
-    <!--</ion-row>-->
-
-<!--</ion-content>-->
-
-
-
-<ion-footer>
-
-    <ion-row>
-
-        <ion-col no-padding text-center>
-            <button
-                    ion-button color="secondary"
-                    (click)="showReplenishmentDialog()">
-                <!--<ion-icon name="ios-cloud-upload"></ion-icon>-->
-                &nbsp;
-                Replenishment
-            </button>
-        </ion-col>
-
-        <ion-col no-padding text-center>
-            <button ion-button>
-                <!--<ion-icon name="ios-cloud-download"></ion-icon>-->
-                &nbsp;
-                Withdrawal
-            </button>
-        </ion-col>
-
-    </ion-row>
-
-</ion-footer>
+<!--</ion-footer>-->

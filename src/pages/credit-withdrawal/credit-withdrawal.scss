@@ -1,0 +1,63 @@
+credit-withdrawal {
+
+  .spinnerLoading {
+    text-align: center;
+    margin-top: 20%;
+  }
+
+  .description {
+    color: #909090;
+    text-align: center;
+    margin: 1% 2px 8%;
+    font-size: 12px;
+  }
+
+  .withdrawal_block {
+
+    .withdrawal_row {
+      border-bottom: 1px solid #D8D8D8;
+      margin-top: 30px;
+
+      &.no_top_margin {
+        margin-top: 0;
+      }
+
+      &.amount_row {
+        width: 200px;
+      }
+
+      .withdrawal_label {
+        color: grey;
+        font-size: 12px;
+        margin-right: 4px;
+      }
+
+      .withdrawal_input {
+        color: #337AB7;
+        padding-right: 10px;
+
+        ion-input{
+          display: inline;
+        }
+
+        &.amount_input {
+          padding-left: 20%;
+        }
+
+        .text-input {
+          margin: 10px 0 5px;
+        }
+      }
+
+    }
+
+    .withdrawal_error {
+      color: red;
+      margin-top: 6px;
+      margin-right: 10px;
+      font-size: 11px;
+    }
+
+  }
+
+}

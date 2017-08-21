@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, ViewController, AlertController} from 'ionic-angular';
+import {NavController, NavParams, ViewController, AlertController, ModalController} from 'ionic-angular';
 
 import {OpenLeadStatusesPage} from "../open-lead-statuses/open-lead-statuses";
+import {OpenDetailPage} from '../open-detail/open-detail'
 
 
 import {Obtain} from '../../providers/obtain';
@@ -24,14 +25,16 @@ export class ObtainDetailPage {
                 public view: ViewController,
                 public obtain: Obtain,
                 public navParams: NavParams,
+                public modalCtrl: ModalController,
                 public alertCtrl: AlertController) {
 
-        this.item = navParams.get('item')
+        this.item = navParams.get('item');
 
+        // console.log(this.item);
     }
 
     ionViewDidLoad() {
-        console.log('ionViewDidLoad ObtainDetailPage');
+        // console.log('ionViewDidLoad ObtainDetailPage');
     }
 
 
@@ -41,7 +44,7 @@ export class ObtainDetailPage {
      */
     dateInfo() {
         let alert = this.alertCtrl.create({
-            // title: 'New Friend!',
+
             subTitle: `
                     <div class="alert_title">added to system</div>
                     <div class="alert_content">When the Lead was processed and added to the system</div>
@@ -60,24 +63,34 @@ export class ObtainDetailPage {
      *
      */
     confirmOpen(item) {
+
+        if (item.openLead == "true" && item.openLeadOther == "true") {
+            this.close();
+        }
+
         let alert = this.alertCtrl.create();
         alert.setTitle('Open Lead');
 
-        alert.addInput({
-            type: 'radio',
-            label: 'Open One',
-            value: 'One',
-            checked: true
-        });
+        if (item.openLead == "false") {
+            alert.addInput({
+                type: 'radio',
+                label: 'Open One',
+                value: 'One',
+                checked: true
+            });
+        }
 
-        if(item.openLeadOther == "false"){
+        if (item.openLeadOther == "false") {
             alert.addInput({
                 type: 'radio',
                 label: 'Open All',
                 value: 'All',
+                checked: item.openLead == "true"
             });
         }
 
+
+        alert.setCssClass('obtain_detail_alert_confirm');
 
         alert.addButton('Cancel');
         alert.addButton({
@@ -86,10 +99,10 @@ export class ObtainDetailPage {
                 // this.testRadioOpen = false;
                 // this.testRadioResult = data;
 
-                console.log(data);
-                console.log(item);
+                // console.log(data);
+                // console.log(item);
 
-                this.openLead( item.id, item.mask.maskId, data );
+                this.openLead(item.id, item.mask.maskId, data);
 
             }
         });
@@ -101,48 +114,71 @@ export class ObtainDetailPage {
      * Открытие лида
      *
      */
-    openLead( lead_id, mask_id, amount ) {
-        // alert('1')
+    openLead(lead_id, mask_id, amount) {
 
-        // let data = { lead_id: lead_id, mask_id: mask_id, amount: amount };
-
-        // console.log(data)
-
-        this.obtain.openLead({ lead_id: lead_id, mask_id: mask_id, amount: amount })
+        this.obtain.openLead({lead_id: lead_id, mask_id: mask_id, amount: amount})
             .subscribe(result => {
-                // при получении итемов
+                // обработка результата открытия лида
 
                 // переводим ответ в json
                 let data = result.json();
 
-                // обработка итемов
+                // обработка результата
                 if (data.status == 'true') {
                     // если лид нормлаьно открылся
 
-                    // добавляем полученные итемы на страницу
-                    // this.items = this.items.concat( data.auctionItems );
-                    console.log('открылся');
-                    console.log(data);
+                    // открытие модального окна с данными по открытому лиду
+                    this.openLeadData(data.openLead.id);
 
                 } else {
-                    // если итемов нет
+                    // ошибка в открытии лида
 
-                    if( data.data == 'There is open leads no status' ){
+                    if (data.data == 'There is open leads no status') {
+
                         let alert = this.alertCtrl.create({
-                            title: 'Can not open Lead',
+                            title: 'Cannot open the Lead',
                             subTitle: `
                                 You have a Lead with no status. To open the next one, put the status already open.
                                     `,
                             buttons: ['OK']
                         });
-                        alert.present();                    }
+                        alert.present();
 
-                    // console.log('какая то хрень');
-                    console.log("Error: ");
-                    console.log(data);
+                    } else if (data.data == 'Low balance') {
 
-                    // помечаем что итемы закончились и больше не вызываем эту функцию
-                    // this.isThereStillItems = false;
+                        let alert = this.alertCtrl.create({
+                            title: 'Cannot open the Lead',
+                            subTitle: `
+                                Not enough money in your account to open the lead. Replenish your cash account to open the lead
+                                    `,
+                            buttons: ['OK']
+                        });
+                        alert.present();
+
+                    } else if (data.data == 'Already open') {
+
+                        let alert = this.alertCtrl.create({
+                            title: 'Lead already open',
+                            subTitle: `
+                                You already open this lead. Close the lead details window and refresh the list of incoming leads
+                                    `,
+                            buttons: ['OK']
+                        });
+                        alert.present();
+
+                    } else if (data.data == 'Lead withdrawn from auction') {
+
+                        let alert = this.alertCtrl.create({
+                            title: 'Lead withdrawn from auction',
+                            subTitle: `
+                                This lead withdrawn from auction. Close the lead details window and refresh the list of incoming leads
+                                    `,
+                            buttons: ['OK']
+                        });
+                        alert.present();
+
+                    }
+
                 }
 
                 // отключаем окно индикатора загрузки
@@ -162,6 +198,29 @@ export class ObtainDetailPage {
     }
 
 
+    /**
+     * Окно с данными по открытому лиду
+     *
+     */
+    openLeadData(openLeadId: number) {
+
+
+        // модальное окно со статусами
+        let modal = this.modalCtrl.create(OpenDetailPage, {openLeadId: openLeadId});
+
+        // modal.onDidDismiss(data => {
+        //
+        //     console.log(data);
+        //
+        //     this.loadNotifications();
+        // });
+
+        modal.present();
+
+        this.close();
+
+        console.log('открытие данных по лиду при открытии лида');
+    }
 
 
     /**

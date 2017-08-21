@@ -4,7 +4,7 @@ import {NavController, NavParams, Nav, ToastController} from 'ionic-angular';
 import {MasksPage} from '../masks/masks';
 import {CustomersPage} from '../customers/customers'
 
-
+import {User} from '../../providers/user';
 import {Customer} from '../../providers/customer';
 
 /*
@@ -85,9 +85,33 @@ export class EditMaskPage {
     public sourcePage: string = 'masks';
 
 
+
+    /**
+     * Выбранные регионы
+     *
+     */
+    public selectRegions: any = [];
+
+
+    /**
+     * Региноны
+     *
+     */
+    public regions: any = [];
+
+
+    /**
+     * Выбранный регион
+     *
+     */
+    public selectedRegion: number = 1;
+
+
+
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 public nav: Nav,
+                public user: User,
                 public toast: ToastController,
                 public customer: Customer) {
 
@@ -144,6 +168,8 @@ export class EditMaskPage {
 
                 // создаем дынные новой маски
                 this.prepareMask(this.blankMask);
+
+                this.switchRegion(1);
             }
 
         } else if (appointment == 'editMask') {
@@ -168,26 +194,7 @@ export class EditMaskPage {
             this.goBack();
         }
 
-
-        // console.log(blankMask);
-
-        // if (this.maskId) {
-        //
-        //     this.getMaskData();
-        //
-        // } else if (this.blankMask) {
-        //
-        //     this.newMask = true;
-        //     this.prepareMask(this.blankMask);
-        //
-        // } else {
-        //
-        //     this.goBack();
-        // }
-
-        // console.log(this.maskId);
-
-
+        // this.switchRegion(1);
     }
 
     /**
@@ -212,12 +219,11 @@ export class EditMaskPage {
             .subscribe(result => {
                 // при получении итемов
 
-                console.log('blank recive');
-
                 // переводим ответ в json
                 let data = result.json();
 
-                console.log(data);
+
+                this.regions = data.regions;
 
                 this.blankMask = data.data;
 
@@ -257,10 +263,23 @@ export class EditMaskPage {
                 // переводим ответ в json
                 let data = result.json();
 
+                console.log('данные по маске: ');
+                console.log(data);
 
                 if (data.status == 'true') {
 
                     this.prepareMask(data.maskData);
+
+                    if(data.region.path.length > 0){
+
+                        data.region.path.splice(0, 1);
+
+                        this.selectRegions = data.region.path;
+                        this.selectRegions.push(data.region.region);
+                    }
+
+
+                    this.regions = data.region.child;
 
                 }
 
@@ -295,6 +314,129 @@ export class EditMaskPage {
         }
 
         this.mask = mask;
+    }
+
+
+    /**
+     * Переключить регион
+     *
+     */
+    switchRegion(region) {
+
+        let regionId;
+
+        if (region != 1) {
+
+            this.selectRegions.push(region);
+
+            regionId = region.id;
+
+        } else {
+
+            regionId = 1;
+        }
+
+        this.selectedRegion = regionId;
+
+        console.log(this.selectRegions);
+
+        this.user.getRegions(regionId)
+        // подписываемся на получение результата
+            .subscribe(resp => {
+                // обработка результата
+
+                // преобразование результата в json
+                let res = resp.json();
+
+                console.log(res);
+
+
+                this.regions = res.regions;
+
+                // this.description = res.description;
+
+                // this.nav.setRoot(EmailConfirmationPage);
+
+                // loading.dismiss();
+
+            }, (err) => {
+                // this.navCtrl.push(MainPage);
+                // Unable to log in
+                // loading.dismiss();
+            });
+
+        console.log('region');
+    }
+
+
+    /**
+     * Очистка регионов
+     *
+     */
+    clearRegions() {
+        this.selectRegions = [];
+        this.selectedRegion = 1;
+        this.switchRegion(1);
+    }
+
+
+    /**
+     * Удаление региона
+     *
+     */
+    dellRegion(region) {
+
+        // console.log('регионы');
+
+        // console.log(this.selectRegions);
+
+        let newRegions = [];
+
+        let regionIndex: any;
+
+        for (regionIndex in this.selectRegions) {
+
+            if (region.id == this.selectRegions[regionIndex].id) {
+
+                if(regionIndex == '0'){
+
+                    this.selectedRegion = 1;
+
+                    this.selectRegions = [];
+                    this.switchRegion(1);
+                    break;
+
+                }else{
+
+                    console.log('конец');
+
+                    // console.log(newRegions);
+                    // console.log(this.selectRegions[regionIndex]);
+                    // console.log(this.selectRegions[regionIndex-1]);
+
+                    this.selectedRegion = this.selectRegions[regionIndex-1].id;
+
+                    this.switchRegion(this.selectRegions[regionIndex-1]);
+                    this.selectRegions = newRegions;
+                    break;
+
+
+                }
+
+            } else {
+
+                newRegions.push(this.selectRegions[regionIndex]);
+            }
+
+            // console.log(this.selectRegions[regionIndex]);
+        }
+
+
+        // this.regions.forEach((region, key) => {
+        //
+        // });
+
+        // console.log(region);
     }
 
 
@@ -359,7 +501,7 @@ export class EditMaskPage {
 
 
         // запрос на сохранение маски
-        this.customer.saveMask(this.mask, this.newMask, this.salesmenId)
+        this.customer.saveMask(this.mask, this.newMask, this.salesmenId, this.selectedRegion)
 
             .subscribe(result => {
                 // при получении итемов
@@ -373,23 +515,7 @@ export class EditMaskPage {
 
                     console.log(data);
 
-                    // this.nav.setRoot(MasksPage, {sphereId: this.sphereId});
-
-
                     this.goBack();
-
-                    // if (this.subRole) {
-                    //
-                    //     this.nav.setRoot(MasksPage, {
-                    //         sphereId: this.sphereId,
-                    //         subRole: 'salesman',
-                    //         salesmenData: this.salesmenData
-                    //     });
-                    //
-                    // } else {
-                    //
-                    //     this.nav.setRoot(MasksPage, {sphereId: this.sphereId});
-                    // }
 
                 }
 

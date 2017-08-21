@@ -80,14 +80,28 @@ export class StatisticsPage {
      * Индикатор загрузки
      *
      */
-    public isLoading = true;
+    public isLoading: boolean = true;
 
 
     /**
      * Показывать/прятать блок отсутствия сфер
      *
      */
-    public noSphereBlockShow = false;
+    public noSphereBlockShow: boolean = false;
+
+
+    /**
+     * Наличие данных продавца
+     *
+     */
+    public isSalesman: boolean = false;
+
+
+    /**
+     * Достаточное количество лидов для статистики
+     *
+     */
+    public isEnoughOpenLeads: boolean = false;
 
 
     /**
@@ -105,15 +119,6 @@ export class StatisticsPage {
         {id: 6, name: 'Custom Range'},
 
     ];
-
-// <ion-option value="0">Today</ion-option>
-// <ion-option value="1">Yesterday</ion-option>
-// <ion-option value="2">This week</ion-option>
-// <ion-option value="3">Previous week</ion-option>
-// <ion-option value="4">This month</ion-option>
-// <ion-option value="5">Previous month</ion-option>
-// <ion-option value="6">Custom Range</ion-option>
-
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
@@ -146,17 +151,17 @@ export class StatisticsPage {
      */
     get() {
 
-        // this.dateFrom
-        // this.dateTo
-
         let rawDateFrom = new Date(this.dateFrom);
         let timeFrom = rawDateFrom.getFullYear() + '-' + (rawDateFrom.getMonth() + 1) + '-' + (rawDateFrom.getDate() - 1);
 
         let rawDateTo = new Date(this.dateTo);
         let timeTo = rawDateTo.getFullYear() + '-' + (rawDateTo.getMonth() + 1) + '-' + (rawDateTo.getDate() - 1);
 
+        this.isSalesman = false;
+        this.isEnoughOpenLeads = false;
         this.noSphereBlockShow = false;
 
+        this.isLoading = true;
 
         // получение итемов с сервера
         this.statistic.get({sphere_id: this.currentSphere, timeFrom: timeFrom, timeTo: timeTo})
@@ -176,52 +181,38 @@ export class StatisticsPage {
                     this.spheres = data.spheres;
                     this.currentSphere = data.statistic.sphere.id;
 
+                    this.isSalesman = data.salesman;
+                    this.isEnoughOpenLeads = data.isEnoughOpenLeads;
+
                     this.statisticData = data.statistic;
 
                     this.noSphereBlockShow = false;
                     this.sphereExist = true;
 
+
                 } else {
 
+                    this.isSalesman = false;
+                    this.isEnoughOpenLeads = false;
                     this.noSphereBlockShow = true;
                     this.sphereExist = false;
-
                 }
 
+                this.isLoading = false;
 
                 this.content.resize();
-
-                // вычесляем количество итемов
-                // let itemsLength = data.leads.length;
-
-                // обработка итемов
-                // if (itemsLength != 0) {
-                //     // если больше нуля
-                //
-                //     // добавляем полученные итемы на страницу
-                //     this.items = data.leads;
-                //
-                // } else {
-                //     // если итемов нет
-                //
-                //     // todo показываем оповещение что итемов нет
-                //
-                // }
-
-                // отключаем окно индикатора загрузки
-                // loading.dismiss();
 
             }, err => {
                 // в случае ошибки
 
+                this.isSalesman = false;
+                this.isEnoughOpenLeads = false;
+                this.isLoading = false;
+
                 console.log('ERROR: ' + err);
 
                 // todo выводится сообщение об ошибке (нету связи и т.д.)
-
-                // отключаем окно индикатора загрузки
-                // loading.dismiss();
             });
-
     }
 
 

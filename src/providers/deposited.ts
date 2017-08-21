@@ -32,6 +32,15 @@ export class Deposited {
 
 
     /**
+     * Получение с сервера данных по одному итему отданных лидов
+     *
+     */
+    getDepositedDetail(data: any){
+        return this.api.post('api/data/deposited', data);
+    }
+
+
+    /**
      * Добавление лида в систему
      *
      */

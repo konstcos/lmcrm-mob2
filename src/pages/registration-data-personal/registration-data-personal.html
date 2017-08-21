@@ -1,16 +1,14 @@
-<!--
-  Generated template for the Masks page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
+
 <ion-header no-border>
 
     <!--color="clear"-->
 
     <ion-navbar color="clear">
 
-        <ion-title text-center class="registration_data_title">Personal data</ion-title>
+        <ion-title text-center class="registration_data_title">
+            {{ 'PERSONAL_DATA_TITLE' | translate }}
+        </ion-title>
 
     </ion-navbar>
 
@@ -37,7 +35,7 @@
             <!-- Блок с именем пользователя -->
             <ion-col class="data_block">
                 <!-- Лейбл ввода имени -->
-                <div class="label">First name</div>
+                <div class="label">{{ 'PERSONAL_DATA_FIRST_NAME' | translate }}</div>
                 <!-- Инпут имени пользователя -->
                 <ion-input
                         class="input_row"
@@ -63,7 +61,7 @@
                 class="error_message"
                 *ngIf="state.firstName == 3">
             <ion-col>
-                this field required
+                {{ 'PERSONAL_DATA_FIRST_NAME_ERROR_REQUIRED' | translate }}
             </ion-col>
         </ion-row>
 
@@ -87,7 +85,7 @@
             <!-- Блок с именем пользователя -->
             <ion-col class="data_block">
                 <!-- Лейбл ввода имени -->
-                <div class="label">Last name</div>
+                <div class="label">{{ 'PERSONAL_DATA_LAST_NAME' | translate }}</div>
                 <!-- Инпут имени пользователя -->
                 <ion-input
                         class="input_row"
@@ -106,17 +104,13 @@
             </ion-col>
         </ion-row>
 
-        <!--&lt;!&ndash; Разделительная черта &ndash;&gt;-->
-        <!--<div>-->
-            <!--<hr class="personal_data_row_separator" [ngClass]="(state.lastName == 3) ? 'red' : '' ">-->
-        <!--</div>-->
 
         <!-- Сообщение с ошибкой -->
         <ion-row
                 class="error_message"
                 *ngIf="state.lastName == 3">
             <ion-col>
-                this field required
+                {{ 'PERSONAL_DATA_FIRST_NAME_ERROR_REQUIRED' | translate }}
             </ion-col>
         </ion-row>
 
@@ -140,7 +134,7 @@
             <!-- Блок с именем пользователя -->
             <ion-col class="data_block">
                 <!-- Лейбл ввода имени -->
-                <div class="label">Company</div>
+                <div class="label">{{ 'PERSONAL_DATA_COMPANY' | translate }}</div>
                 <!-- Инпут имени пользователя -->
                 <ion-input
                         class="input_row"
@@ -159,17 +153,12 @@
             </ion-col>
         </ion-row>
 
-        <!--&lt;!&ndash; Разделительная черта &ndash;&gt;-->
-        <!--<div>-->
-            <!--<hr class="personal_data_row_separator" [ngClass]="(state.company == 3) ? 'red' : '' ">-->
-        <!--</div>-->
-
         <!-- Сообщение с ошибкой -->
         <ion-row
                 class="error_message"
                 *ngIf="state.company == 3">
             <ion-col>
-                this field required
+                {{ 'PERSONAL_DATA_FIRST_NAME_ERROR_REQUIRED' | translate }}
             </ion-col>
         </ion-row>
 
@@ -193,7 +182,7 @@
             <!-- Блок с именем пользователя -->
             <ion-col class="data_block">
                 <!-- Лейбл ввода имени -->
-                <div class="label">Phone</div>
+                <div class="label">{{ 'PERSONAL_DATA_PHONE' | translate }}</div>
                 <!-- Инпут имени пользователя -->
                 <ion-input
                         class="input_row"
@@ -218,7 +207,7 @@
                 class="error_message"
                 *ngIf="phoneErrors == 1">
             <ion-col>
-                this field required
+                {{ 'PERSONAL_DATA_FIRST_NAME_ERROR_REQUIRED' | translate }}
             </ion-col>
         </ion-row>
 
@@ -227,7 +216,7 @@
                 class="error_message"
                 *ngIf="phoneErrors == 2">
             <ion-col col-8 offset-4>
-                the length of the phone number must be at least 9 digits
+                {{ 'PERSONAL_DATA_PHONE_ERROR_LENGTH' | translate }}
             </ion-col>
         </ion-row>
 
@@ -239,20 +228,10 @@
 
         <ion-row>
 
-
             <!-- Блок с именем пользователя -->
             <ion-col class="" text-right>
                 <!-- Лейбл ввода имени -->
                 <div class="label" text-right>Region</div>
-                <!-- Инпут имени пользователя -->
-                <!--<ion-input-->
-                        <!--class="input_row"-->
-                        <!--[(ngModel)]="personalData.company"-->
-                        <!--type="text"-->
-                        <!--text-right-->
-                        <!--(blur)="companyNameValidate()"-->
-                        <!--name="firstName">-->
-                <!--</ion-input>-->
 
                 <div text-right class="region_item" (click)="clearRegions()">
 
@@ -275,7 +254,6 @@
                         </ion-col>
                     </ion-row>
 
-                    <!--<span>{{ selectRegion.name }}</span> <ion-icon name="md-close"></ion-icon>-->
                 </div>
 
             </ion-col>
@@ -292,44 +270,9 @@
 
     </div>
 
-
-
-
-
-
-
-
-    <!--<ion-list>-->
-
-        <!--&lt;!&ndash;<ion-item>&ndash;&gt;-->
-            <!--&lt;!&ndash;<ion-label stacked>First name</ion-label>&ndash;&gt;-->
-            <!--&lt;!&ndash;<ion-input [(ngModel)]="personalData.firstName" type="text" name="firstName"></ion-input>&ndash;&gt;-->
-        <!--&lt;!&ndash;</ion-item>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;<ion-item>&ndash;&gt;-->
-            <!--&lt;!&ndash;<ion-label stacked>Last name</ion-label>&ndash;&gt;-->
-            <!--&lt;!&ndash;<ion-input [(ngModel)]="personalData.lastName" type="text" name="lastName"></ion-input>&ndash;&gt;-->
-        <!--&lt;!&ndash;</ion-item>&ndash;&gt;-->
-
-        <!--<ion-item>-->
-            <!--<ion-label stacked>Company</ion-label>-->
-            <!--<ion-input [(ngModel)]="personalData.company" type="text" name="company"></ion-input>-->
-        <!--</ion-item>-->
-
-        <!--<ion-item>-->
-            <!--<ion-label stacked>Phone</ion-label>-->
-            <!--<ion-input [(ngModel)]="personalData.phone" type="text" name="company"></ion-input>-->
-        <!--</ion-item>-->
-
-    <!--</ion-list>-->
-
-
-
-
-
 </ion-content>
 
 <ion-footer no-border>
     <!--<button ion-button color="primary" block>{{ 'SIGNUP_BUTTON' | translate }}</button>-->
-    <button ion-button clear color="primary" (click)="goBack()"> Apply</button>
+    <button ion-button clear color="primary" (click)="goBack()"> {{ "APPLY" | translate }}</button>
 </ion-footer>

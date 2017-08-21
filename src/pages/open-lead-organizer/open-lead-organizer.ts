@@ -638,6 +638,7 @@ export class OpenLeadOrganizerPage {
 
             }, err => {
 
+                this.isLoading = false;
                 console.log('ERROR: ' + err);
             });
     }

@@ -39,7 +39,7 @@
             </ion-col>
 
             <ion-col class="header_input">
-                <ion-input #headerInput type="text" [(ngModel)]="keyword" name="keyword" placeholder="Enter name, email or phone"></ion-input>
+                <ion-input #headerInput type="search" [(ngModel)]="keyword" name="keyword" placeholder="Enter name, email or phone"></ion-input>
             </ion-col>
 
             <ion-col
@@ -68,7 +68,7 @@
 
         <ion-row class="search_input">
             <ion-col>
-                <ion-input type="text" [(ngModel)]="keyword" name="keyword" placeholder="Enter name, email or phone"></ion-input>
+                <ion-input type="search" [(ngModel)]="keyword" name="keyword" placeholder="Enter name, email or phone"></ion-input>
             </ion-col>
         </ion-row>
 
@@ -103,9 +103,81 @@
 
 
         <!-- если поиск не дал результата -->
-        <ion-row *ngIf="agents == 0">
+        <ion-row *ngIf="noUsers" class="no_result">
             <ion-col text-center>
-                No result
+
+                <div text-center>
+                    <div>This agent is not yet on the system.</div>
+                    <div>You can invite him.</div>
+                    <div>To do this, enter his mail</div>
+
+                </div>
+
+                <div class="invitation_block">
+                    <ion-input
+                            #headerInput
+                            type="text"
+                            [(ngModel)]="emailForInvitation"
+                            name="keyword"
+                            text-center
+                            placeholder="enter email">
+                    </ion-input>
+
+                </div>
+
+                <div *ngIf="errorEmailForInvitation" class="invitation_error">
+                    The email must be a valid email address
+                </div>
+
+                <div *ngIf="userNotAgent" class="invitation_error">
+                    The user with this mail can not be added to the group
+                </div>
+
+                <div *ngIf="groupExist" class="invitation_error">
+                    The agent with this mail is already in your group
+                </div>
+
+                <div>
+                    <button ion-button round small (click)="inviteUser()">
+                        Send an invitation
+                    </button>
+                </div>
+
+            </ion-col>
+        </ion-row>
+
+
+        <!-- todo если агент которого собирались пригласить уже существует в системе -->
+        <ion-row *ngIf="invitationAgent" class="no_result">
+            <ion-col text-center>
+
+                <div text-center>
+                    <div>An agent with email  </div>
+                    <div><b>{{ emailForInvitation }}</b></div>
+                    <div>already exists</div>
+
+
+                </div>
+
+                <!--<div class="invitation_block">-->
+                    <!--<ion-input-->
+                            <!--#headerInput-->
+                            <!--type="text"-->
+                            <!--[(ngModel)]="emailForInvitation"-->
+                            <!--name="keyword"-->
+                            <!--text-center-->
+                            <!--placeholder="enter email">-->
+                    <!--</ion-input>-->
+
+                <!--</div>-->
+
+
+                <div>
+                    <button ion-button round small (click)="addAgentConfirmation(invitationAgent)">
+                        Add to group
+                    </button>
+                </div>
+
             </ion-col>
         </ion-row>
 

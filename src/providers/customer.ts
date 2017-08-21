@@ -68,19 +68,19 @@ export class Customer {
      * Сохранение данных по маске
      *
      */
-    saveMask(mask: any, newMask: boolean, salesmenId: any) {
+    saveMask(mask: any, newMask: boolean, salesmenId: any, regionId: number) {
 
         // todo переделать на один роут
 
         if (newMask) {
 
-            console.log(salesmenId);
+            // console.log(salesmenId);
 
-            return this.api.post('api/saveNewMask', {mask: mask, salesmenId: salesmenId});
+            return this.api.post('api/saveNewMask', {mask: mask, salesmenId: salesmenId, regionId: regionId});
 
         } else {
 
-            return this.api.post('api/saveMask', {mask: mask, salesmenId: salesmenId});
+            return this.api.post('api/saveMask', {mask: mask, salesmenId: salesmenId, regionId: regionId});
         }
 
     }

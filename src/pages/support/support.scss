@@ -1,0 +1,55 @@
+page-support {
+
+  ion-content {
+
+    background: #F8F8F8 !important;
+
+    .spinnerLoading {
+      text-align: center;
+      margin-top: 20%;
+    }
+
+    .support-row {
+      color: grey;
+      margin-top: 5px;
+      padding: 10px 2px 10px 20px;
+
+      .data-col{
+        border-bottom: 1px solid #92AFC9;
+        padding: 10px 10px;
+
+        .sphere-name {
+          font-size: 12px;
+        }
+
+        .name {
+          font-size: 14px;
+          font-weight: 600;
+
+          .surname {
+
+          }
+        }
+
+        .phone {
+          font-size: 10px;
+        }
+      }
+
+      .phone-icon {
+        font-size: 18px;
+        color: #E0EAF3;
+        cursor: pointer;
+
+        .icon{
+          background: #337AB7;
+          border-radius: 20px;
+          padding: 10px 13px;
+        }
+
+      }
+    }
+
+  }
+
+}

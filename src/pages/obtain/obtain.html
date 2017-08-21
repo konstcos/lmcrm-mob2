@@ -26,19 +26,23 @@
             <!--<p >{{ item.sphere.name }} ({{ item.mask.name }}) </p>-->
 
             <div text-left>
-                <div class="data_time"><span class="time">{{ item.auction_added.time }}</span> {{
-                    item.auction_added.date }}
+                <div class="data_time">
+                    <span class="time">{{ item.auction_added.time }}</span>
+                    {{item.auction_added.date }}
                 </div>
                 <div class="opened">
                     <ion-icon ios="ios-eye" md="md-eye"></ion-icon>
-                    {{ item.opened }}
+                    <span class="count">{{ item.opened }}</span> <span class="price"><b>&#8362;</b> {{ item.price }}</span>
                 </div>
             </div>
 
 
             <div item-right class="item-right-data" text-right>
 
-                <div class="lead_name">{{ item.name }}</div>
+                <div class="lead_name">
+                    <span *ngIf="item.isSeen == 0" class="new_obtain">new</span>
+                    {{ item.name }}
+                </div>
                 <div class="sphere_name"> (<span class="mask_name">{{ item.mask.name }}</span>) {{ item.sphere.name }}
                 </div>
 
@@ -52,13 +56,16 @@
 
     <ion-row *ngIf="noItems && !isFilterOn && roles.role == 'agent'" class="no_leads_row" text-center>
         <ion-col>
-            <div class="icon"><ion-icon name="md-contract"></ion-icon></div>
+            <div class="icon">
+                <ion-icon name="md-contract"></ion-icon>
+            </div>
 
             <div class="leads_text">
                 <div> You do not have any leads</div>
                 <div class="take_leads"> To get the leads, select the mask</div>
                 <div class="take_leads">on the client filter page</div>
-                <button small ion-button color="primary" class="mask_button" (click)="customerPage()"> Select mask </button>
+                <button small ion-button color="primary" class="mask_button" (click)="customerPage()"> Select mask
+                </button>
             </div>
 
         </ion-col>
@@ -66,7 +73,9 @@
 
     <ion-row *ngIf="noItems && !isFilterOn && roles.role != 'agent'" class="no_leads_row" text-center>
         <ion-col>
-            <div class="icon"><ion-icon name="md-contract"></ion-icon></div>
+            <div class="icon">
+                <ion-icon name="md-contract"></ion-icon>
+            </div>
 
             <div class="leads_text">
                 <div> You do not have any leads</div>
@@ -80,7 +89,9 @@
 
     <ion-row *ngIf="noItems && isFilterOn" class="no_leads_row" text-center>
         <ion-col>
-            <div class="icon"><ion-icon name="md-contract"></ion-icon></div>
+            <div class="icon">
+                <ion-icon name="md-contract"></ion-icon>
+            </div>
 
             <div class="leads_text">
                 <div> No leads by filter</div>

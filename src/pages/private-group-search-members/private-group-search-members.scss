@@ -5,6 +5,30 @@ private-group-search-members {
     padding-left: 10px;
   }
 
+  .no_result {
+    color: grey;
+    margin-top: 30px;
+
+    .invitation_block {
+      border-bottom: 1px solid #337AB7;
+      margin: 5px 18% 6px 18%;
+
+      input.text-input {
+        color: #337AB7;
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+    }
+
+    .invitation_error {
+      margin-top: 5px;
+      margin-bottom: 20px;
+      color: #FF5D5D;
+      font-size: 12px;
+    }
+
+  }
+
   .agents_block {
 
     margin-top: 20px;

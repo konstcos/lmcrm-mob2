@@ -1,0 +1,46 @@
+page-advantages {
+
+  ion-content {
+
+    background: #337AB7 !important;
+
+    .advantage-row {
+      cursor: pointer;
+      //margin-top: 15px;
+
+      .title-row {
+        font-size: 15px;
+        background: #337AB7;
+        border-top: 1px solid #155A98;
+        border-bottom: 1px solid #155A98;
+        padding: 5px 10px;
+
+        .switch {
+          font-size: 14px;
+          font-weight: 600;
+          color: #E1F1FF;
+        }
+
+        .title {
+          font-size: 14px;
+          font-weight: 600;
+          color: white;
+        }
+
+      }
+
+      .description-row {
+        background: #6387A5;
+        padding: 2px 3px 10px 3px;
+        color: #EAEEF1;
+
+        .description {
+
+        }
+      }
+
+    }
+
+  }
+
+}

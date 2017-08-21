@@ -2,38 +2,245 @@
 <!-- Основное меню -->
 <ion-menu id="main_menu" side="right" [content]="content" dir="ltr">
 
-    <ion-header>
-        <ion-toolbar color="primary">
-            <ion-title>Main menu</ion-title>
-        </ion-toolbar>
+    <ion-header class="main_menu_header">
+
+        <!--<ion-toolbar color="primary">-->
+            <!--&lt;!&ndash;<ion-title>Main menu</ion-title>&ndash;&gt;-->
+            <!--<ion-title> {{ email }} </ion-title>-->
+        <!--</ion-toolbar>-->
+
+        <div class="user_data">
+
+            <div class="name" text-right>
+                {{ surname }} {{ name }}
+            </div>
+
+            <div class="email" text-right>
+                {{ email }}
+            </div>
+
+            <div class="role" text-right>
+                {{ roles.subRole }} {{ roles.role }}
+            </div>
+
+        </div>
+
     </ion-header>
 
     <ion-content>
-        <ion-list>
 
-            <!--<button menuClose ion-item>Salesmen</button>-->
+        <div class="menu_block" *ngIf="roles.role == 'agent'">
 
-            <button *ngIf="roles.role == 'agent'" menuClose ion-item (click)="openPage(pages[6])">{{ pages[6].title }}</button>
+            <ion-row class="menu_block_row number_of_openings" (click)="openCredits()">
+                <ion-col col-2 text-center class="arrow">
+                    <ion-icon *ngIf="!creditsAmountBlock" name="ios-arrow-down-outline"></ion-icon>
+                    <ion-icon *ngIf="creditsAmountBlock" name="ios-arrow-up-outline"></ion-icon>
+                </ion-col>
+                <ion-col
+                        text-right
+                        class="label"
+                        align-self-center
+                        [innerHTML]="'user_can_open_leads' | translate:{price: highestPrice}">
+                </ion-col>
+            </ion-row>
 
-            <button *ngIf="roles.role == 'agent'" menuClose ion-item (click)="openPage(pages[3])">{{ pages[3].title }}</button>
+            <div *ngIf="creditsAmountBlock" class="all_credits_with_masks">
 
-            <button menuClose ion-item (click)="openPage(pages[5])">{{ pages[5].title }}</button>
+                <div *ngFor="let sphere of prices" class="sphere_name" text-right>
+                    <div class="name">{{ sphere.name }}</div>
 
-            <button *ngIf="roles.role == 'agent'" menuClose ion-item (click)="openSalesmen()">Salesmen</button>
-            <button *ngIf="roles.role == 'agent'" menuClose ion-item (click)="openPage(pages[0])">{{ pages[0].title }}</button>
+                    <ion-row *ngFor="let mask of sphere.masks" class="mask_row">
 
-            <button *ngIf="roles.role == 'agent'" menuClose ion-item (click)="openPage(pages[4])">{{ pages[4].title }}</button>
+                        <ion-col no-padding text-left align-self-center>
+                            {{ mask.leadsCount ? mask.leadsCount : 'not active' }}
+                        </ion-col>
 
-            <button *ngIf="roles.role == 'agent'" menuClose ion-item (click)="openPage(pages[2])">{{ pages[2].title }}</button>
+                        <ion-col no-padding text-right align-self-center>
+                            {{ mask.name }}
+                        </ion-col>
 
-            <button menuClose ion-item (click)="logout()">Logout</button>
+                    </ion-row>
 
-            <!--<button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">-->
-                <!--{{p.title}}-->
-            <!--</button>-->
+                    <ion-row *ngIf="sphere.masks.length == 0" class="mask_row">
+
+                        <ion-col no-padding text-center align-self-center>
+                            {{'main_menu_no_mask' | translate}}
+                        </ion-col>
+
+                    </ion-row>
+
+                </div>
+
+            </div>
+
+        </div>
 
 
-        </ion-list>
+        <div class="menu_block" *ngIf="roles.role == 'agent'">
+
+            <ion-row class="menu_block_row number_of_openings" (click)="openLeadsCount()">
+                <ion-col col-2 text-center class="arrow">
+                    <ion-icon *ngIf="!creditsAmountBlock" name="ios-arrow-down-outline"></ion-icon>
+                    <ion-icon *ngIf="creditsAmountBlock" name="ios-arrow-up-outline"></ion-icon>
+                </ion-col>
+                <ion-col
+                        text-right
+                        class="label"
+                        align-self-center
+                        [innerHTML]="'user_have_leads' | translate:{amount: leadsBySphereSum}">
+                </ion-col>
+            </ion-row>
+
+            <div *ngIf="leadCountBlock" class="all_credits_with_masks">
+
+                <div *ngFor="let leads of leadsBySphere" class="leads_count_row" text-right>
+
+                    <ion-row class="">
+
+                        <ion-col no-padding text-left align-self-center class="count">
+                            {{ leads.count }}
+                        </ion-col>
+
+                        <ion-col no-padding text-right align-self-center class="name">
+                            {{ leads.name }}
+                        </ion-col>
+
+                    </ion-row>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="menu_block">
+
+            <ion-row class="menu_block_row" *ngIf="roles.role == 'agent'" menuClose (click)="openPage(pages[6])">
+                <ion-col col-1>
+
+                </ion-col>
+                <ion-col text-right>
+                    {{ pages[6].title }}
+                </ion-col>
+                <ion-col col-2 text-center>
+                    <ion-icon name="md-settings"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="menu_block_row" *ngIf="roles.role == 'agent'" menuClose (click)="openPage(pages[3])">
+                <ion-col col-1>
+
+                </ion-col>
+                <ion-col text-right>
+                    {{ pages[3].title }}
+                </ion-col>
+                <ion-col col-2 text-center>
+                    <ion-icon name="ios-card"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="menu_block_row" menuClose (click)="openPage(pages[5])">
+                <ion-col col-1>
+
+                </ion-col>
+                <ion-col text-right>
+                    {{ pages[5].title }}
+                </ion-col>
+                <ion-col col-2 text-center>
+                    <ion-icon name="md-alarm"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="menu_block_row" *ngIf="roles.role == 'agent'" menuClose (click)="openSalesmen()">
+                <ion-col col-1>
+
+                </ion-col>
+                <ion-col text-right>
+                    Salesman
+                </ion-col>
+                <ion-col col-2 text-center>
+                    <ion-icon name="md-contacts"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="menu_block_row" *ngIf="roles.role == 'agent'" menuClose (click)="openPage(pages[0])">
+                <ion-col col-1>
+
+                </ion-col>
+                <ion-col text-right>
+                    {{ pages[0].title }}
+                </ion-col>
+                <ion-col col-2 text-center>
+                    <ion-icon name="md-funnel"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="menu_block_row" *ngIf="roles.role == 'agent'" menuClose (click)="openPage(pages[4])">
+                <ion-col col-1>
+
+                </ion-col>
+                <ion-col text-right>
+                    {{ pages[4].title }}
+                </ion-col>
+                <ion-col col-2 text-center>
+                    <ion-icon name="ios-people"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="menu_block_row" menuClose (click)="openPage(pages[2])">
+                <ion-col col-1>
+
+                </ion-col>
+                <ion-col text-right>
+                    {{ pages[2].title }}
+                </ion-col>
+                <ion-col col-2 text-center>
+                    <ion-icon name="md-stats"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+        <div class="menu_block">
+
+            <ion-row class="menu_block_row" menuClose (click)="logout()">
+                <ion-col col-1>
+
+                </ion-col>
+                <ion-col text-right>
+                    Logout
+                </ion-col>
+                <ion-col col-2 text-center>
+                    <ion-icon name="md-log-out"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+        <!--<ion-list>-->
+
+            <!--<button *ngIf="roles.role == 'agent'" menuClose ion-item (click)="openPage(pages[6])">{{ pages[6].title }}</button>-->
+
+            <!--<button *ngIf="roles.role == 'agent'" menuClose ion-item (click)="openPage(pages[3])">{{ pages[3].title }}</button>-->
+
+            <!--<button menuClose ion-item (click)="openPage(pages[5])">{{ pages[5].title }}</button>-->
+
+            <!--<button *ngIf="roles.role == 'agent'" menuClose ion-item (click)="openSalesmen()">Salesmen</button>-->
+            <!--<button *ngIf="roles.role == 'agent'" menuClose ion-item (click)="openPage(pages[0])">{{ pages[0].title }}</button>-->
+
+            <!--<button *ngIf="roles.role == 'agent'" menuClose ion-item (click)="openPage(pages[4])">{{ pages[4].title }}</button>-->
+
+            <!--<button menuClose ion-item (click)="openPage(pages[2])">{{ pages[2].title }}</button>-->
+
+            <!--<button menuClose ion-item (click)="logout()">Logout</button>-->
+
+            <!--&lt;!&ndash;<button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">&ndash;&gt;-->
+                <!--&lt;!&ndash;{{p.title}}&ndash;&gt;-->
+            <!--&lt;!&ndash;</button>&ndash;&gt;-->
+
+        <!--</ion-list>-->
+
     </ion-content>
 </ion-menu>
 <!-- конец Основное меню -->
@@ -85,6 +292,72 @@
 
         </div>
 
+
+        <!-- Остальное для open-->
+        <div *ngIf="childPage=='open'" class="filter_block">
+
+            <ion-row class="filter_name">
+                <ion-col>
+                    Other
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="sphere_filter_item" (click)="selectShowArchive()">
+                <ion-col col-2 text-center>
+
+
+                    <ion-icon *ngIf="filter.archiveShow == 1" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>
+                    <ion-icon *ngIf="filter.archiveShow == 0" name="md-square-outline"></ion-icon>
+
+                </ion-col>
+
+                <ion-col>
+                    Show archive
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+
+
+        <!-- Остальное для obtain-->
+        <div *ngIf="childPage=='obtain'" class="filter_block">
+
+            <ion-row class="filter_name">
+                <ion-col>
+                    Other
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="sphere_filter_item" (click)="selectExposureOnly()">
+                <ion-col col-2 text-center>
+
+
+                    <ion-icon *ngIf="filter.exposureOnly == 1" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>
+                    <ion-icon *ngIf="filter.exposureOnly == 0" name="md-square-outline"></ion-icon>
+
+                </ion-col>
+
+                <ion-col>
+                    Only exposure
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="sphere_filter_item" (click)="selectNotOpenOnly()">
+                <ion-col col-2 text-center>
+
+
+                    <ion-icon *ngIf="filter.notOpenOnly == 1" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>
+                    <ion-icon *ngIf="filter.notOpenOnly == 0" name="md-square-outline"></ion-icon>
+
+                </ion-col>
+
+                <ion-col>
+                    Only not open Leads
+                </ion-col>
+            </ion-row>
+
+        </div>
 
 
         <!-- Сферы фильтра -->
@@ -200,19 +473,6 @@
             </ion-row>
 
 
-            <!--<ion-row class="sphere_filter_item" *ngIf="openLeadStatuses.length != 0" (click)="clearOpenLeadStatusesFilter()">-->
-                <!--<ion-col col-2 text-center>-->
-
-                    <!--<ion-icon *ngIf="filter.openLeadStatus.length == 0" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>-->
-                    <!--<ion-icon *ngIf="filter.openLeadStatus.length != 0" name="md-square-outline"></ion-icon>-->
-
-                <!--</ion-col>-->
-
-                <!--<ion-col>-->
-                    <!--No status-->
-                <!--</ion-col>-->
-            <!--</ion-row>-->
-
 
             <ion-row class="sphere_filter_item" *ngFor="let status of openLeadStatuses" (click)="selectOpenLeadStatuses(status)">
                 <ion-col col-2 text-center>
@@ -310,33 +570,6 @@
 
         </div>
 
-
-        <!-- Остальное -->
-        <div *ngIf="childPage=='obtain'" class="filter_block">
-
-            <ion-row class="filter_name">
-                <ion-col>
-                    Other
-                </ion-col>
-            </ion-row>
-
-            <ion-row class="sphere_filter_item" (click)="selectNotOpenOnly()">
-                <ion-col col-2 text-center>
-
-
-                    <ion-icon *ngIf="filter.notOpenOnly == 1" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>
-                    <ion-icon *ngIf="filter.notOpenOnly == 0" name="md-square-outline"></ion-icon>
-
-                </ion-col>
-
-                <ion-col>
-                    Only not open Leads
-                </ion-col>
-            </ion-row>
-
-        </div>
-
-
     </ion-content>
 
     <ion-footer>
@@ -366,14 +599,31 @@
             <!--</button>-->
 
         <!--<ion-icon name="menu"></ion-icon>-->
-        <ion-title text-right>
-            LM CRM
-        </ion-title>
+        <!--<ion-title text-right>-->
+            <!--LM CRM-->
+            <!--CONTACT-->
+            <div class="logo_image">
+                <img src="assets/img/logo3.png" alt="logo">
+            </div>
+        <!--</ion-title>-->
 
 
         <ion-buttons left>
-            <!--<button ion-button icon-only (click)="testClick()">-->
-            <button ion-button icon-only>
+
+            <button ion-button icon-only (click)="popoverMenu($event)">
+                <ion-icon name="md-more"></ion-icon>
+            </button>
+
+            <button *ngIf="roles.role == 'agent'" ion-button icon-only (click)="openSupportPage()">
+                <img width="20px" class="img_support" src="assets/img/suport_icon.png" alt="support">
+            </button>
+
+
+            <button ion-button icon-only (click)="openCalculatorPage()">
+                <ion-icon name="ios-calculator"></ion-icon>
+            </button>
+
+            <button ion-button icon-only (click)="openSearchPage()">
                 <ion-icon name="search"></ion-icon>
             </button>
 
@@ -440,7 +690,7 @@
 <ion-content #content class="no-scroll" dir="ltr">
 
     <!--<ion-tabs color="primary" class="withNavbar">-->
-    <ion-tabs color="primary" tabsPlacement="top" tabsHighlight="true" selectedIndex="2">
+    <ion-tabs #mainTabs color="primary" tabsPlacement="top" tabsHighlight="true" selectedIndex="2">
         <ion-tab trimHistory [root]="deposited" [tabTitle]="depositedTitle"></ion-tab>
         <ion-tab trimHistory [root]="open" [tabTitle]="openTitle"></ion-tab>
         <ion-tab trimHistory [root]="obtain" [tabTitle]="obtainTitle"></ion-tab>

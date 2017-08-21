@@ -1,5 +1,13 @@
 import {Component, Input, ViewChild} from '@angular/core';
-import {NavController, NavParams, ViewController, Content, AlertController, ModalController, ToastController} from 'ionic-angular';
+import {
+    NavController,
+    NavParams,
+    ViewController,
+    Content,
+    AlertController,
+    ModalController,
+    ToastController
+} from 'ionic-angular';
 
 import {PrivateGroupPage} from '../private-group/private-group'
 
@@ -70,6 +78,50 @@ export class PrivateGroupSearchMemberPage {
     public agents: any = [];
 
 
+    /**
+     * Почта пользователя для приглашения в систему
+     *
+     */
+    public emailForInvitation: string = '';
+
+
+    /**
+     * Ошибка в мэиле для приглашения
+     *
+     */
+    public errorEmailForInvitation: boolean = false;
+
+
+    /**
+     * Пользователь не агент, и неможет быть добавленнв группу
+     *
+     */
+    public userNotAgent: boolean = false;
+
+
+    /**
+     * Пользователь с таким мэилом уже присутствует в группу
+     *
+     */
+    public groupExist: boolean = false;
+
+
+    /**
+     * Данные пользователя которого нужно пригласить в группу
+     * полученные через инвойты
+     * его хотели пригласить, а он уже есть
+     *
+     */
+    public invitationAgent: any = false;
+
+
+    /**
+     * Нет пользователей по результату поиска
+     *
+     */
+    public noUsers: boolean = false;
+
+
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 public view: ViewController,
@@ -78,28 +130,7 @@ export class PrivateGroupSearchMemberPage {
                 public modalCtrl: ModalController,
                 private toastCtrl: ToastController) {
 
-        // public privateGroup: PrivateGroup
-
         // let subRole = this.navParams.get('subRole');
-
-
-        // this.privateGroup.members()
-        //     .subscribe(data => {
-        //
-        //         console.log('получение участников');
-        //
-        //         let res = data.json();
-        //
-        //
-        //         // console.log(res);
-        //
-        //     }, err => {
-        //
-        //         console.log('Error ' + err);
-        //
-        //     });
-
-        console.log('страница добавление участника в приватную группу');
     }
 
 
@@ -139,6 +170,21 @@ export class PrivateGroupSearchMemberPage {
         // меняем представление формы в шапке
         this.searchHeaderKey = true;
 
+        // обнуляем переменнуя мэилом приглашения
+        this.emailForInvitation = '';
+
+        // обнуляем переменнуя с ошибкой мэила приглашения
+        this.errorEmailForInvitation = false;
+
+        // выключение плока показывающего что пользователь неможет быть добавленн в группу
+        this.userNotAgent = false;
+
+        // обнуляем данные пользователя для приглашения
+        this.invitationAgent = false;
+
+        // убираем блок, который сообщает что агент уже присутствует в группе
+        this.groupExist = false;
+
         // если меняется значение формы в шапке
         if (!searchHeaderKeyOld) {
             // пересчитываем размер контента
@@ -148,6 +194,8 @@ export class PrivateGroupSearchMemberPage {
         // показываем спинер загрузки
         this.spinnerKey = true;
 
+        // убираем блок с отсутствие пользователей
+        this.noUsers = false;
 
         // console.log(this.keyword);
 
@@ -163,12 +211,20 @@ export class PrivateGroupSearchMemberPage {
 
                 this.agents = res.agents;
 
-                console.log(res);
+                // console.log(res);
+
+                if (res.agents.length == 0) {
+                    // выводим блок отсутствия пользователя
+                    this.noUsers = true;
+                }
 
                 // показываем контент
                 this.searchContentKey = true;
 
             }, err => {
+
+                // прячем индикатор загрузки
+                this.spinnerKey = false;
 
                 console.log('Error ' + err);
 
@@ -192,7 +248,7 @@ export class PrivateGroupSearchMemberPage {
             if (data.status == 'success') {
                 // успешно добавлени
 
-                // todo тост успешного добавления
+                // тост успешного добавления
                 let toast = this.toastCtrl.create({
                     message: 'Success added. ' + data.agent.first_name + ' ' + data.agent.last_name + ' added to you private group',
                     duration: 3000,
@@ -214,7 +270,7 @@ export class PrivateGroupSearchMemberPage {
             } else if (data.info == 'agent_not_added') {
                 // ошибка добавления
 
-                // todo тост об ошибке
+                // тост об ошибке
                 let toast = this.toastCtrl.create({
                     message: 'Not added. ' + data.agent.first_name + ' ' + data.agent.last_name + ' NOT added to you group',
                     duration: 3000,
@@ -287,12 +343,145 @@ export class PrivateGroupSearchMemberPage {
 
 
     /**
+     * Отправка приглашения пользователю
+     *
+     */
+    inviteUser() {
+
+        // проверка на пустое поле
+        if (this.emailForInvitation == '') {
+            // если поле пустое
+            // выходим из метода
+            return false;
+        }
+
+        // прячем индикатор загрузки
+        this.spinnerKey = true;
+
+        // убираем блок отсутствия пользователя
+        this.noUsers = false;
+
+        // обнуляем переменнуя с ошибкой мэила приглашения
+        this.errorEmailForInvitation = false;
+
+        // выключение плока показывающего что пользователь неможет быть добавленн в группу
+        this.userNotAgent = false;
+
+        // обнуляем данные пользователя для приглашения
+        this.invitationAgent = false;
+
+        // убираем блок, который сообщает что агент уже присутствует в группе
+        this.groupExist = false;
+
+        this.privateGroup.inviteUser(this.emailForInvitation)
+            .subscribe(data => {
+
+                // console.log('поиск участников');
+
+                let res = data.json();
+
+                // прячем индикатор загрузки
+                this.spinnerKey = false;
+
+                console.log(res);
+
+                if (res.status == 'success') {
+
+                    // обработка результата ответа
+                    switch (res.state) {
+
+                        case 'invitationSent':
+                            // приглашение пользователю отправленно нормально
+
+                            // тост что пользователь приглашен
+                            let toast = this.toastCtrl.create({
+                                message: 'Invitation sent successfully to user ' + this.emailForInvitation,
+                                duration: 4000,
+                                position: 'bottom'
+                            });
+
+
+                            this.keyword = '';
+
+                            // очищаем данные поиска
+                            this.emailForInvitation = '';
+
+                            // переход на основную форму поиска
+                            this.searchFormKey = true;
+
+                            toast.present();
+                            break;
+
+                        case 'userNotAgent':
+                            // пользователя нельзя добавить в систему
+
+                            // выводим блок отсутствия пользователя
+                            this.noUsers = true;
+
+                            // выключение плока показывающего что пользователь неможет быть добавленн в группу
+                            this.userNotAgent = true;
+
+                            console.log('userNotAgent');
+                            break;
+
+                        case 'userExist':
+                            // сообщение что пользователь существует, кнопка добавления его в группу
+
+                            // выводим блок отсутствия пользователя
+                            // this.noUsers = true;
+
+                            this.invitationAgent = res.agent;
+
+                            console.log('userExist');
+                            console.log(res);
+
+                            break;
+
+                        case 'groupExist':
+                            // пользователь уже присутствует в группе
+
+                            // показываем блок, который сообщает что агент уже присутствует в группе
+                            this.groupExist = true;
+
+                            // выводим блок отсутствия пользователя
+                            this.noUsers = true;
+
+                            console.log('groupExist');
+                            break;
+                    }
+
+
+                } else if (res.status == 'fail') {
+
+                    this.errorEmailForInvitation = true;
+
+                    // выводим блок отсутствия пользователя
+                    this.noUsers = true;
+
+                } else {
+
+                    // выводим блок отсутствия пользователя
+                    this.noUsers = true;
+                }
+
+
+
+            }, err => {
+
+                // прячем индикатор загрузки
+                this.spinnerKey = false;
+
+                console.log('Error ' + err);
+
+            });
+    }
+
+
+    /**
      * Добавить агента в группу
      *
      */
     addAgent(agent) {
-
-
 
         // console.log(statuses);
         let modal = this.modalCtrl.create(PrivateGroupAddMemberPage, {agent: agent});

@@ -153,8 +153,8 @@ export class DepositedPage {
      *
      */
     checkNotices(notices) {
-        this.events.publish('notice:new', notices);
-        this.events.publish('badge:set', notices);
+        this.events.publish('notice:new', notices.notice);
+        this.events.publish('badge:set', notices.auction);
     }
 
 
@@ -257,11 +257,30 @@ export class DepositedPage {
                 console.log(data);
 
                 localStorage.setItem('roles', JSON.stringify(data.roles));
-                this.events.publish('roles:get', data.roles);
+
+                let agentData = {
+                    roles: data.roles,
+                    name: data.name,
+                    surname: data.surname,
+                    email: data.email,
+                    prices: data.spherePrice,
+                    leadsBySphere: data.leadsBySphere,
+                };
+
+                this.events.publish('agentData:get', agentData);
 
                 this.roles = data.roles;
 
-                this.checkNotices(data.notices);
+                /**
+                 * Количество уведомлений
+                 *
+                 */
+                let notices = {
+                    notice: data.notices,
+                    auction: data.auctionCount,
+                };
+
+                this.checkNotices(notices);
 
                 // вычесляем количество итемов
                 let itemsLength = data.leads.length;

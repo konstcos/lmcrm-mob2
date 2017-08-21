@@ -25,6 +25,11 @@
                     <ion-icon name="md-alarm"></ion-icon>
                 </button>
             </ion-col>
+            <ion-col col-3 text-right align-self-center class="archive" [ngClass]="item.archive == 1 ? 'zipped' : ''" (click)="archive(item)">
+                archive
+                <ion-icon *ngIf="item.archive == 0" name="md-square-outline" class="archive_icon"></ion-icon>
+                <ion-icon *ngIf="item.archive == 1" name="md-checkbox-outline" class="archive_icon selected_icon"></ion-icon>
+            </ion-col>
         </ion-row>
 
 
@@ -32,13 +37,13 @@
 
             <ion-row>
 
-                <ion-col>
-                    <h2 >{{ item.lead.name }} {{ item.lead.surname }}</h2>
+                <ion-col class="item-left-data" text-left>
+                    <div class="date"> <span class="time">{{ item.date.time }}</span> {{ item.date.date }}</div>
+                    <div> {{ item.lead.sphere.name }}</div>
                 </ion-col>
 
-                <ion-col class="item-right-data" text-right>
-                    <div> {{ item.lead.sphere.name }}</div>
-                    <div> {{ item.date.time }} {{ item.date.date }}</div>
+                <ion-col text-right>
+                    <div class="name">{{ item.lead.surname }} {{ item.lead.name }}</div>
                 </ion-col>
 
             </ion-row>
@@ -48,9 +53,72 @@
 
         <ion-row>
             <ion-col>
-                <button ion-button small full (click)="changeStatus(item)">
-                    {{ item.status_info ? item.status_info.stepname : 'No status' }}
-                </button>
+
+                <div *ngIf="roles.subRole == 'leadbayer'">
+
+                    <div *ngIf="item.close_deal_info">
+
+                        <div class="deal_is_closed">
+
+                            <div class="name"> deal is closed</div>
+
+                            <ion-row class="deal_data_row">
+
+                                <ion-col>
+                                    <div class="deal_data_title">deal name</div>
+                                    <div  class="deal_data_data">{{ item.status_info.stepname }}</div>
+                                </ion-col>
+
+                                <ion-col>
+                                    <div class="deal_data_title">deal price</div>
+                                    <div  class="deal_data_data"><b>&#8362;</b> {{ item.close_deal_info.price }}</div>
+                                </ion-col>
+
+                            </ion-row>
+
+
+                            <!--<ion-row class="deal_data_row">-->
+
+                                <!--<ion-col col-4 class="deal_data_title">-->
+                                    <!--deal name:-->
+                                <!--</ion-col>-->
+
+                                <!--<ion-col class="deal_data_data">-->
+                                    <!--{{ item.status_info.stepname }}-->
+                                <!--</ion-col>-->
+
+                            <!--</ion-row>-->
+
+                            <!--<ion-row class="deal_data_row">-->
+
+                                <!--<ion-col col-4 class="deal_data_title">-->
+                                    <!--deal price:-->
+                                <!--</ion-col>-->
+
+                                <!--<ion-col class="deal_data_data">-->
+                                    <!--&#8362; {{ item.close_deal_info.price }}-->
+                                <!--</ion-col>-->
+
+                            <!--</ion-row>-->
+
+                        </div>
+
+                    </div>
+
+                    <div *ngIf="!item.close_deal_info">
+                        <button ion-button small full (click)="changeStatus(item)">
+                            {{ item.status_info ? item.status_info.stepname : 'No status' }}
+                        </button>
+                    </div>
+
+                </div>
+
+                <div *ngIf="roles.subRole == 'dealmaker'">
+                    <button ion-button small full (click)="changeStatus(item)">
+                        {{ item.status_info ? item.status_info.stepname : 'No status' }}
+                    </button>
+                </div>
+
             </ion-col>
 
         </ion-row>

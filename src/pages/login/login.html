@@ -12,23 +12,24 @@
 
     <ion-row>
         <ion-col text-center class="logo_image">
-            <img src="assets/img/logo2.png" alt="logo">
+            <img src="assets/img/logo3.png" alt="logo">
         </ion-col>
     </ion-row>
 
-    <ion-row>
-        <ion-col text-center  class="logo_text">
-            LM CRM
-        </ion-col>
-    </ion-row>
-
+    <!--<ion-row>-->
+        <!--<ion-col text-center class="logo_text">-->
+            <!--{{'LOGIN_LOGO' | translate}}-->
+        <!--</ion-col>-->
+    <!--</ion-row>-->
 
     <form (submit)="doLogin()">
         <ion-list>
 
             <ion-item color="primary">
-                <!--<ion-label fixed>{{ 'EMAIL' | translate }}</ion-label>-->
-                <ion-input type="email" placeholder="EMAIL" [(ngModel)]="account.email" name="email"></ion-input>
+                <ion-input type="email"
+                           placeholder="{{'LOGIN_EMAIL_PLACEHOLDER' | translate}}"
+                           [(ngModel)]="account.email"
+                           name="email"></ion-input>
             </ion-item>
 
             <!--
@@ -41,8 +42,10 @@
             -->
 
             <ion-item color="primary">
-                <!--<ion-label fixed>{{ 'PASSWORD' | translate }}</ion-label>-->
-                <ion-input type="password" placeholder="PASSWORD" [(ngModel)]="account.password" name="password"></ion-input>
+                <ion-input type="password"
+                           placeholder="{{'LOGIN_PASSWORD_PLACEHOLDER' | translate}}"
+                           [(ngModel)]="account.password"
+                           name="password"></ion-input>
             </ion-item>
 
         </ion-list>
@@ -53,10 +56,17 @@
 
     </form>
 
-    <hr color="secondary" >
+    <hr color="secondary">
 
     <div padding>
-        <button ion-button color="secondary" block (click)="singUp()">QUICK REGISTRATION</button>
+        <button ion-button color="secondary" block (click)="singUp()">
+            {{ 'SIGNUP_TITLE' | translate }}
+        </button>
+    </div>
+
+
+    <div padding (click)="openAdvantagesPage()" text-center class="advantages_linc">
+        {{ 'LOGIN_ADVANTAGES' | translate }}
     </div>
 
 </ion-content>

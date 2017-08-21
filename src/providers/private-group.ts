@@ -56,10 +56,19 @@ export class PrivateGroup {
 
 
     /**
+     * Приглашение пользователя в группу
+     *
+     */
+    inviteUser(email: string) {
+        return this.api.post('api/private/invite/user', {email: email});
+    }
+
+
+    /**
      * Получение с сервера итемов обтэин
      */
-    changeStatus(data: any) {
-        return this.api.post('api/changeOpenLeadStatus', data);
-    }
+    // changeStatus(data: any) {
+    //     return this.api.post('api/changeOpenLeadStatus', data);
+    // }
 
 }

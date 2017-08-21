@@ -53,7 +53,7 @@ export class RegistrationDataPersonalPage {
      * Выбранные регионы
      *
      */
-    selectRegions: any = [];
+    public selectRegions: any = [];
 
 
     /**
@@ -329,7 +329,6 @@ export class RegistrationDataPersonalPage {
                     this.selectRegions = newRegions;
                     break;
 
-
                 }
 
             } else {
@@ -347,6 +346,7 @@ export class RegistrationDataPersonalPage {
 
         // console.log(region);
     }
+
 
     /**
      * Проверка статуса

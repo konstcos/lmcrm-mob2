@@ -14,6 +14,7 @@ import {MainPage} from '../main/main'
 import {OpenLeadOrganizerPage} from '../open-lead-organizer/open-lead-organizer'
 
 import {MessagesFilterPage} from '../messages-filter/messages-filter'
+import {CorrespondencePage} from '../correspondence/correspondence'
 
 import {User} from '../../providers/user';
 import {Notification} from '../../providers/notification';
@@ -50,6 +51,13 @@ export class MessagesPage {
 
 
     /**
+     * Итемы сообщений
+     *
+     */
+    public messages: any = [];
+
+
+    /**
      * Есть еще нотификации на сервере или нет
      *
      */
@@ -64,6 +72,16 @@ export class MessagesPage {
      *
      */
     public isNotificationEmpty: boolean = false;
+
+
+    /**
+     * Есть еще итемы сообщений или нет
+     *
+     * true - нотификаций больше нет
+     * false - нотификации еще есть
+     *
+     */
+    public isMessagesEmpty: boolean = false;
 
 
     /**
@@ -124,6 +142,20 @@ export class MessagesPage {
      *
      */
     public isNoticeFilterOn: boolean = false;
+
+
+    /**
+     * Количество непрочитанных сообщений
+     *
+     */
+    public countUnreadMessages: number = 0;
+
+
+    /**
+     * Количество неотмеченных уведомлений
+     *
+     */
+    public countUnmarkedNotices: number = 0;
 
 
     /**
@@ -201,6 +233,24 @@ export class MessagesPage {
 
 
     /**
+     * Событие по изменению сегмента
+     *
+     */
+    segmentChanged(event) {
+
+        if (this.segmentSwitch == 'messages' && this.messages.length == 0) {
+
+            this.loadMessages();
+            // console.log('загрузка сообщений ');
+        }
+
+        // console.log('смена сегмента: ');
+        // console.log(event);
+        // console.log(this.segmentSwitch);
+    }
+
+
+    /**
      * Загрузка типов уведомлений
      *
      */
@@ -257,6 +307,7 @@ export class MessagesPage {
         } else if (this.segmentSwitch == 'messages') {
             // если сообщения
 
+            this.loadMessages(refresher);
 
         }
     }
@@ -277,7 +328,7 @@ export class MessagesPage {
         } else if (this.segmentSwitch == 'messages') {
             // если сообщения
 
-
+            this.loadMessages(infinityScroll, false);
         }
     }
 
@@ -367,6 +418,12 @@ export class MessagesPage {
 
                     // добавляем итемы к существующим
                     this.notices = this.notices.concat(res.notices);
+
+                    // количество непрочитанных сообщений
+                    this.countUnreadMessages = res.countUnreadMessages;
+
+                    // количество неотмеченных уведомлений
+                    this.countUnmarkedNotices = res.countUnmarkedNotices;
                 }
 
             }, err => {
@@ -388,6 +445,123 @@ export class MessagesPage {
                 this.notices = [];
 
                 this.isNotificationEmpty = true;
+
+                console.log('Error ' + err);
+            });
+    }
+
+
+    /**
+     * Получение всех сообщений
+     *
+     */
+    loadMessages(refresher: any = false, itemClear: boolean = true) {
+
+        // return false;
+
+        // если есть указание на очистку итемов
+        if (itemClear) {
+
+            // обнулить все итемы уведомлений
+            this.messages = [];
+
+            // todo завести переменную наличия итемов в true
+        }
+
+        // если загрузка идет не по рефрешу или инфинити
+        // показывается индикатор общей загрузки
+        if (!refresher) {
+            this.isLoading = true;
+        }
+
+        // помечаем что нотификации есть (здесь мы еще в это верим)
+        this.isMessagesEmpty = false;
+
+        // todo отсутствие нотификаций по фильтру (помечаем что они есть)
+        // this.noNotificationByFilter = false;
+
+        // включаем переменную наличия итемов
+        this.isThereStillNoticeItems = true;
+
+        // если итемов нет и обновление не по рефрешеру
+        // todo спрятать все окна и показать спинер загрузки
+
+
+        // запрос на получение итемов нотификаций
+        this.getMessages()
+        // подписываемся на результат
+            .subscribe(result => {
+
+                // преобразование результата в json
+                let res = result.json();
+
+                console.log(res);
+
+
+                // если спинер включен - выключить
+                if (this.isLoading) {
+                    this.isLoading = false;
+                }
+
+                // если было обновление страницы
+                if (refresher) {
+                    // отключаем окно индикатора загрузки
+                    refresher.complete();
+                }
+
+                // сценарий обработки результата
+                if (res.messages.length == 0 && this.messages == 0) {
+                    // если итемов не получанно и общее количество итемов равняется 0
+
+                    // проверка включенного фильтра
+                    if (this.isNoticeFilterOn) {
+                        // если фильтр включен
+
+                        // todo блок отсутствия итемов по фильтру
+                        // this.noNotificationByFilter = true;
+
+                    } else {
+                        // если фильтр выключен
+
+                        // показываем блок отсутствия итемов
+                        this.isMessagesEmpty = true;
+                    }
+
+                } else if (res.messages.length == 0 && this.messages != 0) {
+                    // если итемы не получены, но в целом, в системе итемы уже есть
+
+                    // помечаем что на сервере больше нет итемов
+                    this.isThereStillNoticeItems = false;
+
+                } else {
+                    // итемы полученны
+
+                    // добавляем итемы к существующим
+                    this.messages = this.messages.concat(res.messages);
+
+                    // количество непрочитанных сообщений
+                    this.countUnreadMessages = res.countUnreadMessages;
+                }
+
+            }, err => {
+
+                // todo если спинер включен - включить
+
+                // если было обновление страницы
+                if (refresher) {
+                    // отключаем окно индикатора загрузки
+                    refresher.complete();
+                }
+
+                // если было обновление страницы
+                if (refresher) {
+                    // отключаем окно индикатора загрузки
+                    refresher.complete();
+                }
+
+                this.messages = [];
+
+                this.isMessagesEmpty = true;
 
                 console.log('Error ' + err);
             });
@@ -440,6 +614,20 @@ export class MessagesPage {
 
 
     /**
+     * Загрузка итемов сообщений с сервера
+     *
+     */
+    getMessages() {
+
+        // получаем количество уже загруженных итемов
+        let offset = this.messages.length;
+
+        // возвращает promise с итемами
+        return this.notification.getMessages({offset: offset});
+    }
+
+
+    /**
      * Отметить нотификацию
      *
      */
@@ -453,6 +641,17 @@ export class MessagesPage {
 
                 if (res.status == 'success') {
                     notice.status = !notice.status;
+
+                    if(notice.status){
+
+                        this.countUnmarkedNotices = this.countUnmarkedNotices - 1;
+
+                    } else {
+
+                        this.countUnmarkedNotices = this.countUnmarkedNotices + 1;
+                    }
+
+                    // console.log(notice.status);
                 }
 
                 console.log(res);
@@ -773,7 +972,7 @@ export class MessagesPage {
      */
     openReminderData(notice) {
 
-        if(notice.event_id == 2){
+        if (notice.event_id == 2) {
 
             console.log(notice);
             // console.log(notice.notice.subject * 1);
@@ -804,11 +1003,43 @@ export class MessagesPage {
             // this.getNotificationTypes();
 
 
-
-        }else{
+        } else {
 
             return false;
         }
+    }
+
+
+    /**
+     * Открыть переписку
+     *
+     */
+    openCorrespondence(message) {
+
+        // console.log('данные сообщения: ');
+        // console.log(message);
+
+        let modal = this.modalCtrl.create(CorrespondencePage, {messageSubjectId: message});
+
+        modal.onDidDismiss(data => {
+
+            console.log(data);
+            message.viewed = 1;
+
+        });
+
+        modal.present();
+
+        this.countUnreadMessages = this.countUnreadMessages - 1;
+    }
+
+
+    /**
+     * Обновление сообщений на странице
+     *
+     */
+    messagesReload(){
+        this.loadMessages();
     }
 
 

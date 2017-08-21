@@ -28,7 +28,19 @@ registration-data-role {
 
   .role-table {
 
-    margin: 0 0 20px 15px;
+    margin: 0 0 5px 15px;
+
+    .role-group {
+      border-bottom: #ECECEC solid 1px;
+
+      .role-label {
+        font-weight: 600;
+        padding: 12px 7px 4px 0;
+        color: #7AA9D0;
+        font-size: 15px;
+      }
+
+    }
 
     .role-row {
 

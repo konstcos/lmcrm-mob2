@@ -29,6 +29,33 @@ export class Notification {
 
 
     /**
+     * Получение всех сообщений
+     *
+     */
+    getMessages(data: any) {
+        return this.api.post('api/messages', data);
+    }
+
+
+    /**
+     * Отправка сообщения
+     *
+     */
+    sendMessage(data: any) {
+        return this.api.post('api/message/send', data);
+    }
+
+
+    /**
+     * Получение всех переписки по теме
+     *
+     */
+    getCorrespondence(data: any) {
+        return this.api.post('api/message/correspondence', data);
+    }
+
+
+    /**
      * Получение типов уведомлений
      *
      */

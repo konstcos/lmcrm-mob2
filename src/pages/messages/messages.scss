@@ -1,5 +1,15 @@
 messages {
 
+  .notifications-badge {
+    background-color: #F53D3D;
+    position: absolute;
+    top: 3px;
+    //right: -10px;
+    font-size: 11px;
+    padding: 3px 6px 3px 7px;
+    border-radius: 100%;
+  }
+
   .back_arrow {
     font-size: 20px;
     padding-left: 10px;
@@ -74,6 +84,25 @@ messages {
 
     }
 
+    .message_subject_row {
+      margin-top: 10px;
+      padding: 5px 0;
+      border-bottom: 1px solid #AFAFAF;
+      color: grey;
+      cursor: pointer;
+
+      .unread {
+        color: grey;
+
+      }
+
+      .read {
+        color: #5F9ED4;
+
+      }
+
+    }
+
   }
 
   .filter_block {
@@ -116,7 +145,7 @@ messages {
 
 }
 
-.bar-button-md{
+.bar-button-md {
   ion-icon.notice_filter_on_header {
     color: #EEDA1E;
     font-size: 6px;

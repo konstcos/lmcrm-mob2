@@ -21,12 +21,11 @@ page-deposited-detail {
       }
     }
 
-    .mask_button{
+    .mask_button {
       margin-top: 20px;
     }
 
   }
-
 
   .back_arrow {
     font-size: 20px;
@@ -86,6 +85,11 @@ page-deposited-detail {
   ion-content {
 
     background: #F8F8F8 !important;
+
+    .spinnerLoading {
+      text-align: center;
+      margin-top: 20%;
+    }
 
     .data_block_header {
       color: gray;

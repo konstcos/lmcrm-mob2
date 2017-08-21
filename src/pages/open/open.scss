@@ -7,18 +7,85 @@ page-open {
 
   ion-card.open_card {
 
+    .archive {
+      font-size: 12px;
+      color: grey;
+      padding-right: 10px;
+      cursor: pointer;
+
+      &.zipped {
+        color: #4089C7;
+      }
+
+      .archive_icon {
+        font-size: 12px;
+        padding-left: 1px;
+
+        &.selected_icon {
+          //color: #6FA9DB;
+          //font-weight: 600;
+
+        }
+
+      }
+
+    }
+
     ion-card-content {
       padding-top: 0;
       padding-bottom: 0;
 
-      .item-right-data {
-        color: grey;
-        //text-align: right;
-        font-size: 12px;
+      .name {
+        color: #808080;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .item-left-data {
+        color: #6A98BF;
+        font-size: 14px;
+
+        .date {
+          color: grey;
+          font-size: 12px;
+
+          .time {
+            font-size: 10px;
+
+          }
+        }
 
         .item-right-data-time {
 
           font-size: 10px;
+        }
+
+      }
+
+    }
+
+    .deal_is_closed {
+
+      .name {
+        color: #337AB7;
+        text-transform: uppercase;
+        text-align: center;
+        margin: 10px 0 5px;
+        font-weight: 600;
+      }
+
+      .deal_data_row {
+        font-size: 12px;
+
+        .deal_data_title {
+          color: grey;
+          text-align: center;
+          font-weight: 600;
+        }
+
+        .deal_data_data {
+          color: #337AB7;
+          text-align: center;
         }
 
       }
@@ -48,7 +115,7 @@ page-open {
       }
     }
 
-    .mask_button{
+    .mask_button {
       margin-top: 20px;
     }
 
