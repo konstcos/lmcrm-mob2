@@ -1,5 +1,11 @@
 page-open-lead-deal {
 
+  .deal_name {
+    color: #337AB7;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
   ion-content {
     background: #F8F8F8 !important;
     margin-top: 20px;
@@ -14,7 +20,104 @@ page-open-lead-deal {
     //}
 
     .payment_button {
-      margin-top: 15%;
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .deal_paid {
+      background: #DFF0D8;
+      color: #41763D;
+      font-size: 14px;
+      border-radius: 5px;
+      width: 100%;
+      padding: 10px 5px;
+      text-align: center;
+    }
+
+
+    .deal_statement_block {
+
+      margin-top: 30px;
+      margin-bottom: 100px;
+
+      .statement_item {
+        color: #888888;
+        border-bottom: solid 1px #DCDCDC;
+
+        .left {
+
+          .expiry_time {
+            font-size: 14px;
+
+            .label {
+              font-size: 10px;
+            }
+
+            .time {
+              font-size: 10px;
+            }
+
+          }
+
+          .status {
+            //font-weight: 600;
+            //font-size: 12px;
+            margin-top: 5px;
+
+            .whiting_payment {
+              color: #D07D28;
+              //background: blue;
+              //padding: 3px 15px;
+              //border-radius: 10px;
+            }
+
+            .whiting_confirmed {
+              color: #337AB7;
+            }
+
+            .confirmed {
+              color: #167600;
+            }
+
+            .rejected {
+              color: #B23F3E;
+            }
+          }
+
+        }
+
+        .right {
+
+          .price {
+            font-size: 12px;
+
+            .label {
+              font-size: 10px;
+            }
+
+            .sign {
+              font-size: 10px;
+            }
+          }
+
+          .percent {
+            font-size: 22px;
+            color: #337AB7;
+
+            .label {
+              font-size: 10px;
+              color: #888888;
+            }
+
+            .sign {
+              font-size: 15px;
+            }
+          }
+
+        }
+
+      }
     }
 
     .segment_block {
@@ -199,8 +302,9 @@ page-open-lead-deal {
     font-size: 12px;
 
     .header_deal_type_label {
+      //margin-right: 5px;
       //color: #4C779D;
-      font-weight: 600;
+      //font-weight: 600;
     }
 
   }
@@ -213,7 +317,7 @@ page-open-lead-deal {
 
 .action_open_lead_deal_title {
 
-  .action-sheet-title{
+  .action-sheet-title {
     color: #337AB7;
   }
 

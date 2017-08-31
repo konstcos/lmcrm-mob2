@@ -93,4 +93,45 @@ export class Open {
         return this.api.post('api/file/delete', data);
     }
 
+
+    /**
+     * Данные по проплате за сделку с кошелька
+     */
+    paymentDealWalletData(data: any) {
+        return this.api.post('api/deal/wallet/payment/data', data);
+    }
+
+
+    /**
+     * Проплата за сделку через системный кошелек
+     */
+    paymentDealWalletMake(data: any) {
+        return this.api.post('api/deal/wallet/payment/make', data);
+    }
+
+
+    /**
+     * Создание следующей проплаты по сделке
+     */
+    dealNextPayment(data: any) {
+        return this.api.post('api/deal/next/payment', data);
+    }
+
+
+    /**
+     * Завершение сделки с несеолькими платежами
+     */
+    closeFewPaymentDeal(data: any) {
+        return this.api.post('api/deal/few/payments/close', data);
+    }
+
+
+    /**
+     * Завершение сделки с несеолькими платежами
+     */
+    paymentDealBankTransaction(data: any) {
+        return this.api.post('api/deal/bank/payment/make', data);
+    }
+
+
 }

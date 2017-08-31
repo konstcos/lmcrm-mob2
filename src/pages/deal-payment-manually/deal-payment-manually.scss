@@ -1,5 +1,21 @@
 deal-payment-manually {
 
+  .confirm_text {
+    color: grey;
+    margin: 20px 10px;
+    padding: 20px 30px 10px;
+
+    .payment_account {
+      margin: 10px 5px;
+      font-weight: 600;
+    }
+
+  }
+
+  .confirm_button {
+
+  }
+
   .credit_payment_title {
     color: #B3B3B3;
     font-size: 16px;

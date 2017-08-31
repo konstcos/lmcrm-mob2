@@ -154,7 +154,37 @@ export class OpenLeadDealPage {
         // событие по закрытию модального окна
         modal.onDidDismiss(data => {
 
-            console.log(data);
+            // console.log(data);
+
+            if (data.status == 'success') {
+                // при успешной ошплате
+
+                // алерт об успешной проплате
+                let alert = this.alertCtrl.create({
+                    title: 'Payment successful',
+                    subTitle: 'Payment passed successfully',
+                    buttons: ['OK']
+                });
+                alert.present();
+
+                // обновление страницы
+                this.getDealData();
+
+            } else if (data.status == 'fail') {
+                // при неудаче
+
+                // алерт о неудаче
+                let alert = this.alertCtrl.create({
+                    title: 'Payment fail',
+                    subTitle: 'An error occurred while making the payment',
+                    buttons: ['OK']
+                });
+                alert.present();
+
+                // обновление страницы
+                this.getDealData();
+            }
+
         });
 
         // открытие модального окна
@@ -193,6 +223,22 @@ export class OpenLeadDealPage {
 
         // событие по закрытию модального окна
         modal.onDidDismiss(data => {
+
+            if (data.status == 'success') {
+                // при успешной ошплате
+
+                // алерт об успешной проплате
+                let alert = this.alertCtrl.create({
+                    title: 'Payment successful',
+                    subTitle: 'Payment passed successfully',
+                    buttons: ['OK']
+                });
+                alert.present();
+
+                // обновление страницы
+                this.getDealData();
+
+            }
 
             console.log(data);
         });
@@ -542,6 +588,217 @@ export class OpenLeadDealPage {
 
         actionSheet.present();
 
+    }
+
+
+    /**
+     * Диалоговое окно на внесение нового платежа
+     *
+     */
+    receivedNextPaymentData() {
+
+        let prompt = this.alertCtrl.create({
+            title: 'Make next payment',
+            message: "Enter the amount of the next payment",
+            inputs: [
+                {
+                    name: 'amount',
+                    placeholder: '0',
+                    type: 'number',
+                },
+            ],
+            buttons: [
+                {
+                    text: 'Cancel',
+                    handler: data => {
+                        console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'Make',
+                    handler: data => {
+
+                        if (data.amount.trim() == '' || data.amount == 0) {
+
+                            return false;
+
+                        } else if (data.amount < 1000) {
+
+                            this.insufficientNextPayment(data.amount);
+                            return false;
+                        }
+
+                        // добавить платеж
+                        console.log(data.amount);
+
+                        this.makeNextPayment(data.amount);
+                    }
+                }
+            ]
+        });
+        prompt.present();
+
+    }
+
+
+    /**
+     * Создание следующего платежа по сделке
+     *
+     */
+    makeNextPayment(amount) {
+
+        console.log('makeNextPayment');
+
+        this.open.dealNextPayment({open_lead_id: this.deal.open_lead_id, amount: amount})
+
+            .subscribe(result => {
+                // при получении итемов
+
+                // переводим ответ в json
+                let data = result.json();
+
+                console.log(data);
+
+                if (data.status == 'success') {
+
+                    let toast = this.toastCtrl.create({
+                        message: 'Statement successfully created',
+                        duration: 3000,
+                        position: 'bottom'
+                    });
+                    toast.present();
+
+                    // обновление данных по сделке
+                    this.getDealData();
+
+                } else {
+
+                    if (data.info == 'outstanding_payments') {
+
+                        let alert = this.alertCtrl.create({
+                            title: 'Payment fail',
+                            subTitle: 'You still have outstanding payments',
+                            buttons: ['OK']
+                        });
+                        alert.present();
+
+                    }
+
+
+                }
+
+                // this.dealData = data.dealData;
+                //
+                // this.isLoading = false;
+                // this.isContent = true;
+
+            }, err => {
+                // в случае ошибки
+
+                console.log('ERROR: ' + err);
+
+                // this.isLoading = false;
+                // this.isContent = true;
+
+                // todo выводится сообщение об ошибке (нету связи и т.д.)
+
+                // отключаем окно индикатора загрузки
+                // loading.dismiss();
+            });
+
+
+    }
+
+
+    /**
+     * Подтверждение закрытия сделки
+     *
+     */
+    closeFewPaymentDealConfirmation() {
+
+        let prompt = this.alertCtrl.create({
+            title: 'Completed',
+            message: "Are you sure you want to end the deal?",
+            buttons: [
+                {
+                    text: 'Cancel',
+                    handler: data => {
+                        // console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'Completed',
+                    handler: data => {
+                        // console.log('Saved clicked');
+                        this.closeFewPaymentDeal();
+                    }
+                }
+            ]
+        });
+        prompt.present();
+
+    }
+
+
+    /**
+     * Завершение сделки
+     *
+     */
+    closeFewPaymentDeal() {
+
+        this.open.closeFewPaymentDeal({open_lead_id: this.deal.open_lead_id})
+
+            .subscribe(result => {
+                // при получении итемов
+
+                // переводим ответ в json
+                let data = result.json();
+
+                console.log(data);
+
+                if (data.status == 'success') {
+                    // обновление данных по сделке
+                    this.getDealData();
+                }
+
+                // this.dealData = data.dealData;
+                //
+                // this.isLoading = false;
+                // this.isContent = true;
+
+            }, err => {
+                // в случае ошибки
+
+                console.log('ERROR: ' + err);
+
+                // todo выводится сообщение об ошибке (нету связи и т.д.)
+
+                // отключаем окно индикатора загрузки
+                // loading.dismiss();
+            });
+
+    }
+
+
+    /**
+     * Алерт о недостаточной сумме следующего платежа
+     *
+     */
+    insufficientNextPayment(amount) {
+
+        let alert = this.alertCtrl.create({
+            title: 'Wrong amount',
+            subTitle: 'The minimum amount is &#8362;1000, you entered &#8362;' + amount,
+            buttons: [
+                {
+                    text: 'OK',
+                    handler: data => {
+
+                    }
+                }
+            ]
+        });
+        alert.present();
     }
 
 

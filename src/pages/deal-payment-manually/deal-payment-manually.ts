@@ -28,7 +28,7 @@ import {Open} from '../../providers/open';
 })
 export class DealPaymentManuallyPage {
 
-    public item: any;
+    public openLeadId: any;
     public statuses: any;
 
     constructor(public navCtrl: NavController,
@@ -41,9 +41,10 @@ export class DealPaymentManuallyPage {
                 public actionSheetCtrl: ActionSheetController,
                 public view: ViewController) {
 
-        // получение id итема
-        // this.item = this.navParams.get('item');
+        // получение id открытого лида
+        this.openLeadId = this.navParams.get('openLeadId');
 
+        console.log(this.openLeadId);
     }
 
 
@@ -53,12 +54,81 @@ export class DealPaymentManuallyPage {
 
 
     /**
+     * Алерт подтверждения платежа
+     *
+     */
+    confirmPayment() {
+
+        let prompt = this.alertCtrl.create({
+            title: 'Payment confirmation',
+            message: "You confirm that you transferred the required amount to the specified account",
+            buttons: [
+                {
+                    text: 'Cancel',
+                    handler: data => {
+                        // console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'Confirm',
+                    handler: data => {
+                        // console.log('Saved clicked');
+                        this.paymentDealBankTransaction();
+                    }
+                }
+            ]
+        });
+        prompt.present();
+    }
+
+
+    /**
+     * Оплата сделки через банковский перевод
+     *
+     */
+    paymentDealBankTransaction() {
+
+        this.open.paymentDealBankTransaction({open_lead_id: this.openLeadId})
+
+            .subscribe(result => {
+                // при получении итемов
+
+                // переводим ответ в json
+                let data = result.json();
+
+                console.log(data);
+
+                if (data.status == 'success') {
+                    // обновление данных по сделке
+                    this.close('success');
+                }
+
+                // this.dealData = data.dealData;
+                //
+                // this.isLoading = false;
+                // this.isContent = true;
+
+            }, err => {
+                // в случае ошибки
+
+                console.log('ERROR: ' + err);
+
+                // todo выводится сообщение об ошибке (нету связи и т.д.)
+
+                // отключаем окно индикатора загрузки
+                // loading.dismiss();
+            });
+
+    }
+
+
+    /**
      * Закрытие страницы
      *
      */
-    close() {
+    close(status = 'no_status') {
 
-        this.view.dismiss();
+        this.view.dismiss({status: status});
     }
 
 }

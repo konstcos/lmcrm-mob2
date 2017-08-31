@@ -31,20 +31,20 @@
 
     </ion-navbar>
 
-    <ion-row class="header_deal_user">
-        <ion-col text-right align-self-center>
-            {{ deal ? deal.surname : ' ' }} {{ deal ? deal.name : ' ' }}
-        </ion-col>
-    </ion-row>
+    <!--<ion-row class="header_deal_user">-->
+        <!--<ion-col text-right align-self-center>-->
+            <!--{{ deal ? deal.surname : ' ' }} {{ deal ? deal.name : ' ' }}-->
+        <!--</ion-col>-->
+    <!--</ion-row>-->
 
-    <ion-row class="header_deal_type">
-        <ion-col text-right align-self-center>
-            {{ deal ? deal.dealInfo.name : '' }}
-        </ion-col>
-        <ion-col col-2 text-left align-self-center class="header_deal_type_label">
-            deal
-        </ion-col>
-    </ion-row>
+    <!--<ion-row class="header_deal_type">-->
+        <!--<ion-col class="deal_name" text-right align-self-center>-->
+            <!--{{ deal ? deal.dealInfo.name : '' }}-->
+        <!--</ion-col>-->
+        <!--<ion-col col-2 text-left align-self-center class="header_deal_type_label">-->
+            <!--type-->
+        <!--</ion-col>-->
+    <!--</ion-row>-->
 
 </ion-header>
 
@@ -64,25 +64,49 @@
 
             <div class="deal_block">
 
-                <ion-row class="deal_item" (click)="showInfo(1)">
-                    <ion-col class="info" col-1 text-center align-self-center>
-                        <ion-icon name="ios-information-circle"></ion-icon>
-                    </ion-col>
-                    <ion-col class="data" text-right align-self-center>
-                        &#8362; {{ deal.dealInfo.price }}
-                    </ion-col>
-                    <ion-col col-3 class="name" text-left align-self-center>price</ion-col>
-                </ion-row>
+                <!--<ion-row class="deal_item" (click)="showInfo(1)">-->
+                    <!--<ion-col class="info" col-1 text-center align-self-center>-->
+                        <!--<ion-icon name="ios-information-circle"></ion-icon>-->
+                    <!--</ion-col>-->
+                    <!--<ion-col class="data" text-right align-self-center>-->
+                        <!--&#8362; {{ deal.dealInfo.price }}-->
+                    <!--</ion-col>-->
+                    <!--<ion-col col-3 class="name" text-left align-self-center>price</ion-col>-->
+                <!--</ion-row>-->
 
-                <ion-row class="deal_item" (click)="showInfo(2)">
+                <!--<ion-row class="deal_item" (click)="showInfo(2)">-->
+                    <!--<ion-col class="info" col-1 text-center align-self-center>-->
+                        <!--<ion-icon name="ios-information-circle"></ion-icon>-->
+                    <!--</ion-col>-->
+                    <!--<ion-col class="data" text-right align-self-center>-->
+                        <!--&#8362; {{ deal.dealInfo.percent }}-->
+                    <!--</ion-col>-->
+                    <!--<ion-col col-3 class="name" text-left align-self-center>-->
+                        <!--share of the system-->
+                    <!--</ion-col>-->
+                <!--</ion-row>-->
+
+                <ion-row class="deal_item">
                     <ion-col class="info" col-1 text-center align-self-center>
-                        <ion-icon name="ios-information-circle"></ion-icon>
+                        <!--<ion-icon name="ios-information-circle"></ion-icon>-->
                     </ion-col>
                     <ion-col class="data" text-right align-self-center>
-                        &#8362; {{ deal.dealInfo.percent }}
+                        {{ deal ? deal.surname : ' ' }} {{ deal ? deal.name : ' ' }}
                     </ion-col>
                     <ion-col col-3 class="name" text-left align-self-center>
-                        share of the system
+                        name
+                    </ion-col>
+                </ion-row>
+
+                <ion-row class="deal_item">
+                    <ion-col class="info" col-1 text-center align-self-center>
+                        <!--<ion-icon name="ios-information-circle"></ion-icon>-->
+                    </ion-col>
+                    <ion-col class="data" text-right align-self-center>
+                        {{ deal ? deal.dealInfo.name : '' }}
+                    </ion-col>
+                    <ion-col col-3 class="name" text-left align-self-center>
+                        deal type
                     </ion-col>
                 </ion-row>
 
@@ -121,9 +145,101 @@
                     </div>
                 </div>
 
-                <div *ngIf="deal.dealInfo.status == 'waiting for payment'" class="payment_button" text-center>
-                    <button (click)="makePaymentActionSheet()" ion-button small round color="primary">Make a payment</button>
+
+                <!-- данные транзакций -->
+                <div *ngIf="deal && deal.dealInfo.type == 'few_payment'">
+
+                    <div *ngIf="deal.dealInfo.status_id == 1 || deal.dealInfo.status_id == 4">
+
+                        <!--не оплаченно few_payment-->
+
+                        <div *ngIf="deal.dealInfo.paymentConfirmation > 0" class="payment_button">
+                            <button (click)="makePaymentActionSheet()" ion-button small round color="primary">Make a payment</button>
+                        </div>
+
+                        <div *ngIf="deal.dealInfo.paymentConfirmation == 0" class="payment_button">
+                            <button (click)="receivedNextPaymentData()" ion-button small round color="primary">Received next payment</button>
+                        </div>
+
+                        <div class="payment_button">
+                            <button (click)="closeFewPaymentDealConfirmation()" ion-button color="secondary" small round>Close a deal</button>
+                        </div>
+
+                    </div>
+
+                    <div *ngIf="deal.dealInfo.status_id != 1 && deal.dealInfo.status_id != 4" class="deal_paid">
+                        Paid
+                    </div>
                 </div>
+
+                <div *ngIf="deal && deal.dealInfo.type == 'one_payment'" class="payment_button">
+
+                    <div *ngIf="deal.dealInfo.status_id == 1">
+                        <button (click)="makePaymentActionSheet()" ion-button small round color="primary">Make a payment</button>
+                    </div>
+
+                    <div *ngIf="deal.dealInfo.status_id != 1" class="deal_paid">
+                        Paid
+                    </div>
+                </div>
+
+
+                <div *ngIf="deal" class="deal_statement_block">
+
+                    <ion-row *ngFor="let statement of deal.dealPaymentStatements" class="statement_item">
+
+                        <ion-col class="left" text-left align-self-center>
+
+                            <div class="expiry_time">
+                                <div class="label">expire time</div>
+                                <span class="time">{{ statement.expiry_time.time }}</span> {{ statement.expiry_time.date }}
+                            </div>
+
+                            <div class="status">
+                                <!-- платеж ожидается -->
+                                <span *ngIf="statement.status_id == 1" class="whiting_payment">{{ statement.status }}</span>
+
+                                <!-- ожидается подтверждение платежа админом -->
+                                <span *ngIf="statement.status_id == 2" class="whiting_confirmed">{{ statement.status }}</span>
+
+                                <!-- платеж подтвержден админом -->
+                                <span *ngIf="statement.status_id == 3" class="confirmed">{{ statement.status }}</span>
+
+                                <!-- платеж отвергнут админом -->
+                                <span *ngIf="statement.status_id == 4" class="rejected">{{ statement.status }}</span>
+
+                            </div>
+
+                        </ion-col>
+
+                        <ion-col col-6 class="right" text-right align-self-center>
+
+                            <div class="percent">
+                                <!--<span class="label">percent to pay</span> -->
+                                <span class="sign">&#8362;</span> {{ statement.percent }}
+                            </div>
+
+                            <div class="price">
+                                <span class="label">amount</span> <span class="sign">&#8362;</span> {{ statement.price }}
+                            </div>
+
+                        </ion-col>
+
+                    </ion-row>
+
+                    <ion-row *ngIf="deal.dealPaymentStatements.length == 0" class="no_statement">
+                        <ion-col text-center align-self-center>
+                            No statements
+                        </ion-col>
+                    </ion-row>
+
+                </div>
+
+
+
+                <!--<div *ngIf="deal.dealInfo.status == 'waiting for payment'" class="payment_button" text-center>-->
+                    <!--<button (click)="makePaymentActionSheet()" ion-button small round color="primary">Make a payment</button>-->
+                <!--</div>-->
 
             </div>
 

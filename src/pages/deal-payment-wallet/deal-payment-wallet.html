@@ -32,15 +32,51 @@
 
 <ion-content>
 
+    <!-- спинер загрузки -->
+    <div *ngIf="isLoading" class="spinnerLoading">
+        <ion-spinner color="primary" name="crescent"></ion-spinner>
+    </div>
 
-    <div class="wallet_payment_title">Payment from Wallet</div>
+    <!-- контент страницы -->
+    <div *ngIf="isContent">
 
-    <div class="time">In developing</div>
+        <div class="payment_content">
 
-    <!--<div class="file_input">-->
-    <!--&lt;!&ndash;<input #file (change)="onChange(file.files)" type="file">&ndash;&gt;-->
-    <!--<input id="fileElem" (change)="onChange($event)" type="file">-->
-    <!--</div>-->
+            <div class="on_wallet">
 
+                <div class="label">
+                    on you wallet:
+                </div>
+
+                <div class="amount">
+                    <span class="sign">&#8362;</span> {{ dealData.wallet }}
+                </div>
+
+            </div>
+
+            <div class="payment_price">
+
+                <div class="label">
+                    price:
+                </div>
+
+                <div class="amount">
+                    <span class="sign">&#8362;</span> {{ dealData.dealPercent }}
+                </div>
+
+            </div>
+
+            <div *ngIf="dealData.state" class="pay_button_block">
+                <button (click)="confirmPayment()" ion-button small round>Pay</button>
+            </div>
+
+            <div *ngIf="!dealData.state" class="pay_impossible">
+                There is not enough money on your wallet to pay the deal.
+                Please pay the deal in another way or replenish your system wallet.
+            </div>
+
+        </div>
+
+    </div>
 
 </ion-content>

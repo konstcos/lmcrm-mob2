@@ -13,4 +13,61 @@ deal-payment-wallet {
     color: #89B7DB;
   }
 
+  .spinnerLoading {
+    text-align: center;
+    margin-top: 20%;
+  }
+
+  .payment_content {
+    margin: 10px 10px;
+    padding: 10px;
+
+    .on_wallet {
+      padding: 10px;
+      text-align: center;
+      margin-top: 10%;
+
+      .label {
+        color: grey;
+        font-size: 12px;
+      }
+
+      .amount {
+        color: #337AB7;
+        font-size: 18px;
+      }
+    }
+
+    .payment_price {
+      padding: 10px;
+      text-align: center;
+      margin-top: 10%;
+
+      .label {
+        color: grey;
+        font-size: 12px;
+      }
+
+      .amount {
+        color: #337AB7;
+        font-size: 18px;
+      }
+    }
+
+    .pay_button_block {
+      margin-top: 10%;
+      text-align: center;
+    }
+
+    .pay_impossible {
+      margin-top: 10%;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      color: #C81C22;
+      background: #E59A9C;
+    }
+
+  }
+
 }

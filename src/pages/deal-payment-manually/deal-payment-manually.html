@@ -32,14 +32,16 @@
 
 <ion-content>
 
-    <div class="credit_payment_title">Payment by bank transfer</div>
+    <div class="confirm_text" text-center="">
+        For payment by bank transfer, transfer money to the account
 
-    <div class="time">In developing</div>
+        <div class="payment_account">4554-4578-1215-7785</div>
 
-    <!--<div class="file_input">-->
-    <!--&lt;!&ndash;<input #file (change)="onChange(file.files)" type="file">&ndash;&gt;-->
-    <!--<input id="fileElem" (change)="onChange($event)" type="file">-->
-    <!--</div>-->
+        and press the button "Confirm payment"
+    </div>
 
+    <div class="confirm_button" text-center="">
+        <button (click)="confirmPayment()" ion-button small round>Confirm payment</button>
+    </div>
 
 </ion-content>
