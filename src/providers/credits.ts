@@ -14,7 +14,6 @@ export class Credits {
 
     constructor(public http: Http,
                 public api: Api) {
-        console.log('Hello Credits Provider');
     }
 
 

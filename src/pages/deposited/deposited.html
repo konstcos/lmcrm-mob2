@@ -56,20 +56,15 @@
                 <ion-icon name="md-contract"></ion-icon>
             </div>
 
-            <div class="leads_text">
-                <div> No leads</div>
-                <!--<div class="take_leads"> To get the leads, select the mask</div>-->
-                <!--<div class="take_leads">on the client filter page</div>-->
-                <!--<button small ion-button color="primary" class="mask_button" (click)="customerPage()"> Select mask </button>-->
-            </div>
+            <div class="leads_text" [innerHTML]="'outgoing.no_leads' | translate"></div>
 
         </ion-col>
     </ion-row>
 
     <div *ngIf="noItems && !isFilterOn" class="no_leads_cover">
 
-        <div class="empty_added_leads_text">
-            To add the lead, click this button
+        <div class="empty_added_leads_text" [innerHTML]="'outgoing.to_add_the_lead' | translate">
+            <!--To add the lead, click this button-->
         </div>
 
         <div class="empty_added_leads_icon">
@@ -84,11 +79,8 @@
             <ion-icon name="md-contract"></ion-icon>
         </div>
 
-        <div class="leads_text">
-            <div> No leads by filter</div>
-            <!--<div class="take_leads"> To get the leads, select the mask</div>-->
-            <!--<div class="take_leads">on the client filter page</div>-->
-            <!--<button small ion-button color="primary" class="mask_button" (click)="customerPage()"> Select mask </button>-->
+        <div class="leads_text" [innerHTML]="'outgoing.no_leads_by_filter' | translate">
+            <!--<div> No leads by filter</div>-->
         </div>
 
     </div>

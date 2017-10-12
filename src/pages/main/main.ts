@@ -100,12 +100,12 @@ export class MainPage {
      * Заголовки табов
      */
 
-        // входящие лиды (которые на аукционе пользователя)
-    obtainTitle = "INCOMING";
+    // входящие лиды (которые на аукционе пользователя)
+    obtainTitle = "mainTabTitle.incoming";
     // отданные лиды
-    depositedTitle = "OUTGOING";
+    depositedTitle = "mainTabTitle.outgoing";
     // открытые лиды
-    openTitle = "EXPOSE";
+    openTitle = "mainTabTitle.expose";
 
 
     /**
@@ -161,10 +161,10 @@ export class MainPage {
      *
      */
     leadStatuses: any = [
-        {id: 1, name: 'Bad lead', status: false},
-        {id: 2, name: 'New Lead', status: false},
-        {id: 3, name: 'Auction', status: false},
-        {id: 4, name: 'Closed Deal', status: false},
+        {id: 1, name: 'filter.statusesList.bad_lead', status: false},
+        {id: 2, name: 'filter.statusesList.new_lead', status: false},
+        {id: 3, name: 'filter.statusesList.auction', status: false},
+        {id: 4, name: 'filter.statusesList.closed_deal', status: false},
     ];
 
 
@@ -173,9 +173,9 @@ export class MainPage {
      *
      */
     leadSources: any = [
-        {id: 1, name: 'Auction', status: false},
-        {id: 2, name: 'For Deals', status: false},
-        {id: 3, name: 'Private Group', status: false},
+        {id: 1, name: 'filter.purposeList.auction', status: false},
+        {id: 2, name: 'filter.purposeList.for_deals', status: false},
+        {id: 3, name: 'filter.purposeList.private_group', status: false},
     ];
 
     /**
@@ -325,25 +325,25 @@ export class MainPage {
         this.pages = [
 
             // страница клиентов (тут будут все сферы)
-            {title: 'Customers filters', component: CustomersPage},
+            {title: 'pages.customer_filter', component: CustomersPage},
 
             // Страница продавцов
-            {title: 'Salesmen', component: SalesmenPage},
+            {title: 'pages.salesmen', component: SalesmenPage},
 
             // Статистика
-            {title: 'Statistic', component: StatisticsPage},
+            {title: 'pages.statistic', component: StatisticsPage},
 
             // Деньги
-            {title: 'Credits', component: CreditsPage},
+            {title: 'pages.credits', component: CreditsPage},
 
             // Приватная группа
-            {title: 'Private Group', component: PrivateGroupPage},
+            {title: 'pages.private_group', component: PrivateGroupPage},
 
             // Органайзер
-            {title: 'Organizer', component: OrganizerPage},
+            {title: 'pages.organizer', component: OrganizerPage},
 
             // Редактирование профиля
-            {title: 'Profile', component: ProfilePage}
+            {title: 'pages.profile', component: ProfilePage}
         ];
 
 

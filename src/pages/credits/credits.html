@@ -15,23 +15,10 @@
             </button>
         </ion-buttons>
 
-        <ion-title>Credits</ion-title>
+        <ion-title>{{ 'credits.title' | translate }}</ion-title>
 
-
-        <!--<ion-buttons left text-center class="left_button">-->
-        <!--<button ion-button (click)="goBack()">-->
-        <!--close-->
-        <!--</button>-->
-        <!--</ion-buttons>-->
 
         <ion-buttons right text-center class="right_button">
-            <!--<button ion-button>-->
-            <!--Replenishment-->
-            <!--</button>-->
-
-            <!--<button ion-button>-->
-            <!--Withdrawal-->
-            <!--</button>-->
 
         </ion-buttons>
 
@@ -40,33 +27,16 @@
     <ion-toolbar>
         <ion-segment [(ngModel)]="segment" color="primary" (ionChange)="segmentChanged($event)">
             <ion-segment-button value="info">
-                Info
+                {{ 'credits.tabs.info' | translate }}
             </ion-segment-button>
             <ion-segment-button value="transactions">
-                Transactions
+                {{ 'credits.tabs.transactions' | translate }}
             </ion-segment-button>
             <ion-segment-button value="statement">
-                Statement
+                {{ 'credits.tabs.statement' | translate }}
             </ion-segment-button>
         </ion-segment>
     </ion-toolbar>
-
-    <!--<ion-toolbar class="requisites">-->
-
-    <!--<div [innerHTML]="requisites">-->
-
-    <!--</div>-->
-
-    <!--<div>-->
-    <!--выводить кредитные данные пользователя ?-->
-    <!--</div>-->
-
-    <!--<p>Requisites: 4554-4578-1215-7785</p>-->
-    <!--<p>Requisites description</p>-->
-
-    <!--{{ requisites }}-->
-
-    <!--</ion-toolbar>-->
 
 </ion-header>
 
@@ -88,7 +58,9 @@
             <ion-row>
                 <ion-col text-center class="wallet_amount_block">
 
-                    <div class="annotation">Available</div>
+                    <div class="annotation">
+                        {{ 'credits.available' | translate }}
+                    </div>
 
                     <div class="wallet_amount">
                         <span class="sign">&#8362;</span> {{ walletAmount }}
@@ -109,9 +81,11 @@
 
                             <div class="wallet_button_name">
                                 <span class="wallet_button_icon"><ion-icon name="ios-arrow-forward-outline"></ion-icon></span>
-                                Replenishment
+                                {{ 'credits.replenishment' | translate }}
                             </div>
-                            <div class="wallet_button_comment">Input of money into the system account</div>
+                            <div class="wallet_button_comment">
+                                {{ 'credits.replenishment_comment' | translate }}
+                            </div>
                         </div>
 
                         <div class="wallet_button" (click)="openWithdrawal()">
@@ -120,9 +94,11 @@
 
                             <div class="wallet_button_name">
                                 <span class="wallet_button_icon"><ion-icon name="ios-arrow-forward-outline"></ion-icon></span>
-                                Withdrawal
+                                {{ 'credits.withdrawal' | translate }}
                             </div>
-                            <div class="wallet_button_comment">Withdrawal of money from the system account</div>
+                            <div class="wallet_button_comment">
+                                {{ 'credits.withdrawal_comment' | translate }}
+                            </div>
                         </div>
                     </ion-col>
                 </ion-row>
@@ -238,7 +214,7 @@
 
                 <ion-row *ngIf="noTransactions" class="no_transactions">
                     <ion-col text-center align-self-center>
-                        No transactions
+                        {{ 'credits.no_transactions' | translate }}
                     </ion-col>
                 </ion-row>
 
@@ -319,35 +295,6 @@
                 </ion-row>
 
             </ion-card>
-
-
-            <!--<div class="deal_block">-->
-
-            <!--<ion-row *ngFor="let file of deal.files" class="file_item">-->
-
-            <!--<ion-col col-2 class="file_dell_button" text-center align-self-center (click)="deleteFile(file)">-->
-            <!--<ion-icon name="md-close"></ion-icon>-->
-            <!--</ion-col>-->
-
-            <!--<ion-col col-8 class="file_name" text-right align-self-center>-->
-            <!--{{ file.name }}-->
-            <!--</ion-col>-->
-
-            <!--<ion-col col-2 class="file_icon" text-center align-self-center>-->
-
-            <!--<i *ngIf="file.type == 'image'" class="fa fa-picture-o image"></i>-->
-
-            <!--</ion-col>-->
-
-            <!--</ion-row>-->
-
-            <!--<ion-row *ngIf="deal.files.length == 0" class="no_files">-->
-            <!--<ion-col text-center align-self-center>-->
-            <!--No files-->
-            <!--</ion-col>-->
-            <!--</ion-row>-->
-
-            <!--</div>-->
 
         </div>
 

@@ -8,6 +8,7 @@ import {
     LoadingController,
     ModalController
 } from 'ionic-angular';
+import {TranslateService} from 'ng2-translate/ng2-translate';
 
 // главная страница
 import {MainPage} from '../main/main'
@@ -141,9 +142,9 @@ export class CreditsPage {
                 public actionSheetCtrl: ActionSheetController,
                 public modalCtrl: ModalController,
                 public loadingCtrl: LoadingController,
-                public alertCtrl: AlertController) {
+                public alertCtrl: AlertController,
+                public translate: TranslateService) {
 
-        // this.get();
         this.getCreditsData();
     }
 
@@ -256,13 +257,6 @@ export class CreditsPage {
 
                         this.requisites = data.requisites;
                     }
-
-
-                    // this.items = data.credits.requestsPayments;
-                    // this.statuses = data.credits.statuses;
-                    // this.types = data.credits.types;
-                    //
-                    // this.requisites = data.requisites;
 
                 } else {
 
@@ -379,9 +373,14 @@ export class CreditsPage {
      */
     payReplenishmentBankTransaction(item) {
 
+        let content = '';
+        this.translate.get('credits.loading.make_withdrawal', {}).subscribe((res: string) => {
+            content = res;
+        });
+
         // показывает окно загрузки
         let loading = this.loadingCtrl.create({
-            content: 'Make withdrawal, please wait...'
+            content: content
         });
         loading.present();
 
@@ -400,13 +399,30 @@ export class CreditsPage {
                     this.getTransactions();
                     this.getStatement();
 
+                    let title = '';
+                    let message = '';
+                    let text = '';
+
+                    this.translate.get('credits.BankTransactionAlertSuccess.title', {}).subscribe((res: string) => {
+                        title = res;
+                    });
+
+                    this.translate.get('credits.BankTransactionAlertSuccess.message', {}).subscribe((res: string) => {
+                        message = res;
+                    });
+
+                    this.translate.get('credits.BankTransactionAlertSuccess.OK', {}).subscribe((res: string) => {
+                        text = res;
+                    });
+
                     // алерт с инфо по оплате
                     let prompt = this.alertCtrl.create({
-                        title: 'Payment confirmed',
-                        message: "After processing the payment by the administration, the money will be credited to your wallet in the system",
+                        // title: this.trans.word('credits.BankTransactionAlertSuccess.title'),
+                        title: title,
+                        message: message,
                         buttons: [
                             {
-                                text: 'Ok',
+                                text: text,
                                 handler: data => {
                                     // console.log('Transfer paid clicked');
                                 }
@@ -446,21 +462,34 @@ export class CreditsPage {
 
         modal.onDidDismiss(data => {
 
-            console.log('Закрытие окна ввода денег');
-            console.log(data);
-
             if (data.info == 'makeReplenishment') {
 
-                let message =
-                    `                   
-                        The statement was successful created under the number <b>№` + data.data.result.id + `</b>. 
-                        To continue, pay the statement and mark it.
-                    `;
+                let title = '';
+                let message = '';
+                let ok = '';
+
+                this.translate.get('credits.makeReplenishmentAlert.title', {}).subscribe((res: string) => {
+                    title = res;
+                });
+
+                this.translate.get('credits.makeReplenishmentAlert.message', {resultId: data.data.result.id}).subscribe((res: string) => {
+                    message = res;
+                });
+
+                this.translate.get('credits.makeReplenishmentAlert.Ok', {}).subscribe((res: string) => {
+                    ok = res;
+                });
+
+                // let message =
+                //     `
+                //         The statement was successful created under the number <b>№` + data.data.result.id + `</b>.
+                //         To continue, pay the statement and mark it.
+                //     `;
 
                 let alert = this.alertCtrl.create({
-                    title: 'Replenishment',
+                    title: title,
                     message: message,
-                    buttons: ['Ok']
+                    buttons: [ok]
                 });
                 alert.present();
 
@@ -492,21 +521,38 @@ export class CreditsPage {
 
         modal.onDidDismiss(data => {
 
-            console.log('Закрытие окна вывода денег');
-            console.log(data);
+            // console.log('Закрытие окна вывода денег');
+            // console.log(data);
 
             if (data.info == 'makeWithdrawal') {
 
-                let message =
-                    `                   
-                        The statement was successful created under the number <b>№` + data.data.result.id + `</b>. 
-                        Soon your statement will be processed.
-                    `;
+
+                let title = '';
+                let message = '';
+                let ok = '';
+
+                this.translate.get('credits.makeWithdrawalAlert.title', {}).subscribe((res: string) => {
+                    title = res;
+                });
+
+                this.translate.get('credits.makeWithdrawalAlert.message', {resultId: data.data.result.id}).subscribe((res: string) => {
+                    message = res;
+                });
+
+                this.translate.get('credits.makeWithdrawalAlert.OK', {}).subscribe((res: string) => {
+                    ok = res;
+                });
+
+                // let message =
+                //     `
+                //         The statement was successful created under the number <b>№` + data.data.result.id + `</b>.
+                //         Soon your statement will be processed.
+                //     `;
 
                 let alert = this.alertCtrl.create({
-                    title: 'Withdrawal',
+                    title: title,
                     message: message,
-                    buttons: ['Ok']
+                    buttons: [ok]
                 });
                 alert.present();
 
@@ -763,17 +809,29 @@ export class CreditsPage {
 
         if (item.status == 1) {
 
+            let deleteItem = '';
+            let cancel = '';
+
+            this.translate.get('credits.statementAction.delete', {}).subscribe((res: string) => {
+                deleteItem = res;
+            });
+
+            this.translate.get('credits.statementAction.title', {}).subscribe((res: string) => {
+                cancel = res;
+            });
+
+
             let actionSheet = this.actionSheetCtrl.create({
                 title: 'Statement № ' + item.id,
                 buttons: [
                     {
-                        text: 'Delete',
+                        text: deleteItem,
                         handler: () => {
                             this.cancelStatement(item);
                         }
                     },
                     {
-                        text: 'Cancel',
+                        text: cancel,
                         role: 'cancel',
                         handler: () => {
                             console.log('Cancel clicked');
@@ -786,12 +844,39 @@ export class CreditsPage {
 
         } else if (item.status == 2) {
 
+            let title = '';
+            let pay_by_bank = '';
+            let pay_by_credit_card = '';
+            let deleteItem = '';
+            let cancel = '';
+
+            this.translate.get('credits.statementAction.title', {itemId: item.id}).subscribe((res: string) => {
+                title = res;
+            });
+
+            this.translate.get('credits.statementAction.pay_by_bank', {}).subscribe((res: string) => {
+                pay_by_bank = res;
+            });
+
+            this.translate.get('credits.statementAction.pay_by_credit_card', {}).subscribe((res: string) => {
+                pay_by_credit_card = res;
+            });
+
+            this.translate.get('credits.statementAction.delete', {}).subscribe((res: string) => {
+                deleteItem = res;
+            });
+
+            this.translate.get('credits.statementAction.title', {}).subscribe((res: string) => {
+                cancel = res;
+            });
+
+
             let actionSheet = this.actionSheetCtrl.create({
-                title: 'Statement № ' + item.id,
+                title: title,
                 buttons: [
 
                     {
-                        text: 'Pay by bank',
+                        text: pay_by_bank,
                         handler: () => {
                             // console.log('Bank transaction');
                             this.payByBank(item);
@@ -799,7 +884,7 @@ export class CreditsPage {
                     },
 
                     {
-                        text: 'Pay by Credit Card',
+                        text: pay_by_credit_card,
                         handler: () => {
                             // console.log('Credit Card');
                             this.payByCreditCard(item);
@@ -807,14 +892,14 @@ export class CreditsPage {
                     },
 
                     {
-                        text: 'Delete',
+                        text: deleteItem,
                         handler: () => {
                             this.cancelStatement(item);
                         }
                     },
 
                     {
-                        text: 'Cancel',
+                        text: cancel,
                         role: 'cancel',
                         handler: () => {
                             console.log('Cancel clicked');
@@ -838,19 +923,41 @@ export class CreditsPage {
      */
     payByBank(item) {
 
-        // todo алерт с инфо по оплате
+
+        let title = '';
+        let message = '';
+        let cancel = '';
+        let already_paid = '';
+
+        this.translate.get('credits.payByBankAlert.title', {}).subscribe((res: string) => {
+            title = res;
+        });
+
+        this.translate.get('credits.payByBankAlert.message', {requisites: this.requisites}).subscribe((res: string) => {
+            message = res;
+        });
+
+        this.translate.get('credits.payByBankAlert.cancel', {}).subscribe((res: string) => {
+            cancel = res;
+        });
+
+        this.translate.get('credits.payByBankAlert.already_paid', {}).subscribe((res: string) => {
+            already_paid = res;
+        });
+
+        // алерт с инфо по оплате
         let prompt = this.alertCtrl.create({
-            title: 'Pay by bank',
-            message: "For payment via bank transfer, transfer money to the details listed below, then click on the 'Already paid' button " + this.requisites,
+            title: title,
+            message: message,
             buttons: [
                 {
-                    text: 'Cancel',
+                    text: cancel,
                     handler: data => {
                         // console.log('Cancel clicked');
                     }
                 },
                 {
-                    text: 'Already paid',
+                    text: already_paid,
                     handler: data => {
                         // console.log('Transfer paid clicked');
                         // console.log(data);
@@ -863,9 +970,6 @@ export class CreditsPage {
         });
 
         prompt.present();
-
-
-        console.log('Bank transaction 111');
     }
 
 
@@ -874,6 +978,14 @@ export class CreditsPage {
      *
      */
     payByBankConfirmation(item) {
+
+        let title = '';
+
+        this.translate.get('credits.statementAction.title', {itemId: item.id}).subscribe((res: string) => {
+            title = res;
+        });
+
+
 
         // алерт с инфо по оплате
         let prompt = this.alertCtrl.create({
@@ -911,9 +1023,6 @@ export class CreditsPage {
 
         modal.onDidDismiss(data => {
 
-            console.log('Закрытие окна вывода денег');
-            console.log(data);
-
             // if (data.info == 'makeWithdrawal') {
             //
             //     let message =
@@ -944,37 +1053,6 @@ export class CreditsPage {
         });
 
         modal.present();
-
-
-        // показывает окно загрузки
-        // let loading = this.loadingCtrl.create({
-        //     content: 'Make withdrawal, please wait...'
-        // });
-        // loading.present();
-        //
-        // this.credits.creditCardPayment({item_id: item.id})
-        // // this.credits.getDetailCreditCardPayment({item_id: item.id})
-        //     .subscribe(result => {
-        //         // при получении итемов
-        //
-        //         // переводим ответ в json
-        //         let data = result.json();
-        //
-        //         console.log(data);
-        //
-        //         // отключаем окно индикатора загрузки
-        //         loading.dismiss();
-        //
-        //     }, err => {
-        //         // в случае ошибки
-        //
-        //         console.log('ERROR: ' + err);
-        //
-        //         // todo выводится сообщение об ошибке (нету связи и т.д.)
-        //
-        //         // отключаем окно индикатора загрузки
-        //         loading.dismiss();
-        //     });
     }
 
 

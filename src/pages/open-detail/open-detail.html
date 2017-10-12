@@ -23,7 +23,7 @@
             </button>
         </ion-buttons>
 
-        <ion-title>Open Lead</ion-title>
+        <ion-title>{{ 'exposed_detail.title' | translate }}</ion-title>
 
         <ion-buttons right text-center>
             <button ion-button (click)="confirmOpen(item)">
@@ -31,7 +31,6 @@
                 <ion-icon name="md-alarm"></ion-icon>
             </button>
         </ion-buttons>
-
 
     </ion-navbar>
 
@@ -60,7 +59,7 @@
                 <ion-col col-1 text-left>
                 </ion-col>
                 <ion-col text-right>
-                    <div class="label">phone</div>
+                    <div class="label">{{ 'exposed_detail.phone' | translate }}</div>
                     <div class="value">{{ item.lead.phone.phone }}</div>
                 </ion-col>
                 <ion-col col-1 text-right>
@@ -74,7 +73,7 @@
             <ion-row>
                 <ion-col>
                     <button ion-button small full (click)="changeStatus(item)">
-                        {{ item.status_info ? item.status_info.stepname : 'No status' }}
+                        {{ item.status_info ? item.status_info.stepname : ('exposed_detail.no_status' | translate) }}
                     </button>
                 </ion-col>
             </ion-row>
@@ -85,7 +84,7 @@
             <ion-row align-items-center class="data_block_item">
                 <!--<ion-col col-1 text-left><ion-icon class="help_icon" name="md-help-circle"></ion-icon></ion-col>-->
                 <ion-col text-right>
-                    <div class="label">opened</div>
+                    <div class="label">{{ 'exposed_detail.opened' | translate }}</div>
                     <div class="value">
                         <span class="date_time">{{ item.date.time }}</span>
                         <span class="date_date">{{ item.date.date }}</span>
@@ -99,8 +98,8 @@
             <ion-row align-items-center class="data_block_item">
                 <!--<ion-col col-1 text-left><ion-icon class="help_icon" name="md-help-circle"></ion-icon></ion-col>-->
                 <ion-col text-right>
-                    <div class="label">opened by</div>
-                    <div class="value">You
+                    <div class="label">{{ 'exposed_detail.opened_by' | translate }}</div>
+                    <div class="value">{{ 'exposed_detail.you' | translate }}
                         <!--<span class="date_time">{{ item.auction_added.time }}</span>-->
                         <!--<span class="date_date">{{ item.auction_added.date }}</span>-->
                     </div>
@@ -145,7 +144,7 @@
             <ion-row align-items-center class="data_block_item">
                 <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
                 <ion-col text-right>
-                    <div class="label">sphere</div>
+                    <div class="label">{{ 'exposed_detail.sphere' | translate }}</div>
                     <div class="value">{{ item.lead.sphere.name }}</div>
                 </ion-col>
                 <ion-col col-1 text-right>
@@ -156,8 +155,8 @@
             <ion-row align-items-center class="data_block_item">
                 <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
                 <ion-col text-right>
-                    <div class="label">mask name</div>
-                    <div class="value">{{ item.mask_name2 ? item.mask_name2.name : 'deleted' }}</div>
+                    <div class="label">{{ 'exposed_detail.mask_name' | translate }}</div>
+                    <div class="value">{{ item.mask_name2 ? item.mask_name2.name : ('exposed_detail.deleted' | translate) }}</div>
                 </ion-col>
                 <ion-col col-1 text-right>
                     <ion-icon class="icon_param mask_color" name="ios-funnel"></ion-icon>
@@ -169,11 +168,3 @@
     </div>
 
 </ion-content>
-
-
-<!--<ion-footer>-->
-<!--<button block no-margin ion-button (click)="confirmOpen(item)">-->
-<!--Organizer &nbsp;-->
-<!--<ion-icon name="md-alarm"></ion-icon>-->
-<!--</button>-->
-<!--</ion-footer>-->

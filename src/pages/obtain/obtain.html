@@ -61,9 +61,11 @@
             </div>
 
             <div class="leads_text">
-                <div> You do not have any leads</div>
-                <div class="take_leads"> To get the leads, select the mask</div>
-                <div class="take_leads">on the client filter page</div>
+                <!--<div> You do not have any leads</div>-->
+                <!--<div class="take_leads"> To get the leads, select the mask</div>-->
+                <!--<div class="take_leads">on the client filter page</div>-->
+                <div [innerHTML]="'incoming.you_do_not_have_any_leads-to_get_the_leads' | translate"></div>
+
                 <button small ion-button color="primary" class="mask_button" (click)="customerPage()"> Select mask
                 </button>
             </div>
@@ -77,11 +79,8 @@
                 <ion-icon name="md-contract"></ion-icon>
             </div>
 
-            <div class="leads_text">
-                <div> You do not have any leads</div>
-                <!--<div class="take_leads"> To get the leads, select the mask</div>-->
-                <!--<div class="take_leads">on the client filter page</div>-->
-                <!--<button small ion-button color="primary" class="mask_button" (click)="customerPage()"> Select mask </button>-->
+            <div class="leads_text" [innerHTML]="'incoming.you_do_not_have_any_leads' | translate">
+                <!--<div> You do not have any leads</div>-->
             </div>
 
         </ion-col>
@@ -93,11 +92,7 @@
                 <ion-icon name="md-contract"></ion-icon>
             </div>
 
-            <div class="leads_text">
-                <div> No leads by filter</div>
-                <!--<div class="take_leads"> To get the leads, select the mask</div>-->
-                <!--<div class="take_leads">on the client filter page</div>-->
-                <!--<button small ion-button color="primary" class="mask_button" (click)="customerPage()"> Select mask </button>-->
+            <div class="leads_text" [innerHTML]="'incoming.no_leads_by_filter' | translate">
             </div>
 
         </ion-col>

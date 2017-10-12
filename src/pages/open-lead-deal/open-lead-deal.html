@@ -15,7 +15,7 @@
             </button>
         </ion-buttons>
 
-        <ion-title>Open Lead Deal</ion-title>
+        <ion-title>{{ 'open_lead_deal.title' | translate }}</ion-title>
 
         <ion-buttons right text-center>
 
@@ -30,21 +30,6 @@
         </ion-buttons>
 
     </ion-navbar>
-
-    <!--<ion-row class="header_deal_user">-->
-        <!--<ion-col text-right align-self-center>-->
-            <!--{{ deal ? deal.surname : ' ' }} {{ deal ? deal.name : ' ' }}-->
-        <!--</ion-col>-->
-    <!--</ion-row>-->
-
-    <!--<ion-row class="header_deal_type">-->
-        <!--<ion-col class="deal_name" text-right align-self-center>-->
-            <!--{{ deal ? deal.dealInfo.name : '' }}-->
-        <!--</ion-col>-->
-        <!--<ion-col col-2 text-left align-self-center class="header_deal_type_label">-->
-            <!--type-->
-        <!--</ion-col>-->
-    <!--</ion-row>-->
 
 </ion-header>
 
@@ -64,28 +49,6 @@
 
             <div class="deal_block">
 
-                <!--<ion-row class="deal_item" (click)="showInfo(1)">-->
-                    <!--<ion-col class="info" col-1 text-center align-self-center>-->
-                        <!--<ion-icon name="ios-information-circle"></ion-icon>-->
-                    <!--</ion-col>-->
-                    <!--<ion-col class="data" text-right align-self-center>-->
-                        <!--&#8362; {{ deal.dealInfo.price }}-->
-                    <!--</ion-col>-->
-                    <!--<ion-col col-3 class="name" text-left align-self-center>price</ion-col>-->
-                <!--</ion-row>-->
-
-                <!--<ion-row class="deal_item" (click)="showInfo(2)">-->
-                    <!--<ion-col class="info" col-1 text-center align-self-center>-->
-                        <!--<ion-icon name="ios-information-circle"></ion-icon>-->
-                    <!--</ion-col>-->
-                    <!--<ion-col class="data" text-right align-self-center>-->
-                        <!--&#8362; {{ deal.dealInfo.percent }}-->
-                    <!--</ion-col>-->
-                    <!--<ion-col col-3 class="name" text-left align-self-center>-->
-                        <!--share of the system-->
-                    <!--</ion-col>-->
-                <!--</ion-row>-->
-
                 <ion-row class="deal_item">
                     <ion-col class="info" col-1 text-center align-self-center>
                         <!--<ion-icon name="ios-information-circle"></ion-icon>-->
@@ -94,7 +57,7 @@
                         {{ deal ? deal.surname : ' ' }} {{ deal ? deal.name : ' ' }}
                     </ion-col>
                     <ion-col col-3 class="name" text-left align-self-center>
-                        name
+                        {{ 'open_lead_deal.name' | translate }}
                     </ion-col>
                 </ion-row>
 
@@ -106,7 +69,7 @@
                         {{ deal ? deal.dealInfo.name : '' }}
                     </ion-col>
                     <ion-col col-3 class="name" text-left align-self-center>
-                        deal type
+                        {{ 'open_lead_deal.deal_type' | translate }}
                     </ion-col>
                 </ion-row>
 
@@ -121,7 +84,7 @@
                         {{ deal.dealInfo.date.date }}
                     </ion-col>
                     <ion-col col-3 class="name" text-left align-self-center>
-                        date
+                        {{ 'open_lead_deal.date' | translate }}
                     </ion-col>
                 </ion-row>
 
@@ -133,13 +96,13 @@
                         {{ deal.dealInfo.status }}
                     </ion-col>
                     <ion-col col-3 class="name" text-left align-self-center>
-                        status
+                        {{ 'open_lead_deal.status' | translate }}
                     </ion-col>
                 </ion-row>
 
 
                 <div *ngIf="deal.dealInfo.comment.trim() != ''" class="deal_comment">
-                    <div class="name" text-right>comment</div>
+                    <div class="name" text-right>{{ 'open_lead_deal.comment' | translate }}</div>
                     <div class="data">
                         {{ deal.dealInfo.comment }}
                     </div>
@@ -154,28 +117,46 @@
                         <!--не оплаченно few_payment-->
 
                         <div *ngIf="deal.dealInfo.paymentConfirmation > 0" class="payment_button">
-                            <button (click)="makePaymentActionSheet()" ion-button small round color="primary">Make a payment</button>
+                            <button (click)="makePaymentActionSheet()" ion-button small round color="primary">
+                                {{ 'open_lead_deal.make_a_payment' | translate }}
+                            </button>
                         </div>
 
                         <div *ngIf="deal.dealInfo.paymentConfirmation == 0" class="payment_button">
-                            <button (click)="receivedNextPaymentData()" ion-button small round color="primary">Received next payment</button>
+                            <button (click)="receivedNextPaymentData()" ion-button small round color="primary">
+                                {{ 'open_lead_deal.received_next_payment' | translate }}
+                            </button>
                         </div>
 
                         <div class="payment_button">
-                            <button (click)="closeFewPaymentDealConfirmation()" ion-button color="secondary" small round>Close a deal</button>
+                            <button
+                                    (click)="closeFewPaymentDealConfirmation()"
+                                    ion-button
+                                    color="secondary"
+                                    small
+                                    round>
+                                {{ 'open_lead_deal.close_a_deal' | translate }}
+                            </button>
                         </div>
 
                     </div>
 
                     <div *ngIf="deal.dealInfo.status_id != 1 && deal.dealInfo.status_id != 4" class="deal_paid">
-                        Paid
+                        {{ 'open_lead_deal.paid' | translate }}
                     </div>
                 </div>
 
                 <div *ngIf="deal && deal.dealInfo.type == 'one_payment'" class="payment_button">
 
                     <div *ngIf="deal.dealInfo.status_id == 1">
-                        <button (click)="makePaymentActionSheet()" ion-button small round color="primary">Make a payment</button>
+                        <button
+                                (click)="makePaymentActionSheet()"
+                                ion-button
+                                small
+                                round
+                                color="primary">
+                            {{ 'open_lead_deal.make_a_payment' | translate }}
+                        </button>
                     </div>
 
                     <div *ngIf="deal.dealInfo.status_id != 1" class="deal_paid">
@@ -191,16 +172,21 @@
                         <ion-col class="left" text-left align-self-center>
 
                             <div class="expiry_time">
-                                <div class="label">expire time</div>
-                                <span class="time">{{ statement.expiry_time.time }}</span> {{ statement.expiry_time.date }}
+                                <div class="label">
+                                    {{ 'open_lead_deal.expire_time' | translate }}
+                                </div>
+                                <span class="time">{{ statement.expiry_time.time }}</span>
+                                {{ statement.expiry_time.date }}
                             </div>
 
                             <div class="status">
                                 <!-- платеж ожидается -->
-                                <span *ngIf="statement.status_id == 1" class="whiting_payment">{{ statement.status }}</span>
+                                <span *ngIf="statement.status_id == 1"
+                                      class="whiting_payment">{{ statement.status }}</span>
 
                                 <!-- ожидается подтверждение платежа админом -->
-                                <span *ngIf="statement.status_id == 2" class="whiting_confirmed">{{ statement.status }}</span>
+                                <span *ngIf="statement.status_id == 2"
+                                      class="whiting_confirmed">{{ statement.status }}</span>
 
                                 <!-- платеж подтвержден админом -->
                                 <span *ngIf="statement.status_id == 3" class="confirmed">{{ statement.status }}</span>
@@ -220,7 +206,11 @@
                             </div>
 
                             <div class="price">
-                                <span class="label">amount</span> <span class="sign">&#8362;</span> {{ statement.price }}
+                                <span class="label">
+                                    {{ 'open_lead_deal.amount' | translate }}
+                                </span>
+                                <span class="sign">&#8362;</span>
+                                {{ statement.price }}
                             </div>
 
                         </ion-col>
@@ -229,17 +219,11 @@
 
                     <ion-row *ngIf="deal.dealPaymentStatements.length == 0" class="no_statement">
                         <ion-col text-center align-self-center>
-                            No statements
+                            {{ 'open_lead_deal.no_statements' | translate }}
                         </ion-col>
                     </ion-row>
 
                 </div>
-
-
-
-                <!--<div *ngIf="deal.dealInfo.status == 'waiting for payment'" class="payment_button" text-center>-->
-                    <!--<button (click)="makePaymentActionSheet()" ion-button small round color="primary">Make a payment</button>-->
-                <!--</div>-->
 
             </div>
 
@@ -271,7 +255,7 @@
 
                 <ion-row *ngIf="deal.transactions.length == 0" class="no_transactions">
                     <ion-col text-center align-self-center>
-                        No transactions
+                        {{ 'open_lead_deal.no_transactions' | translate }}
                     </ion-col>
                 </ion-row>
 
@@ -283,24 +267,7 @@
 
             <div class="deal_block">
 
-                <!--<div>-->
-                    <!--&lt;!&ndash;<input #file1 (change)="onChange(file1.files)" type="file">&ndash;&gt;-->
-                    <!--<input #file1 (change)="onChange($event)" type="file">-->
-                <!--</div>-->
-
                 <ion-row *ngFor="let file of deal.files" class="file_item">
-
-                    <!--<ion-col class="data" text-left align-self-center>-->
-
-                        <!--<div class="date">-->
-                            <!--<span class="time">{{ transaction.date.time }}</span> {{ transaction.date.date }}-->
-                        <!--</div>-->
-
-                        <!--<div class="transaction_id">-->
-                            <!--<span class="number">№</span> {{ transaction.transactionId }}-->
-                        <!--</div>-->
-
-                    <!--</ion-col>-->
 
                     <ion-col col-2 class="file_dell_button" text-center align-self-center (click)="deleteFile(file)">
                         <ion-icon name="md-close"></ion-icon>
@@ -331,7 +298,7 @@
 
                 <ion-row *ngIf="deal.files.length == 0" class="no_files">
                     <ion-col text-center align-self-center>
-                        No files
+                        {{ 'open_lead_deal.no_files' | translate }}
                     </ion-col>
                 </ion-row>
 
@@ -348,13 +315,13 @@
     <ion-toolbar>
         <ion-segment [(ngModel)]="segment" color="primary" (ionChange)="segmentChanged($event)">
             <ion-segment-button value="info">
-                Info
+                {{ 'open_lead_deal.info' | translate }}
             </ion-segment-button>
             <ion-segment-button value="transactions">
-                Transactions
+                {{ 'open_lead_deal.transactions' | translate }}
             </ion-segment-button>
             <ion-segment-button value="files">
-                Files
+                {{ 'open_lead_deal.files' | translate }}
             </ion-segment-button>
         </ion-segment>
     </ion-toolbar>

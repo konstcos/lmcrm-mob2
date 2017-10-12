@@ -95,9 +95,9 @@ export class OpenLeadOrganizerPage {
      *
      */
     public allStates: any = [
-        {id: 1, name: 'Pending', status: false},
-        {id: 2, name: 'Overdue', status: false},
-        {id: 3, name: 'Done', status: false},
+        {id: 1, name: 'open_lead_organizer.filter.state.pending', status: false},
+        {id: 2, name: 'open_lead_organizer.filter.state.overdue', status: false},
+        {id: 3, name: 'open_lead_organizer.filter.state.done', status: false},
     ];
 
 
@@ -129,28 +129,6 @@ export class OpenLeadOrganizerPage {
             this.reminderId = this.navParams.get('reminderId');
         }
 
-        // console.log(this.itemsId);
-        // console.log('reminder: ');
-        // console.log(this.reminderId);
-
-        // this.organizer.get({openLeadId: this.itemsId})
-        //     .subscribe(result => {
-        //
-        //         // переводим ответ в json
-        //         let data = result.json();
-        //
-        //         // let modal = this.modalCtrl.create(OpenLeadOrganizerPage, {items: data});
-        //         //
-        //         // modal.present();
-        //
-        //         this.items = data.organizer;
-        //
-        //         // console.log(data);
-        //
-        //     }, err => {
-        //
-        //         console.log('ERROR: ' + err);
-        //     });
 
         this.loadOrganizerItems();
 

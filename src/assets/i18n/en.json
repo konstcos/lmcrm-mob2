@@ -6,7 +6,6 @@
     "DEAL_MAKER": "deal maker",
     "LEAD_BUYER": "lead buyer",
 
-
     "#1": "Страница логина (первая страница): ",
 
     "LOGIN_LOGO": "CONTACT",
@@ -15,7 +14,6 @@
     "LOGIN_BUTTON": "Sign in",
     "SIGNUP_TITLE": "QUICK REGISTRATION",
     "LOGIN_ADVANTAGES": "Why you should use this system?",
-
 
     "#2": "Страница с описанием возможностей системы Advantages: ",
 
@@ -53,7 +51,6 @@
         }
     },
 
-
     "#3": "Страница регистрации: ",
 
     "BACK_TO_LOGIN": "back to login",
@@ -67,14 +64,12 @@
     "REGISTRATION_FIELD_ERROR_PASSWORD_NOT_MATCH": "in the password must be at least 5 characters",
     "REGISTRATION_FIELD_ERROR_PASSWORD_NOT_ENOUGH": "does not match the password",
 
-
-    "#4": "Подтверждение пароля: ",
+    "#4": "Подтверждение мэила: ",
 
     "CONFIRMATION_CODE_LABEL": "Confirmation code",
     "CONFIRMATION_CODE_PLACEHOLDER": "enter code",
     "CONFIRMATION_CODE_ERROR": "wrong code",
     "CONFIRMATION_CODE_BUTTON": "confirm",
-
 
     "#5": "Дополнительные данные по регистрации: ",
 
@@ -85,20 +80,18 @@
     "REGISTRATION_DATA_AGREEMENTS": "I confirm the user agreements",
     "REGISTRATION_DATA_USER_AGREEMENTS": "read the user agreements",
 
-
     "#6": "Данные по ролям пользователя: ",
 
     "ROLE_PAGE_NAME": "ROLE",
     "SELECT": "select",
 
-    "#7": "Название групп особенностей: ",
+    "#6.1": "Название групп особенностей: ",
     "roleGroup": {
         "PAYMENT_SYSTEM": "Payment system",
         "WORK_WITH_CLIENTS": "Work with clients"
     },
 
-
-    "#8": "Описание особенностей ролей: ",
+    "#6.2": "Описание особенностей ролей: ",
     "roleFeatures": {
         "FEATURE_1": "I can work with your system without making a credit card or any other payment",
         "FEATURE_2": "For the money received for the introduced irrelevant client, I can open the relevant client",
@@ -115,8 +108,7 @@
         "FEATURE_12": "I can manage my sellers in the system"
     },
 
-
-    "#9": "Заполнение персональных данных: ",
+    "#7": "Заполнение персональных данных: ",
 
     "PERSONAL_DATA_TITLE": "Personal data",
     "PERSONAL_DATA_FIRST_NAME": "First name",
@@ -126,18 +118,320 @@
     "PERSONAL_DATA_PHONE": "Phone",
     "PERSONAL_DATA_PHONE_ERROR_LENGTH": "the length of the phone number must be at least 9 digits",
 
-
-    "#10": "Выбор сферы: ",
+    "#8": "Выбор сферы: ",
 
     "SPHERE_TITLE": "Select spheres",
 
+    "#9": "Шапка и основные данные в меню",
 
-    "#11": "Шапка и основные данные в меню: ",
+    "#9.1": "Главное меню",
 
     "user_can_open_leads": "you can open <b>{{ price }}</b> leads",
     "user_have_leads": "you have <b>{{ amount }}</b> incoming leads",
     "main_menu_no_mask": "no mask",
 
+    "pages": {
+        "customer_filter": "Customers filters",
+        "salesmen": "Salesmen",
+        "statistic": "Statistic",
+        "credits": "Credits",
+        "private_group": "Private Group",
+        "organizer": "Organizer",
+        "profile": "Profile"
+    },
+
+    "main_menu_logout": "Logout",
+
+    "mainTabTitle": {
+        "outgoing": "OUTGOING",
+        "incoming": "INCOMING",
+        "expose": "EXPOSE"
+    },
+
+    "#9.2": "Данные фильтра",
+
+    "filter": {
+        "title": "Filter",
+        "period": "Period",
+        "from": "From",
+        "to": "To",
+        "reset_period_button": "reset period",
+        "other_open": "Other",
+        "other_obtain": "Other",
+        "show_archive": "Show archive",
+        "only_exposure": "Only exposure",
+        "only_not_open_leads": "Only not open Leads",
+        "spheres": "Spheres",
+        "all_spheres": "All spheres",
+        "masks": "Masks",
+        "all_masks": "All masks",
+        "no_masks": "No masks",
+        "open_leads_statuses": "Open Leads statuses",
+        "all_open_lead_statuses": "All statuses",
+        "lead_statuses": "Lead statuses",
+        "all_lead_statuses": "All statuses",
+
+        "statusesList": {
+            "bad_lead": "Bad lead",
+            "new_lead": "New Lead",
+            "auction": "Auction",
+            "closed_deal": "Closed Deal"
+        },
+
+        "purpose": "Purpose",
+        "all_purposes": "All purposes",
+
+        "purposeList": {
+            "auction": "Auction",
+            "for_deals": "For Deals",
+            "private_group": "Private Group"
+        },
+
+        "apply": "Apply",
+        "reset": "Reset"
+    },
+
+    "filter_footer_title": "Filter",
+
+    "#10": "Страница входящих лидов 'incoming': ",
+
+    "incoming": {
+        "you_do_not_have_any_leads-to_get_the_leads": "<div> You do not have any leads</div><div class='take_leads'> To get the leads, select the mask</div><div class='take_leads'>on the client filter page</div>",
+        "you_do_not_have_any_leads": "<div> You do not have any leads</div>",
+        "no_leads_by_filter": "<div> No leads by filter</div>"
+    },
+
+    "#11": "Детали по входящим лидам 'incoming': ",
+
+    "incoming_detail": {
+        "title": "Incoming Lead",
+        "phone": "phone",
+        "added_to_system": "added to system",
+        "added_to_you_auction": "added to you auction",
+        "sphere": "sphere",
+        "mask_name": "mask name",
+        "expose_lead_data": "expose lead data"
+    },
+
+    "#12": "Исходящие лиды 'Outgoing': ",
+
+    "outgoing": {
+        "no_leads": "<div> No leads</div>",
+        "to_add_the_lead": "To add the lead, click this button",
+        "no_leads_by_filter": "<div> No leads by filter</div>"
+    },
+
+    "#13": "Детали по исходящим лидам: ",
+
+    "outgoing_detail": {
+        "title": "Outgoing Lead",
+        "phone": "phone",
+        "email": "email",
+        "sphere": "sphere",
+        "status": "status",
+        "added_at": "added at"
+    },
+
+    "#14": "Открытые лиды 'Exposed': ",
+
+    "exposed": {
+        "deal_name": "deal name",
+        "archive": "archive",
+        "select_mask": "Select mask",
+        "deal_is_closed": "deal is closed",
+        "deal_price": "deal price",
+        "no_status": "No status",
+        "you_do_not_have_any_leads-to_get_the_leads": "<div> You do not have any leads</div><div class='take_leads'> To get the leads, select the mask</div><div class='take_leads'>on the client filter page</div>",
+        "you_do_not_have_any_leads": "<div> You do not have any leads</div>",
+        "no_leads_by_filter": "<div> No open leads by filter</div>"
+    },
+
+    "#15": "Детали по открытым лидам: ",
+
+    "exposed_detail": {
+        "title": "Exposed Lead",
+        "phone": "phone",
+        "no_status": "No status",
+        "opened": "opened",
+        "opened_by": "opened by",
+        "you": "You",
+        "sphere": "sphere",
+        "deleted": "deleted",
+        "mask_name": "mask name"
+    },
+
+    "#16": "Смена статуса по открытому лиду: ",
+
+    "open_lead_statuses": {
+        "title": "Open Lead Status",
+        "bad": "Bad",
+        "uncertain": "Uncertain",
+        "process": "Process",
+        "refuseniks": "Refuseniks",
+        "deals": "Deals",
+        "apply": "Apply"
+    },
+
+    "#17": "Сделка по открытому лиду",
+
+    "open_lead_deal": {
+        "title": "Open Lead Deal",
+        "segments": {
+            "info": "Info",
+            "transactions": "Transactions",
+            "files": "Files"
+        },
+        "name": "name",
+        "deal_type": "deal type",
+        "date": "date",
+        "status": "status",
+        "comment": "comment",
+        "make_a_payment": "Make a payment",
+        "received_next_payment": "Received next payment",
+        "close_a_deal": "Close a deal",
+        "paid": "Paid",
+        "expire_time": "expire time",
+        "amount": "amount",
+        "no_statements": "No statements",
+        "no_transactions": "No transactions",
+        "no_files": "No files"
+    },
+
+    "#18": "Органайзер по открытому лиду",
+
+    "open_lead_organizer": {
+        "title": "Open Lead Status",
+
+        "filter": {
+            "title": "Filter",
+            "type": "Type",
+            "all": "All",
+            "state": {
+                "pending": "Pending",
+                "overdue": "Overdue",
+                "done": "Done"
+            },
+            "apply": "Apply",
+            "reset": "Reset"
+        },
+
+        "tabs": {
+            "reminders": "Reminders",
+            "comments": "Comments"
+        },
+
+        "state": {
+            "pending": "pending",
+            "overdue": "overdue",
+            "done": "done"
+        },
+
+        "no_reminders": "no reminders",
+        "no_reminders_by_filter": "no reminders by filter",
+        "no_comments": "no comments",
+        "add": "Add"
+    },
+
+    "#19": "Добавление нового лида",
+
+    "adding_lead": {
+        "title": "Adding lead",
+        "sphere": "sphere",
+        "all": "For all",
+        "dealmakers_only": "For dealmakers only",
+        "private_group": "For private group",
+        "name": "name",
+        "phone": "phone",
+        "phone_empty": "this field required",
+        "phone_error_length": "the length of the phone number must be at least 9 digits",
+        "comment": "comment",
+        "group_members": "Group members",
+        "no_spheres": "No spheres",
+        "add_lead": "add lead"
+    },
+
+    "#20": "Профиль пользователя",
+
+    "profile": {
+        "title": "Profile",
+        "first_name": "First name",
+        "first_name_required": "this field required",
+        "last_name": "Last name",
+        "last_name_required": "this field required",
+        "company": "Company",
+        "company_required": "this field required",
+        "about": "About",
+        "about_required": "this field required",
+        "password": "Password",
+        "password_required": "this field required",
+        "password_confirmation": "Password confirmation",
+        "password_confirmation_required": "this field required",
+        "payment_information": "Payment information",
+        "payment_info": {
+            "company": "Company",
+            "bank": "Bank",
+            "branch_number": "Branch number",
+            "invoice_number": "Invoice number"
+        },
+        "save": "Save"
+    },
+
+    "#21": "Страница по работе с кредитами агента",
+
+    "credits": {
+        "title": "Credits",
+        "tabs": {
+            "info": "Info",
+            "transactions": "Transactions",
+            "statement": "Statement"
+        },
+        "loading": {
+            "make_withdrawal": "Make withdrawal, please wait..."
+        },
+        "available": "Available",
+        "replenishment": "Replenishment",
+        "replenishment_comment": "Input of money into the system account",
+        "withdrawal": "Withdrawal",
+        "withdrawal_comment": "Withdrawal of money from the system account",
+        "no_transactions": "No transactions",
+        "payByBankAlert": {
+            "title": "Pay by bank",
+            "message": "For payment via bank transfer, transfer money to the details listed below, then click on the 'Already paid' button {{requisites}}",
+            "cancel": "Cancel",
+            "already_paid": "Already paid"
+        },
+        "makeReplenishmentAlert": {
+            "title": "Replenishment",
+            "message": "The statement was successful created under the number <b>№ {{resultId}}</b>. To continue, pay the statement and mark it",
+            "OK": "Ok"
+        },
+        "makeWithdrawalAlert": {
+            "title": "Withdrawal",
+            "message": "The statement was successful created under the number <b>№ {{resultId}}</b>. Soon your statement will be processed.",
+            "OK": "Ok"
+        },
+        "statementAction": {
+            "title": "Statement № {{itemId}}",
+            "pay_by_bank": "Pay by bank",
+            "pay_by_credit_card": "Pay by Credit Card",
+            "delete": "Delete",
+            "cancel": "Cancel"
+        },
+
+
+        "BankTransactionAlertSuccess": {
+            "title": "Payment confirmed",
+            "message": "After processing the payment by the administration, the money will be credited to your wallet in the system",
+            "OK": "Ok"
+        }
+
+
+    },
+
+
+
+
+    " ==============----------------===================-------------=========== ": "================---------===============",
 
 
 

@@ -6,7 +6,7 @@
     <ion-header no-border>
         <ion-toolbar color="dark" no-border>
 
-            <ion-title>Filter</ion-title>
+            <ion-title>{{ 'open_lead_organizer.filter.title' | translate }}</ion-title>
 
             <ion-buttons right text-center>
                 <button ion-button (click)="menuToggle()">
@@ -20,102 +20,12 @@
 
     <ion-content>
 
-        <!-- Фильтр по периоду -->
-        <!--<div class="filter_block">-->
-
-            <!--<ion-row class="filter_name">-->
-                <!--<ion-col>-->
-                    <!--Period-->
-                <!--</ion-col>-->
-            <!--</ion-row>-->
-
-            <!--&lt;!&ndash; Начало периода &ndash;&gt;-->
-            <!--<ion-item class="period_filter_item period_filter_from">-->
-                <!--<ion-label>From</ion-label>-->
-                <!--<ion-datetime-->
-                        <!--displayFormat="DD/MM/YYYY"-->
-                        <!--pickerFormat="DD-MM-YYYY"-->
-                        <!--[(ngModel)]="noticesFilter.period.from">-->
-                <!--</ion-datetime>-->
-            <!--</ion-item>-->
-
-            <!--&lt;!&ndash; Конец периода &ndash;&gt;-->
-            <!--<ion-item class="period_filter_item period_filter_from">-->
-                <!--<ion-label>To</ion-label>-->
-                <!--<ion-datetime-->
-                        <!--displayFormat="DD/MM/YYYY"-->
-                        <!--pickerFormat="DD-MM-YYYY"-->
-                        <!--[(ngModel)]="noticesFilter.period.to">-->
-                <!--</ion-datetime>-->
-            <!--</ion-item>-->
-
-            <!--&lt;!&ndash; Кнопка обнуления &ndash;&gt;-->
-            <!--<button small ion-button round color="danger" (click)="resetPeriod()">reset period</button>-->
-
-        <!--</div>-->
-
-
-        <!-- Фильтр по типам статусам оповещений -->
-        <!--<div class="filter_block">-->
-
-            <!--<ion-row class="filter_name">-->
-                <!--<ion-col>-->
-                    <!--Statuses-->
-                <!--</ion-col>-->
-            <!--</ion-row>-->
-
-            <!--&lt;!&ndash; Показывать все статусы &ndash;&gt;-->
-            <!--<ion-row class="sphere_filter_item" (click)="selectStatus('all')">-->
-                <!--<ion-col col-2 text-center>-->
-
-                    <!--<ion-icon *ngIf="noticesFilter.status == 'all'" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>-->
-                    <!--<ion-icon *ngIf="noticesFilter.status != 'all'" name="md-square-outline"></ion-icon>-->
-
-                <!--</ion-col>-->
-
-                <!--<ion-col>-->
-                    <!--All statuses-->
-                <!--</ion-col>-->
-            <!--</ion-row>-->
-
-            <!--&lt;!&ndash; Показывать только не отмеченные &ndash;&gt;-->
-            <!--<ion-row class="sphere_filter_item" (click)="selectStatus('not_market')">-->
-                <!--<ion-col col-2 text-center>-->
-
-                    <!--<ion-icon *ngIf="noticesFilter.status == 'not_market'" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>-->
-                    <!--<ion-icon *ngIf="noticesFilter.status != 'not_market'" name="md-square-outline"></ion-icon>-->
-
-                <!--</ion-col>-->
-
-                <!--<ion-col>-->
-                    <!--Not market-->
-                <!--</ion-col>-->
-            <!--</ion-row>-->
-
-
-            <!--&lt;!&ndash; Показывать только отмеченные &ndash;&gt;-->
-            <!--<ion-row class="sphere_filter_item" (click)="selectStatus('marked')">-->
-                <!--<ion-col col-2 text-center>-->
-
-                    <!--<ion-icon *ngIf="noticesFilter.status == 'marked'" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>-->
-                    <!--<ion-icon *ngIf="noticesFilter.status != 'marked'" name="md-square-outline"></ion-icon>-->
-
-                <!--</ion-col>-->
-
-                <!--<ion-col>-->
-                    <!--Market-->
-                <!--</ion-col>-->
-            <!--</ion-row>-->
-
-        <!--</div>-->
-
-
          <!--Фильтр по типам оповещений-->
         <div class="filter_block">
 
             <ion-row class="filter_name">
                 <ion-col>
-                    Type
+                    {{ 'open_lead_organizer.filter.type' | translate }}
                 </ion-col>
             </ion-row>
 
@@ -129,7 +39,7 @@
                 </ion-col>
 
                 <ion-col>
-                    All
+                    {{ 'open_lead_organizer.filter.all' | translate }}
                 </ion-col>
             </ion-row>
 
@@ -143,7 +53,7 @@
                 </ion-col>
 
                 <ion-col>
-                    {{ state.name }}
+                    {{ state.name | translate }}
                 </ion-col>
             </ion-row>
 
@@ -153,8 +63,12 @@
 
     <ion-footer>
         <ion-toolbar color="dark">
-            <button menuClose (click)="filterApply()" ion-button>Apply</button>
-            <button menuClose (click)="filterReset()" ion-button color="danger">Reset</button>
+            <button menuClose (click)="filterApply()" ion-button>
+                {{ 'open_lead_organizer.filter.apply' | translate }}
+            </button>
+            <button menuClose (click)="filterReset()" ion-button color="danger">
+                {{ 'open_lead_organizer.filter.reset' | translate }}
+            </button>
         </ion-toolbar>
     </ion-footer>
 
@@ -176,21 +90,10 @@
         <ion-title>{{ leadData.name }} {{ leadData.surname ? leadData.surname : '' }}</ion-title>
 
         <ion-buttons right text-right>
-            <!--<button ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">-->
-            <!--add lead-->
-            <!--</button>-->
             <button *ngIf="organizerBlocks == 'reminders'" ion-button icon-only (click)="menuToggle()">
-                <!--<button ion-button icon-only menuToggle="right">-->
 
-                <!--<ion-icon *ngIf="isNoticeFilterOn" class="notice_filter_on_header" name="md-square"></ion-icon>-->
-
-                <!--<ion-icon [ngClass]="isNoticeFilterOn ? 'notice_filter_on' : '' " name="ios-funnel"></ion-icon>-->
                 <ion-icon name="ios-funnel"></ion-icon>
             </button>
-
-            <!--<button ion-button icon-only (click)="presentPopover($event)">-->
-            <!--<ion-icon name="more"></ion-icon>-->
-            <!--</button>-->
         </ion-buttons>
 
     </ion-navbar>
@@ -200,10 +103,12 @@
             <ion-segment [(ngModel)]="organizerBlocks">
 
                 <ion-segment-button value="reminders" class="organizer-name">
-                    <ion-icon name="alarm"></ion-icon> Reminders
+                    <ion-icon name="alarm"></ion-icon>
+                    {{ 'open_lead_organizer.tabs.reminders' | translate }}
                 </ion-segment-button>
                 <ion-segment-button value="comments" class="organizer-name">
-                    <ion-icon name="ios-paper-outline"></ion-icon> Comments
+                    <ion-icon name="ios-paper-outline"></ion-icon>
+                    {{ 'open_lead_organizer.tabs.comments' | translate }}
                 </ion-segment-button>
 
             </ion-segment>
@@ -244,9 +149,15 @@
                             <ion-col class="organizer-data" text-right no-padding>
 
                                 <!--<div class="date"> <span class="time">{{ item.date.time }}</span> {{ item.date.date }} </div>-->
-                                <div *ngIf="item.status == 'overdue'" class="status_overdue">overdue</div>
-                                <div *ngIf="item.status == 'pending'" class="status_pending">pending</div>
-                                <div *ngIf="item.status == 'done'" class="status_done">done</div>
+                                <div *ngIf="item.status == 'overdue'" class="status_overdue">
+                                    {{ 'open_lead_organizer.state.overdue' | translate }}
+                                </div>
+                                <div *ngIf="item.status == 'pending'" class="status_pending">
+                                    {{ 'open_lead_organizer.state.pending' | translate }}
+                                </div>
+                                <div *ngIf="item.status == 'done'" class="status_done">
+                                    {{ 'open_lead_organizer.state.done' | translate }}
+                                </div>
 
                                 <div class="comment">{{ item.text }}</div>
                             </ion-col>
@@ -256,21 +167,15 @@
                         <ion-row *ngIf="items['reminders'].length == 0 && !isFilterOn">
 
                             <ion-col text-center no-padding class="no_reminders">
-
-                                no reminders
-
+                                {{ 'open_lead_organizer.no_reminders' | translate }}
                             </ion-col>
-
                         </ion-row>
 
                         <ion-row *ngIf="items['reminders'].length == 0 && isFilterOn">
 
                             <ion-col text-center no-padding class="no_filter_reminders">
-
-                                no reminders by filter
-
+                                {{ 'open_lead_organizer.no_reminders_by_filter' | translate }}
                             </ion-col>
-
                         </ion-row>
 
 
@@ -292,11 +197,8 @@
                         <ion-row *ngIf="items['comments'].length == 0">
 
                             <ion-col text-center no-padding class="no_reminders">
-
-                                no comments
-
+                                {{ 'open_lead_organizer.no_comments' | translate }}
                             </ion-col>
-
                         </ion-row>
 
                     </ion-col>
@@ -314,8 +216,7 @@
 <ion-footer>
     <div text-center>
         <button ion-button small round (click)="addItem()">
-            Add
-            <!--<ion-icon name="md-alarm"></ion-icon>-->
+            {{ 'open_lead_organizer.add' | translate }}
         </button>
     </div>
 </ion-footer>

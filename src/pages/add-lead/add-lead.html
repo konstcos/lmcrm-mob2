@@ -13,21 +13,7 @@
                 </button>
             </ion-buttons>
 
-            <ion-title>Adding lead</ion-title>
-
-
-            <!--<ion-buttons left text-center class="left_button">-->
-                <!--<button ion-button (click)="goBackPop()">-->
-                    <!--close-->
-                <!--</button>-->
-            <!--</ion-buttons>-->
-            <!--<ion-title>ObtainDetail</ion-title>-->
-
-            <!--<ion-buttons right text-center class="right_button">-->
-                <!--<button ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">-->
-                    <!--add lead-->
-                <!--</button>-->
-            <!--</ion-buttons>-->
+            <ion-title>{{ 'adding_lead.title' | translate }}</ion-title>
 
         </ion-navbar>
 
@@ -38,34 +24,12 @@
 
 <ion-content padding>
 
-    <!--<h2>Add Lead</h2>-->
-
-    <!--<ion-row>-->
-        <!--<ion-col>-->
-            <!--<div>*name</div>-->
-            <!--<ion-input type="text" placeholder="client name"></ion-input>-->
-        <!--</ion-col>-->
-    <!--</ion-row>-->
-
-    <!--<ion-row>-->
-        <!--<ion-col>-->
-            <!--<div>*phone</div>-->
-            <!--<ion-input type="text" placeholder="client name"></ion-input>-->
-        <!--</ion-col>-->
-    <!--</ion-row>-->
-
-    <!--<ion-row>-->
-        <!--<ion-col>-->
-            <!--<div>comment</div>-->
-            <!--<ion-textarea placeholder="client name"></ion-textarea>-->
-        <!--</ion-col>-->
-    <!--</ion-row>-->
-
-
     <ion-list *ngIf="spheres">
 
         <ion-item margin-bottom>
-            <ion-label text-right stacked>sphere</ion-label>
+            <ion-label text-right stacked>
+                {{ 'adding_lead.sphere' | translate }}
+            </ion-label>
             <!--<ion-select [(ngModel)]="gaming">-->
             <ion-select [(ngModel)]="lead.sphere" interface="action-sheet" dir="rtl" class="add_lead_value">
 
@@ -75,36 +39,26 @@
             </ion-select>
         </ion-item>
 
-        <!--<ion-item margin-bottom>-->
-            <!--<ion-label text-right stacked>add for</ion-label>-->
-            <!--&lt;!&ndash;<ion-select [(ngModel)]="gaming">&ndash;&gt;-->
-            <!--<ion-select interface="action-sheet" dir="rtl" class="add_lead_value">-->
-                <!--<ion-option selected value="0">all</ion-option>-->
-                <!--<ion-option value="1">dealmakers only</ion-option>-->
-                <!--<ion-option value="2">private group</ion-option>-->
-            <!--</ion-select>-->
-        <!--</ion-item>-->
-
-
-
         <ion-list radio-group [(ngModel)]="lead.type" class="add_lead_radio" (ionChange)="typeChange()">
 
             <ion-item dir="rtl" no-border >
-                <ion-label text-left class="add_lead_value">For all</ion-label>
+                <ion-label text-left class="add_lead_value">
+                    {{ 'adding_lead.all' | translate }}
+                </ion-label>
                 <ion-radio value="0"></ion-radio>
             </ion-item>
 
-
-
             <ion-item dir="rtl" no-border>
-                <ion-label text-left class="add_lead_value">For dealmakers only</ion-label>
+                <ion-label text-left class="add_lead_value">
+                    {{ 'adding_lead.dealmakers_only' | translate }}
+                </ion-label>
                 <ion-radio value="1"></ion-radio>
             </ion-item>
 
-
-
             <ion-item dir="rtl" no-border>
-                <ion-label text-left class="add_lead_value">For private group</ion-label>
+                <ion-label text-left class="add_lead_value">
+                    {{ 'adding_lead.private_group' | translate }}
+                </ion-label>
                 <ion-radio value="2"></ion-radio>
             </ion-item>
 
@@ -115,14 +69,19 @@
 
 
         <ion-item margin-bottom>
-            <ion-label text-right stacked>name</ion-label>
+            <ion-label text-right stacked>
+                {{ 'adding_lead.name' | translate }}
+            </ion-label>
             <ion-input text-right type="text" [(ngModel)]="lead.name" class="add_lead_value" ></ion-input>
         </ion-item>
 
 
         <div class="phone_block">
             <ion-item>
-                <ion-label text-right stacked><span ion-text color="danger">*</span> phone</ion-label>
+                <ion-label text-right stacked>
+                    <span ion-text color="danger">*</span>
+                    {{ 'adding_lead.phone' | translate }}
+                </ion-label>
                 <ion-input
                         text-right type="tel"
                         (ngModelChange)='phoneChange($event)'
@@ -132,12 +91,18 @@
 
                 </ion-input>
             </ion-item>
-            <div *ngIf="errors.phone.empty" class="phone_error">this field required</div>
-            <div *ngIf="errors.phone.notEnough" class="phone_error">the length of the phone number must be at least 9 digits</div>
+            <div *ngIf="errors.phone.empty" class="phone_error">
+                {{ 'adding_lead.phone_empty' | translate }}
+            </div>
+            <div *ngIf="errors.phone.notEnough" class="phone_error">
+                {{ 'adding_lead.phone_error_length' | translate }}
+            </div>
         </div>
 
         <ion-item margin-bottom>
-            <ion-label text-right stacked>comment</ion-label>
+            <ion-label text-right stacked>
+                {{ 'adding_lead.comment' | translate }}
+            </ion-label>
             <ion-textarea rows="4" text-right [(ngModel)]="lead.comment" class="add_lead_value"></ion-textarea>
         </ion-item>
 
@@ -147,7 +112,7 @@
     <ion-list *ngIf="lead.member">
 
         <ion-list-header text-right class="members_head">
-            Group members
+            {{ 'adding_lead.group_members' | translate }}
         </ion-list-header>
 
         <ion-item *ngFor="let member of members" dir="rtl">
@@ -160,7 +125,7 @@
 
     <ion-row *ngIf="!lead.sphere">
         <ion-col text-center>
-            No spheres
+            {{ 'adding_lead.no_spheres' | translate }}
         </ion-col>
     </ion-row>
 
@@ -170,6 +135,6 @@
 
 <ion-footer no-border text-center class="new_lead_footer">
         <button color="primary" round ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">
-            add lead
+            {{ 'adding_lead.add_lead' | translate }}
         </button>
 </ion-footer>

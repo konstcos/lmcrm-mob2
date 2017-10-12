@@ -14,7 +14,6 @@
 
     <ion-card *ngFor="let item of items" class="open_card">
 
-
         <ion-row>
             <ion-col>
                 <button ion-button clear small>
@@ -26,7 +25,7 @@
                 </button>
             </ion-col>
             <ion-col col-3 text-right align-self-center class="archive" [ngClass]="item.archive == 1 ? 'zipped' : ''" (click)="archive(item)">
-                archive
+                {{ 'exposed.archive' | translate }}
                 <ion-icon *ngIf="item.archive == 0" name="md-square-outline" class="archive_icon"></ion-icon>
                 <ion-icon *ngIf="item.archive == 1" name="md-checkbox-outline" class="archive_icon selected_icon"></ion-icon>
             </ion-col>
@@ -60,17 +59,17 @@
 
                         <div class="deal_is_closed">
 
-                            <div class="name"> deal is closed</div>
+                            <div class="name">{{ 'exposed.deal_is_closed' | translate }}</div>
 
                             <ion-row class="deal_data_row">
 
                                 <ion-col>
-                                    <div class="deal_data_title">deal name</div>
+                                    <div class="deal_data_title">{{ 'exposed.deal_name' | translate }}</div>
                                     <div  class="deal_data_data">{{ item.status_info.stepname }}</div>
                                 </ion-col>
 
                                 <ion-col>
-                                    <div class="deal_data_title">deal price</div>
+                                    <div class="deal_data_title">{{ 'exposed.deal_price' | translate }}</div>
                                     <div  class="deal_data_data"><b>&#8362;</b> {{ item.close_deal_info.price }}</div>
                                 </ion-col>
 
@@ -107,7 +106,7 @@
 
                     <div *ngIf="!item.close_deal_info">
                         <button ion-button small full (click)="changeStatus(item)">
-                            {{ item.status_info ? item.status_info.stepname : 'No status' }}
+                            {{ item.status_info ? item.status_info.stepname : ('exposed.no_status' | translate) }}
                         </button>
                     </div>
 
@@ -115,7 +114,7 @@
 
                 <div *ngIf="roles.subRole == 'dealmaker'">
                     <button ion-button small full (click)="changeStatus(item)">
-                        {{ item.status_info ? item.status_info.stepname : 'No status' }}
+                        {{ item.status_info ? item.status_info.stepname : ('exposed.no_status' | translate) }}
                     </button>
                 </div>
 
@@ -131,10 +130,13 @@
             <div class="icon"><ion-icon name="md-contract"></ion-icon></div>
 
             <div class="leads_text">
-                <div> You do not have any leads</div>
-                <div class="take_leads"> To get the leads, select the mask</div>
-                <div class="take_leads">on the client filter page</div>
-                <button small ion-button color="primary" class="mask_button" (click)="customerPage()"> Select mask </button>
+                <!--<div> You do not have any leads</div>-->
+                <!--<div class="take_leads"> To get the leads, select the mask</div>-->
+                <!--<div class="take_leads">on the client filter page</div>-->
+
+                <div [innerHTML]="'exposed.you_do_not_have_any_leads-to_get_the_leads' | translate"></div>
+
+                <button small ion-button color="primary" class="mask_button" (click)="customerPage()">{{ 'exposed.select_mask' | translate }}</button>
             </div>
 
         </ion-col>
@@ -144,11 +146,8 @@
         <ion-col>
             <div class="icon"><ion-icon name="md-contract"></ion-icon></div>
 
-            <div class="leads_text">
-                <div> You do not have any leads</div>
-                <!--<div class="take_leads"> To get the leads, select the mask</div>-->
-                <!--<div class="take_leads">on the client filter page</div>-->
-                <!--<button small ion-button color="primary" class="mask_button" (click)="customerPage()"> Select mask </button>-->
+            <div class="leads_text" [innerHTML]="'exposed.you_do_not_have_any_leads' | translate">
+                <!--<div> You do not have any leads</div>-->
             </div>
 
         </ion-col>
@@ -158,11 +157,8 @@
         <ion-col>
             <div class="icon"><ion-icon name="md-contract"></ion-icon></div>
 
-            <div class="leads_text">
-                <div> No open leads by filter</div>
-                <!--<div class="take_leads"> To get the leads, select the mask</div>-->
-                <!--<div class="take_leads">on the client filter page</div>-->
-                <!--<button small ion-button color="primary" class="mask_button" (click)="customerPage()"> Select mask </button>-->
+            <div class="leads_text" [innerHTML]="'exposed.no_leads_by_filter' | translate">
+                <!--<div> No open leads by filter</div>-->
             </div>
 
         </ion-col>

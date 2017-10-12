@@ -121,7 +121,7 @@
 
                 </ion-col>
                 <ion-col text-right>
-                    {{ pages[6].title }}
+                    {{ pages[6].title | translate }}
                 </ion-col>
                 <ion-col col-2 text-center>
                     <ion-icon name="md-settings"></ion-icon>
@@ -133,7 +133,7 @@
 
                 </ion-col>
                 <ion-col text-right>
-                    {{ pages[3].title }}
+                    {{ pages[3].title | translate }}
                 </ion-col>
                 <ion-col col-2 text-center>
                     <ion-icon name="ios-card"></ion-icon>
@@ -145,7 +145,7 @@
 
                 </ion-col>
                 <ion-col text-right>
-                    {{ pages[5].title }}
+                    {{ pages[5].title | translate }}
                 </ion-col>
                 <ion-col col-2 text-center>
                     <ion-icon name="md-alarm"></ion-icon>
@@ -157,7 +157,7 @@
 
                 </ion-col>
                 <ion-col text-right>
-                    Salesman
+                    {{ pages[1].title | translate }}
                 </ion-col>
                 <ion-col col-2 text-center>
                     <ion-icon name="md-contacts"></ion-icon>
@@ -169,7 +169,7 @@
 
                 </ion-col>
                 <ion-col text-right>
-                    {{ pages[0].title }}
+                    {{ pages[0].title | translate }}
                 </ion-col>
                 <ion-col col-2 text-center>
                     <ion-icon name="md-funnel"></ion-icon>
@@ -181,7 +181,7 @@
 
                 </ion-col>
                 <ion-col text-right>
-                    {{ pages[4].title }}
+                    {{ pages[4].title | translate }}
                 </ion-col>
                 <ion-col col-2 text-center>
                     <ion-icon name="ios-people"></ion-icon>
@@ -193,7 +193,7 @@
 
                 </ion-col>
                 <ion-col text-right>
-                    {{ pages[2].title }}
+                    {{ pages[2].title | translate }}
                 </ion-col>
                 <ion-col col-2 text-center>
                     <ion-icon name="md-stats"></ion-icon>
@@ -209,7 +209,7 @@
 
                 </ion-col>
                 <ion-col text-right>
-                    Logout
+                    {{ 'main_menu_logout' | translate }}
                 </ion-col>
                 <ion-col col-2 text-center>
                     <ion-icon name="md-log-out"></ion-icon>
@@ -251,7 +251,7 @@
 
     <ion-header>
         <ion-toolbar color="dark">
-            <ion-title>Filter</ion-title>
+            <ion-title>{{ 'filter.title' | translate }}</ion-title>
         </ion-toolbar>
     </ion-header>
 
@@ -263,13 +263,13 @@
 
             <ion-row class="filter_name">
                 <ion-col>
-                    Period
+                    {{ 'filter.period' | translate }}
                 </ion-col>
             </ion-row>
 
             <!-- Начало периода -->
             <ion-item class="period_filter_item period_filter_from">
-                <ion-label>From</ion-label>
+                <ion-label>{{ 'filter.from' | translate }}</ion-label>
                 <ion-datetime
                         displayFormat="DD/MM/YYYY"
                         pickerFormat="DD-MM-YYYY"
@@ -279,7 +279,7 @@
 
             <!-- Конец периода -->
             <ion-item class="period_filter_item period_filter_from">
-                <ion-label>To</ion-label>
+                <ion-label>{{ 'filter.to' | translate }}</ion-label>
                 <ion-datetime
                         displayFormat="DD/MM/YYYY"
                         pickerFormat="DD-MM-YYYY"
@@ -288,7 +288,9 @@
             </ion-item>
 
             <!-- Кнопка обнуления -->
-            <button small ion-button round color="danger" (click)="resetPeriod()">reset period</button>
+            <button small ion-button round color="danger" (click)="resetPeriod()">
+                {{ 'filter.reset_period_button' | translate }}
+            </button>
 
         </div>
 
@@ -298,7 +300,7 @@
 
             <ion-row class="filter_name">
                 <ion-col>
-                    Other
+                    {{ 'filter.other_open' | translate }}
                 </ion-col>
             </ion-row>
 
@@ -312,7 +314,7 @@
                 </ion-col>
 
                 <ion-col>
-                    Show archive
+                    {{ 'filter.show_archive' | translate }}
                 </ion-col>
             </ion-row>
 
@@ -325,7 +327,7 @@
 
             <ion-row class="filter_name">
                 <ion-col>
-                    Other
+                    {{ 'filter.other_obtain' | translate }}
                 </ion-col>
             </ion-row>
 
@@ -339,7 +341,7 @@
                 </ion-col>
 
                 <ion-col>
-                    Only exposure
+                    {{ 'filter.only_exposure' | translate }}
                 </ion-col>
             </ion-row>
 
@@ -353,7 +355,7 @@
                 </ion-col>
 
                 <ion-col>
-                    Only not open Leads
+                    {{ 'filter.only_not_open_leads' | translate }}
                 </ion-col>
             </ion-row>
 
@@ -365,7 +367,7 @@
 
             <ion-row class="filter_name">
                 <ion-col>
-                    Spheres
+                    {{ 'filter.spheres' | translate }}
                 </ion-col>
             </ion-row>
 
@@ -379,7 +381,7 @@
                 </ion-col>
 
                 <ion-col>
-                    All spheres
+                    {{ 'filter.all_spheres' | translate }}
                 </ion-col>
             </ion-row>
 
@@ -404,7 +406,7 @@
 
             <ion-row class="filter_name">
                 <ion-col>
-                    Masks
+                    {{ 'filter.masks' | translate }}
                 </ion-col>
             </ion-row>
 
@@ -418,7 +420,8 @@
                 </ion-col>
 
                 <ion-col>
-                    All masks
+                    {{ 'filter.all_masks' | translate }}
+
                 </ion-col>
             </ion-row>
 
@@ -442,7 +445,7 @@
                 </ion-col>
 
                 <ion-col>
-                    No masks
+                    {{ 'filter.no_masks' | translate }}
                 </ion-col>
             </ion-row>
 
@@ -454,7 +457,7 @@
 
             <ion-row class="filter_name">
                 <ion-col>
-                    Open Leads statuses
+                    {{ 'filter.open_leads_statuses' | translate }}
                 </ion-col>
             </ion-row>
 
@@ -468,7 +471,8 @@
                 </ion-col>
 
                 <ion-col>
-                    All statuses
+                    {{ 'filter.all_open_lead_statuses' | translate }}
+
                 </ion-col>
             </ion-row>
 
@@ -495,7 +499,7 @@
 
             <ion-row class="filter_name">
                 <ion-col>
-                    Lead statuses
+                    {{ 'filter.lead_statuses' | translate }}
                 </ion-col>
             </ion-row>
 
@@ -510,7 +514,7 @@
                 </ion-col>
 
                 <ion-col>
-                    All statuses
+                    {{ 'filter.all_lead_statuses' | translate }}
                 </ion-col>
             </ion-row>
 
@@ -524,7 +528,7 @@
                 </ion-col>
 
                 <ion-col>
-                    {{ status.name }}
+                    {{ status.name | translate }}
                 </ion-col>
             </ion-row>
 
@@ -536,7 +540,7 @@
 
             <ion-row class="filter_name">
                 <ion-col>
-                    Purpose
+                    {{ 'filter.purpose' | translate }}
                 </ion-col>
             </ion-row>
 
@@ -550,7 +554,8 @@
                 </ion-col>
 
                 <ion-col>
-                    All purposes
+                    {{ 'filter.all_purposes' | translate }}
+
                 </ion-col>
             </ion-row>
 
@@ -564,7 +569,7 @@
                 </ion-col>
 
                 <ion-col>
-                    {{ source.name }}
+                    {{ source.name | translate }}
                 </ion-col>
             </ion-row>
 
@@ -574,8 +579,8 @@
 
     <ion-footer>
         <ion-toolbar color="dark">
-            <button menuClose (click)="filterApply()" ion-button>Apply</button>
-            <button menuClose (click)="filterReset()" ion-button color="danger">Reset</button>
+            <button menuClose (click)="filterApply()" ion-button>{{ 'filter.apply' | translate }}</button>
+            <button menuClose (click)="filterReset()" ion-button color="danger">{{ 'filter.reset' | translate }}</button>
         </ion-toolbar>
     </ion-footer>
 
@@ -648,7 +653,7 @@
     <div *ngIf="!isFilterOn">
         <button no-margin ion-button full (click)="filterOpen()" color="dark">
             <ion-icon name="ios-funnel"></ion-icon>
-            <span padding-left>Filter</span>
+            <span padding-left>{{ 'filter_footer_title' | translate }}</span>
         </button>
     </div>
 
@@ -664,24 +669,13 @@
             <ion-col col-9 no-padding>
                 <button no-margin ion-button full (click)="filterOpen()" color="dark">
                     <ion-icon class="filter_icon_on" name="ios-funnel"></ion-icon>
-                    <span padding-left class="filter_text_button_on">Filter</span>
+                    <span padding-left class="filter_text_button_on">{{ 'filter_footer_title' | translate }}</span>
                 </button>
             </ion-col>
 
         </ion-row>
 
-
     </div>
-
-
-    <!--<button no-margin ion-button full (click)="filterOpen()" color="dark">-->
-        <!--<ion-icon name="ios-funnel"></ion-icon>-->
-        <!--<span padding-left>Filter</span>-->
-    <!--</button>-->
-
-    <!--<ion-toolbar>-->
-        <!--<ion-title>Footer</ion-title>-->
-    <!--</ion-toolbar>-->
 
 </ion-footer>
 <!-- конец Футер страницы меню -->
@@ -691,9 +685,9 @@
 
     <!--<ion-tabs color="primary" class="withNavbar">-->
     <ion-tabs #mainTabs color="primary" tabsPlacement="top" tabsHighlight="true" selectedIndex="2">
-        <ion-tab trimHistory [root]="deposited" [tabTitle]="depositedTitle"></ion-tab>
-        <ion-tab trimHistory [root]="open" [tabTitle]="openTitle"></ion-tab>
-        <ion-tab trimHistory [root]="obtain" [tabTitle]="obtainTitle"></ion-tab>
+        <ion-tab trimHistory [root]="deposited" [tabTitle]="depositedTitle | translate"></ion-tab>
+        <ion-tab trimHistory [root]="open" [tabTitle]="openTitle | translate"></ion-tab>
+        <ion-tab trimHistory [root]="obtain" [tabTitle]="obtainTitle | translate"></ion-tab>
     </ion-tabs>
 
     <!-- Кнопка добавления нового лида -->
