@@ -21,6 +21,7 @@ import {Storage} from '@ionic/storage';
 
 import {Open} from '../../providers/open';
 
+import { CallNumber } from '@ionic-native/call-number';
 
 /*
  Generated class for the Open page.
@@ -29,6 +30,7 @@ import {Open} from '../../providers/open';
  Ionic pages and navigation.
  */
 @Component({
+    providers: [CallNumber],
     selector: 'page-open',
     templateUrl: 'open.html'
 })
@@ -101,7 +103,8 @@ export class OpenPage {
                 public modalCtrl: ModalController,
                 public organizer: OpenLeadOrganizer,
                 public alertCtrl: AlertController,
-                public events: Events) {
+                public events: Events,
+                private callNumber: CallNumber) {
 
 
         storage.ready().then(() => {
@@ -330,6 +333,7 @@ export class OpenPage {
                     surname: data.surname,
                     email: data.email,
                     prices: data.spherePrice,
+                    wallet: data.wallet,
                     leadsBySphere: data.leadsBySphere,
                 };
 
@@ -466,7 +470,7 @@ export class OpenPage {
     detail(item) {
 
         // модальное окно со статусами
-        let modal = this.modalCtrl.create(OpenDetailPage, {item: item});
+        let modal = this.modalCtrl.create(OpenDetailPage, {item: item, roles: this.roles});
         modal.present();
     }
 
@@ -602,14 +606,28 @@ export class OpenPage {
 
 
     /**
+     * Сделать телефонный звонок
+     *
+     */
+    makeCall(item) {
+        // console.log(item.lead.phone.phone);
+
+        this.callNumber.callNumber(item.lead.phone.phone, true)
+            .then(() => console.log('Launched dialer!'))
+            .catch(() => console.log('Error launching dialer'));
+    }
+
+
+    /**
      * Смена статуса
      *
      */
     changeStatus(item) {
         // this.navCtrl.setRoot(OpenLeadStatusesPage);
 
-
+        // проверка статуса
         if (item.status_info && item.status_info.type == 5) {
+            // если статус сделки
 
             console.log('сделка');
             // OpenLeadDealPage
@@ -651,22 +669,36 @@ export class OpenPage {
             modal.present();
 
         } else {
+            // если обычный статус
 
             // console.log(statuses);
             let modal = this.modalCtrl.create(OpenLeadStatusesPage, {item: item});
+
 
             modal.onDidDismiss(data => {
 
                 console.log('данные по статусу');
                 console.log(data);
 
+                console.log('итэм до: ');
+                console.log(item);
+
+                // перебираем статусы и меняем правильный
                 if (data.status) {
+                    // добавляем статус в модель
                     item.status_info = data.status;
                     item.status = data.status.id;
+                    item['close_deal_info'] = {
+                        'price': data.dealPrice
+                    };
 
                     for (let type in item.statuses) {
 
                         for (let stat of item.statuses[type]) {
+
+
+                            // if(stat.type == 5)
+
 
                             if (stat.id == data.status.id) {
 
@@ -677,9 +709,22 @@ export class OpenPage {
 
                                 stat.checked = false;
                             }
-
                         }
                     }
+
+                    console.log('итэм после: ');
+                    console.log(item);
+
+                    // проверка на роль
+                    if(this.roles.subRole == 'dealmaker') {
+                        // если диалмэкер
+
+                        // открываем сделку (если это сделка)
+                        if(item.status_info && item.status_info.type == 5) {
+                            this.changeStatus(item);
+                        }
+                    }
+
                 }
 
                 // console.log(item);
@@ -730,6 +775,15 @@ export class OpenPage {
     customerPage() {
 
         this.events.publish("main:openCustomer");
+    }
+
+    /**
+     * Переход на страницу фильтров по фильтру
+     *
+     */
+    goToIncomingPage(){
+        // console.log('переход на страницу входящих лидов');
+        this.events.publish("tab:switch_incoming", {});
     }
 
 

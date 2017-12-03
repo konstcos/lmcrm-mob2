@@ -29,8 +29,8 @@
 
         <div>
 
-            <!-- Заполнение персональных данных агента -->
-            <div class="switchItem" (click)="roleMatching()" [ngClass]="confirmation.role ? 'apply' : ''">
+            <!-- Выбор роли агента -->
+            <div class="switchItem" dir="rtl" (click)="roleMatching()" [ngClass]="confirmation.role ? 'apply' : ''">
                 <span *ngIf="confirmation.role" class="icon_span">
                     <ion-icon name="md-checkbox-outline"></ion-icon>
                 </span>
@@ -40,8 +40,34 @@
                 {{ 'ROLE_MATCHING' | translate }}
             </div>
 
+
+            <!-- Выбор режима работы лидбайера -->
+            <div class="switchItem" dir="rtl" *ngIf="leadBuyerOperatingModeShow" (click)="switchLeadBuyerOperationMode()" [ngClass]="confirmation.leadBuyerOperatingMode ? 'apply' : ''">
+                <span *ngIf="confirmation.leadBuyerOperatingMode" class="icon_span">
+                    <ion-icon name="md-checkbox-outline"></ion-icon>
+                </span>
+                <span *ngIf="!confirmation.leadBuyerOperatingMode" class="icon_span">
+                    <ion-icon name="md-square-outline"></ion-icon>
+                </span>
+                {{ 'OPERATING_MODE' | translate }}
+                <!--Operating mode-->
+            </div>
+
+            <!-- Выбор специализации агента -->
+            <div class="switchItem" dir="rtl" (click)="choiceSpecialization()" [ngClass]="confirmation.specializations ? 'apply' : ''">
+                <span *ngIf="confirmation.specializations" class="icon_span">
+                    <ion-icon name="md-checkbox-outline"></ion-icon>
+                </span>
+                <span *ngIf="!confirmation.specializations" class="icon_span">
+                    <ion-icon name="md-square-outline"></ion-icon>
+                </span>
+                {{ 'SPECIALIZATION' | translate }}
+                <!--Specializations-->
+            </div>
+
+
             <!-- Заполнение персональных данных агента -->
-            <div class="switchItem" (click)="fillingPersonal()" [ngClass]="confirmation.personal ? 'apply' : ''">
+            <div class="switchItem" dir="rtl" (click)="fillingPersonal()" [ngClass]="confirmation.personal ? 'apply' : ''">
                 <span *ngIf="confirmation.personal" class="icon_span">
                     <ion-icon name="md-checkbox-outline"></ion-icon>
                 </span>
@@ -52,15 +78,15 @@
             </div>
 
             <!-- Выбор сфер деятельности агента -->
-            <div *ngIf="confirmation.role" class="switchItem" (click)="selectSpheres()" [ngClass]="confirmation.sphere ? 'apply' : ''">
-                <span *ngIf="confirmation.sphere" class="icon_span">
-                    <ion-icon name="md-checkbox-outline"></ion-icon>
-                </span>
-                <span *ngIf="!confirmation.sphere" class="icon_span">
-                    <ion-icon name="md-square-outline"></ion-icon>
-                </span>
-                {{ 'SPHERE_OF_INFLUENCE' | translate }}
-            </div>
+            <!--<div *ngIf="confirmation.role" class="switchItem" (click)="selectSpheres()" [ngClass]="confirmation.sphere ? 'apply' : ''">-->
+                <!--<span *ngIf="confirmation.sphere" class="icon_span">-->
+                    <!--<ion-icon name="md-checkbox-outline"></ion-icon>-->
+                <!--</span>-->
+                <!--<span *ngIf="!confirmation.sphere" class="icon_span">-->
+                    <!--<ion-icon name="md-square-outline"></ion-icon>-->
+                <!--</span>-->
+                <!--{{ 'SPHERE_OF_INFLUENCE' | translate }}-->
+            <!--</div>-->
 
         </div>
 
@@ -71,29 +97,29 @@
                     round
                     color="primary"
                     block
-                    [attr.disabled]="!(confirmation.agreement && confirmation.sphere  && confirmation.personal && confirmation.role) ? '' : null"
+                    [attr.disabled]="!(confirmation.specializations && confirmation.operationModeResolution && confirmation.personal && confirmation.role) ? '' : null"
                     (click)="saveRegistrationData()">
                 {{ 'REGISTRATION_DATA_NEXT_BUTTON' | translate }} &nbsp;
                 <ion-icon name="ios-arrow-forward"></ion-icon>
             </button>
         </div>
 
-        <div class="user_agreement_block" (click)="confirmUserAgreement()">
-            <!-- Заполнение персональных данных агента -->
-            <div class="user_agreement" [ngClass]="confirmation.agreement ? 'apply' : ''" text-center>
-                <span *ngIf="confirmation.agreement" class="icon_span">
-                    <ion-icon name="md-checkbox-outline"></ion-icon>
-                </span>
-                <span *ngIf="!confirmation.agreement" class="icon_span">
-                    <ion-icon name="md-square-outline"></ion-icon>
-                </span>
-                {{ 'REGISTRATION_DATA_AGREEMENTS' | translate }}
-            </div>
-        </div>
+        <!--<div class="user_agreement_block" (click)="confirmUserAgreement()">-->
+            <!--&lt;!&ndash; Заполнение персональных данных агента &ndash;&gt;-->
+            <!--<div class="user_agreement" [ngClass]="confirmation.agreement ? 'apply' : ''" text-center>-->
+                <!--<span *ngIf="confirmation.agreement" class="icon_span">-->
+                    <!--<ion-icon name="md-checkbox-outline"></ion-icon>-->
+                <!--</span>-->
+                <!--<span *ngIf="!confirmation.agreement" class="icon_span">-->
+                    <!--<ion-icon name="md-square-outline"></ion-icon>-->
+                <!--</span>-->
+                <!--{{ 'REGISTRATION_DATA_AGREEMENTS' | translate }}-->
+            <!--</div>-->
+        <!--</div>-->
 
-        <div class="user_agreement_text" text-center>
-            <a href="#">{{ 'REGISTRATION_DATA_USER_AGREEMENTS' | translate }}</a>
-        </div>
+        <!--<div class="user_agreement_text" text-center>-->
+            <!--<a href="#">{{ 'REGISTRATION_DATA_USER_AGREEMENTS' | translate }}</a>-->
+        <!--</div>-->
 
     </div>
 

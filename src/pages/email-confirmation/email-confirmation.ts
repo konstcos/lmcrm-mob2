@@ -101,6 +101,36 @@ export class EmailConfirmationPage {
     }
 
 
+
+    /**
+     *  Повторная отправка мэила
+     *
+     */
+    resendActivationCode() {
+
+
+        // todo удалить
+        console.log('resendActivationCode');
+
+        // отправка запроса на подтверждение кода
+        this.user.resendActivationCode()
+        // ожидание ответа сервера
+            .subscribe(resp => {
+
+                // преобразование ответа в json
+                let res = resp.json();
+
+                // console.log('resendActivationCode');
+                // console.log(res);
+
+            }, err => {
+                console.error('ERROR', err);
+            });
+    }
+
+
+
+
     doRegistration() {
 
         // инициация окна загрузки

@@ -15,7 +15,10 @@
             </button>
         </ion-buttons>
 
-        <ion-title>Manually Payment</ion-title>
+        <ion-title>
+            <!--Manually Payment-->
+            {{ 'open_lead_deal_manual_payment.title' | translate }}
+        </ion-title>
 
         <!--<ion-buttons right text-center>-->
 
@@ -33,15 +36,21 @@
 <ion-content>
 
     <div class="confirm_text" text-center="">
-        For payment by bank transfer, transfer money to the account
+        <!--For payment by bank transfer, transfer money to the account-->
+        {{ 'open_lead_deal_manual_payment.for_payment' | translate }}
 
-        <div class="payment_account">4554-4578-1215-7785</div>
+        <!--<div class="payment_account">4554-4578-1215-7785</div>-->
+        <div class="payment_account" [innerHTML]="requisites"></div>
 
-        and press the button "Confirm payment"
+        <!--and press the button "Confirm payment"-->
+        {{ 'open_lead_deal_manual_payment.press_the_button' | translate }}
     </div>
 
     <div class="confirm_button" text-center="">
-        <button (click)="confirmPayment()" ion-button small round>Confirm payment</button>
+        <button (click)="confirmPayment()" ion-button small round>
+            {{ 'open_lead_deal_manual_payment.confirm_button' | translate }}
+            <!--Confirm payment-->
+        </button>
     </div>
 
 </ion-content>

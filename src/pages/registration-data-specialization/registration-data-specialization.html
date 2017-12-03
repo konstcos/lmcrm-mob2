@@ -1,0 +1,39 @@
+
+<ion-header no-border>
+
+    <!--color="clear"-->
+
+    <ion-navbar color="clear">
+
+        <ion-title text-center class="registration_data_title">
+            {{ 'specializations.title' | translate }}
+            <!--Specializations-->
+        </ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+    <ion-list>
+
+        <ion-item *ngFor="let item of items" dir="rtl">
+            <ion-label class="sphere_name">{{ item.name }}</ion-label>
+            <ion-checkbox [(ngModel)]="item.status" (ionChange)='selectSpecialization(item)'></ion-checkbox>
+        </ion-item>
+
+    </ion-list>
+
+    <div text-center>
+        <button ion-button small clear (click)="notSpecializationAlertShow()">
+            {{ 'specializations.not_find_specialization' | translate }}
+            <!--Did not find your specialization?-->
+        </button>
+    </div>
+
+</ion-content>
+
+<ion-footer no-border>
+    <!--<button ion-button color="primary" block>{{ 'SIGNUP_BUTTON' | translate }}</button>-->
+    <button ion-button clear color="primary" (click)="goBack()"> {{ "APPLY" | translate }}</button>
+</ion-footer>

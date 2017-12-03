@@ -70,8 +70,13 @@ import {EditSalesmenPage} from '../pages/edit-salesmen/edit-salesmen'
 import {RegistrationDataPage} from '../pages/registration-data/registration-data'
 import {RegistrationDataSpheresPage} from '../pages/registration-data-spheres/registration-data-spheres'
 import {RegistrationDataPersonalPage} from '../pages/registration-data-personal/registration-data-personal'
+import {RegistrationDataOperatingModePage} from '../pages/registration-data-operation-mode/registration-data-operation-mode'
+import {RegistrationDataSpecializationPage} from '../pages/registration-data-specialization/registration-data-specialization'
 import {RegistrationDataRolePage} from '../pages/registration-data-role/registration-data-role'
 import {EmailConfirmationPage} from '../pages/email-confirmation/email-confirmation'
+import {LicensePage} from '../pages/license/license'
+import {PasswordRecovery} from '../pages/password-recovery/password-recovery';
+
 import {RegistrationWaitingConfirmation} from '../pages/registration-waiting-confirmation/registration-waiting-confirmation'
 import {RegistrationDataRolePageDescription} from '../pages/registration-data-role-description/registration-data-role-description'
 
@@ -171,6 +176,7 @@ let pages = [
     MenuPage,
     SettingsPage,
     SearchPage,
+    PasswordRecovery,
 
     MainPage,
     MainPopoverPage,
@@ -213,7 +219,10 @@ let pages = [
     RegistrationDataSpheresPage,
     RegistrationDataPersonalPage,
     RegistrationDataRolePage,
+    RegistrationDataOperatingModePage,
+    RegistrationDataSpecializationPage,
     EmailConfirmationPage,
+    LicensePage,
     RegistrationWaitingConfirmation,
     RegistrationDataRolePageDescription,
 

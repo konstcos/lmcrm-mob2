@@ -7,12 +7,12 @@
 
     <ion-navbar color="clear">
 
-        <ion-title text-center class="registration_data_title">{{ "ROLE_PAGE_NAME" | translate }}</ion-title>
+        <ion-title dir="rtl" text-center class="registration_data_title">{{ "ROLE_PAGE_NAME" | translate }}</ion-title>
 
     </ion-navbar>
 
     <ion-row class="comparison_block_header" padding-right>
-        <ion-col no-padding></ion-col>
+        <!--<ion-col no-padding></ion-col>-->
         <ion-col no-padding col-3 text-center align-self-center (click)="selectRole(1)">
             {{ "LEAD_BUYER" | translate }}
 
@@ -35,6 +35,7 @@
                 {{ "SELECT" | translate }}
             </div>
         </ion-col>
+        <ion-col no-padding></ion-col>
     </ion-row>
 
 </ion-header>
@@ -45,16 +46,16 @@
     <table class="role-table">
         <tbody>
 
-        <tr class="role-group">
-            <td class="role-label" colspan="3">
-                {{ "roleGroup.PAYMENT_SYSTEM" | translate }}
-            </td>
-        </tr>
+        <!--<tr class="role-group">-->
+            <!--<td class="role-label" colspan="3">-->
+                <!--{{ "roleGroup.PAYMENT_SYSTEM" | translate }}-->
+            <!--</td>-->
+        <!--</tr>-->
 
         <tr class="role-row" *ngFor="let feature of roleFeatures.paymentSystem">
-            <td class="role-label">
-                {{ feature.description | translate }}
-            </td>
+            <!--<td class="role-label">-->
+                <!--{{ feature.description | translate }}-->
+            <!--</td>-->
 
             <td class="role-opportunity" [ngClass]="role == 1 ? 'role-selected' : ''" (click)="selectRole(1)">
                 <ion-icon *ngIf="!feature.leadbuyer" class="missed" name="md-close"></ion-icon>
@@ -65,40 +66,44 @@
                 <ion-icon *ngIf="!feature.dealmaker" class="missed" name="md-close"></ion-icon>
                 <ion-icon *ngIf="feature.dealmaker" class="checkmark" name="md-checkmark"></ion-icon>
             </td>
-        </tr>
 
-        </tbody>
-    </table>
-
-
-    <table class="role-table">
-        <tbody>
-
-        <tr class="role-group">
-            <td class="role-label" colspan="3">
-                {{ "roleGroup.WORK_WITH_CLIENTS" | translate }}
-            </td>
-        </tr>
-
-
-        <tr class="role-row" *ngFor="let feature of roleFeatures.paymentSystem">
             <td class="role-label">
                 {{ feature.description | translate }}
             </td>
-
-            <td class="role-opportunity" [ngClass]="role == 1 ? 'role-selected' : ''" (click)="selectRole(1)">
-                <ion-icon *ngIf="!feature.leadbuyer" class="missed" name="md-close"></ion-icon>
-                <ion-icon *ngIf="feature.leadbuyer" class="checkmark" name="md-checkmark"></ion-icon>
-            </td>
-
-            <td class="role-opportunity" [ngClass]="role == 2 ? 'role-selected' : ''" (click)="selectRole(2)">
-                <ion-icon *ngIf="!feature.dealmaker" class="missed" name="md-close"></ion-icon>
-                <ion-icon *ngIf="feature.dealmaker" class="checkmark" name="md-checkmark"></ion-icon>
-            </td>
         </tr>
 
         </tbody>
     </table>
+
+
+    <!--<table class="role-table">-->
+        <!--<tbody>-->
+
+        <!--<tr class="role-group">-->
+            <!--<td class="role-label" colspan="3">-->
+                <!--{{ "roleGroup.WORK_WITH_CLIENTS" | translate }}-->
+            <!--</td>-->
+        <!--</tr>-->
+
+
+        <!--<tr class="role-row" *ngFor="let feature of roleFeatures.paymentSystem">-->
+            <!--<td class="role-label">-->
+                <!--{{ feature.description | translate }}-->
+            <!--</td>-->
+
+            <!--<td class="role-opportunity" [ngClass]="role == 1 ? 'role-selected' : ''" (click)="selectRole(1)">-->
+                <!--<ion-icon *ngIf="!feature.leadbuyer" class="missed" name="md-close"></ion-icon>-->
+                <!--<ion-icon *ngIf="feature.leadbuyer" class="checkmark" name="md-checkmark"></ion-icon>-->
+            <!--</td>-->
+
+            <!--<td class="role-opportunity" [ngClass]="role == 2 ? 'role-selected' : ''" (click)="selectRole(2)">-->
+                <!--<ion-icon *ngIf="!feature.dealmaker" class="missed" name="md-close"></ion-icon>-->
+                <!--<ion-icon *ngIf="feature.dealmaker" class="checkmark" name="md-checkmark"></ion-icon>-->
+            <!--</td>-->
+        <!--</tr>-->
+
+        <!--</tbody>-->
+    <!--</table>-->
 
 </ion-content>
 

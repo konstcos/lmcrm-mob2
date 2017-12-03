@@ -30,7 +30,7 @@
                 type="search"
                 [(ngModel)]="searchInput"
                 class="search-input"
-                placeholder="Search...">
+                placeholder="{{ 'search.input_placeholder' | translate }}">
         </ion-input>
 
         <ion-buttons right text-center>
@@ -63,11 +63,13 @@
 
             <ion-col col-4 align-self-center text-left>
                 <div *ngIf="item.type == 'open'" class="type open" text-left>
-                    OPEN
+                    {{ 'search.open' | translate }}
+                    <!--OPEN-->
                 </div>
 
                 <div *ngIf="item.type == 'deposited'" class="type deposited" text-left>
-                    OUTGOING
+                    {{ 'search.outgoing' | translate }}
+                    <!--OUTGOING-->
                 </div>
             </ion-col>
 

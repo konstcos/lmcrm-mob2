@@ -43,17 +43,12 @@ export class RegistrationDataRolePage {
             {description: 'roleFeatures.FEATURE_3', leadbuyer: true, dealmaker: false },
             {description: 'roleFeatures.FEATURE_4', leadbuyer: false, dealmaker: true },
             {description: 'roleFeatures.FEATURE_5', leadbuyer: true, dealmaker: false },
-            {description: 'roleFeatures.FEATURE_6', leadbuyer: true, dealmaker: false },
-            {description: 'roleFeatures.FEATURE_7', leadbuyer: true, dealmaker: false },
+            {description: 'roleFeatures.FEATURE_6', leadbuyer: true, dealmaker: true },
+            {description: 'roleFeatures.FEATURE_7', leadbuyer: true, dealmaker: true },
+            {description: 'roleFeatures.FEATURE_8', leadbuyer: true, dealmaker: false },
+            {description: 'roleFeatures.FEATURE_9', leadbuyer: true, dealmaker: false },
+            {description: 'roleFeatures.FEATURE_10', leadbuyer: true, dealmaker: true },
         ],
-
-        workWithClients: [
-            {description: 'roleFeatures.FEATURE_8', leadbuyer: true, dealmaker: true },
-            {description: 'roleFeatures.FEATURE_9', leadbuyer: true, dealmaker: true },
-            {description: 'roleFeatures.FEATURE_10', leadbuyer: true, dealmaker: false },
-            {description: 'roleFeatures.FEATURE_11', leadbuyer: true, dealmaker: false },
-            {description: 'roleFeatures.FEATURE_12', leadbuyer: true, dealmaker: true },
-        ]
     };
 
 

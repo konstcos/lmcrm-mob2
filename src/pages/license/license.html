@@ -1,0 +1,38 @@
+<ion-header no-border>
+
+    <ion-navbar color="clear" hideBackButton="true">
+
+        <ion-buttons left>
+            <button color="primary" ion-button (click)="goBack()">
+                <ion-icon name="ios-arrow-back" class="back_arrow"></ion-icon>
+            </button>
+            <button color="primary" ion-button (click)="goBack()">
+                {{ 'BACK_TO_LOGIN' | translate }}
+            </button>
+        </ion-buttons>
+
+
+        <ion-buttons right text-center class="right_button">
+
+        </ion-buttons>
+
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <!--тут будет лицензия-->
+    <div class="license">
+        <div [innerHtml]="licenseData"></div>
+    </div>
+
+    <div *ngIf="licenseData != ''" class="agree_button" text-center>
+        <button (click)="makeAgree()" ion-button round color="secondary">
+            {{ 'i_agree' | translate }}
+            <!--I agree-->
+        </button>
+    </div>
+
+</ion-content>

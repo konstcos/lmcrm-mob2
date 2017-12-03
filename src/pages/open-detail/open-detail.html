@@ -6,6 +6,7 @@
 -->
 <ion-header>
 
+
     <ion-navbar color="primary">
 
         <!--<ion-buttons right>-->
@@ -26,7 +27,7 @@
         <ion-title>{{ 'exposed_detail.title' | translate }}</ion-title>
 
         <ion-buttons right text-center>
-            <button ion-button (click)="confirmOpen(item)">
+            <button ion-button (click)="openLeadOrganizer()">
                 <!--Organizer &nbsp;-->
                 <ion-icon name="md-alarm"></ion-icon>
             </button>
@@ -55,7 +56,7 @@
 
         <div class="data_block">
 
-            <ion-row align-items-center class="data_block_item">
+            <ion-row align-items-center class="data_block_item" (click)="makeCall(item)">
                 <ion-col col-1 text-left>
                 </ion-col>
                 <ion-col text-right>
@@ -70,13 +71,63 @@
         </div>
 
         <div class="status_block">
+            <!--<ion-row>-->
+                <!--<ion-col>-->
+                    <!--<button ion-button small full (click)="changeStatus(item)">-->
+                        <!--{{ item.status_info ? item.status_info.stepname : ('exposed_detail.no_status' | translate) }}-->
+                    <!--</button>-->
+                <!--</ion-col>-->
+            <!--</ion-row>-->
+
+
             <ion-row>
                 <ion-col>
-                    <button ion-button small full (click)="changeStatus(item)">
-                        {{ item.status_info ? item.status_info.stepname : ('exposed_detail.no_status' | translate) }}
-                    </button>
+
+                    <div *ngIf="roles.subRole == 'leadbayer'">
+
+                        <div *ngIf="item.close_deal_info">
+
+                            <div class="deal_is_closed">
+
+                                <div class="name">{{ 'exposed.deal_is_closed' | translate }}</div>
+
+                                <ion-row class="deal_data_row">
+
+                                    <ion-col>
+                                        <div class="deal_data_title">{{ 'exposed.deal_name' | translate }}</div>
+                                        <div  class="deal_data_data">{{ item.status_info.stepname }}</div>
+                                    </ion-col>
+
+                                    <ion-col>
+                                        <div class="deal_data_title">{{ 'exposed.deal_price' | translate }}</div>
+                                        <div  class="deal_data_data"><b>&#8362;</b> {{ item.close_deal_info.price }}</div>
+                                    </ion-col>
+
+                                </ion-row>
+
+
+                            </div>
+
+                        </div>
+
+                        <div *ngIf="!item.close_deal_info">
+                            <button ion-button small full (click)="changeStatus(item)">
+                                {{ item.status_info ? item.status_info.stepname : ('exposed_detail.no_status' | translate) }}
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <div *ngIf="roles.subRole == 'dealmaker'">
+                        <button ion-button small full (click)="changeStatus(item)">
+                            {{ item.status_info ? item.status_info.stepname : ('exposed_detail.no_status' | translate) }}
+                        </button>
+                    </div>
+
                 </ion-col>
+
             </ion-row>
+
         </div>
 
         <div class="data_block">

@@ -10,7 +10,10 @@
             </button>
         </ion-buttons>
 
-        <ion-title>Credit Card Payment</ion-title>
+        <ion-title>
+            <!--Credit Card Payment-->
+            {{ 'credit_credit_card_payment.title' | translate }}
+        </ion-title>
 
 
         <!--<ion-buttons right text-center class="right_button">-->
@@ -31,20 +34,6 @@
 
 <ion-content padding>
 
-    <!--оплата картой-->
-
-    <!--<div>-->
-        <!--<iframe-->
-            <!--src="https://cgmpi.creditguard.co.il/CGMPI_Server/PerformTransaction?txId=1b167fa7%2D99a6%2D4172%2D90a6%2D8da7e0e4e2b0"-->
-            <!--frameborder="0"-->
-            <!--height="500px"-->
-            <!--width="100%">-->
-
-        <!--</iframe>-->
-    <!--</div>-->
-
-
-
     <!-- спинер загрузки -->
     <div *ngIf="isLoading" class="spinnerLoading">
         <ion-spinner color="primary" name="crescent"></ion-spinner>
@@ -57,7 +46,8 @@
         <div class="withdrawal_row">
 
             <div class="withdrawal_label" text-right>
-                Name
+                {{ 'credit_credit_card_payment.name' | translate }}
+                <!--Name-->
             </div>
 
             <div class="withdrawal_input" text-right>
@@ -76,7 +66,8 @@
 
         <!-- строка с ошибкой -->
         <div *ngIf="errors.name" class="withdrawal_error" text-right>
-            This field is required
+            {{ 'credit_credit_card_payment.required_field' | translate }}
+            <!--This field is required-->
         </div>
         <!-- конец строки с ошибкой -->
 
@@ -86,7 +77,8 @@
         <div class="withdrawal_row">
 
             <div class="withdrawal_label" text-right>
-                E-Mail
+                {{ 'credit_credit_card_payment.email' | translate }}
+                <!--E-Mail-->
             </div>
 
             <div class="withdrawal_input" text-right>
@@ -105,7 +97,8 @@
 
         <!-- строка с ошибкой -->
         <div *ngIf="errors.email" class="withdrawal_error" text-right>
-            This field is required
+            {{ 'credit_credit_card_payment.required_field' | translate }}
+            <!--This field is required-->
         </div>
         <!-- конец строки с ошибкой -->
 
@@ -115,7 +108,8 @@
         <div class="withdrawal_row">
 
             <div class="withdrawal_label" text-right>
-                Phone
+                {{ 'credit_credit_card_payment.phone' | translate }}
+                <!--Phone-->
             </div>
 
             <div class="withdrawal_input" text-right>
@@ -134,7 +128,8 @@
 
         <!-- строка с ошибкой -->
         <div *ngIf="errors.phone" class="withdrawal_error" text-right>
-            This field is required
+            {{ 'credit_credit_card_payment.required_field' | translate }}
+            <!--This field is required-->
         </div>
         <!-- конец строки с ошибкой -->
 
@@ -144,7 +139,8 @@
         <div class="withdrawal_row">
 
             <div class="withdrawal_label" text-right>
-                Amount
+                {{ 'credit_credit_card_payment.amount' | translate }}
+                <!--Amount-->
             </div>
 
             <div class="withdrawal_input amount_input" text-right>
@@ -166,12 +162,16 @@
 
         <!-- строка с ошибкой -->
         <div *ngIf="errors.amount" class="withdrawal_error" text-right>
-            This field is required
+            {{ 'credit_credit_card_payment.required_field' | translate }}
+            <!--This field is required-->
         </div>
         <!-- конец строки с ошибкой -->
 
         <div text-center margin-top>
-            <button ion-button round (click)="confirmPayment()"> Confirm </button>
+            <button ion-button round (click)="confirmPayment()">
+                {{ 'credit_credit_card_payment.confirm_button' | translate }}
+                <!--Confirm -->
+            </button>
         </div>
 
     </div>

@@ -20,7 +20,7 @@
             </div>
 
             <div class="role" text-right>
-                {{ roles.subRole }} {{ roles.role }}
+                {{ roles.subRole | translate }} {{ roles.role | translate }}
             </div>
 
         </div>
@@ -116,19 +116,8 @@
 
         <div class="menu_block">
 
-            <ion-row class="menu_block_row" *ngIf="roles.role == 'agent'" menuClose (click)="openPage(pages[6])">
-                <ion-col col-1>
-
-                </ion-col>
-                <ion-col text-right>
-                    {{ pages[6].title | translate }}
-                </ion-col>
-                <ion-col col-2 text-center>
-                    <ion-icon name="md-settings"></ion-icon>
-                </ion-col>
-            </ion-row>
-
-            <ion-row class="menu_block_row" *ngIf="roles.role == 'agent'" menuClose (click)="openPage(pages[3])">
+            <!-- Кредиты -->
+            <ion-row class="menu_block_row" *ngIf="roles.role == 'agent' && roles.subRole == 'leadbuyer'" menuClose (click)="openPage(pages[3])">
                 <ion-col col-1>
 
                 </ion-col>
@@ -140,30 +129,8 @@
                 </ion-col>
             </ion-row>
 
-            <ion-row class="menu_block_row" menuClose (click)="openPage(pages[5])">
-                <ion-col col-1>
 
-                </ion-col>
-                <ion-col text-right>
-                    {{ pages[5].title | translate }}
-                </ion-col>
-                <ion-col col-2 text-center>
-                    <ion-icon name="md-alarm"></ion-icon>
-                </ion-col>
-            </ion-row>
-
-            <ion-row class="menu_block_row" *ngIf="roles.role == 'agent'" menuClose (click)="openSalesmen()">
-                <ion-col col-1>
-
-                </ion-col>
-                <ion-col text-right>
-                    {{ pages[1].title | translate }}
-                </ion-col>
-                <ion-col col-2 text-center>
-                    <ion-icon name="md-contacts"></ion-icon>
-                </ion-col>
-            </ion-row>
-
+            <!-- Фильтр клиентов -->
             <ion-row class="menu_block_row" *ngIf="roles.role == 'agent'" menuClose (click)="openPage(pages[0])">
                 <ion-col col-1>
 
@@ -176,6 +143,33 @@
                 </ion-col>
             </ion-row>
 
+            <!-- Органайзер -->
+            <ion-row class="menu_block_row" menuClose (click)="openPage(pages[5])">
+                <ion-col col-1>
+
+                </ion-col>
+                <ion-col text-right>
+                    {{ pages[5].title | translate }}
+                </ion-col>
+                <ion-col col-2 text-center>
+                    <ion-icon name="md-alarm"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+            <!-- todo Салесман -->
+            <!--<ion-row class="menu_block_row" *ngIf="roles.role == 'agent'" menuClose (click)="openSalesmen()">-->
+            <!--<ion-col col-1>-->
+
+            <!--</ion-col>-->
+            <!--<ion-col text-right>-->
+            <!--{{ pages[1].title | translate }}-->
+            <!--</ion-col>-->
+            <!--<ion-col col-2 text-center>-->
+            <!--<ion-icon name="md-contacts"></ion-icon>-->
+            <!--</ion-col>-->
+            <!--</ion-row>-->
+
+            <!-- Приватная группа -->
             <ion-row class="menu_block_row" *ngIf="roles.role == 'agent'" menuClose (click)="openPage(pages[4])">
                 <ion-col col-1>
 
@@ -188,6 +182,35 @@
                 </ion-col>
             </ion-row>
 
+            <!-- Калькулятор кредитов -->
+            <ion-row class="menu_block_row" *ngIf="roles.role == 'agent'" menuClose (click)="openCalculatorPage()">
+                <ion-col col-1>
+
+                </ion-col>
+                <ion-col text-right>
+                    {{ 'pages.credit_calculator' | translate }}
+
+                    <!--Credit calculator-->
+                </ion-col>
+                <ion-col col-2 text-center>
+                    <ion-icon name="ios-calculator"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+            <!-- Профиль -->
+            <ion-row class="menu_block_row" *ngIf="roles.role == 'agent'" menuClose (click)="openPage(pages[6])">
+                <ion-col col-1>
+
+                </ion-col>
+                <ion-col text-right>
+                    {{ pages[6].title | translate }}
+                </ion-col>
+                <ion-col col-2 text-center>
+                    <ion-icon name="md-settings"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+            <!-- Статистика -->
             <ion-row class="menu_block_row" menuClose (click)="openPage(pages[2])">
                 <ion-col col-1>
 
@@ -200,8 +223,24 @@
                 </ion-col>
             </ion-row>
 
+            <!-- Вызов сапорта -->
+            <ion-row class="menu_block_row" *ngIf="roles.role == 'agent'" menuClose (click)="openSupportPage()">
+                <ion-col col-1>
+
+                </ion-col>
+                <ion-col text-right>
+                    {{ 'pages.support' | translate }}
+                    <!--Support-->
+                </ion-col>
+                <ion-col col-2 text-center>
+                    <!--<ion-icon name="md-settings"></ion-icon>-->
+                    <img width="20px" class="icon_support" src="assets/img/suport_icon.png" alt="support">
+                </ion-col>
+            </ion-row>
+
         </div>
 
+        <!-- Кнопка выхода -->
         <div class="menu_block">
 
             <ion-row class="menu_block_row" menuClose (click)="logout()">
@@ -255,7 +294,7 @@
         </ion-toolbar>
     </ion-header>
 
-    <ion-content>
+    <ion-content dir="rtl">
 
 
         <!-- Период фильтра -->
@@ -578,7 +617,7 @@
     </ion-content>
 
     <ion-footer>
-        <ion-toolbar color="dark">
+        <ion-toolbar color="dark" text-right>
             <button menuClose (click)="filterApply()" ion-button>{{ 'filter.apply' | translate }}</button>
             <button menuClose (click)="filterReset()" ion-button color="danger">{{ 'filter.reset' | translate }}</button>
         </ion-toolbar>
@@ -594,9 +633,23 @@
     <ion-toolbar color="primary">
 
         <ion-buttons right>
+
+            <button ion-button icon-only class="head_button" (click)="openSearchPage()">
+                <ion-icon name="search"></ion-icon>
+            </button>
+
+            <button ion-button icon-only class="head_button" (click)="openMessages()">
+                <ion-icon name="md-text">
+                    <ion-badge *ngIf="notices != 0" class="notifications-badge" color="danger">{{ notices }}</ion-badge>
+                </ion-icon>
+            </button>
+
+
+
             <button ion-button icon-only (click)="mainMenuOpen()">
                 <ion-icon name="menu"></ion-icon>
             </button>
+
         </ion-buttons>
 
             <!--<button ion-button icon-only (click)="mainMenuOpen()">-->
@@ -607,41 +660,52 @@
         <!--<ion-title text-right>-->
             <!--LM CRM-->
             <!--CONTACT-->
+
+
+
             <div class="logo_image">
-                <img src="assets/img/logo3.png" alt="logo">
+                <img src="assets/img/logo3.png" alt="logo"> <div *ngIf="roles.role == 'agent'" class="header_wallet_data">&#x20aa; {{ wallet }}</div>
+
             </div>
+
+
         <!--</ion-title>-->
 
 
         <ion-buttons left>
 
-            <button ion-button icon-only (click)="popoverMenu($event)">
-                <ion-icon name="md-more"></ion-icon>
-            </button>
-
-            <button *ngIf="roles.role == 'agent'" ion-button icon-only (click)="openSupportPage()">
-                <img width="20px" class="img_support" src="assets/img/suport_icon.png" alt="support">
-            </button>
+            <!-- todo перенести в контент-->
+            <!--<button ion-button icon-only (click)="popoverMenu($event)">-->
+                <!--<ion-icon name="md-more"></ion-icon>-->
+            <!--</button>-->
 
 
-            <button ion-button icon-only (click)="openCalculatorPage()">
-                <ion-icon name="ios-calculator"></ion-icon>
-            </button>
 
-            <button ion-button icon-only (click)="openSearchPage()">
-                <ion-icon name="search"></ion-icon>
-            </button>
 
-            <button ion-button icon-only (click)="openMessages()">
-                <ion-icon name="md-text">
-                    <ion-badge *ngIf="notices != 0" class="notifications-badge" color="danger">{{ notices }}</ion-badge>
-                </ion-icon>
-            </button>
+            <!--<button *ngIf="roles.role == 'agent'" ion-button icon-only (click)="openSupportPage()">-->
+                <!--<img width="20px" class="img_support" src="assets/img/suport_icon.png" alt="support">-->
+            <!--</button>-->
+
+            <!--<button ion-button icon-only (click)="openCalculatorPage()">-->
+                <!--<ion-icon name="ios-calculator"></ion-icon>-->
+            <!--</button>-->
+
+            <!--<button ion-button icon-only (click)="openSearchPage()">-->
+                <!--<ion-icon name="search"></ion-icon>-->
+            <!--</button>-->
+
+            <!--<button ion-button icon-only (click)="openMessages()">-->
+                <!--<ion-icon name="md-text">-->
+                    <!--<ion-badge *ngIf="notices != 0" class="notifications-badge" color="danger">{{ notices }}</ion-badge>-->
+                <!--</ion-icon>-->
+            <!--</button>-->
 
         </ion-buttons>
 
 
     </ion-toolbar>
+
+
 
 </ion-header>
 <!-- конец Заголовок страницы меню -->

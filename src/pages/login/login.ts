@@ -10,9 +10,12 @@ import {MainPage} from '../main/main';
 import {SignupPage} from '../signup/signup';
 
 import {EmailConfirmationPage} from '../email-confirmation/email-confirmation';
+import {PasswordRecovery} from '../password-recovery/password-recovery';
 import {RegistrationDataPage} from '../registration-data/registration-data';
 import {RegistrationWaitingConfirmation} from '../registration-waiting-confirmation/registration-waiting-confirmation';
 import {AdvantagesPage} from '../advantages/advantages';
+import {LicensePage} from '../license/license';
+
 
 import {User} from '../../providers/user';
 // import {MenuPage} from "../menu/menu";
@@ -42,16 +45,13 @@ export class LoginPage {
     constructor(public navCtrl: NavController,
                 public user: User,
                 public toastCtrl: ToastController,
-                public translateService: TranslateService,
                 public nav: Nav,
                 public platform: Platform,
                 public modalCtrl: ModalController,
                 public loadingCtrl: LoadingController,
-                // public push: Push
-                // private fcm: FCM
-    ) {
+                public translate: TranslateService) {
 
-        this.translateService.get('LOGIN_ERROR').subscribe((value) => {
+        this.translate.get('LOGIN_ERROR').subscribe((value) => {
             this.loginErrorString = value;
         })
     }
@@ -71,18 +71,28 @@ export class LoginPage {
 
         // отправка запроса на залогинивание
         this.user.login(this.account)
-            // подписываемся на получение результата
+        // подписываемся на получение результата
             .subscribe(resp => {
                 // обработка результата
 
                 // преобразование результата в json
                 let res = resp.json();
 
-                console.log(res);
+                // console.log('залогинился');
+                // console.log(res);
 
                 // сценарий в зависимости от статуса ответа
                 if (res.status == 'success') {
                     // успешное залогинивание
+
+                    if (res.default_route == 'agent.lead.deposited') {
+
+                        localStorage.setItem('default_route', 'outgoing');
+
+                    } else {
+
+                        localStorage.setItem('default_route', 'incoming');
+                    }
 
                     // регистрация токена fcm
                     this.user.registerFcmToken(localStorage.getItem('fcm_token'));
@@ -90,21 +100,30 @@ export class LoginPage {
                     // переход на главную страницу пользователя
                     this.nav.setRoot(MainPage);
 
-                } else if(res.info == 'invalid_credentials') {
+                } else if (res.info == 'invalid_credentials') {
                     // ошибка в данных пользователя
+
+                    let message = 'invalid login or password, please try again';
+
+                    this.translate.get('invalid_credentials', {}).subscribe((res: string) => {
+                        message = res;
+                    });
+
 
                     // сообщаем об ошибках
                     let toast = this.toastCtrl.create({
-                        message: 'invalid login or password, please try again',
+                        message: message,
                         duration: 5000,
                         position: 'bottom'
                     });
                     toast.present();
 
-                } else if(res.info == 'unfinished_registration') {
+                } else if (res.info == 'unfinished_registration') {
 
+                    // регистрация токена fcm
+                    this.user.registerFcmToken(localStorage.getItem('fcm_token'));
 
-                    if(res.state == 0){
+                    if (res.state == 0) {
 
                         this.nav.setRoot(EmailConfirmationPage);
 
@@ -115,6 +134,10 @@ export class LoginPage {
                     } else if (res.state == 2) {
 
                         this.nav.setRoot(RegistrationWaitingConfirmation);
+
+                    } else if (!res.license_agreement) {
+
+                        this.nav.setRoot(LicensePage);
                     }
 
 
@@ -141,7 +164,7 @@ export class LoginPage {
     }
 
 
-    singUp(){
+    singUp() {
         // alert('auth');
         this.nav.setRoot(SignupPage);
     }
@@ -154,6 +177,19 @@ export class LoginPage {
     openAdvantagesPage() {
         // this.nav.setRoot(SearchPage);
         let modal = this.modalCtrl.create(AdvantagesPage);
+        modal.present();
+    }
+
+
+    /**
+     * Переход на страницу восстановления пароля
+     *
+     */
+    passwordRecovery() {
+
+        // console.log('восстановление пароля');
+
+        let modal = this.modalCtrl.create(PasswordRecovery);
         modal.present();
     }
 

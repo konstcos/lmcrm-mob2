@@ -10,7 +10,10 @@
             </button>
         </ion-buttons>
 
-        <ion-title>Replenishment</ion-title>
+        <ion-title>
+            {{ 'credit_replenishment.title' | translate }}
+            <!--Replenishment-->
+        </ion-title>
 
 
         <!--<ion-buttons right text-center class="right_button">-->
@@ -40,21 +43,25 @@
     <div *ngIf="!isLoading" class="replenishment_block">
 
         <div class="description">
-            select the amount of replenishment
+            {{ 'credit_replenishment.select_amount_text' | translate }}
+            <!--select the amount of replenishment-->
         </div>
 
         <ion-row *ngFor="let item of items" class="replenishment_row" [ngClass]="{selected: item.state}">
 
             <ion-col *ngIf="item.masks.length > 0" col-3 align-self-center text-center class="all_masks_col" (click)="showCreditsByAllMasks(item)">
-
-                show all masks
+                {{ 'credit_replenishment.show_all_masks' | translate }}
+                <!--show all masks-->
             </ion-col>
 
 
             <ion-col text-right align-self-center class="replenishment_amount" (click)="selectItem(item)">
                 <div><span class="sign">&#8362;</span> {{ item.value }}</div>
                 <div class="credits">
-                    {{ item.credits }} <span class="text">credits</span>
+                    {{ item.credits }} <span class="text">
+                    {{ 'credit_replenishment.credits' | translate }}
+                    <!--credits-->
+                </span>
                 </div>
             </ion-col>
 
@@ -75,7 +82,8 @@
 <ion-footer text-center>
 
     <button ion-button round (click)="confirmReplenishment()">
-        Make replenishment
+        {{ 'credit_replenishment.make_replenishment_button' | translate }}
+        <!--Make replenishment-->
     </button>
 
 </ion-footer>

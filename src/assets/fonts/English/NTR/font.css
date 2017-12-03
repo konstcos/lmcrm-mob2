@@ -1,0 +1,18 @@
+@font-face {
+  font-family: 'NTR-Regular';
+  src: url('NTR-Regular.eot');
+  src: url('NTR-Regular.woff2') format('woff2'),
+       url('NTR-Regular.eot?#iefix') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NTR';
+  src: url('NTR.woff') format('woff'),
+       url('NTR.ttf') format('truetype'),
+       url('NTR.svg#NTR') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+

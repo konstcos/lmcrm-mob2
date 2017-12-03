@@ -116,5 +116,12 @@ export class Credits {
     }
 
 
+    /**
+     * Получить с сервера реквезиты по оплате
+     *
+     */
+    getRequisites() {
+        return this.api.post('api/get/requisites', {});
+    }
 
 }

@@ -58,13 +58,7 @@ export class AdvantagesPage {
             title: 'ADVANTAGES.5.TITLE',
             description: 'ADVANTAGES.5.DESCRIPTION',
             isOpen: false,
-        },
-
-        {
-            title: 'ADVANTAGES.6.TITLE',
-            description: 'ADVANTAGES.6.DESCRIPTION',
-            isOpen: false,
-        },
+        }
 
     ];
 

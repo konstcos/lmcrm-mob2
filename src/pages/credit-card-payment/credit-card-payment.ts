@@ -229,7 +229,8 @@ export class CreditCardPaymentPage {
                     //
                     // console.log(this.data);
 
-                    this.invoiceUrl = data.info.ClearingRedirectUrl;
+                    // this.invoiceUrl = data.info.ClearingRedirectUrl;
+                    this.invoiceUrl = data.info;
 
                     // console.log(this.invoiceUrl);
 

@@ -10,7 +10,10 @@
             </button>
         </ion-buttons>
 
-        <ion-title>Withdrawal</ion-title>
+        <ion-title>
+            <!--Withdrawal-->
+            {{ 'credit_withdrawal.title' | translate }}
+        </ion-title>
 
 
         <!--<ion-buttons right text-center class="right_button">-->
@@ -39,7 +42,8 @@
     <div *ngIf="!isLoading" class="withdrawal_block">
 
         <div class="description">
-            enter data for withdrawal
+            {{ 'credit_withdrawal.enter_data' | translate }}
+            <!--enter data for withdrawal-->
         </div>
 
 
@@ -48,7 +52,8 @@
         <div class="withdrawal_row no_top_margin">
 
             <div class="withdrawal_label" text-right>
-                Amount
+                {{ 'credit_withdrawal.amount' | translate }}
+                <!--Amount-->
             </div>
 
             <div class="withdrawal_input amount_input" text-right>
@@ -70,7 +75,8 @@
 
         <!-- строка с ошибкой -->
         <div *ngIf="false" class="withdrawal_error" text-right>
-            error
+            {{ 'credit_withdrawal.amount_error' | translate }}
+            <!--error-->
         </div>
         <!-- конец строки с ошибкой -->
 
@@ -80,7 +86,8 @@
         <div class="withdrawal_row">
 
             <div class="withdrawal_label" text-right>
-                Company
+                {{ 'credit_withdrawal.company' | translate }}
+                <!--Company-->
             </div>
 
             <div class="withdrawal_input" text-right>
@@ -99,7 +106,8 @@
 
         <!-- строка с ошибкой -->
         <div *ngIf="errors.company" class="withdrawal_error" text-right>
-            This field is required
+            {{ 'credit_withdrawal.company_error' | translate }}
+            <!--This field is required-->
         </div>
         <!-- конец строки с ошибкой -->
 
@@ -109,7 +117,8 @@
         <div class="withdrawal_row">
 
             <div class="withdrawal_label" text-right>
-                Bank
+                {{ 'credit_withdrawal.bank' | translate }}
+                <!--Bank-->
             </div>
 
             <div class="withdrawal_input" text-right>
@@ -128,7 +137,8 @@
 
         <!-- строка с ошибкой -->
         <div *ngIf="errors.bank" class="withdrawal_error" text-right>
-            This field is required
+            {{ 'credit_withdrawal.bank_error' | translate }}
+            <!--This field is required-->
         </div>
         <!-- конец строки с ошибкой -->
 
@@ -138,7 +148,8 @@
         <div class="withdrawal_row">
 
             <div class="withdrawal_label" text-right>
-                Branch number
+                {{ 'credit_withdrawal.branch_number' | translate }}
+                <!--Branch number-->
             </div>
 
             <div class="withdrawal_input" text-right>
@@ -157,7 +168,8 @@
 
         <!-- строка с ошибкой -->
         <div *ngIf="errors.branch_number" class="withdrawal_error" text-right>
-            This field is required
+            {{ 'credit_withdrawal.branch_number_error' | translate }}
+            <!--This field is required-->
         </div>
         <!-- конец строки с ошибкой -->
 
@@ -167,7 +179,8 @@
         <div class="withdrawal_row">
 
             <div class="withdrawal_label" text-right>
-                Invoice number
+                {{ 'credit_withdrawal.invoice_number' | translate }}
+                <!--Invoice number-->
             </div>
 
             <div class="withdrawal_input" text-right>
@@ -186,7 +199,8 @@
 
         <!-- строка с ошибкой -->
         <div *ngIf="errors.invoice_number" class="withdrawal_error" text-right>
-            This field is required
+            {{ 'credit_withdrawal.invoice_number_error' | translate }}
+            <!--This field is required-->
         </div>
         <!-- конец строки с ошибкой -->
 
@@ -199,7 +213,8 @@
 <ion-footer text-center>
 
     <button ion-button round (click)="confirmWithdrawal()">
-        Make withdrawal
+        {{ 'credit_withdrawal.make_withdrawal_button' | translate }}
+        <!--Make withdrawal-->
     </button>
 
 </ion-footer>

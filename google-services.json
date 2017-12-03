@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "861958159271",
-    "firebase_url": "https://lmcrm-f8921.firebaseio.com",
-    "project_id": "lmcrm-f8921",
-    "storage_bucket": "lmcrm-f8921.appspot.com"
+    "project_number": "859646101662",
+    "firebase_url": "https://contact-e85f6.firebaseio.com",
+    "project_id": "contact-e85f6",
+    "storage_bucket": "contact-e85f6.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:861958159271:android:82f290b0c781574e",
+        "mobilesdk_app_id": "1:859646101662:android:c0cdd52cd68d286d",
         "android_client_info": {
-          "package_name": "com.ionicframework.lmcrm2627239"
+          "package_name": "backoffice.contact.org.il"
         }
       },
       "oauth_client": [
         {
-          "client_id": "861958159271-gce8iouqk96iid90302bljrdo5cgkurt.apps.googleusercontent.com",
+          "client_id": "859646101662-v6d1j4gq2prnbf74ufj7vf0tmbjk7gbj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCEtl4JlmX_54hBeeS98QN3hPHmWWWlmX0"
+          "current_key": "AIzaSyAsbMC3vRK2lQXN4IsJIdJglgt8tjS2Ru0"
         }
       ],
       "services": {

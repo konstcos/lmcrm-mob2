@@ -6,7 +6,10 @@
 
     <ion-header no-border>
         <ion-toolbar color="dark" no-border>
-            <ion-title>Notice filter</ion-title>
+            <ion-title>
+                {{ 'communication.filter.title' | translate }}
+                <!--Notice filter-->
+            </ion-title>
 
             <ion-buttons right text-center>
                 <button ion-button (click)="filterMenuOpen()">
@@ -18,20 +21,24 @@
 
     </ion-header>
 
-    <ion-content>
+    <ion-content dir="rtl">
 
         <!-- Фильтр по периоду -->
         <div class="filter_block">
 
             <ion-row class="filter_name">
                 <ion-col>
-                    Period
+                    {{ 'communication.filter.period' | translate }}
+                    <!--Period-->
                 </ion-col>
             </ion-row>
 
             <!-- Начало периода -->
             <ion-item class="period_filter_item period_filter_from">
-                <ion-label>From</ion-label>
+                <ion-label>
+                    <!--From-->
+                    {{ 'communication.filter.from' | translate }}
+                </ion-label>
                 <ion-datetime
                         displayFormat="DD/MM/YYYY"
                         pickerFormat="DD-MM-YYYY"
@@ -41,7 +48,10 @@
 
             <!-- Конец периода -->
             <ion-item class="period_filter_item period_filter_from">
-                <ion-label>To</ion-label>
+                <ion-label>
+                    <!--To-->
+                    {{ 'communication.filter.to' | translate }}
+                </ion-label>
                 <ion-datetime
                         displayFormat="DD/MM/YYYY"
                         pickerFormat="DD-MM-YYYY"
@@ -50,7 +60,10 @@
             </ion-item>
 
             <!-- Кнопка обнуления -->
-            <button small ion-button round color="danger" (click)="resetPeriod()">reset period</button>
+            <button small ion-button round color="danger" (click)="resetPeriod()">
+                {{ 'communication.filter.period_reset' | translate }}
+                <!--reset period-->
+            </button>
 
         </div>
 
@@ -60,7 +73,8 @@
 
             <ion-row class="filter_name">
                 <ion-col>
-                    Statuses
+                    {{ 'communication.filter.statuses' | translate }}
+                    <!--Statuses-->
                 </ion-col>
             </ion-row>
 
@@ -74,7 +88,8 @@
                 </ion-col>
 
                 <ion-col>
-                    All statuses
+                    {{ 'communication.filter.all_statuses' | translate }}
+                    <!--All statuses-->
                 </ion-col>
             </ion-row>
 
@@ -88,7 +103,8 @@
                 </ion-col>
 
                 <ion-col>
-                    Not market
+                    {{ 'communication.filter.not_market' | translate }}
+                    <!--Not market-->
                 </ion-col>
             </ion-row>
 
@@ -103,7 +119,8 @@
                 </ion-col>
 
                 <ion-col>
-                    Market
+                    {{ 'communication.filter.market' | translate }}
+                    <!--Market-->
                 </ion-col>
             </ion-row>
 
@@ -115,7 +132,8 @@
 
             <ion-row class="filter_name">
                 <ion-col>
-                    Type
+                    {{ 'communication.filter.type' | translate }}
+                    <!--Type-->
                 </ion-col>
             </ion-row>
 
@@ -129,7 +147,8 @@
                 </ion-col>
 
                 <ion-col>
-                    All types
+                    {{ 'communication.filter.all_type' | translate }}
+                    <!--All types-->
                 </ion-col>
             </ion-row>
 
@@ -143,7 +162,8 @@
                 </ion-col>
 
                 <ion-col>
-                    {{ type.name }}
+                    <!--{{ type.name }}-->
+                    {{ 'communication.notification_type.' + type.name | translate }}
                 </ion-col>
             </ion-row>
 
@@ -151,10 +171,16 @@
 
     </ion-content>
 
-    <ion-footer>
+    <ion-footer dir="rtl">
         <ion-toolbar color="dark">
-            <button menuClose (click)="noticeFilterApply()" ion-button>Apply</button>
-            <button menuClose (click)="noticeFilterReset()" ion-button color="danger">Reset</button>
+            <button menuClose (click)="noticeFilterApply()" ion-button>
+                {{ 'communication.filter.apply_button' | translate }}
+                <!--Apply-->
+            </button>
+            <button menuClose (click)="noticeFilterReset()" ion-button color="danger">
+                {{ 'communication.filter.reset_button' | translate }}
+                <!--Reset-->
+            </button>
         </ion-toolbar>
     </ion-footer>
 
@@ -185,9 +211,6 @@
             <!--<button menuClose ion-item (click)="openPage(pages[3])">{{ pages[3].title }}</button>-->
 
 
-            меню
-
-
         </ion-list>
     </ion-content>
 </ion-menu>
@@ -209,7 +232,10 @@
             </button>
         </ion-buttons>
 
-        <ion-title>Communication</ion-title>
+        <ion-title>
+            {{ 'communication.title' | translate }}
+            <!--Communication-->
+        </ion-title>
 
 
         <ion-buttons right text-right>
@@ -237,11 +263,13 @@
     <ion-toolbar>
         <ion-segment [(ngModel)]="segmentSwitch" (ionChange)="segmentChanged($event)">
             <ion-segment-button value="notice">
-                Notice
+                {{ 'communication.notice_name' | translate }}
+                <!--Notice-->
                 <ion-badge *ngIf="countUnmarkedNotices != 0" class="notifications-badge" color="danger">{{ countUnmarkedNotices }}</ion-badge>
             </ion-segment-button>
             <ion-segment-button value="messages">
-                Messages
+                {{ 'communication.messages_name' | translate }}
+                <!--Messages-->
                 <ion-badge *ngIf="countUnreadMessages != 0" class="notifications-badge" color="danger">{{ countUnreadMessages }}</ion-badge>
             </ion-segment-button>
         </ion-segment>
@@ -276,7 +304,8 @@
                 <div class="no_notification_items_icon">
                     <ion-icon name="contract"></ion-icon>
                 </div>
-                no notification
+                {{ 'communication.no_notification' | translate }}
+                <!--no notification-->
             </div>
 
             <!-- сообщение что по фильтру ничего не найденно -->
@@ -287,12 +316,14 @@
                 </div>
 
                 <div>
-                    no notification by filter
+                    {{ 'communication.no_notification_by_filter' | translate }}
+                    <!--no notification by filter-->
                 </div>
 
                 <div class="notice_clear_button">
                     <button ion-button small outline round (click)="noticeFilterReset()">
-                        reset filter
+                        {{ 'communication.reset_filter' | translate }}
+                        <!--reset filter-->
                     </button>
                 </div>
 
@@ -312,7 +343,10 @@
 
                     <ion-col text-right (click)="openReminderData(notice)">
                         <div class="date"> <span class="time">{{ notice.date.time }}</span> {{ notice.date.date }} </div>
-                        <div class="notice_name">{{ notice.event.name }}</div>
+                        <div class="notice_name">
+                            {{ 'communication.notification_type.' + notice.event.name | translate }}
+                            <!--{{ notice.event.name }}-->
+                        </div>
                     </ion-col>
 
                 </ion-row>
@@ -334,7 +368,8 @@
                 <div class="no_notification_items_icon">
                     <ion-icon name="contract"></ion-icon>
                 </div>
-                no messages
+                {{ 'communication.no_messages' | translate }}
+                <!--no messages-->
             </div>
 
             <!-- сообщение что по фильтру ничего не найденно -->
@@ -408,7 +443,8 @@
     <div *ngIf="segmentSwitch == 'notice' && isNoticeFilterOn && notices.length != 0" class="bottom_no_notification_items_button">
 
         <button ion-button small outline round (click)="noticeFilterReset()">
-            reset filter
+            {{ 'communication.reset_filter' | translate }}
+            <!--reset filter-->
         </button>
 
     </div>

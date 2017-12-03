@@ -15,7 +15,10 @@
             </button>
         </ion-buttons>
 
-        <ion-title>Credit Card Payment</ion-title>
+        <ion-title>
+            <!--Credit Card Payment-->
+            {{ 'open_lead_deal_credit_card_payment.title' | translate }}
+        </ion-title>
 
         <!--<ion-buttons right text-center>-->
 
@@ -30,16 +33,160 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content padding>
 
-    <!--<div class="credit_payment_title">Payment from Credit Card</div>-->
+    <!-- спинер загрузки -->
+    <div *ngIf="isLoading" class="spinnerLoading">
+        <ion-spinner color="primary" name="crescent"></ion-spinner>
+    </div>
 
-    <!--<div class="time">In developing</div>-->
+    <!-- Блок с данными -->
+    <div *ngIf="dataBlock" class="withdrawal_block">
 
-    <!--<div class="file_input">-->
-        <!--&lt;!&ndash;<input #file (change)="onChange(file.files)" type="file">&ndash;&gt;-->
-        <!--<input id="fileElem" (change)="onChange($event)" type="file">-->
-    <!--</div>-->
+        <!-- строка с данными -->
+        <div class="withdrawal_row">
 
+            <div class="withdrawal_label" text-right>
+                {{ 'open_lead_deal_credit_card_payment.name' | translate }}
+                <!--Name-->
+            </div>
+
+            <div class="withdrawal_input" text-right>
+
+                <ion-input
+                        [(ngModel)]="data.name"
+                        text-right
+                        type="text">
+
+                </ion-input>
+
+            </div>
+
+        </div>
+        <!-- конец строки с данными -->
+
+        <!-- строка с ошибкой -->
+        <div *ngIf="errors.name" class="withdrawal_error" text-right>
+            {{ 'open_lead_deal_credit_card_payment.required_field' | translate }}
+            <!--This field is required-->
+        </div>
+        <!-- конец строки с ошибкой -->
+
+
+
+        <!-- строка с данными -->
+        <div class="withdrawal_row">
+
+            <div class="withdrawal_label" text-right>
+                <!--E-Mail-->
+                {{ 'open_lead_deal_credit_card_payment.email' | translate }}
+            </div>
+
+            <div class="withdrawal_input" text-right>
+
+                <ion-input
+                        [(ngModel)]="data.email"
+                        text-right
+                        type="text">
+
+                </ion-input>
+
+            </div>
+
+        </div>
+        <!-- конец строки с данными -->
+
+        <!-- строка с ошибкой -->
+        <div *ngIf="errors.email" class="withdrawal_error" text-right>
+            {{ 'open_lead_deal_credit_card_payment.required_field' | translate }}
+            <!--This field is required-->
+        </div>
+        <!-- конец строки с ошибкой -->
+
+
+
+        <!-- строка с данными -->
+        <div class="withdrawal_row">
+
+            <div class="withdrawal_label" text-right>
+                <!--Phone-->
+                {{ 'open_lead_deal_credit_card_payment.phone' | translate }}
+            </div>
+
+            <div class="withdrawal_input" text-right>
+
+                <ion-input
+                        [(ngModel)]="data.phone"
+                        text-right
+                        type="text">
+
+                </ion-input>
+
+            </div>
+
+        </div>
+        <!-- конец строки с данными -->
+
+        <!-- строка с ошибкой -->
+        <div *ngIf="errors.phone" class="withdrawal_error" text-right>
+            {{ 'open_lead_deal_credit_card_payment.required_field' | translate }}
+            <!--This field is required-->
+        </div>
+        <!-- конец строки с ошибкой -->
+
+
+
+        <!-- строка с данными -->
+        <div class="withdrawal_row">
+
+            <div class="withdrawal_label" text-right>
+                {{ 'open_lead_deal_credit_card_payment.amount' | translate }}
+                <!--Amount-->
+            </div>
+
+            <div class="withdrawal_input amount_input" text-right>
+
+                &#8362;
+
+                <ion-input
+                        [(ngModel)]="data.amount"
+                        text-right
+                        min="0"
+                        type="number">
+
+                </ion-input>
+
+            </div>
+
+        </div>
+        <!-- конец строки с данными -->
+
+        <!-- строка с ошибкой -->
+        <div *ngIf="errors.amount" class="withdrawal_error" text-right>
+            {{ 'open_lead_deal_credit_card_payment.required_field' | translate }}
+            <!--This field is required-->
+        </div>
+        <!-- конец строки с ошибкой -->
+
+        <div text-center margin-top>
+            <button ion-button round (click)="confirmPayment()">
+                {{ 'open_lead_deal_credit_card_payment.confirm_button' | translate }}
+                <!--Confirm -->
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Блок с данными по проплате -->
+    <div *ngIf="creditBlock">
+
+        <iframe
+                [src]= "webPage()"
+                frameborder="0"
+                height="500px"
+                width="100%">
+
+        </iframe>
+    </div>
 
 </ion-content>

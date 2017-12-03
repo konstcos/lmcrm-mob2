@@ -182,12 +182,16 @@ export class OpenLeadStatusesPage {
                 // переводим ответ в json
                 let data = result.json();
 
+                console.log('сделка закрылась нормально: ');
                 console.log(data);
+
+                console.log('цена за сделку');
+                console.log(price);
 
                 if (data.status == 'success') {
 
                     this.newStatus = data.status_info;
-                    this.close(data.status_info);
+                    this.close(data.status_info, price);
 
                 } else {
                     this.close();
@@ -221,8 +225,11 @@ export class OpenLeadStatusesPage {
      * Закрытие страницы
      *
      */
-    close(stat = false) {
+    close(stat = false, price = false) {
         // todo доработать
+
+        console.log('закрываю окно с прайсом:');
+        console.log(price);
 
         for (let type in this.statuses) {
 
@@ -240,7 +247,7 @@ export class OpenLeadStatusesPage {
         console.log('из close');
         console.log(stat);
 
-        this.view.dismiss({status: stat});
+        this.view.dismiss({status: stat, dealPrice: price});
     }
 
 

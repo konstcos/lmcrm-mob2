@@ -52,12 +52,19 @@
 
         <div padding>
             <button ion-button class="login_button" block>{{ 'LOGIN_BUTTON' | translate }}</button>
+            <!--<button ion-button class="" color="light" block clear>{{ 'FORGOT_YOUR_PASSWORD' | translate }}</button>-->
+        </div>
+
+        <div text-center class="password_recovery" (click)="passwordRecovery()">
+            <!--<button ion-button class="login_button" block clear>{{ 'LOGIN_BUTTON' | translate }}</button>-->
+            {{ 'FORGOT_YOUR_PASSWORD' | translate }}
         </div>
 
     </form>
 
     <hr color="secondary">
 
+    <!-- Регистрация-->
     <div padding>
         <button ion-button color="secondary" block (click)="singUp()">
             {{ 'SIGNUP_TITLE' | translate }}
@@ -65,7 +72,7 @@
     </div>
 
 
-    <div padding (click)="openAdvantagesPage()" text-center class="advantages_linc">
+    <div padding (click)="openAdvantagesPage()" dir="rtl" text-center class="advantages_linc">
         {{ 'LOGIN_ADVANTAGES' | translate }}
     </div>
 

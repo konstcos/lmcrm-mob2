@@ -1,0 +1,18 @@
+@font-face {
+  font-family: 'OpenSansHebrew-ExtraBold';
+  src: url('OpenSansHebrew-ExtraBold.woff') format('woff'),
+       url('OpenSansHebrew-ExtraBold.ttf') format('truetype'),
+       url('OpenSansHebrew-ExtraBold.svg#OpenSansHebrew-ExtraBold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OpenSansHebrewExtraBold';
+  src: url('OpenSansHebrewExtraBold.eot');
+  src: url('OpenSansHebrewExtraBold.woff2') format('woff2'),
+       url('OpenSansHebrewExtraBold.eot?#iefix') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+

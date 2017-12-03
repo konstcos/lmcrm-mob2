@@ -23,7 +23,10 @@
             </button>
         </ion-buttons>
 
-        <ion-title>Support</ion-title>
+        <ion-title>
+            {{ 'support.title' | translate }}
+            <!--Support-->
+        </ion-title>
 
         <!--<ion-buttons right text-center>-->
             <!--<button ion-button (click)="confirmOpen(item)">-->
@@ -51,7 +54,8 @@
 
             <div class="sphere-name">{{ support.sphere }}</div>
             <div class="name">{{ support.name }} <span class="surname">{{ support.surname }}</span></div>
-            <div class="phone">{{ support.phone ? support.phone : 'no phone' }}</div>
+            <!--<div class="phone">{{ support.phone ? support.phone : 'no phone' }}</div>-->
+            <div class="phone">{{ support.phone ? support.phone : ('support.no_phone' | translate) }}</div>
 
         </ion-col>
 

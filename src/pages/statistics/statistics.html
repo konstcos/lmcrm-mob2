@@ -19,22 +19,25 @@
             </button>
         </ion-buttons>
 
-        <ion-title>Statistics
-        <span class="additional_title">(<span *ngIf="statisticBlocks == 'leads'">Leads</span><span *ngIf="statisticBlocks == 'statuses'">Statuses</span><span *ngIf="statisticBlocks == 'transitions'">Transitions</span>)</span>
+        <ion-title dir="rtl" text-left>
+
+            {{ 'statistic.title' | translate }}
+            <!--Statistics-->
+            <span class="additional_title"> (
+                <span *ngIf="statisticBlocks == 'leads'">
+                    {{ 'statistic.leads_name' | translate }}
+                    <!--Leads-->
+                </span>
+                <span *ngIf="statisticBlocks == 'statuses'">
+                    {{ 'statistic.statuses_name' | translate }}
+                    <!--Statuses-->
+                </span>
+                <span *ngIf="statisticBlocks == 'transitions'">
+                    {{ 'statistic.transitions_name' | translate }}
+                    <!--Transitions-->
+                </span>)
+            </span>
         </ion-title>
-
-
-        <!--<ion-buttons left text-center class="left_button">-->
-            <!--<button ion-button (click)="goBack()">-->
-                <!--close-->
-            <!--</button>-->
-        <!--</ion-buttons>-->
-
-        <!--<ion-buttons right text-center class="right_button">-->
-            <!--&lt;!&ndash;<button ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">&ndash;&gt;-->
-            <!--&lt;!&ndash;add lead&ndash;&gt;-->
-            <!--&lt;!&ndash;</button>&ndash;&gt;-->
-        <!--</ion-buttons>-->
 
     </ion-navbar>
 
@@ -43,29 +46,37 @@
         <ion-row no-padding>
 
             <!--<ion-col col-1 no-padding text-center align-self-center class="statistic_data_header_button">-->
-                <!--<ion-icon name="ios-arrow-up"></ion-icon>-->
+            <!--<ion-icon name="ios-arrow-up"></ion-icon>-->
             <!--</ion-col>-->
 
             <ion-col no-padding class="statistic_data_header">
-                <ion-item>
-                    <ion-label>Sphere</ion-label>
+                <ion-item dir="rtl">
+                    <ion-label>
+                        {{ 'statistic.sphere' | translate }}
+                        <!--Sphere-->
+                    </ion-label>
                     <ion-select
                             [(ngModel)]="currentSphere"
                             interface="action-sheet"
                             (ionChange)="sphereChange()">
-                        <ion-option *ngFor="let sphere of spheres" value="{{ sphere.id }}">{{ sphere.name }}</ion-option>
+                        <ion-option *ngFor="let sphere of spheres" value="{{ sphere.id }}">{{ sphere.name }}
+                        </ion-option>
                         <!--<ion-option value="m">Male</ion-option>-->
                     </ion-select>
                 </ion-item>
 
-                <ion-item>
-                    <ion-label>Date</ion-label>
+                <ion-item dir="rtl">
+                    <ion-label>
+                        {{ 'statistic.date' | translate }}
+                        <!--Date-->
+                    </ion-label>
                     <ion-select
                             [(ngModel)]="datePeriod"
                             interface="action-sheet"
                             (ionChange)="datePeriodChange()">
 
-                        <ion-option *ngFor="let period of datePeriodData" value="{{ period.id }}">{{ period.name }}</ion-option>
+                        <ion-option *ngFor="let period of datePeriodData" value="{{ period.id }}">{{ period.name }}
+                        </ion-option>
 
                     </ion-select>
                 </ion-item>
@@ -74,7 +85,10 @@
 
 
                     <ion-col col-2 no-padding text-right>
-                        <div class="date_label"> from: </div>
+                        <div class="date_label">
+                            {{ 'statistic.from' | translate }}
+                            <!--from:-->
+                        </div>
                     </ion-col>
 
                     <ion-col text-left no-padding color="light" align-self-center>
@@ -91,7 +105,10 @@
                     </ion-col>
 
                     <ion-col col-2 no-padding text-right>
-                        <div class="date_label"> to: </div>
+                        <div class="date_label">
+                            {{ 'statistic.to' | translate }}
+                            <!--to:-->
+                        </div>
                     </ion-col>
 
                     <ion-col text-left no-padding color="light" align-self-center>
@@ -121,7 +138,8 @@
     <!-- Если сфера отсутствует -->
     <ion-row *ngIf="noSphereBlockShow">
         <ion-col text-center class="no_sphere_text">
-            No sphere
+            {{ 'statistic.no_sphere' | translate }}
+            <!--No sphere-->
         </ion-col>
     </ion-row>
 
@@ -129,9 +147,19 @@
     <ion-row *ngIf="!isEnoughOpenLeads && !isLoading">
         <ion-col text-center class="no_sphere_text">
 
-            <div margin>Not enough open leads for statistics</div>
-            <div *ngIf="statisticData"> <b>{{ statisticData.sphere.minOpen }}</b> open leads needed</div>
-            <div *ngIf="statisticData"> you have <b>{{ statisticData.openLeads.all }}</b> </div>
+            <div margin>
+                {{ 'statistic.no_enough_leads' | translate }}
+                <!--Not enough open leads for statistics-->
+            </div>
+
+            <div *ngIf="statisticData"><b>{{ statisticData.sphere.minOpen }}</b>
+                {{ 'statistic.open_leads_needed' | translate }}
+                <!--open leads needed-->
+            </div>
+            <div *ngIf="statisticData">
+                {{ 'statistic.you_have' | translate }}
+                <!--you have-->
+                <b>{{ statisticData.openLeads.all }}</b></div>
 
         </ion-col>
     </ion-row>
@@ -146,7 +174,7 @@
             <ion-col no-padding>
 
                 <!-- контент лидов -->
-                <ion-row no-padding *ngIf="sphereExist && isEnoughOpenLeads">
+                <ion-row no-padding *ngIf="sphereExist && isEnoughOpenLeads" dir="rtl">
                     <ion-col no-padding>
 
                         <!-- Сумарные данные по лидам (агента и его салесманов) -->
@@ -158,25 +186,34 @@
 
                                 </ion-col>
                                 <ion-col col-4 class="item_data" text-center>
-                                    <span class="period legend">by period</span> / <span class="all legend">by all</span>
+                                    <span class="period legend">
+                                        {{ 'statistic.by_period' | translate }}
+                                        <!--by period-->
+                                    </span> /
+                                    <span class="all legend">
+                                        {{ 'statistic.by_all' | translate }}
+                                        <!--by all-->
+                                    </span>
                                 </ion-col>
                             </ion-row>
 
                             <ion-row>
                                 <ion-col text-center class="title">
-                                    Leads
+                                    {{ 'statistic.leads_block_title' | translate }}
+                                    <!--Leads-->
                                 </ion-col>
                             </ion-row>
 
                             <!--<ion-row>-->
-                                <!--<ion-col class="item_data" text-right>-->
-                                    <!--<span class="period legend">by period</span> / <span class="all legend">by all</span>-->
-                                <!--</ion-col>-->
+                            <!--<ion-col class="item_data" text-right>-->
+                            <!--<span class="period legend">by period</span> / <span class="all legend">by all</span>-->
+                            <!--</ion-col>-->
                             <!--</ion-row>-->
 
                             <ion-row>
                                 <ion-col class="item_label">
-                                    added
+                                    {{ 'statistic.leads_block_data_added' | translate }}
+                                    <!--added-->
                                 </ion-col>
                                 <ion-col col-4 text-center class="item_data">
                                     <span class="period">{{ statisticData.added.period }}</span> / <span class="all">{{ statisticData.added.all }}</span>
@@ -185,16 +222,19 @@
 
                             <ion-row>
                                 <ion-col class="item_label">
-                                    operator banned
+                                    {{ 'statistic.leads_block_data_operator_banned' | translate }}
+                                    <!--operator banned-->
                                 </ion-col>
                                 <ion-col col-4 text-center class="item_data">
-                                    <span class="period">{{ statisticData.operatorBad.period }}</span> / <span class="all">{{ statisticData.operatorBad.all }}</span>
+                                    <span class="period">{{ statisticData.operatorBad.period }}</span> / <span
+                                        class="all">{{ statisticData.operatorBad.all }}</span>
                                 </ion-col>
                             </ion-row>
 
                             <ion-row>
                                 <ion-col class="item_label">
-                                    users banned
+                                    {{ 'statistic.leads_block_data_users_banned' | translate }}
+                                    <!--users banned-->
                                 </ion-col>
                                 <ion-col col-4 text-center class="item_data">
                                     <span class="period">{{ statisticData.agentBad.period }}</span> / <span class="all">{{ statisticData.agentBad.all }}</span>
@@ -203,7 +243,8 @@
 
                             <ion-row>
                                 <ion-col class="item_label">
-                                    seen
+                                    {{ 'statistic.leads_block_data_seen' | translate }}
+                                    <!--seen-->
                                 </ion-col>
                                 <ion-col col-4 text-center class="item_data">
                                     <span class="period">{{ statisticData.auction.period }}</span> / <span class="all">{{ statisticData.auction.all }}</span>
@@ -212,10 +253,12 @@
 
                             <ion-row>
                                 <ion-col class="item_label">
-                                    open
+                                    {{ 'statistic.leads_block_data_open' | translate }}
+                                    <!--open-->
                                 </ion-col>
                                 <ion-col col-4 text-center class="item_data">
-                                    <span class="period">{{ statisticData.openLeads.period }}</span> / <span class="all">{{ statisticData.openLeads.all }}</span>
+                                    <span class="period">{{ statisticData.openLeads.period }}</span> / <span
+                                        class="all">{{ statisticData.openLeads.all }}</span>
                                 </ion-col>
                             </ion-row>
 
@@ -227,52 +270,63 @@
 
                             <ion-row>
                                 <ion-col text-center class="title">
-                                    Just a agent data
+                                    {{ 'statistic.leads_block_title_agent' | translate }}
+                                    <!--Just a agent data-->
                                 </ion-col>
                             </ion-row>
 
                             <ion-row>
                                 <ion-col class="item_label">
-                                    added
+                                    {{ 'statistic.leads_block_data_added' | translate }}
+                                    <!--added-->
                                 </ion-col>
-                                <ion-col text-right class="item_data">
-                                    <span class="period">{{ statisticData.user.justAgent.added.period }}</span> / <span class="all">{{ statisticData.user.justAgent.added.all }}</span>
-                                </ion-col>
-                            </ion-row>
-
-                            <ion-row>
-                                <ion-col class="item_label">
-                                    operator banned
-                                </ion-col>
-                                <ion-col text-right class="item_data">
-                                    <span class="period">{{ statisticData.user.justAgent.operatorBad.period }}</span> / <span class="all">{{ statisticData.user.justAgent.operatorBad.all }}</span>
+                                <ion-col col-4 text-center class="item_data">
+                                    <span class="period">{{ statisticData.user.justAgent.added.period }}</span> / <span
+                                        class="all">{{ statisticData.user.justAgent.added.all }}</span>
                                 </ion-col>
                             </ion-row>
 
                             <ion-row>
                                 <ion-col class="item_label">
-                                    users banned
+                                    {{ 'statistic.leads_block_data_operator_banned' | translate }}
+                                    <!--operator banned-->
                                 </ion-col>
-                                <ion-col text-right class="item_data">
-                                    <span class="period">{{ statisticData.user.justAgent.agentBad.period }}</span> / <span class="all">{{ statisticData.user.justAgent.agentBad.all }}</span>
-                                </ion-col>
-                            </ion-row>
-
-                            <ion-row>
-                                <ion-col class="item_label">
-                                    seen
-                                </ion-col>
-                                <ion-col text-right class="item_data">
-                                    <span class="period">{{ statisticData.user.justAgent.auction.period }}</span> / <span class="all">{{ statisticData.user.justAgent.auction.all }}</span>
+                                <ion-col col-4 text-center class="item_data">
+                                    <span class="period">{{ statisticData.user.justAgent.operatorBad.period }}</span> /
+                                    <span class="all">{{ statisticData.user.justAgent.operatorBad.all }}</span>
                                 </ion-col>
                             </ion-row>
 
                             <ion-row>
                                 <ion-col class="item_label">
-                                    open
+                                    {{ 'statistic.leads_block_data_users_banned' | translate }}
+                                    <!--users banned-->
                                 </ion-col>
-                                <ion-col text-right class="item_data">
-                                    <span class="period">{{ statisticData.user.justAgent.openLeads.period }}</span> / <span class="all">{{ statisticData.user.justAgent.openLeads.all }}</span>
+                                <ion-col col-4 text-center class="item_data">
+                                    <span class="period">{{ statisticData.user.justAgent.agentBad.period }}</span> /
+                                    <span class="all">{{ statisticData.user.justAgent.agentBad.all }}</span>
+                                </ion-col>
+                            </ion-row>
+
+                            <ion-row>
+                                <ion-col class="item_label">
+                                    {{ 'statistic.leads_block_data_seen' | translate }}
+                                    <!--seen-->
+                                </ion-col>
+                                <ion-col col-4 text-center class="item_data">
+                                    <span class="period">{{ statisticData.user.justAgent.auction.period }}</span> /
+                                    <span class="all">{{ statisticData.user.justAgent.auction.all }}</span>
+                                </ion-col>
+                            </ion-row>
+
+                            <ion-row>
+                                <ion-col class="item_label">
+                                    {{ 'statistic.leads_block_data_open' | translate }}
+                                    <!--open-->
+                                </ion-col>
+                                <ion-col col-4 text-center class="item_data">
+                                    <span class="period">{{ statisticData.user.justAgent.openLeads.period }}</span> /
+                                    <span class="all">{{ statisticData.user.justAgent.openLeads.all }}</span>
                                 </ion-col>
                             </ion-row>
 
@@ -283,7 +337,8 @@
 
                             <ion-row>
                                 <ion-col text-center class="title">
-                                    Salesmen
+                                    {{ 'statistic.leads_block_title_salesmen' | translate }}
+                                    <!--Salesmen-->
                                 </ion-col>
                             </ion-row>
 
@@ -297,77 +352,95 @@
                                 </ion-row>
 
                                 <!--<ion-row>-->
-                                    <!--<ion-col class="item_data" text-right>-->
-                                        <!--<span class="period legend">by period</span> / <span class="all legend">by all</span>-->
-                                    <!--</ion-col>-->
+                                <!--<ion-col class="item_data" text-right>-->
+                                <!--<span class="period legend">by period</span> / <span class="all legend">by all</span>-->
+                                <!--</ion-col>-->
                                 <!--</ion-row>-->
 
                                 <ion-row>
                                     <ion-col class="item_label">
-                                        added
+                                        {{ 'statistic.leads_block_data_added' | translate }}
+                                        <!--added-->
                                     </ion-col>
-                                    <ion-col text-right class="item_data">
+                                    <ion-col col-4 text-center class="item_data">
                                         <span class="period">{{ salesmen.added.period }}</span> / <span class="all">{{ salesmen.added.all }}</span>
                                     </ion-col>
                                 </ion-row>
 
                                 <ion-row>
                                     <ion-col class="item_label">
-                                        operator banned
+                                        {{ 'statistic.leads_block_data_operator_banned' | translate }}
+                                        <!--operator banned-->
                                     </ion-col>
-                                    <ion-col text-right class="item_data">
-                                        <span class="period">{{ salesmen.operatorBad.period }}</span> / <span class="all">{{ salesmen.operatorBad.all }}</span>
+                                    <ion-col col-4 text-center class="item_data">
+                                        <span class="period">{{ salesmen.operatorBad.period }}</span> / <span
+                                            class="all">{{ salesmen.operatorBad.all }}</span>
                                     </ion-col>
                                 </ion-row>
 
                                 <ion-row>
                                     <ion-col class="item_label">
-                                        users banned
+                                        {{ 'statistic.leads_block_data_users_banned' | translate }}
+                                        <!--users banned-->
                                     </ion-col>
-                                    <ion-col text-right class="item_data">
+                                    <ion-col col-4 text-center class="item_data">
                                         <span class="period">{{ salesmen.agentBad.period }}</span> / <span class="all">{{ salesmen.agentBad.all }}</span>
                                     </ion-col>
                                 </ion-row>
 
                                 <ion-row>
                                     <ion-col class="item_label">
-                                        seen
+                                        {{ 'statistic.leads_block_data_seen' | translate }}
+                                        <!--seen-->
                                     </ion-col>
-                                    <ion-col text-right class="item_data">
+                                    <ion-col col-4 text-center class="item_data">
                                         <span class="period">{{ salesmen.auction.period }}</span> / <span class="all">{{ salesmen.auction.all }}</span>
                                     </ion-col>
                                 </ion-row>
 
                                 <ion-row>
                                     <ion-col class="item_label">
-                                        open
+                                        {{ 'statistic.leads_block_data_open' | translate }}
+                                        <!--open-->
                                     </ion-col>
-                                    <ion-col text-right class="item_data">
+                                    <ion-col col-4 text-center class="item_data">
                                         <span class="period">{{ salesmen.openLeads.period }}</span> / <span class="all">{{ salesmen.openLeads.all }}</span>
                                     </ion-col>
                                 </ion-row>
 
                                 <ion-row>
                                     <ion-col class="item_label">
-                                        presence
+                                        {{ 'statistic.leads_block_data_salesman_presence' | translate }}
+                                        <!--presence-->
                                     </ion-col>
-                                    <ion-col text-right class="item_data" class="additional_data">
+                                    <ion-col col-4 text-center class="item_data" class="additional_data">
                                         {{ salesmen.sphere.presence ? 'Yes' : 'No' }}
                                     </ion-col>
                                 </ion-row>
 
                                 <ion-row>
                                     <ion-col class="item_label">
-                                        Active
+                                        {{ 'statistic.leads_block_data_salesman_active' | translate }}
+                                        <!--Active-->
                                     </ion-col>
-                                    <ion-col text-right class="item_data additional_data">
+                                    <ion-col col-4 text-center class="item_data additional_data">
                                         {{ salesmen.user.active ? 'Yes' : 'No' }}
                                     </ion-col>
                                 </ion-row>
 
                                 <ion-row>
-                                    <ion-col class="item_data" text-right>
-                                        <span class="period legend">by period</span> / <span class="all legend">by all</span>
+                                    <ion-col>
+
+                                    </ion-col>
+                                    <ion-col col-4 class="item_data" text-right>
+                                        <span class="period legend">
+                                            {{ 'statistic.by_period' | translate }}
+                                            <!--by period -->
+                                        </span> /
+                                        <span class="all legend">
+                                            {{ 'statistic.by_all' | translate }}
+                                            <!--by all-->
+                                        </span>
                                     </ion-col>
                                 </ion-row>
 
@@ -382,7 +455,7 @@
         </ion-row>
 
         <ion-row *ngSwitchCase="'statuses'">
-            <ion-col no-padding *ngIf="sphereExist && isEnoughOpenLeads">
+            <ion-col no-padding *ngIf="sphereExist && isEnoughOpenLeads" dir="rtl">
 
 
                 <!-- легенда к таблицам -->
@@ -391,10 +464,10 @@
 
                     </ion-col>
                     <ion-col text-center class="item_data_legend">
-                        <span class="period legend">by period</span> / <span class="all legend">by all</span>
+                        <span class="period legend">{{ 'statistic.by_period' | translate }}</span> / <span class="all legend">{{ 'statistic.by_all' | translate }}</span>
                     </ion-col>
                     <ion-col text-center class="item_data_legend">
-                        <span class="period legend">by period</span> / <span class="all legend">by all</span>
+                        <span class="period legend">{{ 'statistic.by_period' | translate }}</span> / <span class="all legend">{{ 'statistic.by_all' | translate }}</span>
                     </ion-col>
                 </ion-row>
 
@@ -404,13 +477,16 @@
 
                     <ion-row>
                         <ion-col class="label">
-                            No status
+                            {{ 'statistic.status.no_status' | translate }}
+                            <!--No status-->
                         </ion-col>
                         <ion-col text-center>
-                            <span class="period">{{ statisticData.statuses.noStatus.countPeriod }}</span> / <span class="all">{{ statisticData.statuses.noStatus.countAll }}</span>
+                            <span class="period">{{ statisticData.statuses.noStatus.countPeriod }}</span> / <span
+                                class="all">{{ statisticData.statuses.noStatus.countAll }}</span>
                         </ion-col>
                         <ion-col text-center>
-                            <span class="period">{{ statisticData.statuses.noStatus.percentPeriod }}%</span> / <span class="all">{{ statisticData.statuses.noStatus.percentAll }}%</span>
+                            <span class="period">{{ statisticData.statuses.noStatus.percentPeriod }}%</span> / <span
+                                class="all">{{ statisticData.statuses.noStatus.percentAll }}%</span>
                         </ion-col>
                     </ion-row>
 
@@ -418,11 +494,13 @@
 
 
                 <!-- лиды с прогрессивными статусами -->
-                <div class="statistic_status_block statistic_status_progress" *ngIf="isTypeArray(statisticData.statuses.type[1]) && statisticData.statuses.type[1].length != 0">
+                <div class="statistic_status_block statistic_status_progress"
+                     *ngIf="isTypeArray(statisticData.statuses.type[1]) && statisticData.statuses.type[1].length != 0">
 
                     <ion-row>
                         <ion-col text-center class="title">
-                            Progress
+                            {{ 'statistic.status.progress' | translate }}
+                            <!--Progress-->
                         </ion-col>
                     </ion-row>
 
@@ -442,11 +520,13 @@
 
 
                 <!-- лиды с неопределенными статусами -->
-                <div class="statistic_status_block statistic_status_uncertain" *ngIf="isTypeArray(statisticData.statuses.type[2]) && statisticData.statuses.type[2].length != 0">
+                <div class="statistic_status_block statistic_status_uncertain"
+                     *ngIf="isTypeArray(statisticData.statuses.type[2]) && statisticData.statuses.type[2].length != 0">
 
                     <ion-row>
                         <ion-col text-center class="title">
-                            Uncertain
+                            {{ 'statistic.status.uncertain' | translate }}
+                            <!--Uncertain-->
                         </ion-col>
                     </ion-row>
 
@@ -466,11 +546,13 @@
 
 
                 <!-- лиды с отказными статусами -->
-                <div class="statistic_status_block statistic_status_refuseniks" *ngIf="isTypeArray(statisticData.statuses.type[3]) && statisticData.statuses.type[3].length != 0">
+                <div class="statistic_status_block statistic_status_refuseniks"
+                     *ngIf="isTypeArray(statisticData.statuses.type[3]) && statisticData.statuses.type[3].length != 0">
 
                     <ion-row>
                         <ion-col text-center class="title">
-                            Refuseniks
+                            {{ 'statistic.status.refuseniks' | translate }}
+                            <!--Refuseniks-->
                         </ion-col>
                     </ion-row>
 
@@ -490,11 +572,13 @@
 
 
                 <!-- лиды с плохими статусами -->
-                <div class="statistic_status_block statistic_status_bad" *ngIf="isTypeArray(statisticData.statuses.type[4]) && statisticData.statuses.type[4].length != 0">
+                <div class="statistic_status_block statistic_status_bad"
+                     *ngIf="isTypeArray(statisticData.statuses.type[4]) && statisticData.statuses.type[4].length != 0">
 
                     <ion-row>
                         <ion-col text-center class="title">
-                            Bad
+                            {{ 'statistic.status.bad' | translate }}
+                            <!--Bad-->
                         </ion-col>
                     </ion-row>
 
@@ -514,11 +598,13 @@
 
 
                 <!-- лиды с плохими статусами -->
-                <div class="statistic_status_block statistic_status_close_deal" *ngIf="isTypeArray(statisticData.statuses.type[5]) && statisticData.statuses.type[5].length != 0">
+                <div class="statistic_status_block statistic_status_close_deal"
+                     *ngIf="isTypeArray(statisticData.statuses.type[5]) && statisticData.statuses.type[5].length != 0">
 
                     <ion-row>
                         <ion-col text-center class="title">
-                            Close Deal
+                            {{ 'statistic.status.close_deal' | translate }}
+                            <!--Close Deal-->
                         </ion-col>
                     </ion-row>
 
@@ -542,17 +628,17 @@
 
                     </ion-col>
                     <ion-col text-center class="item_data_legend">
-                        <span class="period legend">by period</span> / <span class="all legend">by all</span>
+                        <span class="period legend">{{ 'statistic.by_period' | translate }}</span> / <span class="all legend">{{ 'statistic.by_all' | translate }}</span>
                     </ion-col>
                     <ion-col text-center class="item_data_legend">
-                        <span class="period legend">by period</span> / <span class="all legend">by all</span>
+                        <span class="period legend">{{ 'statistic.by_period' | translate }}</span> / <span class="all legend">{{ 'statistic.by_all' | translate }}</span>
                     </ion-col>
                 </ion-row>
 
             </ion-col>
         </ion-row>
 
-        <ion-row *ngSwitchCase="'transitions'">
+        <ion-row *ngSwitchCase="'transitions'" dir="rtl">
             <ion-col no-padding *ngIf="sphereExist && isEnoughOpenLeads">
 
                 <ion-row *ngFor="let transition of statisticData.transitions" class="statistic_transition_item">
@@ -574,8 +660,13 @@
                         <ion-row>
 
                             <ion-col text-center>
-                                <div class="legend period">period</div>
-                                <div class="statistic_data">{{ transition.percentPeriod }}% <span class="rating {{ transition.ratingPeriod }}">{{ transition.ratingPeriod }}</span></div>
+                                <div class="legend period">
+                                    {{ 'statistic.transitions.period' | translate }}
+                                    <!--period-->
+                                </div>
+                                <div class="statistic_data">{{ transition.percentPeriod }}% <span
+                                        class="rating {{ transition.ratingPeriod }}">{{ transition.ratingPeriod }}</span>
+                                </div>
                             </ion-col>
 
                             <ion-col col-1 text-center align-self-center class="status_arrow">
@@ -583,8 +674,13 @@
                             </ion-col>
 
                             <ion-col text-center>
-                                <div class="legend all">all</div>
-                                <div class="statistic_data"> {{ transition.percentAll }}% <span class="rating {{ transition.ratingAll }}">{{ transition.ratingAll }}</span></div>
+                                <div class="legend all">
+                                    {{ 'statistic.transitions.all' | translate }}
+                                    <!--all-->
+                                </div>
+                                <div class="statistic_data"> {{ transition.percentAll }}% <span
+                                        class="rating {{ transition.ratingAll }}">{{ transition.ratingAll }}</span>
+                                </div>
                             </ion-col>
 
                         </ion-row>
@@ -599,115 +695,7 @@
 
                         </ion-row>
 
-
-
-
-
-                        <!-- периоды -->
-                        <!--<ion-row class="legend_row">-->
-
-                            <!--<ion-col text-center>-->
-                                <!--period-->
-                            <!--</ion-col>-->
-
-                            <!--<ion-col text-center>-->
-                                <!--all-->
-                            <!--</ion-col>-->
-
-                        <!--</ion-row>-->
-
-                        <!-- Проценты -->
-                        <!--<ion-row class="percent_row">-->
-
-                            <!--<ion-col text-center no-padding>-->
-                                <!--{{ transition.percentPeriod }}%-->
-                            <!--</ion-col>-->
-
-                            <!--<ion-col text-center no-padding>-->
-                                <!--{{ transition.percentAll }}%-->
-                            <!--</ion-col>-->
-
-                        <!--</ion-row>-->
-
-                        <!-- Оценка периода -->
-                        <!--<ion-row class="rating_row">-->
-
-                            <!--<ion-col text-center>-->
-                                <!--{{ transition.ratingPeriod }}-->
-                            <!--</ion-col>-->
-
-                            <!--<ion-col text-center>-->
-                                <!--{{ transition.ratingAll }}-->
-                            <!--</ion-col>-->
-
-                        <!--</ion-row>-->
-
                     </ion-col>
-
-
-
-
-
-
-                    <!--<ion-col no-padding>-->
-
-                        <!--&lt;!&ndash; Названия статусов &ndash;&gt;-->
-                        <!--<ion-row class="direction_row">-->
-
-                            <!--<ion-col text-center>-->
-                                <!--{{ transition.fromStatus }}-->
-                            <!--</ion-col>-->
-
-                            <!--<ion-col col-2 text-center>-->
-                                <!--<ion-icon name="md-arrow-forward"></ion-icon>-->
-                            <!--</ion-col>-->
-
-                            <!--<ion-col text-center>-->
-                                <!--{{ transition.toStatus }}-->
-                            <!--</ion-col>-->
-
-                        <!--</ion-row>-->
-
-                        <!--&lt;!&ndash; периоды &ndash;&gt;-->
-                        <!--<ion-row class="legend_row">-->
-
-                            <!--<ion-col text-center>-->
-                                <!--period-->
-                            <!--</ion-col>-->
-
-                            <!--<ion-col text-center>-->
-                                <!--all-->
-                            <!--</ion-col>-->
-
-                        <!--</ion-row>-->
-
-                        <!--&lt;!&ndash; Проценты &ndash;&gt;-->
-                        <!--<ion-row class="percent_row">-->
-
-                            <!--<ion-col text-center no-padding>-->
-                                <!--{{ transition.percentPeriod }}%-->
-                            <!--</ion-col>-->
-
-                            <!--<ion-col text-center no-padding>-->
-                                <!--{{ transition.percentAll }}%-->
-                            <!--</ion-col>-->
-
-                        <!--</ion-row>-->
-
-                        <!--&lt;!&ndash; Оценка периода &ndash;&gt;-->
-                        <!--<ion-row class="rating_row">-->
-
-                            <!--<ion-col text-center>-->
-                                <!--{{ transition.ratingPeriod }}-->
-                            <!--</ion-col>-->
-
-                            <!--<ion-col text-center>-->
-                                <!--{{ transition.ratingAll }}-->
-                            <!--</ion-col>-->
-
-                        <!--</ion-row>-->
-
-                    <!--</ion-col>-->
 
                 </ion-row>
 
@@ -717,8 +705,6 @@
     </div>
 
 
-
-
 </ion-content>
 
 <ion-footer>
@@ -726,13 +712,13 @@
     <div class="segment_control_block">
         <ion-segment [(ngModel)]="statisticBlocks">
             <ion-segment-button value="leads">
-                Leads
+                {{ 'statistic.leads_name' | translate }}
             </ion-segment-button>
             <ion-segment-button value="statuses">
-                Statuses
+                {{ 'statistic.statuses_name' | translate }}
             </ion-segment-button>
             <ion-segment-button value="transitions">
-                Transitions
+                {{ 'statistic.transitions_name' | translate }}
             </ion-segment-button>
         </ion-segment>
     </div>

@@ -222,12 +222,10 @@ export class StatisticsPage {
      */
     isTypeArray(type) {
 
-        console.log('тип, блин');
         console.log(type);
         console.log(Array.isArray(type));
         console.log(typeof type);
 
-        // return typeof(type) == 'array';
         return Array.isArray(type);
 
     }

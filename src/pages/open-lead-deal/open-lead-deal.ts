@@ -9,6 +9,7 @@ import {
     LoadingController,
     ActionSheetController
 } from 'ionic-angular';
+import {TranslateService} from 'ng2-translate/ng2-translate';
 
 
 import {CorrespondencePage} from '../correspondence/correspondence'
@@ -65,7 +66,8 @@ export class OpenLeadDealPage {
                 public toastCtrl: ToastController,
                 public loadingCtrl: LoadingController,
                 public actionSheetCtrl: ActionSheetController,
-                public view: ViewController) {
+                public view: ViewController,
+                public translate: TranslateService) {
 
         // получение id итема
         this.item = this.navParams.get('item');
@@ -148,7 +150,7 @@ export class OpenLeadDealPage {
      */
     paymentWithWallet() {
 
-        // созадние модального окна переписки
+        // открытие модального окна по закрытию сделки
         let modal = this.modalCtrl.create(DealPaymentWalletPage, {openLeadId: this.item.id});
 
         // событие по закрытию модального окна
@@ -159,11 +161,28 @@ export class OpenLeadDealPage {
             if (data.status == 'success') {
                 // при успешной ошплате
 
+                let title = 'Payment successful';
+                let message = 'Payment passed successfully';
+                let ok_button = 'OK';
+
+                this.translate.get('open_lead_deal.paymentWithWallet.success.title', {}).subscribe((res: string) => {
+                    title = res;
+                });
+
+                this.translate.get('open_lead_deal.paymentWithWallet.success.message', {}).subscribe((res: string) => {
+                    message = res;
+                });
+
+                this.translate.get('open_lead_deal.paymentWithWallet.success.OK', {}).subscribe((res: string) => {
+                    ok_button = res;
+                });
+
+
                 // алерт об успешной проплате
                 let alert = this.alertCtrl.create({
-                    title: 'Payment successful',
-                    subTitle: 'Payment passed successfully',
-                    buttons: ['OK']
+                    title: title,
+                    subTitle: message,
+                    buttons: [ok_button]
                 });
                 alert.present();
 
@@ -173,11 +192,27 @@ export class OpenLeadDealPage {
             } else if (data.status == 'fail') {
                 // при неудаче
 
+                let title = 'Payment fail';
+                let message = 'An error occurred while making the payment';
+                let ok_button = 'OK';
+
+                this.translate.get('open_lead_deal.paymentWithWallet.fail.title', {}).subscribe((res: string) => {
+                    title = res;
+                });
+
+                this.translate.get('open_lead_deal.paymentWithWallet.fail.message', {}).subscribe((res: string) => {
+                    message = res;
+                });
+
+                this.translate.get('open_lead_deal.paymentWithWallet.fail.OK', {}).subscribe((res: string) => {
+                    ok_button = res;
+                });
+
                 // алерт о неудаче
                 let alert = this.alertCtrl.create({
-                    title: 'Payment fail',
-                    subTitle: 'An error occurred while making the payment',
-                    buttons: ['OK']
+                    title: title,
+                    subTitle: message,
+                    buttons: [ok_button]
                 });
                 alert.present();
 
@@ -205,6 +240,9 @@ export class OpenLeadDealPage {
         modal.onDidDismiss(data => {
 
             console.log(data);
+            // обновление страницы
+            this.getDealData();
+
         });
 
         // открытие модального окна
@@ -227,11 +265,27 @@ export class OpenLeadDealPage {
             if (data.status == 'success') {
                 // при успешной ошплате
 
+                let title = 'Payment successful';
+                let message = 'Payment passed successfully';
+                let ok_button = 'OK';
+
+                this.translate.get('open_lead_deal.manuallyPayment.success.title', {}).subscribe((res: string) => {
+                    title = res;
+                });
+
+                this.translate.get('open_lead_deal.manuallyPayment.success.message', {}).subscribe((res: string) => {
+                    message = res;
+                });
+
+                this.translate.get('open_lead_deal.manuallyPayment.success.OK', {}).subscribe((res: string) => {
+                    ok_button = res;
+                });
+
                 // алерт об успешной проплате
                 let alert = this.alertCtrl.create({
-                    title: 'Payment successful',
-                    subTitle: 'Payment passed successfully',
-                    buttons: ['OK']
+                    title: title,
+                    subTitle: message,
+                    buttons: [ok_button]
                 });
                 alert.present();
 
@@ -254,30 +308,68 @@ export class OpenLeadDealPage {
      */
     showInfo(info) {
 
-        console.log(info);
+        // console.log(info);
 
         let title = '';
         let message = '';
+        let ok_button = 'OK';
+
+        this.translate.get('open_lead_deal.manuallyPayment.success.OK', {}).subscribe((res: string) => {
+            ok_button = res;
+        });
 
         if (info == 1) {
 
             title = 'Price';
             message = 'The amount for which the deal is closed';
 
+
+            this.translate.get('open_lead_deal.showInfo.price.title', {}).subscribe((res: string) => {
+                title = res;
+            });
+
+            this.translate.get('open_lead_deal.showInfo.price.message', {}).subscribe((res: string) => {
+                message = res;
+            });
+
         } else if (info == 2) {
 
             title = 'Share of the system';
             message = 'Part of the amount of the deal you need to pay to the system';
+
+            this.translate.get('open_lead_deal.showInfo.share.title', {}).subscribe((res: string) => {
+                title = res;
+            });
+
+            this.translate.get('open_lead_deal.showInfo.share.message', {}).subscribe((res: string) => {
+                message = res;
+            });
 
         } else if (info == 3) {
 
             title = 'Date';
             message = 'Date when the deal was closed';
 
+            this.translate.get('open_lead_deal.showInfo.date.title', {}).subscribe((res: string) => {
+                title = res;
+            });
+
+            this.translate.get('open_lead_deal.showInfo.date.message', {}).subscribe((res: string) => {
+                message = res;
+            });
+
         } else if (info == 4) {
 
             title = 'Status';
             message = 'Deal status';
+
+            this.translate.get('open_lead_deal.showInfo.status.title', {}).subscribe((res: string) => {
+                title = res;
+            });
+
+            this.translate.get('open_lead_deal.showInfo.status.message', {}).subscribe((res: string) => {
+                message = res;
+            });
 
         }
 
@@ -285,7 +377,7 @@ export class OpenLeadDealPage {
         let alert = this.alertCtrl.create({
             title: title,
             message: message,
-            buttons: ['Ok']
+            buttons: [ok_button]
         });
         alert.present();
     }
@@ -542,14 +634,41 @@ export class OpenLeadDealPage {
      */
     makePaymentActionSheet() {
 
+        let title = 'Select payment system for a completed deal';
+        let from_credit_card = 'From credit card';
+        let manual_payment = 'Manual payment';
+        let from_system_wallet = 'From system wallet';
+        let cancel_button = 'Cancel';
+
+        this.translate.get('open_lead_deal.makePaymentActionSheet.title', {}).subscribe((res: string) => {
+            title = res;
+        });
+
+        this.translate.get('open_lead_deal.makePaymentActionSheet.from_credit_card', {}).subscribe((res: string) => {
+            from_credit_card = res;
+        });
+
+        this.translate.get('open_lead_deal.makePaymentActionSheet.manual_payment', {}).subscribe((res: string) => {
+            manual_payment = res;
+        });
+
+        this.translate.get('open_lead_deal.makePaymentActionSheet.from_system_wallet', {}).subscribe((res: string) => {
+            from_system_wallet = res;
+        });
+
+        this.translate.get('open_lead_deal.makePaymentActionSheet.cancel_button', {}).subscribe((res: string) => {
+            cancel_button = res;
+        });
+
+
         let actionSheet = this.actionSheetCtrl.create({
-            title: 'Select payment system for a completed deal',
+            title: title,
             cssClass: 'action_open_lead_deal_title',
             buttons: [
 
                 {
-                    text: 'From credit card',
-                    icon: 'md-card',
+                    text: from_credit_card,
+                    // icon: 'md-card',
                     cssClass: 'action_open_lead_deal',
                     handler: () => {
                         this.paymentWithCard();
@@ -558,8 +677,8 @@ export class OpenLeadDealPage {
                 },
 
                 {
-                    text: 'Manual payment',
-                    icon: 'md-hand',
+                    text: manual_payment,
+                    // icon: 'md-hand',
                     cssClass: 'action_open_lead_deal',
                     handler: () => {
                         this.manuallyPayment();
@@ -568,8 +687,8 @@ export class OpenLeadDealPage {
                 },
 
                 {
-                    text: 'From system wallet',
-                    icon: 'md-radio-button-on',
+                    text: from_system_wallet,
+                    // icon: 'md-radio-button-on',
                     cssClass: 'action_open_lead_deal',
                     handler: () => {
                         this.paymentWithWallet();
@@ -578,8 +697,8 @@ export class OpenLeadDealPage {
                 },
 
                 {
-                    text: 'Cancel',
-                    icon: 'md-close',
+                    text: cancel_button,
+                    // icon: 'md-close',
                     cssClass: 'action_open_lead_deal',
                     role: 'cancel',
                 }
@@ -597,25 +716,52 @@ export class OpenLeadDealPage {
      */
     receivedNextPaymentData() {
 
+        let title = 'Make next payment';
+        let message = 'Enter the amount of the next payment';
+        let input_name = 'amount';
+        let cancel_button = 'Cancel';
+        let make_button = 'Make';
+
+        this.translate.get('open_lead_deal.receivedNextPaymentData.title', {}).subscribe((res: string) => {
+            title = res;
+        });
+
+        this.translate.get('open_lead_deal.receivedNextPaymentData.message', {}).subscribe((res: string) => {
+            message = res;
+        });
+
+        this.translate.get('open_lead_deal.receivedNextPaymentData.input_name', {}).subscribe((res: string) => {
+            input_name = res;
+        });
+
+        this.translate.get('open_lead_deal.receivedNextPaymentData.cancel_button', {}).subscribe((res: string) => {
+            cancel_button = res;
+        });
+
+        this.translate.get('open_lead_deal.receivedNextPaymentData.make_button', {}).subscribe((res: string) => {
+            make_button = res;
+        });
+
+
         let prompt = this.alertCtrl.create({
-            title: 'Make next payment',
-            message: "Enter the amount of the next payment",
+            title: title,
+            message: message,
             inputs: [
                 {
-                    name: 'amount',
+                    name: input_name,
                     placeholder: '0',
                     type: 'number',
                 },
             ],
             buttons: [
                 {
-                    text: 'Cancel',
+                    text: cancel_button,
                     handler: data => {
                         console.log('Cancel clicked');
                     }
                 },
                 {
-                    text: 'Make',
+                    text: make_button,
                     handler: data => {
 
                         if (data.amount.trim() == '' || data.amount == 0) {
@@ -629,7 +775,7 @@ export class OpenLeadDealPage {
                         }
 
                         // добавить платеж
-                        console.log(data.amount);
+                        // console.log(data.amount);
 
                         this.makeNextPayment(data.amount);
                     }
@@ -647,7 +793,7 @@ export class OpenLeadDealPage {
      */
     makeNextPayment(amount) {
 
-        console.log('makeNextPayment');
+        // console.log('makeNextPayment');
 
         this.open.dealNextPayment({open_lead_id: this.deal.open_lead_id, amount: amount})
 
@@ -716,18 +862,39 @@ export class OpenLeadDealPage {
      */
     closeFewPaymentDealConfirmation() {
 
+        let title = 'Completed';
+        let message = 'Are you sure you want to end the deal?';
+        let cancel_button = 'Cancel';
+        let completed_button = 'Completed';
+
+        this.translate.get('open_lead_deal.closeFewPaymentDealConfirmation.title', {}).subscribe((res: string) => {
+            title = res;
+        });
+
+        this.translate.get('open_lead_deal.closeFewPaymentDealConfirmation.message', {}).subscribe((res: string) => {
+            message = res;
+        });
+
+        this.translate.get('open_lead_deal.closeFewPaymentDealConfirmation.cancel_button', {}).subscribe((res: string) => {
+            cancel_button = res;
+        });
+
+        this.translate.get('open_lead_deal.closeFewPaymentDealConfirmation.completed_button', {}).subscribe((res: string) => {
+            completed_button = res;
+        });
+
         let prompt = this.alertCtrl.create({
-            title: 'Completed',
-            message: "Are you sure you want to end the deal?",
+            title: title,
+            message: message,
             buttons: [
                 {
-                    text: 'Cancel',
+                    text: cancel_button,
                     handler: data => {
                         // console.log('Cancel clicked');
                     }
                 },
                 {
-                    text: 'Completed',
+                    text: completed_button,
                     handler: data => {
                         // console.log('Saved clicked');
                         this.closeFewPaymentDeal();
@@ -786,12 +953,28 @@ export class OpenLeadDealPage {
      */
     insufficientNextPayment(amount) {
 
+        let title = 'Wrong amount';
+        let message = 'The minimum amount is &#8362;1000, you entered &#8362;' + amount;
+        let ok_button = 'OK';
+
+        this.translate.get('open_lead_deal.insufficientNextPayment.title', {}).subscribe((res: string) => {
+            title = res;
+        });
+
+        this.translate.get('open_lead_deal.insufficientNextPayment.message', {amount: amount}).subscribe((res: string) => {
+            message = res;
+        });
+
+        this.translate.get('open_lead_deal.insufficientNextPayment.ok_button', {}).subscribe((res: string) => {
+            ok_button = res;
+        });
+
         let alert = this.alertCtrl.create({
-            title: 'Wrong amount',
-            subTitle: 'The minimum amount is &#8362;1000, you entered &#8362;' + amount,
+            title: title,
+            subTitle: message,
             buttons: [
                 {
-                    text: 'OK',
+                    text: ok_button,
                     handler: data => {
 
                     }

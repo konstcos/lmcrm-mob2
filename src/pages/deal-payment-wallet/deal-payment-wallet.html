@@ -15,7 +15,10 @@
             </button>
         </ion-buttons>
 
-        <ion-title>Wallet Payment</ion-title>
+        <ion-title>
+            <!--Wallet Payment-->
+            {{ 'open_lead_deal_system_wallet_payment.title' | translate}}
+        </ion-title>
 
         <!--<ion-buttons right text-center>-->
 
@@ -45,7 +48,8 @@
             <div class="on_wallet">
 
                 <div class="label">
-                    on you wallet:
+                    <!--on you wallet:-->
+                    {{ 'open_lead_deal_system_wallet_payment.on_you_wallet' | translate}}
                 </div>
 
                 <div class="amount">
@@ -57,7 +61,8 @@
             <div class="payment_price">
 
                 <div class="label">
-                    price:
+                    <!--price:-->
+                    {{ 'open_lead_deal_system_wallet_payment.price' | translate}}
                 </div>
 
                 <div class="amount">
@@ -67,12 +72,16 @@
             </div>
 
             <div *ngIf="dealData.state" class="pay_button_block">
-                <button (click)="confirmPayment()" ion-button small round>Pay</button>
+                <button (click)="confirmPayment()" ion-button small round>
+                    <!--Pay-->
+                    {{ 'open_lead_deal_system_wallet_payment.pay_button' | translate}}
+                </button>
             </div>
 
             <div *ngIf="!dealData.state" class="pay_impossible">
-                There is not enough money on your wallet to pay the deal.
-                Please pay the deal in another way or replenish your system wallet.
+                <!--There is not enough money on your wallet to pay the deal.-->
+                <!--Please pay the deal in another way or replenish your system wallet.-->
+                {{ 'open_lead_deal_system_wallet_payment.not_enough_money' | translate}}
             </div>
 
         </div>

@@ -26,7 +26,9 @@ export class RegistrationDataPersonalPage {
         firstName: '',
         lastName: '',
         company: '',
-        phone: '',
+        // phone: '',
+        passport: '',
+        address: '',
         region: 1
     };
 
@@ -44,9 +46,12 @@ export class RegistrationDataPersonalPage {
         firstName: 1,
         lastName: 1,
         company: 1,
-        phone: 1,
+        // phone: 1,
+        passport: 1,
+        address: 1,
         region: 1,
     };
+
 
 
     /**
@@ -111,10 +116,20 @@ export class RegistrationDataPersonalPage {
             this.companyNameValidate();
         }
 
-        // сделать валидацию телефонного номера если поле не пустое
-        if (this.personalData.phone != '') {
-            this.phoneValidate();
+        // сделать валидацию улицы
+        if (this.personalData.address != '') {
+            this.addressValidate();
         }
+
+        // сделать валидацию паспорта
+        if (this.personalData.passport != '') {
+            this.passportValidate();
+        }
+
+        // сделать валидацию телефонного номера если поле не пустое
+        // if (this.personalData.phone != '') {
+        //     this.phoneValidate();
+        // }
 
         this.switchRegion(1);
 
@@ -150,6 +165,24 @@ export class RegistrationDataPersonalPage {
      */
     companyNameValidate() {
         this.state.company = this.personalData.company == '' ? 3 : 2;
+    }
+
+
+    /**
+     * Валидация улицы компании
+     *
+     */
+    addressValidate() {
+        this.state.address = this.personalData.address == '' ? 3 : 2;
+    }
+
+
+    /**
+     * Валидация номера паспорта
+     *
+     */
+    passportValidate() {
+        this.state.passport = this.personalData.passport == '' ? 3 : 2;
     }
 
 
@@ -241,9 +274,13 @@ export class RegistrationDataPersonalPage {
 
             regionId = region.id;
 
+            this.personalData.region = regionId;
+
         } else {
 
             regionId = 1;
+
+            this.personalData.region = regionId;
         }
 
 
@@ -354,15 +391,11 @@ export class RegistrationDataPersonalPage {
      */
     checkStatus() {
 
-        this.status = (this.state.firstName == 2) && (this.state.lastName == 2) && (this.state.company == 2) && (this.state.phone == 2);
+        // с телефоном
+        // this.status = (this.state.firstName == 2) && (this.state.lastName == 2) && (this.state.company == 2) && (this.state.phone == 2) && (this.state.address == 2) && (this.state.passport == 2);
 
-        // state: any = {
-        //         firstName: 2,
-        //         lastName: 2,
-        //         company: 2,
-        //         phone: 2,
-        //     };
-
+        // без телефона
+        this.status = (this.state.firstName == 2) && (this.state.lastName == 2) && (this.state.company == 2) && (this.state.address == 2) && (this.state.passport == 2);
     }
 
 

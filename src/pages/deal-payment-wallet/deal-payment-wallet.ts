@@ -9,7 +9,7 @@ import {
     LoadingController,
     ActionSheetController
 } from 'ionic-angular';
-
+import {TranslateService} from 'ng2-translate/ng2-translate';
 
 import {CorrespondencePage} from '../correspondence/correspondence'
 
@@ -61,7 +61,8 @@ export class DealPaymentWalletPage {
                 public toastCtrl: ToastController,
                 public loadingCtrl: LoadingController,
                 public actionSheetCtrl: ActionSheetController,
-                public view: ViewController) {
+                public view: ViewController,
+                public translate: TranslateService) {
 
         // получение id итема
         this.openLeadId = this.navParams.get('openLeadId');
@@ -94,7 +95,7 @@ export class DealPaymentWalletPage {
                 // переводим ответ в json
                 let data = result.json();
 
-                // console.log(data);
+                console.log(data);
 
                 this.dealData = data.dealData;
 
@@ -125,19 +126,40 @@ export class DealPaymentWalletPage {
      */
     confirmPayment() {
 
+        let title = 'Confirm payment';
+        let message = 'Please confirm the payment';
+        let cancel_button = 'Cancel';
+        let pay_button = 'Make';
+
+        this.translate.get('open_lead_deal_system_wallet_payment.confirmPayment.title', {}).subscribe((res: string) => {
+            title = res;
+        });
+
+        this.translate.get('open_lead_deal_system_wallet_payment.confirmPayment.message', {}).subscribe((res: string) => {
+            message = res;
+        });
+
+        this.translate.get('open_lead_deal_system_wallet_payment.confirmPayment.cancel_button', {}).subscribe((res: string) => {
+            cancel_button = res;
+        });
+
+        this.translate.get('open_lead_deal_system_wallet_payment.confirmPayment.pay_button', {}).subscribe((res: string) => {
+            pay_button = res;
+        });
+
         let prompt = this.alertCtrl.create({
-            title: 'Confirm payment',
-            message: "Please confirm the payment",
+            title: title,
+            message: message,
 
             buttons: [
                 {
-                    text: 'Cancel',
+                    text: cancel_button,
                     handler: data => {
                         // console.log('Cancel clicked');
                     }
                 },
                 {
-                    text: 'Pay',
+                    text: pay_button,
                     handler: data => {
                         // console.log('Pay clicked');
                         this.makePayment();

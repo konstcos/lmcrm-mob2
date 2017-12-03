@@ -6,7 +6,7 @@ import {NavController, ViewController, NavParams, AlertController, LoadingContro
 import {MainPage} from '../main/main'
 
 import {Credits} from '../../providers/credits'
-
+import {TranslateService} from 'ng2-translate/ng2-translate';
 
 /*
  Generated class for the Credits page.
@@ -59,7 +59,8 @@ export class CreditWithdrawalPage {
                 public view: ViewController,
                 public credits: Credits,
                 public loadingCtrl: LoadingController,
-                public alertCtrl: AlertController) {
+                public alertCtrl: AlertController,
+                public translate: TranslateService) {
 
         // this.get();
         // получение данных по выводу денег
@@ -156,14 +157,33 @@ export class CreditWithdrawalPage {
 
         if (this.data.amount < 2000) {
 
+
+            let title = 'Error';
+            // let message = 'The minimum amount for withdrawal is <b>&#8362; 2000</b>. You have entered <b>&#8362; ' + this.data.amount + '</b>.';
             let message = 'The minimum amount for withdrawal is <b>&#8362; 2000</b>. You have entered <b>&#8362; ' + this.data.amount + '</b>.';
+            let ok_button = 'OK';
+
+            this.translate.get('credit_withdrawal.minimumAmountAlert.title', {}).subscribe((res: string) => {
+                title = res;
+            });
+
+            this.translate.get('credit_withdrawal.minimumAmountAlert.message', {amount: this.data.amount}).subscribe((res: string) => {
+                message = res;
+            });
+
+
+            this.translate.get('credit_withdrawal.minimumAmountAlert.ok_button', {}).subscribe((res: string) => {
+                ok_button = res;
+            });
+
+
 
             let alert = this.alertCtrl.create({
-                title: 'Error',
+                title: title,
                 message: message,
                 buttons: [
                     {
-                        text: 'Ok',
+                        text: ok_button,
                         handler: () => {
                             // this.makeReplenishment();
                             console.log('Ok clicked');
@@ -177,22 +197,44 @@ export class CreditWithdrawalPage {
         }
 
 
+        let title = 'Confirmation';
+        // let message = 'The minimum amount for withdrawal is <b>&#8362; 2000</b>. You have entered <b>&#8362; ' + this.data.amount + '</b>.';
+        let message = 'Will be created a statement for output <b>&#8362; ' + this.data.amount + '</b> from yor wallet in the system.';
+        let cancel_button = 'Cancel';
+        let ok_button = 'OK';
+
+        this.translate.get('credit_withdrawal.confirmation.title', {}).subscribe((res: string) => {
+            title = res;
+        });
+
+        this.translate.get('credit_withdrawal.confirmation.message', {amount: this.data.amount}).subscribe((res: string) => {
+            message = res;
+        });
+
+        this.translate.get('credit_withdrawal.confirmation.cancel_button', {}).subscribe((res: string) => {
+            cancel_button = res;
+        });
+
+        this.translate.get('credit_withdrawal.confirmation.ok_button', {}).subscribe((res: string) => {
+            ok_button = res;
+        });
+
         let alert = this.alertCtrl.create({
-            title: 'Confirmation',
-            message: 'Will be created a statement for output <b>&#8362; ' + this.data.amount + '</b> from yor wallet in the system.',
+            title: title,
+            message: message,
             buttons: [
                 {
-                    text: 'Cancel',
+                    text: cancel_button,
                     role: 'cancel',
                     handler: () => {
-                        console.log('Cancel clicked');
+                        // console.log('Cancel clicked');
                     }
                 },
                 {
-                    text: 'Ok',
+                    text: ok_button,
                     handler: () => {
                         this.makeWithdrawal();
-                        console.log('Ok clicked');
+                        // console.log('Ok clicked');
                     }
                 }
             ]
@@ -243,18 +285,34 @@ export class CreditWithdrawalPage {
                 } else if(resData.info == 'low_balance') {
 
 
+                    let title = 'Insufficient balance';
+                    let message = 'In your wallet <b>&#8362; ' + resData.balance + '</b>. You can not withdraw more than this.';
+                    let ok_button = 'OK';
+
+                    this.translate.get('credit_withdrawal.insufficient_balance.title', {}).subscribe((res: string) => {
+                        title = res;
+                    });
+
+                    this.translate.get('credit_withdrawal.insufficient_balance.message', {balance: resData.balance}).subscribe((res: string) => {
+                        message = res;
+                    });
+
+                    this.translate.get('credit_withdrawal.insufficient_balance.ok_button', {}).subscribe((res: string) => {
+                        ok_button = res;
+                    });
+
+
                     // In your account 40 dollars. You can not withdraw more than this.
 
-                    let message = 'In your wallet <b>&#8362; ' + resData.balance + '</b>. You can not withdraw more than this.';
 
                     let alert = this.alertCtrl.create({
-                        title: 'Insufficient balance',
+                        title: title,
                         message: message,
                         buttons: [
                             {
-                                text: 'Ok',
+                                text: ok_button,
                                 handler: () => {
-                                    console.log('Ok clicked');
+                                    // console.log('Ok clicked');
                                 }
                             }
                         ]

@@ -9,47 +9,91 @@ import {
     LoadingController,
     ActionSheetController
 } from 'ionic-angular';
-
+import {TranslateService} from 'ng2-translate/ng2-translate';
 
 import {CorrespondencePage} from '../correspondence/correspondence'
 
+import {Credits} from '../../providers/credits';
 import {Open} from '../../providers/open';
 
 
 /*
- Generated class for the OpenLeadStatuses page.
-
- See http://ionicframework.com/docs/v2/components/#navigation for more info on
- Ionic pages and navigation.
+    Оплата сделки через прямую банковскую транзакцию
  */
 @Component({
+    providers: [Credits, Open],
     selector: 'deal-payment-manually',
     templateUrl: 'deal-payment-manually.html'
 })
 export class DealPaymentManuallyPage {
 
+
+    /**
+     * id открытого лида по которому будет идти платеж
+     *
+     */
     public openLeadId: any;
-    public statuses: any;
+
+
+    /**
+     * Реквизиты полученные с сервера
+     *
+     */
+    public requisites: any = false;
+
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 public open: Open,
+                public credits: Credits,
                 private alertCtrl: AlertController,
                 public modalCtrl: ModalController,
                 public toastCtrl: ToastController,
                 public loadingCtrl: LoadingController,
                 public actionSheetCtrl: ActionSheetController,
-                public view: ViewController) {
+                public view: ViewController,
+                public translate: TranslateService) {
 
         // получение id открытого лида
         this.openLeadId = this.navParams.get('openLeadId');
 
-        console.log(this.openLeadId);
+        // получение реквизитов для оплаты с сервера
+        this.getRequisites();
     }
 
 
     ionViewDidLoad() {
-        // console.log('ionViewDidLoad OpenLeadStatusesPage');
+        // console.log('ionViewDidLoad');
+    }
+
+
+    /**
+     * Реквизиты по оплате
+     * получение с сервера
+     *
+     */
+    getRequisites() {
+
+        this.credits.getRequisites()
+            .subscribe(result => {
+                // при получении итемов
+
+                // переводим ответ в json
+                let data = result.json();
+
+                // console.log('Реквизиты с сервера:');
+                console.log(data);
+
+                this.requisites = data.requisites;
+
+            }, err => {
+                // в случае ошибки
+
+                console.log('ERROR: ' + err);
+
+
+            });
+
     }
 
 
@@ -59,18 +103,41 @@ export class DealPaymentManuallyPage {
      */
     confirmPayment() {
 
+        let title = 'Payment confirmation';
+        let message = 'You confirm that you transferred the required amount to the specified account';
+        let cancel_button = 'Cancel';
+        let confirm_button = 'Confirm';
+
+        this.translate.get('open_lead_deal_manual_payment.confirmPayment.title', {}).subscribe((res: string) => {
+            title = res;
+        });
+
+        this.translate.get('open_lead_deal_manual_payment.confirmPayment.message', {}).subscribe((res: string) => {
+            message = res;
+        });
+
+        this.translate.get('open_lead_deal_manual_payment.confirmPayment.cancel_button', {}).subscribe((res: string) => {
+            cancel_button = res;
+        });
+
+        this.translate.get('open_lead_deal_manual_payment.confirmPayment.confirm_button', {}).subscribe((res: string) => {
+            confirm_button = res;
+        });
+
+
+
         let prompt = this.alertCtrl.create({
-            title: 'Payment confirmation',
-            message: "You confirm that you transferred the required amount to the specified account",
+            title: title,
+            message: message,
             buttons: [
                 {
-                    text: 'Cancel',
+                    text: cancel_button,
                     handler: data => {
                         // console.log('Cancel clicked');
                     }
                 },
                 {
-                    text: 'Confirm',
+                    text: confirm_button,
                     handler: data => {
                         // console.log('Saved clicked');
                         this.paymentDealBankTransaction();

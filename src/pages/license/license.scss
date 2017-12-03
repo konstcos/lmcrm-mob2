@@ -1,0 +1,122 @@
+license {
+
+  .content {
+
+    .license {
+      //background: red;
+      text-align: justify;
+      margin-right: 20px;
+    }
+
+    .license li {
+      text-align: justify;
+
+      ol {
+        text-align: justify;
+      }
+
+    }
+
+    .agree_button {
+      margin-top: 20%;
+    }
+
+  }
+
+
+  .back_arrow {
+    font-size: 20px;
+    padding-left: 10px;
+  }
+
+  .user_agreement_block {
+    margin: 30px 5% 30px;
+    color: grey;
+    cursor: pointer;
+  }
+
+
+
+  .spheres-header {
+    color: #9F9F9F;
+    font-size: 12px;
+  }
+
+  .no_sphere_item {
+    color: #D4D4D4;
+    font-size: 14px;
+  }
+
+  .sphere_item {
+    color: #4C4C4C;
+    font-size: 14px;
+    margin: 6px 0;
+  }
+
+  .opportunity {
+    margin: 10px 0px;
+  }
+
+  .opportunity_item {
+    margin: 10px 0;
+    font-size: 12px;
+    padding: 10px 5px;
+    border-radius: 20px;
+
+    li {
+      padding: 5px 0;
+    }
+
+    cursor: pointer;
+
+  }
+
+  .active_opportunity_item {
+    background: #5CB65C;
+  }
+
+  .main_block_title {
+    font-size: 14px;
+    color: #337AB7;
+    margin-top: 10px;
+    margin-bottom: 30px;
+
+  }
+
+  .switchItem {
+    margin-left: 25%;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding: 15px 0;
+    font-size: 18px;
+    color: grey;
+    cursor: pointer;
+
+    .icon_span {
+      padding-right: 5px;
+    }
+
+  }
+
+  .apply {
+    color: #34B05A !important;
+  }
+
+  .main_block_button {
+    margin-top: 30px;
+  }
+
+  .role_matching_data {
+    font-size: 16px;
+
+    li {
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+  }
+
+  .button_block {
+    margin-top: 20px;
+  }
+
+}

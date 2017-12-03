@@ -5,7 +5,10 @@
 
     <ion-header no-border>
         <ion-toolbar color="dark" no-border>
-            <ion-title>Filter</ion-title>
+            <ion-title>
+                {{ 'organizer.filter.title' | translate }}
+                <!--Filter-->
+            </ion-title>
 
             <ion-buttons right text-center>
                 <button ion-button (click)="menuToggle()">
@@ -17,104 +20,15 @@
 
     </ion-header>
 
-    <ion-content>
-
-        <!-- Фильтр по периоду -->
-        <!--<div class="filter_block">-->
-
-        <!--<ion-row class="filter_name">-->
-        <!--<ion-col>-->
-        <!--Period-->
-        <!--</ion-col>-->
-        <!--</ion-row>-->
-
-        <!--&lt;!&ndash; Начало периода &ndash;&gt;-->
-        <!--<ion-item class="period_filter_item period_filter_from">-->
-        <!--<ion-label>From</ion-label>-->
-        <!--<ion-datetime-->
-        <!--displayFormat="DD/MM/YYYY"-->
-        <!--pickerFormat="DD-MM-YYYY"-->
-        <!--[(ngModel)]="noticesFilter.period.from">-->
-        <!--</ion-datetime>-->
-        <!--</ion-item>-->
-
-        <!--&lt;!&ndash; Конец периода &ndash;&gt;-->
-        <!--<ion-item class="period_filter_item period_filter_from">-->
-        <!--<ion-label>To</ion-label>-->
-        <!--<ion-datetime-->
-        <!--displayFormat="DD/MM/YYYY"-->
-        <!--pickerFormat="DD-MM-YYYY"-->
-        <!--[(ngModel)]="noticesFilter.period.to">-->
-        <!--</ion-datetime>-->
-        <!--</ion-item>-->
-
-        <!--&lt;!&ndash; Кнопка обнуления &ndash;&gt;-->
-        <!--<button small ion-button round color="danger" (click)="resetPeriod()">reset period</button>-->
-
-        <!--</div>-->
-
-
-        <!-- Фильтр по типам статусам оповещений -->
-        <!--<div class="filter_block">-->
-
-        <!--<ion-row class="filter_name">-->
-        <!--<ion-col>-->
-        <!--Statuses-->
-        <!--</ion-col>-->
-        <!--</ion-row>-->
-
-        <!--&lt;!&ndash; Показывать все статусы &ndash;&gt;-->
-        <!--<ion-row class="sphere_filter_item" (click)="selectStatus('all')">-->
-        <!--<ion-col col-2 text-center>-->
-
-        <!--<ion-icon *ngIf="noticesFilter.status == 'all'" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>-->
-        <!--<ion-icon *ngIf="noticesFilter.status != 'all'" name="md-square-outline"></ion-icon>-->
-
-        <!--</ion-col>-->
-
-        <!--<ion-col>-->
-        <!--All statuses-->
-        <!--</ion-col>-->
-        <!--</ion-row>-->
-
-        <!--&lt;!&ndash; Показывать только не отмеченные &ndash;&gt;-->
-        <!--<ion-row class="sphere_filter_item" (click)="selectStatus('not_market')">-->
-        <!--<ion-col col-2 text-center>-->
-
-        <!--<ion-icon *ngIf="noticesFilter.status == 'not_market'" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>-->
-        <!--<ion-icon *ngIf="noticesFilter.status != 'not_market'" name="md-square-outline"></ion-icon>-->
-
-        <!--</ion-col>-->
-
-        <!--<ion-col>-->
-        <!--Not market-->
-        <!--</ion-col>-->
-        <!--</ion-row>-->
-
-
-        <!--&lt;!&ndash; Показывать только отмеченные &ndash;&gt;-->
-        <!--<ion-row class="sphere_filter_item" (click)="selectStatus('marked')">-->
-        <!--<ion-col col-2 text-center>-->
-
-        <!--<ion-icon *ngIf="noticesFilter.status == 'marked'" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>-->
-        <!--<ion-icon *ngIf="noticesFilter.status != 'marked'" name="md-square-outline"></ion-icon>-->
-
-        <!--</ion-col>-->
-
-        <!--<ion-col>-->
-        <!--Market-->
-        <!--</ion-col>-->
-        <!--</ion-row>-->
-
-        <!--</div>-->
-
+    <ion-content dir="rtl">
 
         <!--Фильтр по типам оповещений-->
         <div class="filter_block">
 
             <ion-row class="filter_name">
                 <ion-col>
-                    Type
+                    {{ 'organizer.filter.type' | translate }}
+                    <!--Type-->
                 </ion-col>
             </ion-row>
 
@@ -128,7 +42,8 @@
                 </ion-col>
 
                 <ion-col>
-                    All
+                    {{ 'organizer.filter.all' | translate }}
+                    <!--All-->
                 </ion-col>
             </ion-row>
 
@@ -136,7 +51,6 @@
             <ion-row class="sphere_filter_item" *ngFor="let state of allStates" (click)="selectState(state)">
                 <ion-col col-2 text-center align-self-center>
 
-                    <!--todo-->
                     <ion-icon *ngIf="state.status" name="md-checkbox-outline" class="selected_sphere_icon"></ion-icon>
                     <ion-icon *ngIf="!state.status" name="md-square-outline"></ion-icon>
 
@@ -152,9 +66,15 @@
     </ion-content>
 
     <ion-footer>
-        <ion-toolbar color="dark">
-            <button menuClose (click)="filterApply()" ion-button>Apply</button>
-            <button menuClose (click)="filterReset()" ion-button color="danger">Reset</button>
+        <ion-toolbar color="dark" text-right>
+            <button menuClose (click)="filterApply()" ion-button>
+                {{ 'organizer.filter.apply' | translate }}
+                <!--Apply-->
+            </button>
+            <button menuClose (click)="filterReset()" ion-button color="danger">
+                {{ 'organizer.filter.reset' | translate }}
+                <!--Reset-->
+            </button>
         </ion-toolbar>
     </ion-footer>
 
@@ -173,7 +93,10 @@
             </button>
         </ion-buttons>
 
-        <ion-title>Organizer</ion-title>
+        <ion-title>
+            {{ 'organizer.title' | translate }}
+            <!--Organizer-->
+        </ion-title>
 
         <ion-buttons right text-right>
             <!--<button ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">-->
@@ -209,7 +132,8 @@
         <div class="no_notification_items_icon">
             <ion-icon name="contract"></ion-icon>
         </div>
-        no items
+        {{ 'organizer.no_items' | translate }}
+        <!--no items-->
     </div>
 
     <div *ngIf="isLoading" text-center padding class="loading_block">

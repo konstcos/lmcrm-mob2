@@ -51,6 +51,35 @@ page-open-detail {
       margin-top: 20%;
     }
 
+    .deal_is_closed {
+
+      .name {
+        color: #337AB7;
+        text-transform: uppercase;
+        text-align: center;
+        margin: 10px 0 5px;
+        font-weight: 600;
+      }
+
+      .deal_data_row {
+        font-size: 12px;
+
+        .deal_data_title {
+          color: grey;
+          text-align: center;
+          font-weight: 600;
+        }
+
+        .deal_data_data {
+          color: #337AB7;
+          text-align: center;
+        }
+
+      }
+
+    }
+
+
     .data_block_header {
       color: gray;
       margin-bottom: 10px;

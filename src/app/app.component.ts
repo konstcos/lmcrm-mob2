@@ -13,6 +13,7 @@ import {MainPage} from '../pages/main/main';
 import {EmailConfirmationPage} from '../pages/email-confirmation/email-confirmation';
 import {RegistrationDataPage} from '../pages/registration-data/registration-data';
 import {RegistrationWaitingConfirmation} from '../pages/registration-waiting-confirmation/registration-waiting-confirmation';
+import {LicensePage} from '../pages/license/license';
 
 import {MessagesPage} from '../pages/messages/messages';
 
@@ -70,7 +71,7 @@ export class MyApp {
             // this.noticeCount = 0;
             // console.log('badge set: ');
             // console.log(date);
-            badge.set(date)
+            this.badge.set(date)
         });
 
 
@@ -86,14 +87,18 @@ export class MyApp {
         });
 
         // Set the default language for translation strings, and the current language.
-        translate.setDefaultLang('en');
-        translate.use('en');
+        // translate.setDefaultLang('en');
+        // translate.use('en');
+        translate.setDefaultLang('he');
+        translate.use('he');
 
         settings.load();
 
         translate.get(['BACK_BUTTON_TEXT']).subscribe(values => {
             config.set('ios', 'backButtonText', values.BACK_BUTTON_TEXT);
         });
+
+        localStorage.setItem('default_route', 'incoming');
 
         platform.ready().then(() => {
             // Okay, so the platform is ready and our plugins are available.
@@ -117,10 +122,21 @@ export class MyApp {
 
                     let res = resp.json();
 
-                    console.log(res);
+                    // console.log('данные из провреки логина: ');
+                    // console.log(res);
 
                     if (res.status == 'success') {
 
+                        if(res.default_route == 'agent.lead.deposited') {
+
+                            localStorage.setItem('default_route', 'outgoing');
+
+                        } else {
+
+                            localStorage.setItem('default_route', 'incoming');
+                        }
+
+                        // console.log(res.default_route);
                         this.nav.setRoot(MainPage);
 
                     } else if (res.info == 'unfinished_registration') {
@@ -137,10 +153,14 @@ export class MyApp {
                         } else if (res.state == 2) {
 
                             this.nav.setRoot(RegistrationWaitingConfirmation);
+
+                        } else if (!res.license_agreement) {
+
+                            this.nav.setRoot(LicensePage);
                         }
 
-                        console.log(res);
-                        console.log('unfinished_registration');
+                        // console.log(res);
+                        // console.log('unfinished_registration');
                         // return { status: 'error'};
                     }
 
@@ -148,6 +168,7 @@ export class MyApp {
 
                 }, (err) => {
 
+                    console.log('проверка логина не прошла');
                     console.log(err);
 
                     this.badge.set(0);
@@ -193,7 +214,7 @@ export class MyApp {
          */
         const options: PushOptions = {
             android: {
-                senderID: "861958159271"
+                senderID: "859646101662"
             },
             ios: {
                 alert: "true",

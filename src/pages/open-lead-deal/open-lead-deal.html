@@ -160,7 +160,7 @@
                     </div>
 
                     <div *ngIf="deal.dealInfo.status_id != 1" class="deal_paid">
-                        Paid
+                        {{ 'open_lead_deal.paid' | translate }}
                     </div>
                 </div>
 
@@ -315,13 +315,13 @@
     <ion-toolbar>
         <ion-segment [(ngModel)]="segment" color="primary" (ionChange)="segmentChanged($event)">
             <ion-segment-button value="info">
-                {{ 'open_lead_deal.info' | translate }}
+                {{ 'open_lead_deal.segments.info' | translate }}
             </ion-segment-button>
             <ion-segment-button value="transactions">
-                {{ 'open_lead_deal.transactions' | translate }}
+                {{ 'open_lead_deal.segments.transactions' | translate }}
             </ion-segment-button>
             <ion-segment-button value="files">
-                {{ 'open_lead_deal.files' | translate }}
+                {{ 'open_lead_deal.segments.files' | translate }}
             </ion-segment-button>
         </ion-segment>
     </ion-toolbar>

@@ -18,6 +18,12 @@
         <ion-spinner color="primary" name="crescent"></ion-spinner>
     </div>
 
+
+    <!--<div text-center>-->
+        <!--open button-->
+    <!--</div>-->
+
+
     <!-- Итемы отданых лидов на странице -->
     <ion-list inlist>
         <ion-item *ngFor="let item of items" (click)="detail(item)">
@@ -66,7 +72,9 @@
                 <!--<div class="take_leads">on the client filter page</div>-->
                 <div [innerHTML]="'incoming.you_do_not_have_any_leads-to_get_the_leads' | translate"></div>
 
-                <button small ion-button color="primary" class="mask_button" (click)="customerPage()"> Select mask
+                <button small ion-button color="primary" class="mask_button" (click)="customerPage()">
+                    {{ 'incoming.select_mask_button' | translate }}
+                    <!--Select mask-->
                 </button>
             </div>
 

@@ -149,7 +149,7 @@ export class User {
             });
 
 
-        localStorage.setItem('token', '')
+        localStorage.setItem('token', '');
 
         return seq;
     }
@@ -162,6 +162,30 @@ export class User {
     getSpheres() {
 
         let seq = this.api.post('api/getSpheres', {}).share();
+
+        return seq;
+    }
+
+
+    /**
+     * Получение всех специализаций пользователя
+     *
+     */
+    getSpecializations() {
+
+        let seq = this.api.post('api/specializations/get', {}).share();
+
+        return seq;
+    }
+
+
+    /**
+     * Сообщение об отсутствующих специализациях
+     *
+     */
+    notSpecializationMake(name: String, phone: any = false) {
+
+        let seq = this.api.post('api/specializations/absence', {name: name, phone: phone}).share();
 
         return seq;
     }
@@ -277,6 +301,16 @@ export class User {
 
 
     /**
+     * Повторная отправка кода активации
+     *
+     */
+    resendActivationCode() {
+
+        return this.api.post('api/resend/activation/code', {});
+    }
+
+
+    /**
      * Сохранение необходимых данных агента
      *
      */
@@ -293,6 +327,24 @@ export class User {
     confirmationCheck() {
 
         return this.api.post('api/confirmationCheck', {});
+    }
+
+
+    /**
+     * Получение лицензии агента для подтверждения
+     *
+     */
+    getAgentLicense() {
+        return this.api.post('api/license/get', {});
+    }
+
+
+    /**
+     * Подтверждение соглашения агентом
+     *
+     */
+    agreeAgentLicense() {
+        return this.api.post('api/license/agree', {});
     }
 
 

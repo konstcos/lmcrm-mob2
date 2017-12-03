@@ -9,6 +9,7 @@ import {
     ItemSliding
 } from 'ionic-angular';
 // import {MenuPage} from '../menu/menu';
+import {TranslateService} from 'ng2-translate/ng2-translate';
 
 import {MainPage} from '../main/main'
 import {PrivateGroupAddMemberPage} from '../private-group-add-member/private-group-add-member'
@@ -58,61 +59,11 @@ export class PrivateGroupPage {
                 public nav: Nav,
                 public privateGroup: PrivateGroup,
                 public actionSheetCtrl: ActionSheetController,
-                public alertCtrl: AlertController) {
-
-        // public privateGroup: PrivateGroup,
-
-
-        // let subRole = this.navParams.get('subRole');
-        //
-        // if (subRole == 'salesman') {
-        //     this.subRole = this.navParams.get('subRole');
-        //     this.salesmenData = this.navParams.get('salesmenData');
-        // }
-
-        // console.log(this.subRole);
+                public alertCtrl: AlertController,
+                public translate: TranslateService) {
 
         // получение всех участников группы
         this.getMembers();
-
-        // this.privateGroup.members()
-        //     .subscribe(data => {
-        //
-        //         console.log('получение участников');
-        //
-        //         let res = data.json();
-        //
-        //         // console.log(res.members['active']);
-        //         // console.log(res.members['waiting']);
-        //         // console.log(res.members['rejected']);
-        //
-        //         console.log(res);
-        //
-        //         this.members = [];
-        //         this.existsMembers = false;
-        //         this.noMembers = false;
-        //
-        //         if (res.members['active'].length != 0 || res.members['waiting'].length != 0 || res.members['rejected'].length != 0) {
-        //
-        //             this.members = res.members;
-        //
-        //             this.existsMembers = true;
-        //
-        //         } else {
-        //
-        //             this.noMembers = true;
-        //         }
-        //
-        //
-        //         // console.log(res);
-        //
-        //     }, err => {
-        //
-        //         console.log('Error ' + err);
-        //
-        //     });
-
-        console.log('страница приватной группы');
     }
 
 
@@ -132,6 +83,16 @@ export class PrivateGroupPage {
      */
     memberAction(member, slidingItem: ItemSliding) {
 
+        let text = {
+            "delete": "Delete",
+            "cancel": "Cancel"
+        };
+
+        this.translate.get('private_group.member_action', {}).subscribe((res: string) => {
+
+            text['delete'] = res['delete'];
+            text['cancel'] = res['cancel'];
+        });
 
         let title = member.surname + ' ' + member.name;
 
@@ -139,13 +100,13 @@ export class PrivateGroupPage {
             title: title,
             buttons: [
                 {
-                    text: 'Delete',
+                    text: text['delete'],
                     handler: () => {
                         this.memberDeleteConfirmation(member, slidingItem);
                         console.log('Delete clicked');
                     }
                 }, {
-                    text: 'Cancel',
+                    text: text['cancel'],
                     role: 'cancel',
                     handler: () => {
                         console.log('Cancel clicked');
@@ -170,7 +131,7 @@ export class PrivateGroupPage {
         modal.onDidDismiss(data => {
 
             this.getMembers();
-            console.log('закрылось окно добавления участников группы');
+
         });
 
         modal.present();
@@ -188,8 +149,6 @@ export class PrivateGroupPage {
 
         this.privateGroup.members()
             .subscribe(data => {
-
-                console.log('получение участников');
 
                 let res = data.json();
 
@@ -240,9 +199,6 @@ export class PrivateGroupPage {
 
                 let res = data.json();
 
-                console.log('удаление участника группы');
-                console.log(res);
-
                 if (res.status == 'success') {
                     this.getMembers();
                 }
@@ -261,6 +217,19 @@ export class PrivateGroupPage {
      */
     memberDeleteConfirmation(member, slidingItem: ItemSliding) {
 
+        let text = {
+            "will_be_removed": "will be removed from your private group",
+            "delete": "Delete",
+            "cancel": "Cancel"
+        };
+
+        this.translate.get('private_group.member_delete_confirmation', {}).subscribe((res: string) => {
+
+            text['will_be_removed'] = res['will_be_removed'];
+            text['delete'] = res['delete'];
+            text['cancel'] = res['cancel'];
+        });
+
         if (slidingItem) {
             slidingItem.close();
         }
@@ -268,17 +237,17 @@ export class PrivateGroupPage {
         let prompt = this.alertCtrl.create({
             // title: member.name + ' ' + member.surname,
             title: 'Delete member',
-            message: "Agent <b>" + member.name + " " + member.surname + "</b> will be removed from your private group",
+            message: "<b>" + member.name + " " + member.surname + "</b> " + text['will_be_removed'],
 
             buttons: [
                 {
-                    text: 'Cancel',
+                    text: text['cancel'],
                     handler: data => {
 
                     }
                 },
                 {
-                    text: 'Delete',
+                    text: text['delete'],
                     handler: data => {
                         console.log('Delete member: ');
                         console.log(data);

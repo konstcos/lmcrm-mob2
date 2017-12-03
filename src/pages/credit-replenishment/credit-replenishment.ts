@@ -3,7 +3,7 @@ import {Component} from "@angular/core";
 import {NavController, ViewController, NavParams, AlertController, LoadingController} from "ionic-angular";
 // главная страница
 import {Credits} from "../../providers/credits";
-
+import {TranslateService} from 'ng2-translate/ng2-translate';
 
 /*
  Generated class for the Credits page.
@@ -44,7 +44,8 @@ export class CreditReplenishmentPage {
                 public view: ViewController,
                 public credits: Credits,
                 public loadingCtrl: LoadingController,
-                public alertCtrl: AlertController) {
+                public alertCtrl: AlertController,
+                public translate: TranslateService) {
 
         // получение данных по вводу денег
         this.getReplenishmentData();
@@ -152,7 +153,14 @@ export class CreditReplenishmentPage {
         let alert = this.alertCtrl.create({
             subTitle: supTitle,
             message: message,
-            buttons: ['Ok']
+            buttons: [
+                {
+                    text: 'OK',
+                    handler: () => {
+                        // console.log('Ok clicked');
+                    }
+                }
+            ]
         });
         alert.present();
 
@@ -170,23 +178,43 @@ export class CreditReplenishmentPage {
             return false;
         }
 
+        let title = 'Confirmation';
+        let message = 'Will be created a statement for input <b>&#8362; ' + this.selectedAmount + '</b> on yor wallet in the system.';
+        let cancel_button = 'Cancel';
+        let ok_button = 'OK';
+
+        this.translate.get('credit_replenishment.confirmation.title', {}).subscribe((res: string) => {
+            title = res;
+        });
+
+        this.translate.get('credit_replenishment.confirmation.message', {selected_amount: this.selectedAmount}).subscribe((res: string) => {
+            message = res;
+        });
+
+        this.translate.get('credit_replenishment.confirmation.cancel_button', {}).subscribe((res: string) => {
+            cancel_button = res;
+        });
+
+        this.translate.get('credit_replenishment.confirmation.ok_button', {}).subscribe((res: string) => {
+            ok_button = res;
+        });
 
         let alert = this.alertCtrl.create({
-            title: 'Confirmation',
-            message: 'Will be created a statement for input <b>&#8362; ' + this.selectedAmount + '</b> on yor wallet in the system.',
+            title: title,
+            message: message,
             buttons: [
                 {
-                    text: 'Cancel',
+                    text: cancel_button,
                     role: 'cancel',
                     handler: () => {
-                        console.log('Cancel clicked');
+                        // console.log('Cancel clicked');
                     }
                 },
                 {
-                    text: 'Ok',
+                    text: ok_button,
                     handler: () => {
                         this.makeReplenishment();
-                        console.log('Ok clicked');
+                        // console.log('Ok clicked');
                     }
                 }
             ]

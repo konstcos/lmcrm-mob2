@@ -15,28 +15,23 @@
             </button>
         </ion-buttons>
 
-        <ion-title>Masks <span *ngIf="sphere"> of {{ sphere.name }} </span></ion-title>
+        <ion-title>
+            {{ 'masks_by_sphere.title' | translate }}
 
-
-
-        <!--<ion-buttons left text-center class="left_button">-->
-            <!--<button ion-button (click)="goBack()">-->
-                <!--close-->
-            <!--</button>-->
-        <!--</ion-buttons>-->
-
-        <!--<ion-buttons right text-center class="right_button">-->
-            <!--<button ion-button (click)="createNewMask()">-->
-                <!--new mask-->
-            <!--</button>-->
-        <!--</ion-buttons>-->
+            <span *ngIf="sphere">
+            {{ 'masks_by_sphere.sphere_name' | translate:{name: sphere.name} }}
+            <!--of {{ sphere.name }} -->
+        </span>
+        </ion-title>
 
     </ion-navbar>
 
     <ion-row *ngIf="subRole" class="subHeader">
         <ion-col>
             <div class="salesmen-row">
-                salesmen: {{ salesmenData.name }} {{ salesmenData.surname }}
+                {{ 'masks_by_sphere.salesmen_name' | translate }}
+                <!--salesmen: -->
+                {{ salesmenData.name }} {{ salesmenData.surname }}
             </div>
         </ion-col>
     </ion-row>
@@ -66,7 +61,8 @@
 
             <ion-row *ngIf="!mask.pending">
                 <ion-col class="admin_approval">
-                    waiting for admin approval
+                    {{ 'masks_by_sphere.waiting_for_approval' | translate }}
+                    <!--waiting for admin approval-->
                 </ion-col>
             </ion-row>
 
@@ -77,8 +73,14 @@
 
                     <ion-col col-3 class="switcher">
                         <ion-toggle [(ngModel)]="mask.active" (click)="switchActive(mask)"></ion-toggle>
-                        <div *ngIf="mask.active" class="mask_indicator active">active</div>
-                        <div *ngIf="!mask.active" class="mask_indicator not_active">not active</div>
+                        <div *ngIf="mask.active" class="mask_indicator active">
+                            <!--active-->
+                            {{ 'masks_by_sphere.active' | translate }}
+                        </div>
+                        <div *ngIf="!mask.active" class="mask_indicator not_active">
+                            <!--not active-->
+                            {{ 'masks_by_sphere.not_active' | translate }}
+                        </div>
                     </ion-col>
 
                     <ion-col text-right (click)="editMask(mask)">
@@ -94,7 +96,9 @@
 
             <ion-row>
                 <ion-col class="leads_col">
-                    <span class="leads_count">{{ mask.leads }}</span> leads incoming by this mask
+                    <span class="leads_count">{{ mask.leads }}</span>
+                    {{ 'masks_by_sphere.leads_incoming' | translate }}
+                    <!--leads incoming by this mask-->
                 </ion-col>
             </ion-row>
 
@@ -104,8 +108,14 @@
         <ion-row *ngIf="masks.length == 0" class="no_masks_row">
             <ion-col text-center>
                 <div class="icon"><ion-icon name="md-contract"></ion-icon></div>
-                <div> No masks</div>
-                <div> First add a masks</div>
+                <div>
+                    {{ 'masks_by_sphere.no_masks' | translate }}
+                    <!--No masks-->
+                </div>
+                <div>
+                    {{ 'masks_by_sphere.add_mask_first' | translate }}
+                    <!--First add a masks-->
+                </div>
             </ion-col>
         </ion-row>
 
@@ -113,7 +123,8 @@
         <ion-row>
             <ion-col text-center>
                 <button outline round small ion-button (click)="createNewMask()">
-                    Create a new mask
+                    <!--Create a new mask-->
+                    {{ 'masks_by_sphere.new_mask_button_in_content' | translate }}
                 </button>
             </ion-col>
         </ion-row>
@@ -126,7 +137,8 @@
 
     <div text-center>
         <button ion-button round small outline (click)="createNewMask()">
-            new mask
+            <!--new mask-->
+            {{ 'masks_by_sphere.new_mask_button_in_footer' | translate }}
         </button>
     </div>
 

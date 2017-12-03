@@ -119,7 +119,7 @@ export class Open {
 
 
     /**
-     * Завершение сделки с несеолькими платежами
+     * Завершение сделки с несколькими платежами
      */
     closeFewPaymentDeal(data: any) {
         return this.api.post('api/deal/few/payments/close', data);
@@ -127,10 +127,27 @@ export class Open {
 
 
     /**
-     * Завершение сделки с несеолькими платежами
+     * Проплата сделки банковской транзакцией
      */
     paymentDealBankTransaction(data: any) {
         return this.api.post('api/deal/bank/payment/make', data);
+    }
+
+
+    /**
+     * Получение данных по оплате сдлеки кредитной карточкой
+     */
+    getDataForCreditCardTransaction(data: any) {
+        return this.api.post('api/deal/credit/card/payment/data', data);
+    }
+
+
+    /**
+     * Делает денежную транзакцию через кредитную карточку
+     * (по сути, получает данные с invoice4u и вставляет их в iFrame)
+     */
+    makeCreditCardTransaction(data: any) {
+        return this.api.post('api/deal/credit/card/payment/make', data);
     }
 
 

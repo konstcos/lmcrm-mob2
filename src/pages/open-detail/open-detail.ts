@@ -1,8 +1,11 @@
 import {Component} from '@angular/core';
 import {NavController, NavParams, ViewController, ModalController, Events} from 'ionic-angular';
 import {OpenLeadStatusesPage} from "../open-lead-statuses/open-lead-statuses";
-
+import {OpenLeadOrganizerPage} from "../open-lead-organizer/open-lead-organizer";
+import {TranslateService} from 'ng2-translate/ng2-translate';
 import {Open} from '../../providers/open';
+
+import { CallNumber } from '@ionic-native/call-number';
 
 /*
  Generated class for the OpenDetail page.
@@ -13,7 +16,7 @@ import {Open} from '../../providers/open';
 @Component({
     selector: 'page-open-detail',
     templateUrl: 'open-detail.html',
-    providers: [Open]
+    providers: [Open, CallNumber]
 })
 export class OpenDetailPage {
 
@@ -39,15 +42,28 @@ export class OpenDetailPage {
     public isLoading: boolean = true;
 
 
+    /**
+     * Роли пользователя
+     *
+     */
+    public roles: any = {
+        role: 'any',
+        subRole: 'any',
+    };
+
     constructor(public navCtrl: NavController,
                 public view: ViewController,
                 public navParams: NavParams,
                 public modalCtrl: ModalController,
                 public events: Events,
-                public open: Open) {
+                public open: Open,
+                public translate: TranslateService,
+                private callNumber: CallNumber) {
 
         // получение данных итема
         let item = navParams.get('item');
+
+        this.roles = navParams.get('roles');
 
         // console.log(item);
 
@@ -216,6 +232,60 @@ export class OpenDetailPage {
                 console.log('ERROR: ' + err);
             });
 
+    }
+
+    /**
+     * Окно органайзера
+     *
+     */
+    openLeadOrganizer() {
+
+        // console.log(this.item.id);
+
+        let modal = this.modalCtrl.create(OpenLeadOrganizerPage, {itemsId: this.item.id});
+
+        modal.present();
+
+
+        // this.organizer.get({ openLeadId: item.id })
+        //     .subscribe(result => {
+        //
+        //         // переводим ответ в json
+        //         let data = result.json();
+        //
+        //         let modal = this.modalCtrl.create(OpenLeadOrganizerPage, {items: data});
+        //
+        //         modal.present();
+        //
+        //         console.log(data);
+        //
+        //     }, err => {
+        //
+        //         // в случае ошибки
+        //
+        //         console.log('ERROR: ' + err);
+        //
+        //         // todo выводится сообщение об ошибке (нету связи и т.д.)
+        //
+        //         // отключаем окно индикатора загрузки
+        //         // infiniteScroll.complete();
+        //
+        //     });
+
+
+    }
+
+
+    /**
+     * Сделать телефонный звонок
+     *
+     */
+    makeCall(item) {
+        // console.log(item.lead.phone.phone);
+
+        this.callNumber.callNumber(item.lead.phone.phone, true)
+            .then(() => console.log('Launched dialer!'))
+            .catch(() => console.log('Error launching dialer'));
     }
 
 

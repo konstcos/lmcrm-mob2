@@ -256,6 +256,7 @@ export class ObtainPage {
                     surname: data.surname,
                     email: data.email,
                     prices: data.spherePrice,
+                    wallet: data.wallet,
                     leadsBySphere: data.leadsBySphere,
                 };
 
@@ -404,7 +405,7 @@ export class ObtainPage {
      *
      */
     detail(item) {
-        let modal = this.modalCtrl.create(ObtainDetailPage, {item: item});
+        let modal = this.modalCtrl.create(ObtainDetailPage, {item: item, roles: this.roles});
         modal.present();
 
         // помечаем итем что он уже просмотрен

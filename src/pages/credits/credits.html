@@ -80,8 +80,9 @@
                             <!--<button ion-button round clear>Replenishment</button>-->
 
                             <div class="wallet_button_name">
-                                <span class="wallet_button_icon"><ion-icon name="ios-arrow-forward-outline"></ion-icon></span>
+                                <!--<span class="wallet_button_icon"><ion-icon name="ios-arrow-forward-outline"></ion-icon></span>-->
                                 {{ 'credits.replenishment' | translate }}
+                                <span class="wallet_button_icon"><ion-icon name="ios-arrow-back-outline"></ion-icon></span>
                             </div>
                             <div class="wallet_button_comment">
                                 {{ 'credits.replenishment_comment' | translate }}
@@ -93,8 +94,9 @@
                             <!--<button ion-button round clear>Withdrawal</button>-->
 
                             <div class="wallet_button_name">
-                                <span class="wallet_button_icon"><ion-icon name="ios-arrow-forward-outline"></ion-icon></span>
+                                <!--<span class="wallet_button_icon"><ion-icon name="ios-arrow-forward-outline"></ion-icon></span>-->
                                 {{ 'credits.withdrawal' | translate }}
+                                <span class="wallet_button_icon"><ion-icon name="ios-arrow-back-outline"></ion-icon></span>
                             </div>
                             <div class="wallet_button_comment">
                                 {{ 'credits.withdrawal_comment' | translate }}
@@ -188,7 +190,7 @@
                     <ion-col class="data" text-left align-self-center>
 
                         <div class="transaction_number">
-                            <span class="number">№</span> {{ transaction.transactionId }}
+                            <span class="number">{{ 'credits.number' | translate }}</span> {{ transaction.transactionId }}
                         </div>
 
                         <div class="transaction_name">
@@ -246,7 +248,7 @@
 
                         <!-- Статус -->
                         <div class="item_status" [ngClass]="{'waiting_processing': item.status == 1, 'waiting_payment': item.status == 2, 'waiting_confirmed': item.status==3, 'status_confirmed': item.status==4, 'status_rejected': item.status==5}">
-                            {{ statuses[item.status] }}
+                            {{ 'credits.status.' + statuses[item.status] | translate }}
                         </div>
 
                     </ion-col>
@@ -254,7 +256,7 @@
                     <ion-col text-right class="data" align-self-center>
 
                         <div class="exchange_id">
-                            № {{ item.id }}
+                            {{ 'credits.number' | translate }} {{ item.id }}
                         </div>
 
 

@@ -10,7 +10,9 @@
             </button>
         </ion-buttons>
 
-        <ion-title>Customer Filter Spheres</ion-title>
+        <ion-title>
+            {{ 'customer_filter_spheres.title' | translate }}
+        </ion-title>
 
 
         <!--<ion-buttons left text-center class="left_button">-->
@@ -25,7 +27,9 @@
     <ion-row *ngIf="subRole" class="subHeader">
         <ion-col>
             <div class="salesmen-row">
-                salesmen: {{ salesmenData.name }} {{ salesmenData.surname }}
+
+                {{ 'customer_filter_spheres.salesmen_name' | translate }}
+                {{ salesmenData.name }} {{ salesmenData.surname }}
             </div>
         </ion-col>
     </ion-row>
@@ -57,12 +61,19 @@
         <ion-row class="sphere_data">
 
             <ion-col no-padding>
-                <button small round outline ion-button color="primary" (click)="createNewMask(sphere.id)">new mask</button>
+                <button small round outline ion-button color="primary" (click)="createNewMask(sphere.id)">
+                    {{ 'customer_filter_spheres.new_mask_button' | translate }}
+                </button>
             </ion-col>
 
             <ion-col no-padding text-right (click)="openSphere(sphere)">
                 <div class="name">{{ sphere.name }}</div>
-                <div class="leads_status"> <span class="leads_count">{{ sphere.leads }}</span> leads in <span class="masks_count">{{ sphere.masks.count }}</span> masks</div>
+                <div class="leads_status"
+                     [innerHTML]="'customer_filter_spheres.leads_masks_count' | translate:{leads_count: sphere.leads, masks_count: sphere.masks.count}">>
+
+                    <!--<span class="leads_count">{{ sphere.leads }}</span> leads in <span class="masks_count">{{ sphere.masks.count }}</span> masks-->
+
+                </div>
             </ion-col>
 
         </ion-row>
@@ -76,17 +87,26 @@
 
                     <ion-col text-center no-padding>
                         <div class="masks_active_color masks_status">{{ sphere.masks.active }}</div>
-                        <div>masks active</div>
+                        <div>
+                            <!--masks active-->
+                            {{ 'customer_filter_spheres.masks_active' | translate }}
+                        </div>
                     </ion-col>
 
                     <ion-col text-center no-padding>
                         <div class="masks_pending_color masks_status">{{ sphere.masks.pending }}</div>
-                        <div>masks pending</div>
+                        <div>
+                            <!--masks pending-->
+                            {{ 'customer_filter_spheres.masks_pending' | translate }}
+                        </div>
                     </ion-col>
 
                     <ion-col text-center no-padding>
                         <div class="masks_off_color masks_status">{{ sphere.masks.off }}</div>
-                        <div>masks off</div>
+                        <div>
+                            <!--masks off-->
+                            {{ 'customer_filter_spheres.masks_off' | translate }}
+                        </div>
                     </ion-col>
 
 

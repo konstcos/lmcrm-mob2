@@ -14,7 +14,46 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+@font-face {
+  font-family: Rubik-Regular; /* Имя шрифта */
+  //src: url(fonts/pompadur.ttf); /* Путь к файлу со шрифтом */
+  src: url('../assets/fonts/Hebrew/Rubik-Regular.ttf'); /* Путь к файлу со шрифтом */
+}
+
+* {
+  font-family: Rubik-Regular;
+}
+
 .modal-wrapper {
   //background: rgba(0, 0, 0, 0.3);
   //opacity: 0.1;
+}
+
+ion-alert {
+  direction: rtl;
+
+  .alert-head {
+    direction: rtl;
+
+    h2.alert-title {
+      direction: rtl;
+      text-align: right;
+    }
+
+    h3.alert-sub-title {
+      direction: rtl;
+      text-align: right;
+    }
+
+  }
+
+}
+
+.action-sheet-wrapper {
+  direction: rtl;
+
+  .action-sheet-title {
+    //direction: rtl;
+    text-align: right;
+  }
 }

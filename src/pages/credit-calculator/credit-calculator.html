@@ -17,7 +17,11 @@
             <!--</button>-->
         </ion-buttons>
 
-        <ion-title>Credit calculator</ion-title>
+        <ion-title>
+            {{ 'calculator.title' | translate }}
+
+            <!--Credit calculator-->
+        </ion-title>
 
     </ion-navbar>
 
@@ -54,13 +58,17 @@
             <ion-col text-center (click)="switchDirection(2)" [ngClass]="{selected: direction == 2}">
                 <ion-icon *ngIf="direction == 1" name="md-radio-button-off"></ion-icon>
                 <ion-icon *ngIf="direction == 2" name="md-radio-button-on"></ion-icon>
-                <span [ngClass]="{text: direction == 2}">credit to shekel</span>
+                <span [ngClass]="{text: direction == 2}">
+                    {{ 'calculator.credit_to_shekel' | translate }}
+                </span>
             </ion-col>
 
             <ion-col text-center (click)="switchDirection(1)" [ngClass]="{selected: direction == 1}">
                 <ion-icon *ngIf="direction == 2" name="md-radio-button-off"></ion-icon>
                 <ion-icon *ngIf="direction == 1" name="md-radio-button-on"></ion-icon>
-                <span [ngClass]="{text: direction == 1}">shekel to credit</span>
+                <span [ngClass]="{text: direction == 1}">
+                    {{ 'calculator.shekel_to_credit' | translate }}
+                </span>
             </ion-col>
 
         </ion-row>
@@ -72,8 +80,12 @@
         <ion-row>
 
             <ion-col col-2 align-self-center text-right class="direction_sign">
-                <span *ngIf="direction == 2">credits</span>
-                <span *ngIf="direction == 1">&#8362;</span>
+                <span *ngIf="direction == 2">
+                    {{ 'calculator.credits' | translate }}
+                </span>
+                <span *ngIf="direction == 1">
+                    &#8362;
+                </span>
             </ion-col>
 
             <ion-col align-self-center>
@@ -89,7 +101,7 @@
 
             <ion-col col-4>
                 <button ion-button small (click)="calculate()">
-                    calculate
+                    {{ 'calculator.calculate_button' | translate }}
                 </button>
             </ion-col>
 
@@ -101,12 +113,23 @@
     <div class="calculated_info_row">
 
         <div *ngIf="calculatedValue">
-            <span *ngIf="currentDirection == 2">To get <span class="calculated_info_value">{{ calculatedValue }} credits</span> you will need: </span>
-            <span *ngIf="currentDirection == 1">For <span  class="calculated_info_value">&#8362; {{ calculatedValue }}</span> you will receive: </span>
+            <span *ngIf="currentDirection == 2"
+                  [innerHTML]="'calculator.to_get_credits' | translate:{amount: calculatedValue}">>
+
+                <!--To get <span class="calculated_info_value">{{ calculatedValue }} credits</span> you will need: -->
+            </span>
+
+            <span *ngIf="currentDirection == 1"
+                  [innerHTML]="'calculator.for_receive_shekel' | translate:{amount: calculatedValue}">>
+
+                <!--For <span  class="calculated_info_value">&#8362; {{ calculatedValue }}</span> you will receive:-->
+            </span>
 
         </div>
 
-        <div *ngIf="!calculatedValue">enter calculated value</div>
+        <div *ngIf="!calculatedValue">
+            {{ 'calculator.enter_calculated_value' | translate }}
+        </div>
 
     </div>
 
@@ -141,7 +164,10 @@
 
                             <ion-col col-2 text-right align-self-end class="agent_mask_sign">
                                 <span *ngIf="currentDirection == 2">&#8362;</span>
-                                <span *ngIf="currentDirection == 1">credit</span>
+                                <span *ngIf="currentDirection == 1">
+                                    {{ 'calculator.credit_currency' | translate }}
+                                    <!--credit-->
+                                </span>
                             </ion-col>
 
                             <ion-col class="agent_mask_calculated" align-self-center text-left>
@@ -162,8 +188,8 @@
         </div>
 
         <div *ngIf="!calculatedValue" class="no_data_for_calculated">
-
-            no data for calculated
+            {{ 'calculator.no_data_for_calculated' | translate }}
+            <!--no data for calculated-->
 
         </div>
 

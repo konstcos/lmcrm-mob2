@@ -13,7 +13,8 @@
                 <ion-icon name="ios-arrow-back" class="back_arrow"></ion-icon>
             </button>
             <button ion-button (click)="close()" color="primary">
-                back to statuses
+                {{ 'open_lead_deal_close.back_button' | translate }}
+                <!--back to statuses-->
             </button>
         </ion-buttons>
 
@@ -35,13 +36,16 @@
         {{ status.name }}
     </div>
 
-    <div class="deal_legend">
-        <div>to close the deal, indicate the price</div>
-        <div>(the closing price of the deal)</div>
+    <div class="deal_legend" [innerHTML]="'open_lead_deal_close.info' | translate">
+        <!--<div>to close the deal, indicate the price</div>-->
+        <!--<div>(the closing price of the deal)</div>-->
     </div>
 
     <div class="price_input" text-center>
-        <div class="price_label">price<span class="price_required">*</span> </div>
+        <div class="price_label">
+            <!--price-->
+            {{ 'open_lead_deal_close.price' | translate }}
+            <span class="price_required">*</span> </div>
         <ion-input
                 type="number"
                 [(ngModel)]="price"
@@ -51,7 +55,10 @@
     </div>
 
     <div class="comment_input">
-        <div class="comment_label">comment </div>
+        <div class="comment_label">
+            <!--comment-->
+            {{ 'open_lead_deal_close.comment' | translate }}
+        </div>
         <ion-textarea
                 [(ngModel)]="comment"
                 rows="4">
@@ -59,7 +66,10 @@
     </div>
 
     <div class="close_deal_button">
-        <button ion-button round small full (click)="closeDeal()"> close deal</button>
+        <button ion-button round small full (click)="closeDeal()">
+            <!--close deal-->
+            {{ 'open_lead_deal_close.close_deal' | translate }}
+        </button>
     </div>
 
 </ion-content>

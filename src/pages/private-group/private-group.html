@@ -14,7 +14,10 @@
             </button>
         </ion-buttons>
 
-        <ion-title>Private Group</ion-title>
+        <ion-title>
+            {{ 'private_group.title' | translate }}
+            <!--Private Group-->
+        </ion-title>
 
         <!--<ion-buttons left text-center class="left_button">-->
             <!--<button ion-button (click)="goToMainPage()">-->
@@ -47,14 +50,18 @@
                 <ion-item-options side="right">
                     <button ion-button color="danger" (click)="memberDeleteConfirmation(member, slidingItem)">
                         <ion-icon name="md-trash"></ion-icon>
-                        dell
+                        {{ 'private_group.dell' | translate }}
+                        <!--dell-->
                     </button>
                 </ion-item-options>
             </ion-item-sliding>
 
             <ion-item-sliding *ngFor="let member of members['waiting']" >
                 <ion-item (click)="memberAction(member)">
-                    <div item-left class="status waiting">waiting</div>
+                    <div item-left class="status waiting">
+                        {{ 'private_group.waiting' | translate }}
+                        <!--waiting-->
+                    </div>
 
                     <div text-right item-right class="member_data">
                         <div class="member_date"> <span class="time">{{ member.date.time }}</span> {{ member.date.date }}</div>
@@ -65,7 +72,8 @@
                 <ion-item-options side="right">
                     <button ion-button color="danger" (click)="memberDeleteConfirmation(member)">
                         <ion-icon name="md-trash"></ion-icon>
-                        dell
+                        {{ 'private_group.dell' | translate }}
+                        <!--dell-->
                     </button>
                 </ion-item-options>
             </ion-item-sliding>
@@ -83,7 +91,8 @@
                 <ion-item-options side="right">
                     <button ion-button color="danger" (click)="memberDeleteConfirmation(member)">
                         <ion-icon name="md-trash"></ion-icon>
-                        dell
+                        {{ 'private_group.dell' | translate }}
+                        <!--dell-->
                     </button>
                 </ion-item-options>
             </ion-item-sliding>
@@ -136,7 +145,8 @@
 
         <ion-row>
             <ion-col>
-                No members in group
+                {{ 'private_group.no_members_in_group' | translate }}
+                <!--No members in group-->
             </ion-col>
         </ion-row>
 
@@ -193,7 +203,10 @@
 <ion-footer>
 
     <div text-center>
-        <button ion-button small round outline (click)="searchMember()">add member</button>
+        <button ion-button small round outline (click)="searchMember()">
+            {{ 'private_group.add_member' | translate }}
+            <!--add member-->
+        </button>
     </div>
 
 </ion-footer>

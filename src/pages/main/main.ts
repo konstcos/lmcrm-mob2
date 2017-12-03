@@ -222,6 +222,7 @@ export class MainPage {
     public name: string = '';
     public surname: string = '';
     public email: string = '';
+    public wallet: Number = 0;
     public prices: any = [];
     public leadsBySphere: any = [];
 
@@ -273,19 +274,19 @@ export class MainPage {
             this.notices = 0;
         });
 
-
         this.events.unsubscribe("agentData:get",);
         this.events.subscribe("agentData:get", (agentData) => {
 
-            // console.log('полученные данные агента: ');
-            // console.log(agentData);
+            console.log('полученные данные агента: ');
+            console.log(agentData);
 
             this.roles.role = agentData.roles.role;
-            this.roles.subRole = agentData.roles.subRole;
+            this.roles.subRole = agentData.roles.subRole == 'leadbayer'? 'leadbuyer' : agentData.roles.subRole;
             this.name = agentData.name;
             this.surname = agentData.surname;
             this.email = agentData.email;
             this.prices = agentData.prices;
+            this.wallet = agentData.wallet;
             this.leadsBySphere = agentData.leadsBySphere ? agentData.leadsBySphere : [];
 
             if (this.leadsBySphere.length != 0) {
@@ -424,13 +425,28 @@ export class MainPage {
 
     }
 
+
+    ionViewDidEnter() {
+        // this.tabRef.select(1);
+    }
+
+
     /**
      * Действия по загрузке странице
      *
      */
     ionViewDidLoad() {
 
+        let default_route = localStorage.getItem('default_route');
 
+        if(default_route && default_route == 'outgoing') {
+
+            this.tabRef.select(0);
+
+        } else {
+
+            this.tabRef.select(2);
+        }
 
         // включение главного меню
         this.menuCtrl.enable(true, 'main_menu');
@@ -501,6 +517,11 @@ export class MainPage {
             // alert('catch event ' +items);
         });
 
+        // переходим на вкладку входящих лидов
+        this.events.unsubscribe("tab:switch_incoming");
+        this.events.subscribe("tab:switch_incoming", (data) => {
+            this.tabRef.select(2);
+        });
 
         // подписываемся на получение количества непросмотренных лидов
         this.events.unsubscribe("badge:set");
@@ -1471,6 +1492,8 @@ export class MainPage {
      *
      */
     logout() {
+
+        localStorage.setItem('default_route', 'incoming');
 
         this.badge.set(0);
 

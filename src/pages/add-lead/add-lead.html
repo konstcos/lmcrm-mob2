@@ -41,22 +41,22 @@
 
         <ion-list radio-group [(ngModel)]="lead.type" class="add_lead_radio" (ionChange)="typeChange()">
 
-            <ion-item dir="rtl" no-border >
-                <ion-label text-left class="add_lead_value">
+            <ion-item no-border >
+                <ion-label text-right class="add_lead_value">
                     {{ 'adding_lead.all' | translate }}
                 </ion-label>
                 <ion-radio value="0"></ion-radio>
             </ion-item>
 
-            <ion-item dir="rtl" no-border>
-                <ion-label text-left class="add_lead_value">
+            <ion-item no-border>
+                <ion-label text-right class="add_lead_value">
                     {{ 'adding_lead.dealmakers_only' | translate }}
                 </ion-label>
                 <ion-radio value="1"></ion-radio>
             </ion-item>
 
-            <ion-item dir="rtl" no-border>
-                <ion-label text-left class="add_lead_value">
+            <ion-item no-border>
+                <ion-label text-right class="add_lead_value">
                     {{ 'adding_lead.private_group' | translate }}
                 </ion-label>
                 <ion-radio value="2"></ion-radio>

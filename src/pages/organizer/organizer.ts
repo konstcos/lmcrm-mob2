@@ -7,6 +7,7 @@ import {
     ModalController,
     MenuController
 } from 'ionic-angular';
+import {TranslateService} from 'ng2-translate/ng2-translate';
 
 
 import {OpenLeadOrganizerEditPage} from "../open-lead-organizer-edit/open-lead-organizer-edit";
@@ -131,8 +132,15 @@ export class OrganizerPage {
                 public actionSheetCtrl: ActionSheetController,
                 public organizer: Organizer,
                 public modalCtrl: ModalController,
-                public menuCtrl: MenuController) {
+                public menuCtrl: MenuController,
+                public translate: TranslateService) {
 
+        this.translate.get('organizer.filter.states', {}).subscribe((res: string) => {
+
+            this.allStates[0]['name'] = res['pending'];
+            this.allStates[1]['name'] = res['overdue'];
+            this.allStates[2]['name'] = res['done'];
+        });
 
         let filter = localStorage.getItem('allOrganizerFilter');
 

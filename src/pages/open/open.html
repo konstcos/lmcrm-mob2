@@ -16,7 +16,7 @@
 
         <ion-row>
             <ion-col>
-                <button ion-button clear small>
+                <button ion-button clear small (click)="makeCall(item)">
                     <ion-icon name="ios-call"></ion-icon>
                 </button>
 
@@ -76,30 +76,6 @@
                             </ion-row>
 
 
-                            <!--<ion-row class="deal_data_row">-->
-
-                                <!--<ion-col col-4 class="deal_data_title">-->
-                                    <!--deal name:-->
-                                <!--</ion-col>-->
-
-                                <!--<ion-col class="deal_data_data">-->
-                                    <!--{{ item.status_info.stepname }}-->
-                                <!--</ion-col>-->
-
-                            <!--</ion-row>-->
-
-                            <!--<ion-row class="deal_data_row">-->
-
-                                <!--<ion-col col-4 class="deal_data_title">-->
-                                    <!--deal price:-->
-                                <!--</ion-col>-->
-
-                                <!--<ion-col class="deal_data_data">-->
-                                    <!--&#8362; {{ item.close_deal_info.price }}-->
-                                <!--</ion-col>-->
-
-                            <!--</ion-row>-->
-
                         </div>
 
                     </div>
@@ -136,7 +112,9 @@
 
                 <div [innerHTML]="'exposed.you_do_not_have_any_leads-to_get_the_leads' | translate"></div>
 
-                <button small ion-button color="primary" class="mask_button" (click)="customerPage()">{{ 'exposed.select_mask' | translate }}</button>
+                <button small ion-button color="primary" class="mask_button" (click)="goToIncomingPage()">
+                    {{ 'exposed.no_open_leads_button' | translate }}
+                </button>
             </div>
 
         </ion-col>
