@@ -1,0 +1,86 @@
+page-wallet {
+
+  ion-content {
+
+    background: #F8F8F8 !important;
+
+    .spinnerLoading {
+      text-align: center;
+      margin-top: 20%;
+    }
+
+    .data_block {
+      margin: 50px 30px 20px 30px;
+      color: #656565;
+
+
+
+      .wallet_item {
+        margin-top: 15px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        background: #F5F5F5;
+        border-radius: 25px;
+        padding: 10px 35px 10px 20px;
+        border-right: solid 2px #E6E6E6;
+        border-bottom: solid 1px #E6E6E6;
+
+        .help_icon {
+          color: #337AB7;
+        }
+
+        &.buyed {
+          border-right: solid 2px #3C763D;
+          border-bottom: solid 1px #3C763D;
+          color: #3C763D;
+        }
+
+        &.earned {
+
+          color: #3C763D;
+          border-right: solid 2px #3C763D;
+          border-bottom: solid 1px #3C763D;
+
+          &.minus {
+            color: #A94442;
+            border-right: solid 2px #A94442;
+            border-bottom: solid 1px #A94442;
+
+          }
+
+        }
+
+        &.wasted {
+          color: #FDA917;
+          border-right: solid 2px #FDA917;
+          border-bottom: solid 1px #FDA917;
+
+        }
+
+        &.overdraft {
+          color: #A94442;
+          border-right: solid 2px #A94442;
+          border-bottom: solid 1px #A94442;
+
+        }
+      }
+
+      .wallet_item_description {
+        //margin: 1px 30px 20px;
+        //background: #337AB7;
+        color: grey;
+        text-align: right;
+        padding: 5px 5px 0;
+        font-size: 11px;
+      }
+
+    }
+
+    .error_block {
+
+    }
+
+  }
+
+}

@@ -27,6 +27,13 @@ export class RegistrationDataSpecializationPage {
      */
     items: any = [];
 
+    /**
+     * Роль пользователя
+     * специализации выбираются относительно нее
+     *
+     */
+    role: any = [];
+
 
     /**
      * Массив с выбранными сферами
@@ -46,13 +53,14 @@ export class RegistrationDataSpecializationPage {
 
 
         this.selectedSpecializations = this.navParams.get('specializations');
+        this.role = this.navParams.get('role');
 
         // console.log('специализация');
         // console.log( this.navParams.get('spheres') );
 
 
         // получение специализаций
-        this.getSpecializations();
+        this.getSpecializations(this.role);
 
     }
 
@@ -66,7 +74,7 @@ export class RegistrationDataSpecializationPage {
      * Получение специализаций
      *
      */
-    getSpecializations() {
+    getSpecializations(role) {
 
         // инициация окна загрузки
         let loading = this.loadingCtrl.create({
@@ -74,7 +82,7 @@ export class RegistrationDataSpecializationPage {
         });
 
         // запрос на получении данных сферы
-        this.user.getSpecializations()
+        this.user.getSpecializations(role)
         // обработка итемов
             .subscribe(result => {
                 // при получении итемов
@@ -83,7 +91,7 @@ export class RegistrationDataSpecializationPage {
                 let data = result.json();
 
                 // console.log('получил все специализаций с сервера');
-                // console.log(data);
+                console.log(data);
 
                 let specializations = data.specializations;
 

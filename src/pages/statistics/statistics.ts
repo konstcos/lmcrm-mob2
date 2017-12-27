@@ -4,6 +4,8 @@ import {NavController, NavParams, Nav, Content, ActionSheetController} from 'ion
 import {MainPage} from '../main/main'
 import {Statistic} from '../../providers/statistic'
 
+import {TranslateService} from 'ng2-translate/ng2-translate';
+
 /*
  Generated class for the Statistics page.
 
@@ -124,7 +126,30 @@ export class StatisticsPage {
                 public navParams: NavParams,
                 public nav: Nav,
                 public statistic: Statistic,
-                public actionSheetCtrl: ActionSheetController) {
+                public actionSheetCtrl: ActionSheetController,
+                public translate: TranslateService) {
+
+
+        this.translate.get('statistic.range', {}).subscribe((res: any) => {
+
+            // console.log('перевод');
+            // console.log(res);
+
+            this.datePeriodData[0]['name'] = res['today'];
+            this.datePeriodData[1]['name'] = res['yesterday'];
+            this.datePeriodData[2]['name'] = res['this_week'];
+            this.datePeriodData[3]['name'] = res['previous_week'];
+            this.datePeriodData[4]['name'] = res['this_month'];
+            this.datePeriodData[5]['name'] = res['previous_month'];
+            this.datePeriodData[6]['name'] = res['custom_range'];
+
+
+            // text['title'] = res['title'];
+            // text['open_all'] = res['open_all'];
+            // text['open_one'] = res['open_one'];
+            // text['cancel_button'] = res['button_cancel'];
+            // text['ok_button'] = res['button_confirmation'];
+        });
 
 
         // установка текущей даты (сегодняшнего дня)

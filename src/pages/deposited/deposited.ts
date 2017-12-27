@@ -181,7 +181,16 @@ export class DepositedPage {
                 // переводим ответ в json
                 let data = result.json();
 
-                this.checkNotices(data.notices);
+                /**
+                 * Количество уведомлений
+                 *
+                 */
+                let notices = {
+                    notice: data.notices,
+                    auction: data.auctionCount,
+                };
+
+                this.checkNotices(notices);
 
                 // вычесляем количество итемов
                 let itemsLength = data.leads.length;
@@ -407,7 +416,8 @@ export class DepositedPage {
      *
      */
     detail(item) {
-        let modal = this.modalCtrl.create(DepositedDetailPage, {item: item});
+        // let modal = this.modalCtrl.create(DepositedDetailPage, {item: item});
+        let modal = this.modalCtrl.create(DepositedDetailPage, {leadId: item.id});
         modal.present();
     }
 

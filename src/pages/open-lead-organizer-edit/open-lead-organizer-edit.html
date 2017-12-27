@@ -14,8 +14,15 @@
             </button>
         </ion-buttons>
 
-        <ion-title *ngIf="type == 'reminder'">Edit Reminder</ion-title>
-        <ion-title *ngIf="type != 'reminder'">Edit Comment</ion-title>
+        <ion-title *ngIf="type == 'reminder'">
+            {{ 'open_lead_organizer.edit.reminder_title' | translate }}
+            <!--Edit Reminder-->
+        </ion-title>
+
+        <ion-title *ngIf="type != 'reminder'">
+            {{ 'open_lead_organizer.edit.comment_title' | translate }}
+            <!--Edit Comment-->
+        </ion-title>
 
         <!--<ion-buttons left text-center class="left_button">-->
             <!--<button ion-button (click)="close()">-->
@@ -39,7 +46,10 @@
     <ion-list *ngIf="itemData">
 
         <ion-item *ngIf="type == 'reminder'" margin-bottom>
-            <ion-label text-right stacked>Date</ion-label>
+            <ion-label text-right stacked>
+                {{ 'open_lead_organizer.edit.date' | translate }}
+                <!--Date-->
+            </ion-label>
             <ion-datetime
                     text-right
                     displayFormat="DD/MM/YYYY"
@@ -54,7 +64,10 @@
 
 
         <ion-item *ngIf="type == 'reminder'" margin-bottom>
-            <ion-label text-right stacked>Time</ion-label>
+            <ion-label text-right stacked>
+                {{ 'open_lead_organizer.edit.time' | translate }}
+                <!--Time-->
+            </ion-label>
             <ion-datetime
                     text-right
                     displayFormat="HH:mm"
@@ -67,7 +80,10 @@
 
 
         <ion-item margin-bottom>
-            <ion-label text-right stacked>comment</ion-label>
+            <ion-label text-right stacked>
+                {{ 'open_lead_organizer.edit.comment' | translate }}
+                <!--comment-->
+            </ion-label>
             <ion-textarea
                     rows="4"
                     text-right [(ngModel)]="itemData.text"
@@ -80,7 +96,9 @@
 
     <div class="save_button" text-right>
         <button ion-button small round (click)="save()">
-            Save &nbsp;
+            {{ 'open_lead_organizer.edit.save' | translate }}
+            <!--Save -->
+            &nbsp;
         </button>
     </div>
 

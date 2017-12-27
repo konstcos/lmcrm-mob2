@@ -47,6 +47,16 @@ ion-alert {
 
   }
 
+  .alert-radio-group {
+    //padding-right: 30px;
+
+    .alert-tappable {
+      padding: 0 40px 0 0 ;
+      text-align: right;
+    }
+
+  }
+
 }
 
 .action-sheet-wrapper {
@@ -56,4 +66,10 @@ ion-alert {
     //direction: rtl;
     text-align: right;
   }
+
+  .action-sheet-icon {
+    margin-right: 5px;
+    margin-left: 15px;
+  }
+
 }

@@ -17,140 +17,372 @@
 
         <ion-title>{{ 'incoming_detail.title' | translate }}</ion-title>
 
-        <!--<ion-buttons left text-center class="left_button">-->
-            <!--<button ion-button (click)="close()">-->
-                <!--close-->
-            <!--</button>-->
-        <!--</ion-buttons>-->
-        <!--<ion-title>ObtainDetail</ion-title>-->
-
-        <!--<ion-buttons right text-center class="right_button">-->
-        <!--<ion-buttons right text-center>-->
-            <!--<button ion-button round (click)="confirmOpen(item)">-->
-                <!--open lead data-->
-            <!--</button>-->
-        <!--</ion-buttons>-->
-
     </ion-navbar>
-
-    <!--<div text-center class="open_button">-->
-        <!--<button no-margin ion-button round color="secondary" (click)="confirmOpen(item)">-->
-            <!--<ion-icon class="icon_param" name="md-eye"></ion-icon> &nbsp; open lead data-->
-        <!--</button>-->
-    <!--</div>-->
 
 </ion-header>
 
 
 <ion-content padding>
 
-    <!--<h2>Obtain Modal</h2>-->
-
-    <!--<div>{{ item.name }}</div>-->
-
-    <div class="data_block_header">
-        <ion-row align-items-center>
-            <ion-col text-left class="opened"><ion-icon ios="ios-eye" md="md-eye"></ion-icon> {{ item.opened }}</ion-col>
-            <ion-col text-right class="name">{{ item.name }}</ion-col>
-        </ion-row>
+    <!-- область со спинером загрузке -->
+    <div *ngIf="area.spinnerLoading" class="spinnerLoading">
+        <ion-spinner color="primary" name="crescent"></ion-spinner>
     </div>
 
+    <!-- Область основных данных -->
+    <div *ngIf="area.mainData">
+        <div class="data_block_header">
+            <ion-row align-items-center>
+                <ion-col text-left class="opened">
+                    <ion-icon ios="ios-eye" md="md-eye"></ion-icon>
+                    {{ item.opened }}
+                </ion-col>
+                <ion-col text-right class="name">{{ item.name }}</ion-col>
+            </ion-row>
+        </div>
 
-    <div class="data_block pressure" (click)="confirmOpen(item)">
 
-        <ion-row align-items-center class="data_block_item">
-            <ion-col col-1 text-left><ion-icon class="color_green icon_param" name="md-eye"></ion-icon></ion-col>
-            <ion-col text-right>
-                <div class="label">{{ 'incoming_detail.phone' | translate }}</div>
-                <div class="value">{{ item.phone }}</div>
-            </ion-col>
-            <ion-col col-1 text-right><ion-icon class="color_green icon_param" name="ios-call"></ion-icon></ion-col>
-        </ion-row>
+        <div class="data_block pressure" (click)="confirmOpen(item)">
 
+            <ion-row align-items-center class="data_block_item">
+                <ion-col col-1 text-left>
+                    <ion-icon class="color_green icon_param" name="md-eye"></ion-icon>
+                </ion-col>
+                <ion-col text-right>
+                    <div class="label">{{ 'incoming_detail.phone' | translate }}</div>
+                    <div class="value">{{ item.phone }}</div>
+                </ion-col>
+                <ion-col col-1 text-right>
+                    <ion-icon class="color_green icon_param" name="ios-call"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+        <div class="data_block">
+
+            <ion-row align-items-center class="data_block_item" (click)="dateInfo()">
+                <ion-col col-1 text-left>
+                    <ion-icon class="help_icon" name="md-help-circle"></ion-icon>
+                </ion-col>
+                <ion-col text-right>
+                    <div class="label">{{ 'incoming_detail.added_to_system' | translate }}</div>
+                    <div class="value">
+                        <span class="date_time">{{ item.system_added.time }}</span>
+                        <span class="date_date">{{ item.system_added.date }}</span>
+                    </div>
+                </ion-col>
+                <ion-col col-1 text-right>
+                    <ion-icon class="icon_param calendar_color" name="md-calendar"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+            <ion-row align-items-center class="data_block_item" (click)="dateInfo()">
+                <ion-col col-1 text-left>
+                    <ion-icon class="help_icon" name="md-help-circle"></ion-icon>
+                </ion-col>
+                <ion-col text-right>
+                    <div class="label">{{ 'incoming_detail.added_to_you_auction' | translate }}</div>
+                    <div class="value">
+                        <span class="date_time">{{ item.auction_added.time }}</span>
+                        <span class="date_date">{{ item.auction_added.date }}</span>
+                    </div>
+                </ion-col>
+                <ion-col col-1 text-right>
+                    <ion-icon class="icon_param calendar_color" name="md-calendar"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+
+        <div class="data_block">
+
+            <ion-row align-items-center *ngFor="let filter of item.filter" class="data_block_item">
+                <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
+                <ion-col text-right>
+                    <div class="label">{{ filter.label }}</div>
+                    <div class="value">{{ filter.value ? filter.value : '&nbsp;' }}</div>
+                </ion-col>
+                <ion-col col-1 text-right>
+                    <ion-icon class="icon_param doc_color" name="ios-paper"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+            <ion-row align-items-center *ngFor="let additional of item.additional" class="data_block_item">
+                <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
+                <ion-col text-right>
+                    <div class="label">{{ additional.label }}</div>
+                    <div class="value">{{ additional.value ? additional.value : '&nbsp;' }}</div>
+                </ion-col>
+                <ion-col col-1 text-right>
+                    <ion-icon class="icon_param doc_color" name="ios-paper"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+
+        <div class="data_block">
+
+            <ion-row align-items-center class="data_block_item">
+                <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
+                <ion-col text-right>
+                    <div class="label">{{ 'incoming_detail.sphere' | translate }}</div>
+                    <div class="value">{{ item.sphere.name }}</div>
+                </ion-col>
+                <ion-col col-1 text-right>
+                    <ion-icon class="icon_param sphere_color" name="ios-cloud"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+            <ion-row align-items-center class="data_block_item">
+                <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
+                <ion-col text-right>
+                    <div class="label">{{ 'incoming_detail.mask_name' | translate }}</div>
+                    <div class="value">{{ item.mask.name }}</div>
+                </ion-col>
+                <ion-col col-1 text-right>
+                    <ion-icon class="icon_param mask_color" name="ios-funnel"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+        </div>
     </div>
 
-    <div class="data_block">
+    <!-- Область открытия лида -->
+    <div *ngIf="area.openLead" class="open_lead_area">
 
-        <ion-row align-items-center class="data_block_item" (click)="dateInfo()">
-            <ion-col col-1 text-left><ion-icon class="help_icon" name="md-help-circle"></ion-icon></ion-col>
-            <ion-col text-right>
-                <div class="label">{{ 'incoming_detail.added_to_system' | translate }}</div>
-                <div class="value">
-                    <span class="date_time">{{ item.system_added.time }}</span>
-                    <span class="date_date">{{ item.system_added.date }}</span>
+        <!-- описание того, что сейчас происходит -->
+        <div class="description" [innerHTML]="'incoming_detail.open_lead_area.common_description' | translate">
+
+            <!--{{ 'incoming_detail.open_lead_area.common_description' | translate }}-->
+
+            <!--Нажав на кнопку "получить" Вы сможете видеть контактные данные этого клиента. При этом, с Вашего счета-->
+            <!--снимется сумма в размере стоимости открытия лида по Вашей маске.-->
+            <!--После открытия лид будт доступен в разделе "Открытые" где можно будет продолжить дальнейшую работу с-->
+            <!--клиентом.-->
+        </div>
+
+        <!-- дополнительные операции (выборк количества для лидбайера, доп. данные для диалмэйкера -->
+        <div class="data">
+
+            <div *ngIf="roles.subRole == 'leadbayer'">
+
+                <div *ngIf="possibilityOpening.selective">
+
+                    <div class="description" [innerHTML]="'incoming_detail.open_lead_area.leadbuyer_selective' | translate">
+                        <!--У вас есть возможность либо купить лид один раз, либо выкупить его эксклюзивно.-->
+                    </div>
+
+                    <div class="open_possibility_menu">
+
+                        <div class="possibility_menu_item" (click)="switchOpenVariant()">
+                            <span class="possibility_menu_item_text"
+                                  [ngClass]="{'blue': openVariant.single}">
+                                <!--один раз-->
+                                {{ 'incoming_detail.open_lead_area.open_one' | translate }}
+                            </span>
+                            <span>
+                                <ion-icon class="green" *ngIf="openVariant.single"
+                                          name="md-checkmark-circle-outline"></ion-icon>
+                                <ion-icon *ngIf="!openVariant.single" name="ios-radio-button-off-outline"></ion-icon>
+                            </span>
+                        </div>
+
+                        <div class="possibility_menu_item" (click)="switchOpenVariant()">
+                            <span class="possibility_menu_item_text" [ngClass]="{'blue': openVariant.exclusively}">
+                                {{ 'incoming_detail.open_lead_area.open_exclusively' | translate }}
+                                <!--много раз-->
+                            </span>
+                            <span>
+                                <ion-icon class="green" *ngIf="openVariant.exclusively"
+                                          name="md-checkmark-circle-outline"></ion-icon>
+                                <ion-icon *ngIf="!openVariant.exclusively"
+                                          name="ios-radio-button-off-outline"></ion-icon>
+                            </span>
+                        </div>
+
+                    </div>
+
                 </div>
-            </ion-col>
-            <ion-col col-1 text-right><ion-icon class="icon_param calendar_color" name="md-calendar"></ion-icon></ion-col>
-        </ion-row>
 
-        <ion-row align-items-center class="data_block_item" (click)="dateInfo()">
-            <ion-col col-1 text-left><ion-icon class="help_icon" name="md-help-circle"></ion-icon></ion-col>
-            <ion-col text-right>
-                <div class="label">{{ 'incoming_detail.added_to_you_auction' | translate }}</div>
-                <div class="value">
-                    <span class="date_time">{{ item.auction_added.time }}</span>
-                    <span class="date_date">{{ item.auction_added.date }}</span>
+                <div *ngIf="possibilityOpening.single">
+
+                    <div class="description" [innerHTML]="'incoming_detail.open_lead_area.leadbuyer_only_one' | translate">
+
+                        <!--лид уже открывался другими агентами, поэтому вы можете его открыть только один раз.-->
+                    </div>
+
+                    <div class="open_possibility_menu">
+
+                        <div class="possibility_menu_item">
+                            <span class="possibility_menu_item_text blue">
+                                {{ 'incoming_detail.open_lead_area.open_one' | translate }}
+                                <!--один раз-->
+                            </span>
+                            <span>
+                                <ion-icon class="green" name="md-checkmark-circle-outline"></ion-icon>
+                            </span>
+                        </div>
+
+                        <div class="possibility_menu_item disabled">
+                            <span class="possibility_menu_item_text">
+                                {{ 'incoming_detail.open_lead_area.open_exclusively' | translate }}
+                                <!--много раз-->
+                            </span>
+                            <span>
+                                <ion-icon name="ios-radio-button-off-outline"></ion-icon>
+                            </span>
+                        </div>
+
+                    </div>
+
+
                 </div>
-            </ion-col>
-            <ion-col col-1 text-right><ion-icon class="icon_param calendar_color" name="md-calendar"></ion-icon></ion-col>
-        </ion-row>
+
+                <div *ngIf="possibilityOpening.exclusively">
+
+                    <div class="description" [innerHTML]="'incoming_detail.open_lead_area.leadbuyer_only_exclusively' | translate">
+                        <!--этот лид у вас уже открыт, поэтому вы можете открыть его только эксклюзивно.-->
+                    </div>
+
+                    <div class="open_possibility_menu">
+
+                        <div class="possibility_menu_item disabled">
+                            <span class="possibility_menu_item_text">
+                                {{ 'incoming_detail.open_lead_area.open_one' | translate }}
+                                <!--один раз-->
+                            </span>
+                            <span>
+                                <ion-icon name="ios-radio-button-off-outline"></ion-icon>
+                            </span>
+                        </div>
+
+                        <div class="possibility_menu_item">
+                            <span class="possibility_menu_item_text blue">
+                                {{ 'incoming_detail.open_lead_area.open_exclusively' | translate }}
+                                <!--много раз-->
+                            </span>
+                            <span>
+                                <ion-icon class="green" name="md-checkmark-circle-outline"></ion-icon>
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <div *ngIf="roles.subRole != 'leadbayer'">
+                {{ 'incoming_detail.open_lead_area.dealmaker' | translate }}
+                <!--вы можете открыть этот лид только один раз, потому что вы диалмэйкер, получать лид эксклюзивно может только лидбайер-->
+            </div>
+
+        </div>
+
+        <!-- закрытый телефон клиента -->
+        <div class="phone">
+            <ion-icon class="client_phone_icon" name="ios-call"></ion-icon>
+            {{ item.phone }}
+        </div>
+
+        <!-- кнопки (возврат назад, открытие -->
+        <div class="buttons" text-center>
+
+            <div class="open">
+                <button ion-button round color="secondary" (click)="makeLeadOpen()">
+                    {{ 'incoming_detail.open_lead_area.success' | translate }}
+                </button>
+            </div>
+
+            <div class="cancel">
+                <button ion-button color="light" (click)="closeOpenArea()">
+                    {{ 'incoming_detail.open_lead_area.cancel' | translate }}
+                    <!--cancel-->
+                </button>
+            </div>
+
+        </div>
 
     </div>
 
+    <!-- Область с ошибкой по открытию лида -->
+    <div *ngIf="area.errorOpenLead" class="error_open_lead_area">
 
-    <div class="data_block">
+        <div class="error_head">
+            {{ 'incoming_detail.open_lead_area.errorOpenLead.head' | translate }}
+            <!--can not open the lead-->
+        </div>
 
-        <ion-row align-items-center *ngFor="let filter of item.filter" class="data_block_item">
-            <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
-            <ion-col text-right>
-                <div class="label">{{ filter.label }}</div>
-                <div class="value">{{ filter.value ? filter.value : '&nbsp;' }}</div>
-            </ion-col>
-            <ion-col col-1 text-right><ion-icon class="icon_param doc_color" name="ios-paper"></ion-icon></ion-col>
-        </ion-row>
+        <div class="description">
+            {{ openErrorData }}
+        </div>
 
-        <ion-row align-items-center *ngFor="let additional of item.additional" class="data_block_item">
-            <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
-            <ion-col text-right>
-                <div class="label">{{ additional.label }}</div>
-                <div class="value">{{ additional.value ? additional.value : '&nbsp;' }}</div>
-            </ion-col>
-            <ion-col col-1 text-right><ion-icon class="icon_param doc_color" name="ios-paper"></ion-icon></ion-col>
-        </ion-row>
+        <div class="cancel">
+            <button ion-button color="light" (click)="openDataArea()">
+                {{ 'incoming_detail.open_lead_area.errorOpenLead.cancel' | translate }}
+                <!--cancel-->
+            </button>
+        </div>
 
     </div>
 
+    <!-- Область с ошибкой по открытию лида -->
+    <div *ngIf="area.overdraftConfirmation" class="confirm_overdraft">
 
-    <div class="data_block">
+        <div class="error_head">
+            {{ 'incoming_detail.open_lead_area.overdraftConfirmation.head' | translate }}
 
-        <ion-row align-items-center class="data_block_item">
-            <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
-            <ion-col text-right>
-                <div class="label">{{ 'incoming_detail.sphere' | translate }}</div>
-                <div class="value">{{ item.sphere.name }}</div>
-            </ion-col>
-            <ion-col col-1 text-right><ion-icon class="icon_param sphere_color" name="ios-cloud"></ion-icon></ion-col>
-        </ion-row>
+        </div>
 
-        <ion-row align-items-center class="data_block_item">
-            <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
-            <ion-col text-right>
-                <div class="label">{{ 'incoming_detail.mask_name' | translate }}</div>
-                <div class="value">{{ item.mask.name }}</div>
-            </ion-col>
-            <ion-col col-1 text-right><ion-icon class="icon_param mask_color" name="ios-funnel"></ion-icon></ion-col>
-        </ion-row>
+        <div class="description">
+            {{ 'incoming_detail.open_lead_area.overdraftConfirmation.description' | translate }}
+        </div>
+
+        <div class="confirm">
+            <button ion-button color="secondary" (click)="confirmOverdraftAndMakeLeadOpen()">
+                {{ 'incoming_detail.open_lead_area.overdraftConfirmation.confirm' | translate }}
+                <!--confirm-->
+            </button>
+        </div>
+
+        <div class="cancel">
+            <button ion-button color="light" (click)="openDataArea()">
+                {{ 'incoming_detail.open_lead_area.overdraftConfirmation.cancel' | translate }}
+                <!--cancel-->
+            </button>
+        </div>
 
     </div>
 
+    <!-- Область с ошибкой -->
+    <div *ngIf="area.error" class="error_area">
+
+        <div class="error_text">
+            {{ 'incoming_detail.open_lead_area.incomprehensibleError' | translate }}
+            <!--Error loading. Please try later.-->
+        </div>
+
+        <div class="error_button">
+            <button ion-button large color="light" (click)="refresh()">
+                <ion-icon name="md-refresh"></ion-icon>
+            </button>
+        </div>
+
+    </div>
 
 
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="openButtonShow">
     <div text-center class="open_button">
-        <button no-margin ion-button round color="secondary" (click)="confirmOpen(item)">
-            <ion-icon class="icon_param" name="md-eye"></ion-icon> &nbsp; {{ 'incoming_detail.expose_lead_data' | translate }}
+
+        <button no-margin ion-button round color="secondary" (click)="confirmOpen(item)" [disabled]="!openButtonRights">
+            <ion-icon class="icon_param" name="md-eye"></ion-icon>
+            &nbsp; {{ 'incoming_detail.expose_lead_data' | translate }}
         </button>
     </div>
 </ion-footer>

@@ -53,7 +53,6 @@ export class RegistrationDataPersonalPage {
     };
 
 
-
     /**
      * Выбранные регионы
      *
@@ -182,7 +181,62 @@ export class RegistrationDataPersonalPage {
      *
      */
     passportValidate() {
-        this.state.passport = this.personalData.passport == '' ? 3 : 2;
+
+        // убираем все буквы в номере
+        let passportValue = this.personalData.passport.replace(/\D+/g,"");
+
+        // добавление нулей в начало номера, если номер меньше 9
+        if(passportValue.length < 9  && passportValue!=0) {
+            // считаем сколько нулей нужно добавить
+            let count_zero = 9 - Number(passportValue.length);
+            // цикл добавления нулей
+            for (let i = 0; i < count_zero; i++) {
+                // добавление нулей
+                passportValue = '0' + passportValue;
+            }
+        }
+
+        this.personalData.passport = passportValue;
+
+        // валидация номера паспорта
+        let passportValue_validate = this.passportNumberValidator(passportValue);
+
+        if(passportValue_validate) {
+
+            this.state.passport = 2;
+
+        } else {
+
+            this.state.passport = 3;
+        }
+    }
+
+
+    /**
+     * Основной метод валидации паспорта
+     *
+     */
+    passportNumberValidator(num) {
+
+        if (num.length == 8) num = "0" + num;
+        let tot = 0;
+        let tz: any = String(num);
+
+        for (let i = 0; i < 8; i++) {
+            let x: any = (((i % 2) + 1) * tz.charAt(i));
+            if (x > 9) {
+                x = x.toString();
+                x = parseInt(x.charAt(0)) + parseInt(x.charAt(1))
+            }
+            tot += x;
+        }
+
+        if ((tot + parseInt(tz.charAt(8))) % 10 == 0) {
+            return num;
+        } else {
+
+            return false;
+        }
     }
 
 
@@ -344,7 +398,7 @@ export class RegistrationDataPersonalPage {
 
             if (region.id == this.selectRegions[regionIndex].id) {
 
-                if(regionIndex == '0'){
+                if (regionIndex == '0') {
 
                     this.personalData.region = 1;
 
@@ -352,7 +406,7 @@ export class RegistrationDataPersonalPage {
                     this.switchRegion(1);
                     break;
 
-                }else{
+                } else {
 
                     console.log('конец');
 
@@ -360,9 +414,9 @@ export class RegistrationDataPersonalPage {
                     // console.log(this.selectRegions[regionIndex]);
                     // console.log(this.selectRegions[regionIndex-1]);
 
-                    this.personalData.region = this.selectRegions[regionIndex-1].id;
+                    this.personalData.region = this.selectRegions[regionIndex - 1].id;
 
-                    this.switchRegion(this.selectRegions[regionIndex-1]);
+                    this.switchRegion(this.selectRegions[regionIndex - 1]);
                     this.selectRegions = newRegions;
                     break;
 

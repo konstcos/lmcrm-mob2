@@ -64,6 +64,8 @@ import {SearchPage} from "../search/search";
 import {SupportPage} from "../support/support";
 // страница калькулятора
 import {CreditCalculatorPage} from "../credit-calculator/credit-calculator";
+// страница кошелька
+import {WalletPage} from "../wallet/wallet";
 
 /*
  Основная страница приложения.
@@ -100,13 +102,15 @@ export class MainPage {
      * Заголовки табов
      */
 
-    // входящие лиды (которые на аукционе пользователя)
+        // входящие лиды (которые на аукционе пользователя)
     obtainTitle = "mainTabTitle.incoming";
     // отданные лиды
     depositedTitle = "mainTabTitle.outgoing";
     // открытые лиды
     openTitle = "mainTabTitle.expose";
 
+    // баджик на табе страницы incoming (obtain, входящих лидов)
+    incomingBadge: any = "";
 
     /**
      * Текущая дочерняя страница
@@ -269,10 +273,13 @@ export class MainPage {
                 private badge: Badge,
                 public alertCtrl: AlertController) {
 
+
         this.events.unsubscribe("notices:clear");
         this.events.subscribe("notices:clear", () => {
             this.notices = 0;
         });
+
+
 
         this.events.unsubscribe("agentData:get",);
         this.events.subscribe("agentData:get", (agentData) => {
@@ -281,7 +288,7 @@ export class MainPage {
             console.log(agentData);
 
             this.roles.role = agentData.roles.role;
-            this.roles.subRole = agentData.roles.subRole == 'leadbayer'? 'leadbuyer' : agentData.roles.subRole;
+            this.roles.subRole = agentData.roles.subRole == 'leadbayer' ? 'leadbuyer' : agentData.roles.subRole;
             this.name = agentData.name;
             this.surname = agentData.surname;
             this.email = agentData.email;
@@ -439,7 +446,7 @@ export class MainPage {
 
         let default_route = localStorage.getItem('default_route');
 
-        if(default_route && default_route == 'outgoing') {
+        if (default_route && default_route == 'outgoing') {
 
             this.tabRef.select(0);
 
@@ -523,6 +530,26 @@ export class MainPage {
             this.tabRef.select(2);
         });
 
+
+        // this.events.unsubscribe("badge:set");
+        // this.events.subscribe("badge:set", (date) => {
+        //
+        //     console.log('баджи в мэин');
+        //     console.log(date);
+        //
+        //     if (date == 0) {
+        //
+        //         this.incomingBadge = '';
+        //
+        //     } else {
+        //
+        //         this.incomingBadge = date;
+        //     }
+        //
+        //
+        // });
+
+
         // подписываемся на получение количества непросмотренных лидов
         this.events.unsubscribe("badge:set");
         this.events.subscribe("badge:set", (data) => {
@@ -530,6 +557,19 @@ export class MainPage {
             this.newIncomingLeadsCount = data;
             console.log('количество новых непросмотренных лидов: ');
             console.log(this.newIncomingLeadsCount);
+
+            console.log('баджи в мэин');
+            console.log(data);
+
+            if (data == 0) {
+
+                this.incomingBadge = '';
+
+            } else {
+
+                this.incomingBadge = data;
+            }
+
         });
 
     }
@@ -1118,17 +1158,17 @@ export class MainPage {
         }
 
         // проверка не просмотренных лидов
-        if(this.filter.exposureOnly == 1){
+        if (this.filter.exposureOnly == 1) {
             this.isFilterOn = true;
         }
 
         // проверка только неоткрытых лидов
-        if(this.filter.notOpenOnly == 1){
+        if (this.filter.notOpenOnly == 1) {
             this.isFilterOn = true;
         }
 
         // проверка архивных лидов
-        if(this.filter.archiveShow == 1){
+        if (this.filter.archiveShow == 1) {
             this.isFilterOn = true;
         }
 
@@ -1395,7 +1435,7 @@ export class MainPage {
      * Попап на подтверждения отметки всех лидов как просмотренных
      *
      */
-    confirmMarkSeenAuction(){
+    confirmMarkSeenAuction() {
 
         let confirm = this.alertCtrl.create({
             title: 'Confirmation',
@@ -1483,6 +1523,21 @@ export class MainPage {
     openSupportPage() {
         // this.nav.setRoot(SearchPage);
         let modal = this.modalCtrl.create(SupportPage);
+        modal.present();
+    }
+
+
+    /**
+     * Открыть страницу кошелька
+     *
+     */
+    openWalletPage() {
+        let modal = this.modalCtrl.create(WalletPage);
+
+        modal.onDidDismiss(data => {
+            console.log('закрылось окно кошелька');
+        });
+
         modal.present();
     }
 

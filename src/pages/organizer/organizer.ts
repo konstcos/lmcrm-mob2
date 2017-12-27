@@ -820,11 +820,44 @@ export class OrganizerPage {
 
         let actionSheet;
 
+
+        let apply = 'Apply';
+        let open_lead = 'Open lead';
+        let open_lead_organizer = 'Open lead Organizer';
+        let edit = 'Edit';
+        let dell = 'Dell';
+        let cancel = 'Cancel';
+
+        this.translate.get('organizer.actionSheet.apply', {}).subscribe((res: string) => {
+            apply = res;
+        });
+
+        this.translate.get('organizer.actionSheet.open_lead', {}).subscribe((res: string) => {
+            open_lead = res;
+        });
+
+        this.translate.get('organizer.actionSheet.open_lead_organizer', {}).subscribe((res: string) => {
+            open_lead_organizer = res;
+        });
+
+        this.translate.get('organizer.actionSheet.edit', {}).subscribe((res: string) => {
+            edit = res;
+        });
+
+        this.translate.get('organizer.actionSheet.dell', {}).subscribe((res: string) => {
+            dell = res;
+        });
+
+        this.translate.get('organizer.actionSheet.cancel', {}).subscribe((res: string) => {
+            cancel = res;
+        });
+
+
         actionSheet = this.actionSheetCtrl.create({
             title: title,
             buttons: [
                 {
-                    text: 'Apply',
+                    text: apply,
                     role: 'destructive',
                     icon: 'ios-checkbox-outline',
                     handler: () => {
@@ -834,7 +867,7 @@ export class OrganizerPage {
                 },
 
                 {
-                    text: 'Open lead',
+                    text: open_lead,
                     icon: 'ios-open-outline',
                     handler: () => {
                         // console.log('Apply clicked');
@@ -843,7 +876,7 @@ export class OrganizerPage {
                 },
 
                 {
-                    text: 'Open lead Organizer',
+                    text: open_lead_organizer,
                     icon: 'ios-alarm-outline',
                     handler: () => {
                         // console.log('Apply clicked');
@@ -852,7 +885,7 @@ export class OrganizerPage {
                 },
 
                 {
-                    text: 'Edit',
+                    text: edit,
                     icon: 'ios-create-outline',
                     handler: () => {
                         this.editItem(itemData);
@@ -860,7 +893,7 @@ export class OrganizerPage {
                 },
 
                 {
-                    text: 'Dell',
+                    text: dell,
                     icon: 'ios-close-circle-outline',
                     handler: () => {
                         this.dellItem(itemData);
@@ -868,7 +901,7 @@ export class OrganizerPage {
                 },
 
                 {
-                    text: 'Cancel',
+                    text: cancel,
                     role: 'cancel',
                     icon: 'md-close',
                     handler: () => {

@@ -60,20 +60,19 @@ export class OpenDetailPage {
                 public translate: TranslateService,
                 private callNumber: CallNumber) {
 
-        // получение данных итема
-        let item = navParams.get('item');
+        // получение id открытого лида
+        let itemId = navParams.get('itemId');
 
         this.roles = navParams.get('roles');
 
-        // console.log(item);
+        // console.log('Итем открытого лида');
+        // console.log(itemId);
 
         // проверка наличия данных
-        if (item) {
+        if (itemId) {
             // если итем есть
 
-            this.item = item;
-
-            this.isLoading = false;
+            this.loadData(itemId);
 
         } else {
             // если итема нет
@@ -102,20 +101,9 @@ export class OpenDetailPage {
 
                 // подгрузка итемов с сервера
                 this.loadDataByLeadId(leadId);
-
-                console.log('id лида через страницу поиска: ');
-                console.log(leadId);
-
-
             }
-
         }
 
-        // todo если итема нет
-        // todo выборка id лида
-        // todo подгрузить итем с сервера
-        // console.log('этот итем: ');
-        // console.log(this.item);
     }
 
     ionViewDidLoad() {
@@ -187,6 +175,9 @@ export class OpenDetailPage {
                 // console.log(data);
 
                 this.item = data.openLead;
+                this.roles.role = data.roles.role;
+                this.roles.subRole = data.roles.subRole;
+
 
                 this.isLoading = false;
 

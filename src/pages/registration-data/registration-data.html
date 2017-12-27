@@ -54,11 +54,11 @@
             </div>
 
             <!-- Выбор специализации агента -->
-            <div class="switchItem" dir="rtl" (click)="choiceSpecialization()" [ngClass]="confirmation.specializations ? 'apply' : ''">
-                <span *ngIf="confirmation.specializations" class="icon_span">
+            <div class="switchItem" dir="rtl" *ngIf="role > 0" (click)="choiceSpecialization()" [ngClass]="confirmation.specialization ? 'apply' : ''">
+                <span *ngIf="confirmation.specialization" class="icon_span">
                     <ion-icon name="md-checkbox-outline"></ion-icon>
                 </span>
-                <span *ngIf="!confirmation.specializations" class="icon_span">
+                <span *ngIf="!confirmation.specialization" class="icon_span">
                     <ion-icon name="md-square-outline"></ion-icon>
                 </span>
                 {{ 'SPECIALIZATION' | translate }}
@@ -97,7 +97,7 @@
                     round
                     color="primary"
                     block
-                    [attr.disabled]="!(confirmation.specializations && confirmation.operationModeResolution && confirmation.personal && confirmation.role) ? '' : null"
+                    [attr.disabled]="!(confirmation.specialization && confirmation.operationModeResolution && confirmation.personal && confirmation.role) ? '' : null"
                     (click)="saveRegistrationData()">
                 {{ 'REGISTRATION_DATA_NEXT_BUTTON' | translate }} &nbsp;
                 <ion-icon name="ios-arrow-forward"></ion-icon>

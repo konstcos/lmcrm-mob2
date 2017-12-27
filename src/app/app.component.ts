@@ -69,12 +69,15 @@ export class MyApp {
         this.events.unsubscribe("badge:set");
         this.events.subscribe("badge:set", (date) => {
             // this.noticeCount = 0;
-            // console.log('badge set: ');
-            // console.log(date);
+            console.log('badge set: ');
+            console.log(date);
+            console.log('badge set type: ');
+            console.log(typeof date);
+
             this.badge.set(date)
         });
 
-
+        this.events.unsubscribe("notices:clear");
         this.events.subscribe("notices:clear", () => {
             this.noticeCount = 0;
 
@@ -239,9 +242,6 @@ export class MyApp {
         pushObject.on('registration').subscribe((data: any) => {
             // console.log("device token ->", data.registrationId);
 
-            // alert(data.registrationId);
-            //TODO - send device token to server
-
             // получение fcm токена,
             // на сервере сохранится только при успешном логине пользователя
             localStorage.setItem('fcm_token', data.registrationId);
@@ -284,10 +284,22 @@ export class MyApp {
 
             }else if(data.additionalData.type == 2) {
 
+
+                let text = {
+                    title: 'Reminder',
+                    message: 'Open Lead Reminder'
+                };
+
+                text = {
+                    title: 'המארגן',
+                    message: 'תזכורת לטיפול בלקוח'
+                };
+
+
                 // todo алерт о реминдере
                 let reminder = this.alertCtrl.create({
-                    title: 'Reminder',
-                    message: 'Open Lead Reminder',
+                    title: text.title,
+                    message: text.message,
                     buttons: [
                         // {
                         //     text: 'Reschedule',

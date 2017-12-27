@@ -102,7 +102,7 @@
 
         <ion-row *ngFor="let filter of mask.filter" class="checkbox-data-block">
             <ion-col no-padding text-right>
-                <div class="mask_label">{{ filter.name }}</div>
+                <div class="mask_label" dir="rtl">{{ filter.name }}</div>
                 <div *ngIf="filter.error" class="mask_error">
                     {{ 'edit_mask.error' | translate }}
                     <!--fill at least one option-->
@@ -111,7 +111,7 @@
                 <ion-list>
                     <ion-item *ngFor="let option of filter.options" class="checkbox-data-row" dir="rtl">
 
-                        <ion-label text-right>{{ option.name }}</ion-label>
+                        <ion-label text-right dir="rtl">{{ option.name }}</ion-label>
                         <ion-checkbox color="primary" [(ngModel)]="option.value"></ion-checkbox>
                     </ion-item>
                 </ion-list>
@@ -128,12 +128,16 @@
                 <!-- Блок с именем пользователя -->
                 <ion-col class="" text-right>
                     <!-- Лейбл ввода имени -->
-                    <div class="mask_label" text-right>Region</div>
+                    <div class="mask_label" text-right>
+                        {{ 'edit_mask.region' | translate }}
+                        <!--Region-->
+                    </div>
 
                     <div text-right class="region_item" (click)="clearRegions()">
 
                         <ion-col class="region_selected_name">
-                            Israel
+                            {{ 'edit_mask.israel' | translate }}
+                            <!--Israel-->
                         </ion-col>
                         <ion-col col-1 text-center>
                         </ion-col>

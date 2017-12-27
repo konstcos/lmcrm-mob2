@@ -33,19 +33,42 @@ email-confirmation {
     .data_block {
 
       .label {
-        text-align: right;
+        text-align: center;
         color: grey;
         font-size: 12px;
       }
 
       .input_row {
 
+        text-align: center;
+        width: 250px;
+        //margin: 0 !important;
+        padding: 0;
+        margin: 0 auto;
+
         .text-input {
-          margin-top: 7px;
-          margin-bottom: 8px;
+          //margin-top: 7px;
+          //margin-bottom: 8px;
+          margin: 7px auto 1px;
+          //width: 100px;
           color: #337AB7;
+          font-size: 65px;
+          text-align: center;
         }
 
+        .text-input::-webkit-input-placeholder {color:#F3F3F3; font-weight: 100;}
+        .text-input::-moz-placeholder          {color:#F3F3F3; font-weight: 100;}/* Firefox 19+ */
+        .text-input:-moz-placeholder           {color:#F3F3F3; font-weight: 100;}/* Firefox 18- */
+        .text-input:-ms-input-placeholder      {color:#F3F3F3; font-weight: 100;}
+
+        border-bottom: solid #337AB7 1px;
+
+      }
+
+      .addition_text {
+        color: #C5C5C5;
+        text-align: center;
+        margin: 5px auto 5px;
       }
 
       padding-bottom: 0;
@@ -57,6 +80,7 @@ email-confirmation {
     margin: 0;
     color: lightgray;
     background-color: lightgray;
+    //width: 400px;
 
     &.confirmation_data_row_separator.red {
       color: red;
@@ -71,7 +95,7 @@ email-confirmation {
   .error_message {
     color: red;
     font-size: 11px;
-    text-align: right;
+    text-align: center;
   }
 
 }

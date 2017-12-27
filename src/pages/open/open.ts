@@ -323,6 +323,10 @@ export class OpenPage {
                     auction: data.auctionCount,
                 };
 
+                console.log('Баджи из отданных лидов');
+                console.log(data.notices);
+
+
                 this.checkNotices(notices);
 
                 localStorage.setItem('roles', JSON.stringify(data.roles));
@@ -470,7 +474,8 @@ export class OpenPage {
     detail(item) {
 
         // модальное окно со статусами
-        let modal = this.modalCtrl.create(OpenDetailPage, {item: item, roles: this.roles});
+        let modal = this.modalCtrl.create(OpenDetailPage, {itemId: item.id, roles: this.roles});
+        // let modal = this.modalCtrl.create(OpenDetailPage, {item: item, roles: this.roles});
         modal.present();
     }
 

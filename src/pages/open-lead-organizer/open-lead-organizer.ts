@@ -7,6 +7,7 @@ import {
     ModalController,
     MenuController
 } from 'ionic-angular';
+import {TranslateService} from 'ng2-translate/ng2-translate';
 
 
 import {OpenLeadOrganizerEditPage} from "../open-lead-organizer-edit/open-lead-organizer-edit";
@@ -109,7 +110,8 @@ export class OpenLeadOrganizerPage {
                 public actionSheetCtrl: ActionSheetController,
                 public organizer: OpenLeadOrganizer,
                 public modalCtrl: ModalController,
-                public menuCtrl: MenuController) {
+                public menuCtrl: MenuController,
+                public translate: TranslateService) {
 
 
         let filter = localStorage.getItem('openLeadOrganizerFilter');
@@ -634,6 +636,28 @@ export class OpenLeadOrganizerPage {
 
         let actionSheet;
 
+        let apply = 'Apply';
+        let edit = 'Edit';
+        let dell = 'Dell';
+        let cancel = 'Cancel';
+
+        this.translate.get('open_lead_organizer.actionSheet.apply', {}).subscribe((res: string) => {
+            apply = res;
+        });
+
+        this.translate.get('open_lead_organizer.actionSheet.edit', {}).subscribe((res: string) => {
+            edit = res;
+        });
+
+        this.translate.get('open_lead_organizer.actionSheet.dell', {}).subscribe((res: string) => {
+            dell = res;
+        });
+
+        this.translate.get('open_lead_organizer.actionSheet.cancel', {}).subscribe((res: string) => {
+            cancel = res;
+        });
+
+
         if (itemData.type == 2) {
             title = itemData.date.time + ' ' + itemData.date.date;
 
@@ -641,7 +665,7 @@ export class OpenLeadOrganizerPage {
                 title: title,
                 buttons: [
                     {
-                        text: 'Apply',
+                        text: apply,
                         role: 'destructive',
                         icon: 'ios-checkbox-outline',
                         handler: () => {
@@ -651,7 +675,7 @@ export class OpenLeadOrganizerPage {
                     },
 
                     {
-                        text: 'Edit',
+                        text: edit,
                         icon: 'ios-create-outline',
                         handler: () => {
                             this.editItem(itemData);
@@ -659,7 +683,7 @@ export class OpenLeadOrganizerPage {
                     },
 
                     {
-                        text: 'Dell',
+                        text: dell,
                         icon: 'ios-close-circle-outline',
                         handler: () => {
                             this.dellItem(itemData);
@@ -667,7 +691,7 @@ export class OpenLeadOrganizerPage {
                     },
 
                     {
-                        text: 'Cancel',
+                        text: cancel,
                         role: 'cancel',
                         icon: 'md-close',
                         handler: () => {
@@ -683,7 +707,7 @@ export class OpenLeadOrganizerPage {
                 buttons: [
 
                     {
-                        text: 'Edit',
+                        text: edit,
                         icon: 'ios-create-outline',
                         handler: () => {
                             this.editItem(itemData);
@@ -691,7 +715,7 @@ export class OpenLeadOrganizerPage {
                     },
 
                     {
-                        text: 'Dell',
+                        text: dell,
                         icon: 'ios-close-circle-outline',
                         handler: () => {
                             this.dellItem(itemData);
@@ -699,7 +723,7 @@ export class OpenLeadOrganizerPage {
                     },
 
                     {
-                        text: 'Cancel',
+                        text: cancel,
                         role: 'cancel',
                         icon: 'md-close',
                         handler: () => {

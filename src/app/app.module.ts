@@ -26,6 +26,7 @@ import {MainPopoverPage} from '../pages/main-popover/main-popover';
 
 import {MainPage} from '../pages/main/main';
 
+import {WalletPage} from '../pages/wallet/wallet';
 import {CreditsPage} from '../pages/credits/credits';
 import {CreditReplenishmentPage} from '../pages/credit-replenishment/credit-replenishment';
 import {CreditWithdrawalPage} from '../pages/credit-withdrawal/credit-withdrawal';
@@ -181,6 +182,7 @@ let pages = [
     MainPage,
     MainPopoverPage,
 
+    WalletPage,
     CreditsPage,
     CreditReplenishmentPage,
     CreditWithdrawalPage,

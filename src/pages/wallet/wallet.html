@@ -1,0 +1,103 @@
+<!--
+  Generated template for the OpenDetail page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="primary">
+
+        <!--<ion-buttons right>-->
+        <!--<button ion-button clear (click)="close()">-->
+        <!--<ion-icon name="md-arrow-forward"></ion-icon>-->
+        <!--</button>-->
+        <!--</ion-buttons>-->
+
+        <!--<ion-title>OpenDetail</ion-title>-->
+
+
+        <ion-buttons left text-center>
+            <button ion-button (click)="close()">
+                <ion-icon name="ios-arrow-back" class="back_arrow"></ion-icon>
+            </button>
+        </ion-buttons>
+
+        <ion-title>
+            {{ 'wallet.title' | translate }}
+            <!--Wallet-->
+        </ion-title>
+
+        <!--<ion-buttons right text-center>-->
+        <!--<button ion-button (click)="confirmOpen(item)">-->
+        <!--&lt;!&ndash;Organizer &nbsp;&ndash;&gt;-->
+        <!--<ion-icon name="md-alarm"></ion-icon>-->
+        <!--</button>-->
+        <!--</ion-buttons>-->
+
+
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+    <!-- спинер загрузки -->
+    <div *ngIf="isLoading" class="spinnerLoading">
+        <ion-spinner color="primary" name="crescent"></ion-spinner>
+    </div>
+
+    <div *ngIf="dataBlock" class="data_block">
+
+        <div *ngIf="wallet.buyed !== false" class="wallet_item buyed" (click)="switchDesctiption('buyed')">
+            <ion-row>
+                <ion-col col-2 class="help_icon" align-self-center> <ion-icon name="md-help-circle"></ion-icon> </ion-col>
+                <ion-col align-self-center>&#8362; {{ wallet.buyed }} </ion-col>
+                <ion-col text-right align-self-center>{{ 'wallet.buyed' | translate }}</ion-col>
+            </ion-row>
+            <div class="wallet_item_description" *ngIf="walletDescription.buyed">
+                {{ 'wallet.description.buyed' | translate }}
+            </div>
+        </div>
+
+        <div class="wallet_item earned" [ngClass]="{'minus': wallet.earned < 0}" (click)="switchDesctiption('earned')">
+            <ion-row>
+                <ion-col col-2 class="help_icon" align-self-center> <ion-icon name="md-help-circle"></ion-icon> </ion-col>
+                <ion-col align-self-center>&#8362; {{ wallet.earned }} </ion-col>
+                <ion-col text-right align-self-center>{{ 'wallet.earned' | translate }}</ion-col>
+            </ion-row>
+            <div class="wallet_item_description" *ngIf="walletDescription.earned">
+                {{ 'wallet.description.earned' | translate }}
+            </div>
+        </div>
+
+        <div class="wallet_item wasted" (click)="switchDesctiption('wasted')">
+            <ion-row>
+                <ion-col col-2 class="help_icon" align-self-center> <ion-icon name="md-help-circle"></ion-icon> </ion-col>
+                <ion-col align-self-center>&#8362; {{ wallet.wasted }} </ion-col>
+                <ion-col text-right align-self-center>{{ 'wallet.wasted' | translate }}</ion-col>
+            </ion-row>
+            <div class="wallet_item_description" *ngIf="walletDescription.wasted">
+                {{ 'wallet.description.wasted' | translate }}
+            </div>
+        </div>
+
+        <div *ngIf="wallet.overdraft !== false" class="wallet_item overdraft" (click)="switchDesctiption('overdraft')">
+            <ion-row>
+                <ion-col col-2 class="help_icon" align-self-center> <ion-icon name="md-help-circle"></ion-icon> </ion-col>
+                <ion-col align-self-center>&#8362; {{ wallet.overdraft }} </ion-col>
+                <ion-col text-right align-self-center>{{ 'wallet.overdraft' | translate }}</ion-col>
+            </ion-row>
+            <div class="wallet_item_description" *ngIf="walletDescription.overdraft">
+                {{ 'wallet.description.overdraft' | translate }}
+            </div>
+        </div>
+
+    </div>
+
+    <div *ngIf="errorBlock" class="error_block">
+        error loading
+    </div>
+
+</ion-content>

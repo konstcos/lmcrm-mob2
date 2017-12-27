@@ -1,5 +1,10 @@
 page-add-lead {
 
+  .spinnerLoading {
+    text-align: center;
+    margin-top: 20%;
+  }
+
   .back_arrow {
     font-size: 20px;
     padding-left: 10px;
@@ -33,6 +38,89 @@ page-add-lead {
       margin-top: 20px;
       margin-bottom: 0;
     }
+
+
+    .success_area {
+
+      .success_text {
+        color: green;
+        margin: 20px 0 30px;
+        font-size: 18px;
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .description {
+        color: grey;
+        font-size: 14px;
+        text-align: center;
+        margin: 20px 10px;
+
+        .item {
+          margin: 10px 0;
+        }
+      }
+
+      .thanks_text {
+        color: #337AB7;
+        text-align: center;
+        font-size: 16px;
+        margin: 20px 30px;
+      }
+
+      .success_button {
+        text-align: center;
+      }
+
+    }
+
+
+    .fail_area {
+
+      .fail_text {
+        color: #CC3333;
+        margin: 20px 0 30px;
+        font-size: 18px;
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .description {
+        color: #337AB7;
+        text-align: center;
+        font-size: 16px;
+        margin: 20px 30px;
+      }
+
+      .fail_button {
+        text-align: center;
+      }
+
+    }
+
+
+    .error_area {
+
+      .error_text {
+        color: grey;
+        margin: 20px 0 30px;
+        font-size: 16px;
+        text-align: center;
+      }
+
+      .description {
+        color: #337AB7;
+        text-align: center;
+        font-size: 16px;
+        margin: 20px 30px;
+      }
+
+      .error_button {
+        text-align: center;
+      }
+
+    }
+
 
   }
 

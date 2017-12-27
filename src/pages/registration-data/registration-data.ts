@@ -193,6 +193,12 @@ export class RegistrationDataPage {
             // проверка валидности данных по личным данным
             this.confirmation.role = this.role != 0;
 
+            // очищаем специализации
+            this.specializations = [];
+
+            // проверка валидности данных по личным данным
+            this.confirmation.specialization = false;
+
             // проверка роли
             // если лидбайер, то появляется чекбокс выбора режима работы лидбайера
             this.leadBuyerOperatingModeShow = this.role == 1;
@@ -256,8 +262,12 @@ export class RegistrationDataPage {
         console.log('Specialization:');
         console.log(this.specializations);
 
+        if(this.role === 0) {
+            return false;
+        }
+
         // модальное окно со режимами лидбайера
-        let specializationPage = this.modalCtrl.create(RegistrationDataSpecializationPage, {specializations: this.specializations});
+        let specializationPage = this.modalCtrl.create(RegistrationDataSpecializationPage, {specializations: this.specializations, role: this.role});
         // показ модального окна с режимами лидбайера
         specializationPage.present();
 
@@ -266,7 +276,7 @@ export class RegistrationDataPage {
             // сохранение выбранных специализаций в модели
             this.specializations = (!data.specializations || data.specializations.length == 0) ? [] : data.specializations;
 
-            this.confirmation.specializations = !data.specializations  || data.specializations.length != 0;
+            this.confirmation.specialization = !data.specializations  || data.specializations.length != 0;
 
             console.log('Specializations:');
             console.log(data.specializations);
@@ -298,7 +308,7 @@ export class RegistrationDataPage {
     saveRegistrationData() {
 
         // проверка данных
-        if(!(this.confirmation.specializations && this.confirmation.operationModeResolution && this.confirmation.personal && this.confirmation.role)){
+        if(!(this.confirmation.specialization && this.confirmation.operationModeResolution && this.confirmation.personal && this.confirmation.role)){
             // если не все данные заполненны
             // выходим из метода
             console.log('не все данные заполненны');

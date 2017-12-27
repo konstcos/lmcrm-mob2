@@ -23,30 +23,39 @@
     <!--</ion-row>-->
 
     <form (submit)="doLogin()">
+
+        <div class="login_input_block">
+            <ion-input type="email"
+                       placeholder="{{'LOGIN_EMAIL_PLACEHOLDER' | translate}}"
+                       [(ngModel)]="account.email"
+                       name="email"
+                       class="login_input email"></ion-input>
+        </div>
+
+        <div class="login_input_block">
+            <ion-input type="password"
+                       placeholder="{{'LOGIN_PASSWORD_PLACEHOLDER' | translate}}"
+                       [(ngModel)]="account.password"
+                       name="password"
+                       class="login_input email"></ion-input>
+        </div>
+
+
         <ion-list>
 
-            <ion-item color="primary">
-                <ion-input type="email"
-                           placeholder="{{'LOGIN_EMAIL_PLACEHOLDER' | translate}}"
-                           [(ngModel)]="account.email"
-                           name="email"></ion-input>
-            </ion-item>
+            <!--<ion-item color="primary">-->
+                <!--<ion-input type="email"-->
+                           <!--placeholder="{{'LOGIN_EMAIL_PLACEHOLDER' | translate}}"-->
+                           <!--[(ngModel)]="account.email"-->
+                           <!--name="email"></ion-input>-->
+            <!--</ion-item>-->
 
-            <!--
-            Want to use a Username instead of an Email? Here you go:
-
-            <ion-item>
-              <ion-label floating>{{ 'USERNAME' | translate }}</ion-label>
-              <ion-input type="text" [(ngModel)]="account.username"></ion-input>
-            </ion-item>
-            -->
-
-            <ion-item color="primary">
-                <ion-input type="password"
-                           placeholder="{{'LOGIN_PASSWORD_PLACEHOLDER' | translate}}"
-                           [(ngModel)]="account.password"
-                           name="password"></ion-input>
-            </ion-item>
+            <!--<ion-item color="primary">-->
+                <!--<ion-input type="password"-->
+                           <!--placeholder="{{'LOGIN_PASSWORD_PLACEHOLDER' | translate}}"-->
+                           <!--[(ngModel)]="account.password"-->
+                           <!--name="password"></ion-input>-->
+            <!--</ion-item>-->
 
         </ion-list>
 

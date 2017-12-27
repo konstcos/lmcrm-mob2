@@ -30,8 +30,8 @@
                 <!--<ion-radio value="2"></ion-radio>-->
             <!--</ion-item>-->
 
-            <ion-item *ngFor="let item of items" dir="rtl">
-                <ion-label class="sphere_name">{{ item.name }}</ion-label>
+            <ion-item *ngFor="let item of items">
+                <ion-label class="sphere_name" text-right>{{ item.name }}</ion-label>
                 <ion-radio value="{{ item.id }}"></ion-radio>
             </ion-item>
 

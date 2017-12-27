@@ -634,6 +634,12 @@
 
         <ion-buttons right>
 
+            <!--<button ion-button icon-only class="head_button">-->
+                <!--&lt;!&ndash;<ion-icon name="search"></ion-icon>&ndash;&gt;-->
+                <!--&lt;!&ndash;<span class="glyphicons glyphicons-shirt"></span>&ndash;&gt;-->
+                <!--<i class="fa fa-arrow-circle-down"></i>-->
+            <!--</button>-->
+
             <button ion-button icon-only class="head_button" (click)="openSearchPage()">
                 <ion-icon name="search"></ion-icon>
             </button>
@@ -664,7 +670,7 @@
 
 
             <div class="logo_image">
-                <img src="assets/img/logo3.png" alt="logo"> <div *ngIf="roles.role == 'agent'" class="header_wallet_data">&#x20aa; {{ wallet }}</div>
+                <img src="assets/img/logo4.png" alt="logo"> <div *ngIf="roles.role == 'agent'" (click)="openWalletPage()" class="header_wallet_data" [ngClass]="{'minus': wallet < 0}">&#x20aa; {{ wallet }}</div>
 
             </div>
 
@@ -704,8 +710,6 @@
 
 
     </ion-toolbar>
-
-
 
 </ion-header>
 <!-- конец Заголовок страницы меню -->
@@ -751,7 +755,7 @@
     <ion-tabs #mainTabs color="primary" tabsPlacement="top" tabsHighlight="true" selectedIndex="2">
         <ion-tab trimHistory [root]="deposited" [tabTitle]="depositedTitle | translate"></ion-tab>
         <ion-tab trimHistory [root]="open" [tabTitle]="openTitle | translate"></ion-tab>
-        <ion-tab trimHistory [root]="obtain" [tabTitle]="obtainTitle | translate"></ion-tab>
+        <ion-tab trimHistory [root]="obtain" [tabTitle]="obtainTitle | translate" tabBadge="{{ incomingBadge }}" tabBadgeStyle="danger"></ion-tab>
     </ion-tabs>
 
     <!-- Кнопка добавления нового лида -->

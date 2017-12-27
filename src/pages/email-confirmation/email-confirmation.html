@@ -34,16 +34,23 @@
                         class="input_row"
                         [(ngModel)]="confirmationCode"
                         (focus)="onFocus($event)"
-                        type="text"
+                        (input)='onChange()'
+                        type="number"
                         text-right
-                        placeholder="{{ 'CONFIRMATION_CODE_PLACEHOLDER' | translate }}"
+                        onfocus="this.placeholder = ''"
+                        onblur="this.placeholder = '12345'"
+                        placeholder="12345"
                         name="confirmationCode">
                 </ion-input>
 
-                <!-- Разделительная черта -->
-                <div>
-                    <hr class="confirmation_data_row_separator">
+                <div class="addition_text">
+                    {{ 'CONFIRMATION_CODE_PLACEHOLDER' | translate }}
                 </div>
+
+                <!-- Разделительная черта -->
+                <!--<div>-->
+                    <!--<hr class="confirmation_data_row_separator">-->
+                <!--</div>-->
             </ion-col>
         </ion-row>
 

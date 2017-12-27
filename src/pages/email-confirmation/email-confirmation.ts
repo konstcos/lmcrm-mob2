@@ -44,10 +44,29 @@ export class EmailConfirmationPage {
     }
 
 
+    /**
+     * Событие при фокусе на поле инпута
+     *
+     */
     onFocus(event) {
 
         this.error = false;
-        console.log('focus');
+        // console.log(this.confirmationCode.length);
+    }
+
+
+    /**
+     * Событие при изменении поля инпута
+     *
+     */
+    onChange(event) {
+
+        this.confirmationCode = this.confirmationCode.replace(/\D+/g,"");
+
+        if(this.confirmationCode.length > 5) {
+
+            this.confirmationCode = this.confirmationCode.substr(0,5);
+        }
     }
 
 
@@ -58,10 +77,18 @@ export class EmailConfirmationPage {
     confirm() {
 
         // проверка на заполнение поля
-        if (this.confirmationCode.trim() == '') {
+        if (this.confirmationCode.trim().length < 5) {
             // если поле пустое - выходим из метода
             return false;
         }
+
+        // инициация окна загрузки
+        let loading = this.loadingCtrl.create({
+            content: 'Please wait...'
+        });
+
+        // показ окна загрузки
+        loading.present();
 
         // todo удалить
         console.log('confirmation');
@@ -95,8 +122,11 @@ export class EmailConfirmationPage {
                     // return { status: 'error'};
                 }
 
+                loading.dismiss();
+
             }, err => {
                 console.error('ERROR', err);
+                loading.dismiss();
             });
     }
 

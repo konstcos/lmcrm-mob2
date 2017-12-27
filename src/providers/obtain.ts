@@ -27,6 +27,12 @@ export class Obtain {
         return this.api.post('api/obtain', data).share();
     }
 
+    /**
+     * Получение подробностей по итему аукциона
+     */
+    getItemDetail(auctionId: number){
+        return this.api.post('api/obtain/detail', {auctionId: auctionId}).share();
+    }
 
     /**
      * Получение с сервера итемов обтэин

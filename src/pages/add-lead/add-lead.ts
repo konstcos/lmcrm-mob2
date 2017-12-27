@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, Events} from 'ionic-angular';
+import {NavController, NavParams, Events, AlertController} from 'ionic-angular';
 
 
 /**
@@ -28,27 +28,82 @@ export class AddLeadPage {
         phone: {
             empty: false,
             notEnough: false
+        },
+        name: {
+            empty: false,
+            notEnough: false
         }
-
     };
 
+
+    /**
+     * Данные лида
+     *
+     */
     lead: any = {
         name: '',
         phone: '',
         comment: '',
         sphere: false,
         member: false,
+
         type: '0',
     };
 
+
+    /**
+     * Сферы для добаления лидов
+     *
+     */
     spheres: any = false;
 
+
+    /**
+     * Участники группы
+     *
+     */
     members: any = false;
+
+
+    /**
+     * Области с данными на странице
+     *
+     */
+    public area: any = {
+        // область со спинером загрузки
+        spinnerLoading: true,
+        // область основных данных
+        mainData: false,
+        // область с оповещением об успешном добавлении лида
+        success: false,
+        // область с оповещением об успешном добавлении лида в приватную группу
+        successPrivate: false,
+        // область с ошибкой добавления лида
+        fail: false,
+        // вывод ошибки
+        error: false
+    };
+
+
+    /**
+     * Переменная с сообщением об ошибке
+     *
+     */
+    public errorMessage: string = '';
+
+
+    /**
+     * Разрешение кнопки добавления лида
+     *
+     */
+    public addButtonRights: boolean = false;
+
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 public user: User,
                 public deposited: Deposited,
+                public alertCtrl: AlertController,
                 public events: Events) {
 
         this.getSpheres();
@@ -57,10 +112,83 @@ export class AddLeadPage {
 
 
     /**
+     * Переключение областей на странице
+     *
+     * три области на странице:
+     *     loading - область со спинером загрузки, показывается во время загрузки
+     *     data - область с данными, показывается когда данные успешно загруженны
+     *     error - область с ошибками, появляется во время ошибки загрузки
+     */
+    areaSwitch(areaName: any = false) {
+
+        // закрываются все разделы
+        this.closeAllAreas();
+
+        switch (areaName) {
+
+            case 'loading':
+                // область со спинером загрузки
+                this.area.spinnerLoading = true;
+                break;
+
+            case 'data':
+                // область основных данных
+                this.area.mainData = true;
+                // кнопка отправки лида в систему
+                this.addButtonRights = true;
+                break;
+
+            case 'success':
+                // вывод ошибки
+                this.area.success = true;
+                break;
+
+            case 'successPrivate':
+                // вывод ошибки
+                this.area.successPrivate = true;
+                break;
+
+            case 'fail':
+                // вывод ошибки
+                this.area.fail = true;
+                break;
+
+            case 'error':
+                // вывод ошибки
+                this.area.error = true;
+                break;
+
+            default:
+                alert('wrong area name');
+                break;
+        }
+    }
+
+
+    /**
+     * Закрывает все области
+     *
+     */
+    closeAllAreas() {
+        // выключаем кнопку открытия
+        this.addButtonRights = false;
+        // закрытие всех областей
+        for (let area in this.area) {
+            // перебираем все области
+            // закрываем их
+            this.area[area] = false;
+        }
+    }
+
+
+    /**
      * Получение сфер пользователя
      *
      */
     getSpheres() {
+
+        // включаем спинер
+        this.areaSwitch('loading');
 
         this.user.getSpheres()
         // обработка итемов
@@ -82,6 +210,14 @@ export class AddLeadPage {
 
                         this.lead.sphere = data.spheres[0].id;
                     }
+
+                    // выводим область данных
+                    this.areaSwitch('data');
+
+                } else {
+
+                    // выводим ошибку
+                    this.areaSwitch('error');
                 }
 
                 console.log(data);
@@ -89,10 +225,10 @@ export class AddLeadPage {
             }, err => {
                 // в случае ошибки
 
+                // выводим ошибку
+                this.areaSwitch('error');
+
                 console.log('ERROR: ' + err);
-
-                // todo выводится сообщение об ошибке (нету связи и т.д.)
-
             });
 
     }
@@ -177,19 +313,22 @@ export class AddLeadPage {
 
             this.errors.phone.empty = true;
             this.errors.phone.notEnough = false;
-            // console.log('error 1')
+
+            return false;
 
         } else if (this.lead.phone.length < 9 || this.lead.phone.length > 10) {
 
             this.errors.phone.empty = false;
             this.errors.phone.notEnough = true;
-            // console.log('error 2')
+
+            return false;
 
         } else {
 
             this.errors.phone.empty = false;
             this.errors.phone.notEnough = false;
-            // console.log('success 1')
+
+            return true;
         }
 
     }
@@ -240,17 +379,53 @@ export class AddLeadPage {
         }
     }
 
+
+    /**
+     * Метод изменения времени
+     *
+     */
+    nameValidate() {
+
+        // обнуляем данные по ошибкам имени
+        this.errors.name.notEnough = false;
+        this.errors.name.empty = false;
+
+        // проверка наличия имени
+        if(this.lead.name.length == 0){
+            // сообщаем что это обязательное поле
+            this.errors.name.empty = true;
+            return false;
+        }
+
+        // проверка чтобы имя не было короче 2 символов
+        if(this.lead.name.length < 2){
+            // сообщаем что имя не должно быть меньше двух символов
+            this.errors.name.notEnough = true;
+            return false;
+        }
+
+        return true;
+    }
+
+
     /**
      * Добавление лида в систему
      *
      */
     addLead() {
 
-        if (this.lead.phone == '') {
-            console.log('нету телефона');
-            this.errors.phone.empty = true;
-            return false;
-        }
+        // if (this.lead.phone == '') {
+        //     this.errors.phone.empty = true;
+        //     return false;
+        // }
+
+        // валидация телефона
+        let phoneValidate = this.phoneValidate();
+        // валидация имени
+        let nameValidate = this.nameValidate();
+
+        if(!phoneValidate) return false;
+        if(!nameValidate) return false;
 
         // если есть участники группы
         if (this.lead.member) {
@@ -267,7 +442,8 @@ export class AddLeadPage {
             // console.log(this.members);
         }
 
-        // console.log(this.lead);
+        // включаем спинер
+        this.areaSwitch('loading');
 
         this.deposited.add(this.lead)
         // обработка итемов
@@ -277,51 +453,42 @@ export class AddLeadPage {
                 // переводим ответ в json
                 let data = result.json();
 
-                // console.log(data);
+                // this.goBackPop();
 
-                this.events.publish("lead:new_added");
+                console.log(data);
+
+                if (data.status == 'success') {
+
+                    // публикуем событие что лид нормально созадался
+                    this.events.publish("lead:new_added");
+
+                    if (this.lead.type == '2') {
+
+                        this.areaSwitch('successPrivate');
+
+                    } else {
+
+                        this.areaSwitch('success');
+                    }
 
 
-                this.goBackPop();
 
-                // if (data.status == 'success') {
-                //
-                //     if (data.spheres.length > 0) {
-                //
-                //         this.spheres = data.spheres;
-                //
-                //         this.lead.sphere = data.spheres[0].id;
-                //     }
-                // }
 
-                // вычесляем количество итемов
-                // let itemsLength = data.length;
+                } else if(data.status == 'fail') {
 
-                // // обработка итемов
-                // if (itemsLength != 0) {
-                //     // если больше нуля
-                //
-                //     // console.log(data.auctionItems);
-                //
-                //     // добавляем полученные итемы на страницу
-                //     this.items = data;
-                //
-                // } else {
-                //     // если итемов нет
-                //
-                //     // todo показываем оповещение что итемов нет
-                //
-                // }
+                    this.errorMessage = data.message;
+                    this.areaSwitch('fail');
 
-                // отключаем окно индикатора загрузки
-                // loading.dismiss();
+                } else {
+                    this.areaSwitch('error');
+                }
 
             }, err => {
                 // в случае ошибки
 
                 console.log('ERROR: ' + err);
 
-                // todo выводится сообщение об ошибке (нету связи и т.д.)
+                this.areaSwitch('error');
 
                 // отключаем окно индикатора загрузки
                 // loading.dismiss();

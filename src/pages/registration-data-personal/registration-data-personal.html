@@ -255,7 +255,8 @@
                 class="error_message"
                 *ngIf="state.passport == 3">
             <ion-col>
-                {{ 'PERSONAL_DATA_FIRST_NAME_ERROR_REQUIRED' | translate }}
+                {{ 'PERSONAL_DATA_WRONG_PASSPORT_NUMBER' | translate }}
+                <!--wrong passport number-->
             </ion-col>
         </ion-row>
 
@@ -326,12 +327,16 @@
             <!-- Блок с именем пользователя -->
             <ion-col class="" text-right>
                 <!-- Лейбл ввода имени -->
-                <div class="label" text-right>Region</div>
+                <div class="label" text-right>
+                    {{ 'PERSONAL_DATA_REGION' | translate }}
+                    <!--Region-->
+                </div>
 
                 <div text-right class="region_item" (click)="clearRegions()">
 
                     <ion-col class="region_selected_name">
-                        Israel
+                        {{ 'PERSONAL_DATA_ISRAEL' | translate }}
+                        <!--Israel-->
                     </ion-col>
                     <ion-col col-1 text-center>
                     </ion-col>

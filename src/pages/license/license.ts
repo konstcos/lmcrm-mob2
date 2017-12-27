@@ -128,7 +128,8 @@ export class LicensePage {
 
                 if(data.status == 'success'){
 
-                    this.nav.setRoot(MainPage);
+                    location.reload();
+                    // this.nav.setRoot(MainPage);
 
                 } else {
 

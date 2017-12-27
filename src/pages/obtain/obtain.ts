@@ -5,6 +5,7 @@ import {Obtain} from '../../providers/obtain';
 import {ObtainDetailPage} from "../obtain-detail/obtain-detail";
 // страница для фильтрования лидов
 import {CustomersPage} from '../customers/customers';
+import {Badge} from '@ionic-native/badge';
 
 /*
  Generated class for the Obtain page.
@@ -76,7 +77,8 @@ export class ObtainPage {
                 public obtain: Obtain,
                 public loadingCtrl: LoadingController,
                 public modalCtrl: ModalController,
-                public events: Events) {
+                public events: Events,
+                private badge: Badge) {
     }
 
     ionViewDidLoad() {
@@ -159,8 +161,8 @@ export class ObtainPage {
                 let data = result.json();
 
 
-                // console.log('тут');
-                // console.log(data);
+                console.log('обновление обтэин: ');
+                console.log(data);
 
 
                 // вычесляем количество итемов
@@ -205,6 +207,11 @@ export class ObtainPage {
     checkNotices(notices) {
         this.events.publish('notice:new', notices.notice);
         this.events.publish('badge:set', notices.auction);
+
+        console.log('нотификации по аукциону, новые');
+        console.log(notices.auction);
+
+        this.badge.set(notices.auction);
     }
 
 
@@ -273,6 +280,8 @@ export class ObtainPage {
                     auction: data.auctionCount,
                 };
 
+                // console.log('загрузил итемы: ');
+                // console.log(notices);
                 this.checkNotices(notices);
 
 
@@ -356,6 +365,8 @@ export class ObtainPage {
                         this.isThereStillItems = false;
                     }
 
+                    this.badge.set(data.auctionCount);
+
                     // отключаем окно индикатора загрузки
                     infiniteScroll.complete();
 
@@ -405,31 +416,49 @@ export class ObtainPage {
      *
      */
     detail(item) {
-        let modal = this.modalCtrl.create(ObtainDetailPage, {item: item, roles: this.roles});
+        // модальное окно с подробностями по лиду через id аукциона
+        let modal = this.modalCtrl.create(ObtainDetailPage, {itemId: item.auctionId, item: item, roles: this.roles});
         modal.present();
 
-        // помечаем итем что он уже просмотрен
-        this.obtain.markSeenAuction({auctionId: item.auctionId})
-        // обработка ответа
-            .subscribe(result => {
-                // при получении ответа
+        if(item.isSeen == 0) {
 
-                // переводим ответ в json
-                let data = result.json();
+            // помечаем итем что он уже просмотрен
+            this.obtain.markSeenAuction({auctionId: item.auctionId})
+            // обработка ответа
+                .subscribe(result => {
+                    // при получении ответа
 
-                if (data.status == 'success') {
-                    item.isSeen = 1;
-                }
+                    // переводим ответ в json
+                    let data = result.json();
+
+                    // console.log('данные обнуления баджей:');
+                    // console.log(data);
+
+                    if (data.status == 'success') {
+                        item.isSeen = 1;
+
+                        this.events.publish('badge:set', data.un_seen_count);
+
+                        // data.un_seen_count
 
 
-                // console.log('Данные агента: ');
-                console.log(data);
+                        // this.badge.set(date)
 
-            }, err => {
-                // в случае ошибки
+                    }
 
-                console.log('ERROR: ' + err);
-            });
+
+                    // console.log('Данные агента: ');
+                    // console.log(data);
+
+                }, err => {
+                    // в случае ошибки
+
+                    console.log('ERROR: ' + err);
+                });
+
+        }
+
+
 
     }
 

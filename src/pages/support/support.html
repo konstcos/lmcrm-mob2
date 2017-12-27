@@ -48,7 +48,7 @@
         <ion-spinner color="primary" name="crescent"></ion-spinner>
     </div>
 
-    <ion-row *ngFor="let support of items" class="support-row">
+    <ion-row *ngFor="let support of items" class="support-row" (click)="makeCall(support)">
 
         <ion-col text-right align-self-center class="data-col">
 

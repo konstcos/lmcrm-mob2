@@ -39,25 +39,12 @@ export class DepositedDetailPage {
                 public navParams: NavParams,
                 public deposited: Deposited) {
 
-        let item = navParams.get('item');
-
-        // проверка наличия данных
-        if (item) {
-            // если итем есть
-
-            this.item = navParams.get('item');
-            this.isLoading = false;
-
-        } else {
-
-            let leadId = navParams.get('leadId');
-
-            this.leadData(leadId);
-
-        }
+        // let item = navParams.get('item');
 
 
-        // console.log(this.item);
+        let leadId = navParams.get('leadId');
+
+        this.leadData(leadId);
     }
 
 
@@ -67,7 +54,7 @@ export class DepositedDetailPage {
 
 
     /**
-     *
+     * Загрузка данных по id лида
      *
      */
     leadData(leadId) {

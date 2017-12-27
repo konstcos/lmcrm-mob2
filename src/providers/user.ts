@@ -171,9 +171,9 @@ export class User {
      * Получение всех специализаций пользователя
      *
      */
-    getSpecializations() {
+    getSpecializations(role) {
 
-        let seq = this.api.post('api/specializations/get', {}).share();
+        let seq = this.api.post('api/specializations/get', {role: role}).share();
 
         return seq;
     }
@@ -383,6 +383,16 @@ export class User {
     saveAgentProfile(data: any) {
 
         return this.api.post('api/profile/save', data);
+    }
+
+
+    /**
+     * Получение данных по кошельку агента
+     *
+     */
+    getWalletData() {
+
+        return this.api.post('api/get/wallet/data', {});
     }
 
 

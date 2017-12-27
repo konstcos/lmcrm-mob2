@@ -15,6 +15,7 @@ import 'rxjs/add/operator/map';
 export class Api {
     url: string = 'http://lmcrm.cos';
     // url: string = 'http://lmcrm.biz.tm';
+    // url: string = 'http://demo.contact.org.il';
     // todo вернуть
     // url: string = 'https://backoffice.contact.org.il';
 

@@ -12,7 +12,7 @@ import
 
 import {OpenLeadOrganizer} from '../../providers/open-lead-organizer';
 import {User} from '../../providers/user';
-
+import { CallNumber } from '@ionic-native/call-number';
 
 /*
  Generated class for the Open page.
@@ -22,7 +22,8 @@ import {User} from '../../providers/user';
  */
 @Component({
     selector: 'page-support',
-    templateUrl: 'support.html'
+    templateUrl: 'support.html',
+    providers: [CallNumber]
 })
 export class SupportPage {
 
@@ -45,7 +46,8 @@ export class SupportPage {
                 public navParams: NavParams,
                 public view: ViewController,
                 public user: User,
-                public events: Events) {
+                public events: Events,
+                private callNumber: CallNumber) {
 
         this.getSupportData();
     }
@@ -73,15 +75,9 @@ export class SupportPage {
                 // переводим ответ в json
                 let data = result.json();
 
-                // console.log('полученные данные по только что открытому лиду: ');
-                // console.log(data);
-
-
                 this.items = data.support;
 
                 this.isLoading = false;
-
-                console.log(this.items);
 
             }, err => {
 
@@ -89,6 +85,19 @@ export class SupportPage {
                 console.log('ERROR: ' + err);
             });
 
+    }
+
+
+    /**
+     * Сделать телефонный звонок
+     *
+     */
+    makeCall(item) {
+        console.log(item.phone);
+
+        this.callNumber.callNumber(item.phone, true)
+            .then(() => console.log('Launched dialer!'))
+            .catch(() => console.log('Error launching dialer'));
     }
 
 

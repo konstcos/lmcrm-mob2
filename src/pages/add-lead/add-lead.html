@@ -24,117 +24,236 @@
 
 <ion-content padding>
 
-    <ion-list *ngIf="spheres">
+    <!-- область со спинером загрузке -->
+    <div *ngIf="area.spinnerLoading" class="spinnerLoading">
+        <ion-spinner color="primary" name="crescent"></ion-spinner>
+    </div>
 
-        <ion-item margin-bottom>
-            <ion-label text-right stacked>
-                {{ 'adding_lead.sphere' | translate }}
-            </ion-label>
-            <!--<ion-select [(ngModel)]="gaming">-->
-            <ion-select [(ngModel)]="lead.sphere" interface="action-sheet" dir="rtl" class="add_lead_value">
+    <!-- Область основных данных -->
+    <div *ngIf="area.mainData">
+        <ion-list *ngIf="spheres">
 
-
-                <ion-option *ngFor="let sphere of spheres" value="{{ sphere.id }}">{{ sphere.name }}</ion-option>
-
-            </ion-select>
-        </ion-item>
-
-        <ion-list radio-group [(ngModel)]="lead.type" class="add_lead_radio" (ionChange)="typeChange()">
-
-            <ion-item no-border >
-                <ion-label text-right class="add_lead_value">
-                    {{ 'adding_lead.all' | translate }}
+            <ion-item margin-bottom>
+                <ion-label text-right stacked>
+                    {{ 'adding_lead.sphere' | translate }}
                 </ion-label>
-                <ion-radio value="0"></ion-radio>
+                <!--<ion-select [(ngModel)]="gaming">-->
+                <ion-select [(ngModel)]="lead.sphere" interface="action-sheet" dir="rtl" class="add_lead_value">
+
+
+                    <ion-option *ngFor="let sphere of spheres" value="{{ sphere.id }}">{{ sphere.name }}</ion-option>
+
+                </ion-select>
             </ion-item>
 
-            <ion-item no-border>
-                <ion-label text-right class="add_lead_value">
-                    {{ 'adding_lead.dealmakers_only' | translate }}
-                </ion-label>
-                <ion-radio value="1"></ion-radio>
-            </ion-item>
+            <ion-list radio-group [(ngModel)]="lead.type" class="add_lead_radio" (ionChange)="typeChange()">
 
-            <ion-item no-border>
-                <ion-label text-right class="add_lead_value">
-                    {{ 'adding_lead.private_group' | translate }}
+                <ion-item no-border >
+                    <ion-label text-right class="add_lead_value">
+                        {{ 'adding_lead.all' | translate }}
+                    </ion-label>
+                    <ion-radio value="0"></ion-radio>
+                </ion-item>
+
+                <ion-item no-border>
+                    <ion-label text-right class="add_lead_value">
+                        {{ 'adding_lead.dealmakers_only' | translate }}
+                    </ion-label>
+                    <ion-radio value="1"></ion-radio>
+                </ion-item>
+
+                <ion-item no-border>
+                    <ion-label text-right class="add_lead_value">
+                        {{ 'adding_lead.private_group' | translate }}
+                    </ion-label>
+                    <ion-radio value="2"></ion-radio>
+                </ion-item>
+
+            </ion-list>
+
+
+
+
+            <div class="phone_block">
+
+                <ion-item>
+                    <ion-label text-right stacked>
+                        <span ion-text color="danger">*</span>
+                        {{ 'adding_lead.name' | translate }}
+                    </ion-label>
+                    <ion-input
+                            text-right
+                            type="text"
+                            (blur)='nameValidate($event)'
+                            [(ngModel)]="lead.name"
+                            class="add_lead_value" ></ion-input>
+                </ion-item>
+
+                <div *ngIf="errors.name.empty" class="phone_error">
+                    {{ 'adding_lead.name_empty' | translate }}
+                    <!--name empty-->
+                </div>
+                <div *ngIf="errors.name.notEnough" class="phone_error">
+                    {{ 'adding_lead.name_error_length' | translate }}
+                    <!--not enough, min 2 needed-->
+                </div>
+
+            </div>
+
+            <div class="phone_block">
+                <ion-item>
+                    <ion-label text-right stacked>
+                        <span ion-text color="danger">*</span>
+                        {{ 'adding_lead.phone' | translate }}
+                    </ion-label>
+                    <ion-input
+                            text-right
+                            type="tel"
+                            (ngModelChange)='phoneChange($event)'
+                            [(ngModel)]="lead.phone"
+                            class="add_lead_value"
+                            (blur)="phoneValidate()">
+
+                    </ion-input>
+                </ion-item>
+                <div *ngIf="errors.phone.empty" class="phone_error">
+                    {{ 'adding_lead.phone_empty' | translate }}
+                </div>
+                <div *ngIf="errors.phone.notEnough" class="phone_error">
+                    {{ 'adding_lead.phone_error_length' | translate }}
+                </div>
+            </div>
+
+            <ion-item margin-bottom>
+                <ion-label text-right stacked>
+                    {{ 'adding_lead.comment' | translate }}
                 </ion-label>
-                <ion-radio value="2"></ion-radio>
+                <ion-textarea rows="4" text-right [(ngModel)]="lead.comment" class="add_lead_value"></ion-textarea>
             </ion-item>
 
         </ion-list>
+        <ion-list *ngIf="lead.member">
 
+            <ion-list-header text-right class="members_head">
+                {{ 'adding_lead.group_members' | translate }}
+            </ion-list-header>
 
-
-
-
-        <ion-item margin-bottom>
-            <ion-label text-right stacked>
-                {{ 'adding_lead.name' | translate }}
-            </ion-label>
-            <ion-input text-right type="text" [(ngModel)]="lead.name" class="add_lead_value" ></ion-input>
-        </ion-item>
-
-
-        <div class="phone_block">
-            <ion-item>
-                <ion-label text-right stacked>
-                    <span ion-text color="danger">*</span>
-                    {{ 'adding_lead.phone' | translate }}
-                </ion-label>
-                <ion-input
-                        text-right type="tel"
-                        (ngModelChange)='phoneChange($event)'
-                        [(ngModel)]="lead.phone"
-                        class="add_lead_value"
-                        (blur)="phoneValidate()">
-
-                </ion-input>
+            <ion-item *ngFor="let member of members" dir="rtl">
+                <ion-label text-left class="add_lead_value">{{ member.email }}</ion-label>
+                <ion-checkbox [(ngModel)]="member.value"></ion-checkbox>
             </ion-item>
-            <div *ngIf="errors.phone.empty" class="phone_error">
-                {{ 'adding_lead.phone_empty' | translate }}
-            </div>
-            <div *ngIf="errors.phone.notEnough" class="phone_error">
-                {{ 'adding_lead.phone_error_length' | translate }}
-            </div>
+
+        </ion-list>
+    </div>
+
+
+    <!-- Область об успешном добавлении -->
+    <div *ngIf="area.success" class="success_area">
+
+        <div class="success_text">
+            {{ 'adding_lead.success_adding.head' | translate }}
+            <!--You lead added successful-->
         </div>
 
-        <ion-item margin-bottom>
-            <ion-label text-right stacked>
-                {{ 'adding_lead.comment' | translate }}
-            </ion-label>
-            <ion-textarea rows="4" text-right [(ngModel)]="lead.comment" class="add_lead_value"></ion-textarea>
-        </ion-item>
+        <div class="description" [innerHTML]="'adding_lead.success_adding.description_common' | translate">
 
-    </ion-list>
+            <!--Пока вы читаете это сообщение, клиент, которого вы добавили уже получает смс о том, что вы добавили его в Contact.-->
+            <!--В течении 10 минут он может отменить, свое участие в системе.-->
+            <!--Если же клиент не отменит свое участие, он попадет на обработку оператором, затем на аукцион. После чего вы сможете получаить за него вознаграждение.-->
+            <!--Статус лида вы сможете отследить в разделе "Outgoing"-->
+        </div>
+
+        <div class="thanks_text">
+            {{ 'adding_lead.success_adding.thanks' | translate }}
+            <!--Благодарим вас за доверие и участие в системе-->
+        </div>
+
+        <div class="success_button">
+            <button ion-button round color="light" (click)="goBackPop()">
+                {{ 'adding_lead.success_adding.got_it' | translate }}
+                <!--got it-->
+            </button>
+        </div>
+
+    </div>
 
 
-    <ion-list *ngIf="lead.member">
+    <!-- Область об успешном добавлении по приватной группе -->
+    <div *ngIf="area.successPrivate" class="success_area">
 
-        <ion-list-header text-right class="members_head">
-            {{ 'adding_lead.group_members' | translate }}
-        </ion-list-header>
+        <div class="success_text">
+            {{ 'adding_lead.success_adding.head' | translate }}
+            <!--You lead added successful-->
+        </div>
 
-        <ion-item *ngFor="let member of members" dir="rtl">
-            <ion-label text-left class="add_lead_value">{{ member.email }}</ion-label>
-            <ion-checkbox [(ngModel)]="member.value"></ion-checkbox>
-        </ion-item>
+        <div class="description" [innerHTML]="'adding_lead.success_adding.description_private' | translate">
+            <!--лид успешно добавлен в приватную группу, можете выбрать участников, которым вы хотите его добавить в разделе отданных лидов-->
+        </div>
 
-    </ion-list>
+        <div class="thanks_text">
+            {{ 'adding_lead.success_adding.thanks' | translate }}
+            <!--Благодарим вас за доверие и участие в системе-->
+        </div>
+
+        <div class="success_button">
+            <button ion-button round color="light" (click)="goBackPop()">
+                {{ 'adding_lead.success_adding.got_it' | translate }}
+                <!--got it-->
+            </button>
+        </div>
+
+    </div>
 
 
-    <ion-row *ngIf="!lead.sphere">
-        <ion-col text-center>
-            {{ 'adding_lead.no_spheres' | translate }}
-        </ion-col>
-    </ion-row>
+    <!-- Область об ошибке при добавлении -->
+    <div *ngIf="area.fail" class="fail_area">
 
+        <div class="fail_text">
+            {{ 'adding_lead.fail_area.head' | translate }}
+            <!--К сожалению мы не можем добавить этого клиента-->
+        </div>
+
+        <div class="description">
+            {{ errorMessage }}
+        </div>
+
+        <div class="fail_button">
+            <button ion-button round color="light" (click)="goBackPop()">
+                {{ 'adding_lead.fail_area.got_it' | translate }}
+                <!--got it-->
+            </button>
+        </div>
+
+    </div>
+
+
+    <!-- Область с ошибкой -->
+    <div *ngIf="area.error" class="error_area">
+
+        <div class="error_text">
+            {{ 'adding_lead.error_area.got_it' | translate }}
+            <!--Error loading. Please try later.-->
+        </div>
+
+        <div class="error_button">
+            <button ion-button round color="light" (click)="goBackPop()">
+                {{ 'adding_lead.error_area.got_it' | translate }}
+                <!--got it-->
+            </button>
+        </div>
+
+    </div>
 
 </ion-content>
 
 
 <ion-footer no-border text-center class="new_lead_footer">
-        <button color="primary" round ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">
-            {{ 'adding_lead.add_lead' | translate }}
-        </button>
+    <button color="primary" [disabled]="!addButtonRights" round ion-button (click)="addLead()">
+        {{ 'adding_lead.add_lead' | translate }}
+    </button>
+
+    <!--<button color="primary" [disabled]="!addButtonRights" round ion-button [attr.disabled]="!spheres ? '' : null" (click)="addLead()">-->
+        <!--{{ 'adding_lead.add_lead' | translate }}-->
+    <!--</button>-->
+
 </ion-footer>

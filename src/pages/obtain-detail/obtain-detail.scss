@@ -1,8 +1,177 @@
 page-obtain-detail {
 
+  .spinnerLoading {
+    text-align: center;
+    margin-top: 20%;
+  }
+
   .back_arrow {
     font-size: 20px;
     padding-left: 10px;
+  }
+
+  .error_area {
+
+    .error_text {
+      color: #A9A9A9;
+      font-size: 16px;
+      text-align: center;
+      margin: 20% 0;
+    }
+
+    .error_button {
+      margin: 30px 0;
+      text-align: center;
+    }
+
+  }
+
+  .open_lead_area {
+
+    .head {
+
+    }
+
+    .description {
+      text-align: center;
+      margin: 20px 10px 30px;
+      color: #878787;
+      font-size: 14px;
+
+      .item {
+        margin: 10px 0;
+      }
+
+    }
+
+    .phone {
+      text-align: center;
+      margin: 30px 30px 10px;
+      color: #337AB7;
+      font-size: 23px;
+
+      .client_phone_icon {
+        margin-right: 10px;
+      }
+
+    }
+
+    .data {
+      text-align: center;
+      margin: 20px 10px 10px;
+      color: #878787;
+      font-size: 14px;
+
+      .description {
+
+        .item {
+          margin: 10px 0;
+        }
+      }
+
+      .open_possibility_menu {
+        font-size: 16px;
+        cursor: pointer;
+
+        .possibility_menu_item {
+          text-align: right;
+          //margin: 5px 0 5px 0;
+          padding: 5px 50px 5px 0;
+
+          .possibility_menu_item_text {
+            margin-right: 10px;
+
+          }
+
+          .green {
+            color: #0DBD41;
+          }
+
+          .blue {
+            color: #337AB7;
+          }
+
+        }
+
+        .disabled {
+          color: #B1B1B1;
+
+          .possibility_menu_item_text {
+            text-decoration: line-through;
+          }
+
+        }
+
+      }
+
+    }
+
+    .buttons {
+
+      .open {
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      .cancel {
+
+      }
+
+    }
+
+  }
+
+  .error_open_lead_area {
+
+    .error_head {
+      margin-top: 20px;
+      font-size: 18px;
+      text-align: center;
+      color: grey;
+    }
+
+    .description {
+      text-align: center;
+      color: grey;
+      font-size: 18px;
+      margin: 20px 30px 0;
+    }
+
+    .cancel {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+  }
+
+  .confirm_overdraft {
+
+    .error_head {
+      margin-top: 20px;
+      font-size: 18px;
+      text-align: center;
+      color: grey;
+    }
+
+    .description {
+      text-align: center;
+      color: grey;
+      font-size: 18px;
+      margin: 20px 30px 0;
+    }
+
+    .confirm {
+      text-align: center;
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+
+    .cancel {
+      text-align: center;
+      margin-top: 10px;
+      margin-bottom: 30px;
+    }
+
   }
 
   .open_button {

@@ -4,6 +4,7 @@ page-main {
     height: 25px;
     //float: right;
     float: left;
+    margin-left: 15px;
     margin-right: 15px;
   }
 
@@ -153,6 +154,12 @@ page-main {
       //color: #1B2C4C;
       color: #0B5A00;
       background: white;
+      cursor: pointer;
+
+      &.minus {
+        color: #A94442;
+      }
+
     }
 
     .head_button {

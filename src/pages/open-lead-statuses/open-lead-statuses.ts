@@ -131,6 +131,8 @@ export class OpenLeadStatusesPage {
      */
     applyStatus() {
 
+        console.log('утверждение выбранного статуса, данные:');
+        console.log(this.checkedStatusData);
 
         if (this.checkedStatusData.type == 5) {
 
@@ -148,9 +150,6 @@ export class OpenLeadStatusesPage {
 
                     console.log('нету статуса');
                 }
-
-
-                // this.changeStatus();
 
             });
 
@@ -226,7 +225,7 @@ export class OpenLeadStatusesPage {
      *
      */
     close(stat = false, price = false) {
-        // todo доработать
+        // доработать
 
         console.log('закрываю окно с прайсом:');
         console.log(price);
