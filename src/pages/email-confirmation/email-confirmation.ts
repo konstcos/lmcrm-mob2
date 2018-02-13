@@ -218,4 +218,12 @@ export class EmailConfirmationPage {
         this.nav.setRoot(LoginPage);
     }
 
+
+    /**
+     * Событие по кнопке возврата
+     *
+     */
+    backButtonAction(){
+        this.goBack();
+    }
 }

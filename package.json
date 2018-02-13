@@ -1,90 +1,90 @@
 {
-    "name": "ionic-hello-world",
-    "author": "Ionic Framework",
-    "homepage": "http://ionicframework.com/",
-    "private": true,
-    "scripts": {
-        "clean": "ionic-app-scripts clean",
-        "build": "ionic-app-scripts build",
-        "ionic:build": "ionic-app-scripts build",
-        "ionic:serve": "ionic-app-scripts serve"
+  "name": "ionic-hello-world",
+  "author": "Ionic Framework",
+  "homepage": "http://ionicframework.com/",
+  "private": true,
+  "scripts": {
+    "clean": "ionic-app-scripts clean",
+    "build": "ionic-app-scripts build",
+    "ionic:build": "ionic-app-scripts build",
+    "ionic:serve": "ionic-app-scripts serve"
+  },
+  "dependencies": {
+    "@angular/common": "2.4.8",
+    "@angular/compiler": "2.4.8",
+    "@angular/compiler-cli": "2.4.8",
+    "@angular/core": "2.4.8",
+    "@angular/forms": "2.4.8",
+    "@angular/http": "2.4.8",
+    "@angular/platform-browser": "2.4.8",
+    "@angular/platform-browser-dynamic": "2.4.8",
+    "@angular/platform-server": "2.4.8",
+    "@ionic-native/badge": "^3.12.1",
+    "@ionic-native/call-number": "^4.3.3",
+    "@ionic-native/core": "^3.7.0",
+    "@ionic-native/fcm": "^3.7.0",
+    "@ionic-native/file": "^4.0.0",
+    "@ionic-native/file-transfer": "^4.0.1",
+    "@ionic-native/push": "^3.14.0",
+    "@ionic-native/splash-screen": "3.1.0",
+    "@ionic-native/status-bar": "3.1.0",
+    "@ionic/storage": "2.0.0",
+    "call-number": "^1.0.1",
+    "cordova-android": "^7.0.0",
+    "cordova-plugin-badge": "^0.8.5",
+    "cordova-plugin-compat": "^1.2.0",
+    "cordova-plugin-console": "1.0.5",
+    "cordova-plugin-device": "1.1.4",
+    "cordova-plugin-file": "^4.3.3",
+    "cordova-plugin-file-transfer": "^1.6.3",
+    "cordova-plugin-statusbar": "2.2.1",
+    "cordova-plugin-whitelist": "1.3.1",
+    "font-awesome": "^4.7.0",
+    "ionic-angular": "2.3.0",
+    "ionic-native": "^2.9.0",
+    "ionic-plugin-keyboard": "~2.2.1",
+    "ionicons": "3.0.0",
+    "mx.ferreyra.callnumber": "~0.0.2",
+    "ng2-translate": "^5.0.0",
+    "phonegap-plugin-push": "^2.0.0",
+    "rxjs": "5.0.1",
+    "sw-toolbox": "3.4.0",
+    "zone.js": "0.7.2"
+  },
+  "devDependencies": {
+    "@ionic/app-scripts": "1.1.4",
+    "typescript": "2.0.9"
+  },
+  "cordovaPlugins": [
+    "cordova-plugin-whitelist",
+    "cordova-plugin-console",
+    "cordova-plugin-statusbar",
+    "cordova-plugin-device",
+    "cordova-plugin-splashscreen",
+    "ionic-plugin-keyboard"
+  ],
+  "cordovaPlatforms": [],
+  "description": "lmcrm2: An Ionic project",
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-console": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-statusbar": {},
+      "ionic-plugin-keyboard": {},
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-file": {},
+      "cordova-plugin-file-transfer": {},
+      "mx.ferreyra.callnumber": {},
+      "phonegap-plugin-push": {
+        "SENDER_ID": "859646101662"
+      },
+      "cordova-plugin-badge": {}
     },
-    "dependencies": {
-        "@angular/common": "2.4.8",
-        "@angular/compiler": "2.4.8",
-        "@angular/compiler-cli": "2.4.8",
-        "@angular/core": "2.4.8",
-        "@angular/forms": "2.4.8",
-        "@angular/http": "2.4.8",
-        "@angular/platform-browser": "2.4.8",
-        "@angular/platform-browser-dynamic": "2.4.8",
-        "@angular/platform-server": "2.4.8",
-        "@ionic-native/badge": "^3.12.1",
-        "@ionic-native/call-number": "^4.3.3",
-        "@ionic-native/core": "^3.7.0",
-        "@ionic-native/fcm": "^3.7.0",
-        "@ionic-native/file": "^4.0.0",
-        "@ionic-native/file-transfer": "^4.0.1",
-        "@ionic-native/push": "^3.14.0",
-        "@ionic-native/splash-screen": "3.1.0",
-        "@ionic-native/status-bar": "3.1.0",
-        "@ionic/storage": "2.0.0",
-        "call-number": "^1.0.1",
-        "cordova-android": "^6.4.0",
-        "cordova-plugin-badge": "^0.8.5",
-        "cordova-plugin-compat": "^1.2.0",
-        "cordova-plugin-console": "1.0.5",
-        "cordova-plugin-device": "1.1.4",
-        "cordova-plugin-file": "^4.3.3",
-        "cordova-plugin-file-transfer": "^1.6.3",
-        "cordova-plugin-statusbar": "2.2.1",
-        "cordova-plugin-whitelist": "1.3.1",
-        "font-awesome": "^4.7.0",
-        "ionic-angular": "2.3.0",
-        "ionic-native": "^2.9.0",
-        "ionic-plugin-keyboard": "~2.2.1",
-        "ionicons": "3.0.0",
-        "mx.ferreyra.callnumber": "~0.0.2",
-        "ng2-translate": "^5.0.0",
-        "phonegap-plugin-push": "^2.0.0",
-        "rxjs": "5.0.1",
-        "sw-toolbox": "3.4.0",
-        "zone.js": "0.7.2"
-    },
-    "devDependencies": {
-        "@ionic/app-scripts": "1.1.4",
-        "typescript": "2.0.9"
-    },
-    "cordovaPlugins": [
-        "cordova-plugin-whitelist",
-        "cordova-plugin-console",
-        "cordova-plugin-statusbar",
-        "cordova-plugin-device",
-        "cordova-plugin-splashscreen",
-        "ionic-plugin-keyboard"
-    ],
-    "cordovaPlatforms": [],
-    "description": "lmcrm2: An Ionic project",
-    "cordova": {
-        "plugins": {
-            "cordova-plugin-console": {},
-            "cordova-plugin-device": {},
-            "cordova-plugin-statusbar": {},
-            "ionic-plugin-keyboard": {},
-            "cordova-plugin-whitelist": {},
-            "cordova-plugin-file": {},
-            "cordova-plugin-file-transfer": {},
-            "mx.ferreyra.callnumber": {},
-            "phonegap-plugin-push": {
-                "SENDER_ID": "859646101662"
-            },
-            "cordova-plugin-badge": {}
-        },
-        "platforms": [
-            "android"
-        ]
-    },
-    "config": {
-        "ionic_copy": "./scripts/copy-custom-libs.js"
-    }
+    "platforms": [
+      "android"
+    ]
+  },
+  "config": {
+    "ionic_copy": "./scripts/copy-custom-libs.js"
+  }
 }

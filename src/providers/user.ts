@@ -127,29 +127,29 @@ export class User {
 
 
     /**
-     * Log the user out, which forgets the session
+     * Разлогинивание пользолвателя
+     *
      */
     logout() {
+        // обнуление данных пользователя
         this._user = null;
+        // обнуление данных токена
         this.token = null;
 
+        // выбираем токен нотификаций и обнуляем его
         let fcm_token = localStorage.getItem('fcm_token');
+        localStorage.setItem('token', '');
 
+        // отрпавляем запрос на обнуление данных на сервере
         let seq = this.api.post('api/logout', {fcm_token: fcm_token}).share();
 
         seq
             .map(res => res.json())
             .subscribe(res => {
 
-                // console.log('user');
-                console.log(res);
-
             }, err => {
-                console.error('ERROR', err);
+                // console.error('ERROR', err);
             });
-
-
-        localStorage.setItem('token', '');
 
         return seq;
     }
@@ -393,6 +393,16 @@ export class User {
     getWalletData() {
 
         return this.api.post('api/get/wallet/data', {});
+    }
+
+
+    /**
+     * Пост на отправку мэила по забытому паролю
+     *
+     */
+    sendForgotPassword(data: any) {
+        return this.api.post('api/send/forgot/password', data);
+
     }
 
 

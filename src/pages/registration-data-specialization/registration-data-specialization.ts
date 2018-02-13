@@ -414,4 +414,12 @@ export class RegistrationDataSpecializationPage {
         this.viewCtrl.dismiss({specializations: this.selectedSpecializations, logout: logout});
     }
 
+
+    /**
+     * Событие по кнопке возврата
+     *
+     */
+    backButtonAction(){
+        this.goBack();
+    }
 }

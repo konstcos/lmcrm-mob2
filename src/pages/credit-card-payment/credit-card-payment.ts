@@ -56,6 +56,7 @@ export class CreditCardPaymentPage {
      */
     public data: any = {
         name: '',
+        surname: '',
         email: '',
         phone: '',
         amount: 0,
@@ -67,6 +68,10 @@ export class CreditCardPaymentPage {
      *
      */
     public errors: any = {
+        name: false,
+        surname: false,
+        phone: false,
+        email: false,
         bank: false,
         branch_number: false,
         company: false,
@@ -126,8 +131,11 @@ export class CreditCardPaymentPage {
 
                 if (data.status == 'success') {
 
+                    // todo данные пользователя по карте
+
                     this.data = {
-                        name: data.info.user.last_name + ' ' + data.info.user.first_name,
+                        name: data.info.user.first_name,
+                        surname: data.info.user.last_name,
                         email: data.info.user.email,
                         phone: data.info.requestPayment.initiator.phone,
                         amount: data.info.requestPayment.amount,
@@ -155,8 +163,112 @@ export class CreditCardPaymentPage {
     }
 
 
+    /**
+     *
+     *
+     */
+    phoneFocus() {
+
+    }
 
 
+    /**
+     * Валидация телефона
+     *
+     */
+    phoneValidate() {
+        // Проверка на пустое поле
+        if (this.data.phone == '') {
+            this.errors.phone = true;
+            return false;
+        }
+
+        // Проверка длины должно быть не меньше 9 и не больше 10
+        // if (this.data.phone.length < 9 || this.data.phone.length > 10) {
+        //     this.errors.phone = true;
+        //     return false;
+        // }
+
+        // Проверка по регулярке
+        let reg = /^\+?(972|0)(\-)?0?(([23489]{1}\d{7})|[5]{1}\d{8})$/;
+        if (!reg.test(this.data.phone)) {
+            this.errors.phone = true;
+            return false;
+        }
+
+        this.errors.phone = false;
+        return true;
+    }
+
+    /**
+     * Проверка поля с телефонным номером при вводе нового символа
+     *
+     */
+    phoneChange(event) {
+
+        console.log('сработал чендж телефона');
+        console.log(event);
+
+        // сохраняем старые данные
+        // let oldData = this.data.phone;
+
+            setTimeout(() => {
+                    this.data.phone = event.replace(/\D+/g,"");
+                }
+                , 0);
+
+
+        console.log(this.data.phone);
+
+        // let passportValue = this.personalData.passport.replace(/\D+/g,"");
+
+
+
+        // проверка на максимальную длину номера телефона
+        // if (event.length > 10) {
+        //
+        //     // возвращаем старые данные
+        //     setTimeout(() => {
+        //             this.data.phone = oldData;
+        //         }
+        //         , 0);
+        //
+        //     return false;
+        // }
+
+
+        // перебираем все символы новых данных
+        // for (let item = 0; item < event.length; item++) {
+        //
+        //     console.log('перебор всей строки');
+        //
+        //     // если символ из новых данных не равняется символу в старых данных
+        //     // (выбор нового введенного символа)
+        //     if (event[item] != this.data.phone[item]) {
+        //
+        //         console.log('первый if');
+        //
+        //         // проверка нового символа на integer
+        //         if (!Number(event[item]) && event[item] != '0') {
+        //             // если новый символ не цифра
+        //
+        //             console.log('второй if');
+        //
+        //             // возвращаем старые данные
+        //             setTimeout(() => {
+        //
+        //                     console.log('сработал таймаут');
+        //
+        //                     this.data.phone = oldData;
+        //                 }
+        //                 , 0);
+        //         }
+        //
+        //         // выходим из цикла
+        //         break;
+        //     }
+        // }
+    }
 
     /**
      * Подтверждение данных на вывод
@@ -166,31 +278,40 @@ export class CreditCardPaymentPage {
 
         // обнуляем все ошибки
         this.errors.name = false;
+        this.errors.surname = false;
         this.errors.email = false;
         this.errors.phone = false;
         this.errors.amount = false;
 
 
-        if(this.data.name.trim() == ''){
+        if (this.data.name.trim() == '') {
             this.errors.name = true;
-            return false
+            return false;
         }
 
-        if(this.data.email.trim() == ''){
+        if (this.data.surname.trim() == '') {
+            this.errors.surname = true;
+            return false;
+        }
+
+        if (this.data.email.trim() == '') {
             this.errors.mail = true;
-            return false
+            return false;
         }
 
-        if(this.data.phone.trim() == ''){
+        if (this.data.phone.trim() == '') {
             this.errors.phone = true;
-            return false
+            return false;
         }
 
-        if(this.data.amount <= 0){
+        if (this.data.amount <= 0) {
             this.errors.amount = true;
-            return false
+            return false;
         }
 
+        if (!this.phoneValidate()) {
+            return false;
+        }
 
         // показывает окно загрузки
         let loading = this.loadingCtrl.create({
@@ -203,6 +324,7 @@ export class CreditCardPaymentPage {
         let request = {
             item_id: this.item.id,
             name: this.data.name,
+            surname: this.data.surname,
             email: this.data.email,
             phone: this.data.phone,
             amount: this.data.amount,
@@ -257,7 +379,7 @@ export class CreditCardPaymentPage {
     }
 
 
-    webPage(){
+    webPage() {
 
         return this.domSanitizer.bypassSecurityTrustResourceUrl(this.invoiceUrl);
     }
@@ -301,7 +423,7 @@ export class CreditCardPaymentPage {
 
                     this.goBack({status: 'success', info: 'makeWithdrawal', data: resData.result})
 
-                } else if(resData.info == 'low_balance') {
+                } else if (resData.info == 'low_balance') {
 
 
                     // In your account 40 dollars. You can not withdraw more than this.

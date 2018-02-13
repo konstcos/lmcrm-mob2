@@ -43,6 +43,7 @@
                         [(ngModel)]="personalData.firstName"
                         type="text"
                         text-right
+                        (focus)="firstNameFocus()"
                         (blur)="firstNameValidate()"
                         name="firstName">
                 </ion-input>
@@ -93,6 +94,7 @@
                         [(ngModel)]="personalData.lastName"
                         type="text"
                         text-right
+                        (focus)="lastNameFocus()"
                         (blur)="lastNameValidate()"
                         name="firstName">
                 </ion-input>
@@ -140,6 +142,7 @@
                         [(ngModel)]="personalData.company"
                         type="text"
                         text-right
+                        (focus)="companyNameFocus()"
                         (blur)="companyNameValidate()"
                         name="firstName">
                 </ion-input>
@@ -163,7 +166,7 @@
 
     </div>
 
-    <!-- todo Поле с улицей агента -->
+    <!-- Поле с улицей агента -->
     <div class="personal_data_row">
 
         <ion-row>
@@ -189,6 +192,7 @@
                         [(ngModel)]="personalData.address"
                         type="text"
                         text-right
+                        (focus)="addressFocus()"
                         (blur)="addressValidate()"
                         name="firstName">
                 </ion-input>
@@ -212,7 +216,7 @@
 
     </div>
 
-    <!-- todo Поле с паспортом -->
+    <!-- Поле с паспортом -->
     <div class="personal_data_row">
 
         <ion-row>
@@ -238,6 +242,7 @@
                         [(ngModel)]="personalData.passport"
                         type="text"
                         text-right
+                        (focus)="passportFocus()"
                         (blur)="passportValidate()"
                         name="firstName">
                 </ion-input>

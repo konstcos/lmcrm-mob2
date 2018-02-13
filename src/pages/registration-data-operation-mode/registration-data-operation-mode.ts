@@ -249,4 +249,13 @@ export class RegistrationDataOperatingModePage {
         this.viewCtrl.dismiss({leadBuyerOperationMode: this.selectedMode});
     }
 
+
+    /**
+     * Событие по кнопке возврата
+     *
+     */
+    backButtonAction(){
+        this.goBack();
+    }
+
 }

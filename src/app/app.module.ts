@@ -99,6 +99,8 @@ import {SupportPage} from '../pages/support/support';
 
 import {LeadStatusPage} from '../pages/lead-status/lead-status';
 
+import {CrashPage} from '../pages/crash/crash';
+
 import {User} from '../providers/user';
 import {Api} from '../providers/api';
 import {Settings} from '../providers/settings';
@@ -112,6 +114,7 @@ import {TranslateModule, TranslateLoader, TranslateStaticLoader} from 'ng2-trans
 import {Obtain} from "../providers/obtain";
 import {Deposited} from "../providers/deposited";
 import {Open} from "../providers/open";
+import {CrashManager} from "../providers/crash_manager";
 
 
 // The translate loader needs to know where to load i18n files
@@ -243,7 +246,8 @@ let pages = [
 
     SalesmenPage,
     EditSalesmenPage,
-    StatisticsPage
+    StatisticsPage,
+    CrashPage
 ];
 
 export function declarations() {
@@ -272,6 +276,8 @@ export function providers() {
         // FCM,
 
         OpenLeadOrganizer,
+
+        CrashManager,
 
         {provide: Settings, useFactory: provideSettings, deps: [Storage]},
         // Keep this to enable Ionic's runtime error handling during development

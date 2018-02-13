@@ -244,7 +244,7 @@ export class ObtainDetailPage {
                 break;
 
             default:
-                alert('wrong area name');
+                // alert('wrong area name');
                 break;
         }
     }

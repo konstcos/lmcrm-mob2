@@ -44,6 +44,7 @@
                             [(ngModel)]="account.email"
                             type="text"
                             text-right
+                            (focus)="nameFocus()"
                             (blur)="nameValidate()"
                             name="firstName">
                     </ion-input>
@@ -113,6 +114,7 @@
                             [(ngModel)]="account.password"
                             type="password"
                             text-right
+                            (focus)="passwordFocus()"
                             (blur)="passwordValidate()"
                             name="firstName">
                     </ion-input>
@@ -173,6 +175,7 @@
                             [(ngModel)]="account.confirmPassword"
                             type="password"
                             text-right
+                            (focus)="passwordConfirmFocus()"
                             (blur)="passwordConfirmValidate()"
                             name="firstName">
                     </ion-input>

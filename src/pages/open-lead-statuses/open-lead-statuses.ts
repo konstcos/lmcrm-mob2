@@ -23,8 +23,29 @@ import {Open} from '../../providers/open';
 })
 export class OpenLeadStatusesPage {
 
+    /**
+     * Итем открытого лида
+     *
+     */
     public item: any;
-    public statuses: any;
+
+    /**
+     * Статусы открытого лида
+     *
+     */
+    // public statuses: any;
+    public statuses: any = {
+        bad: false,
+        uncertain: false,
+        process: false,
+        refuseniks: false,
+        deals: false,
+    };
+
+    /**
+     * Новый статус по открытому лиду
+     *
+     */
     public newStatus: any;
 
 
@@ -66,12 +87,19 @@ export class OpenLeadStatusesPage {
 
         this.item = this.navParams.get('item');
 
+        if(this.item) {
+            this.getOpenLeadStatuses();
+        }
+
+
         this.newStatus = this.item.status_info;
 
-        this.statuses = this.item.statuses;
+        // this.statuses = this.item.statuses;
         // item.statuses
 
         console.log(this.item);
+        console.log(this.newStatus);
+        console.log(this.item.statuses);
 
         // console.log(this.statuses);
 
@@ -83,31 +111,143 @@ export class OpenLeadStatusesPage {
 
 
     /**
+     * Получение статусов по открытому лиду
+     * todo
+     */
+    getOpenLeadStatuses() {
+
+        // показывает окно загрузки
+        let loading = this.loadingCtrl.create({
+            content: 'get statuses, please wait...'
+        });
+        loading.present();
+
+        // запрос на получение статусов с сервера
+        this.open.getOpenLeadStatuses({openedLeadId: this.item.id})
+            .subscribe(result => {
+                // при получении итемов
+
+                // переводим ответ в json
+                let data = result.json();
+
+                if(data.status === 'success') {
+
+                    console.log('Статусы получил нормально');
+                    console.log(data.openLeadStatuses);
+
+                    for (let i in data.openLeadStatuses) {
+
+                        switch (data.openLeadStatuses[i]['type']) {
+
+                            case 1:
+                                this.statuses.process = data.openLeadStatuses[i]['statuses'];
+                                break;
+
+                            case 2:
+                                this.statuses.uncertain = data.openLeadStatuses[i]['statuses'];
+                                break;
+
+                            case 3:
+                                this.statuses.refuseniks = data.openLeadStatuses[i]['statuses'];
+                                break;
+
+                            case 4:
+                                this.statuses.bad = data.openLeadStatuses[i]['statuses'];
+                                break;
+
+                            case 5:
+                                this.statuses.deals = data.openLeadStatuses[i]['statuses'];
+                                break;
+
+                        }
+                    }
+
+                } else {
+
+                    console.log('ошибка при получении статусов')
+                }
+
+
+                // console.log('цена за сделку');
+                // console.log(price);
+                //
+                // if (data.status == 'success') {
+                //
+                //     this.newStatus = data.status_info;
+                //     this.close(data.status_info, price);
+                //
+                // } else {
+                //     this.close();
+                // }
+
+                loading.dismiss();
+
+            }, err => {
+                // в случае ошибки
+
+                loading.dismiss();
+                console.log('ERROR: ' + err);
+
+                // todo выводится сообщение об ошибке (нету связи и т.д.)
+
+            });
+
+
+    }
+
+
+    /**
      * Выбор другого статуса
      *
      */
     check(status) {
 
+        // проверка на заблокированный статус
         if (status.lock) {
+            // если статус заблокирован
+            // выходим
             return false;
         }
 
 
+        // проверка статуса
         if (status.checked) {
+            // если статус отмечен
 
+            // проверка текущего статуса
+            if(status.id == this.item.status) {
+                // если это текущий статус
+                // выходим из метода
+                return false;
+            }
+
+            // очищаем текущий статус
             status.checked = false;
             this.checkedStatus = false;
             this.checkedStatusData = false;
 
-        } else {
+            // возвращаем уже сохраненный статус
+            for (let type in this.statuses) {
 
-            // console.log(this.statuses);
+                for (let stat of this.statuses[type]) {
+
+                    if (stat.id === this.item.status) {
+
+                        stat.lock = false;
+                        stat.checked = true;
+                        this.checkedStatus = stat.id;
+                        this.checkedStatusData = stat;
+                    }
+                }
+            }
+
+        } else {
 
             for (let type in this.statuses) {
 
                 for (let stat of this.statuses[type]) {
 
-                    if (stat.id == status.id) {
+                    if (stat.id === status.id) {
 
                         stat.checked = true;
                         this.checkedStatus = status.id;
@@ -116,11 +256,14 @@ export class OpenLeadStatusesPage {
                     } else {
 
                         stat.checked = false;
-                    }
 
+                        if(stat.id === this.item.status) {
+                            stat.lock = true;
+                        }
+
+                    }
                 }
             }
-
         }
     }
 

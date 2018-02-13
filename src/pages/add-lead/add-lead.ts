@@ -27,7 +27,8 @@ export class AddLeadPage {
 
         phone: {
             empty: false,
-            notEnough: false
+            notEnough: false,
+            notValid: false
         },
         name: {
             empty: false,
@@ -264,7 +265,6 @@ export class AddLeadPage {
      */
     loadGroupMembers() {
 
-
         this.user.getGroupMembers()
         // обработка итемов
             .subscribe(result => {
@@ -309,28 +309,36 @@ export class AddLeadPage {
      */
     phoneValidate() {
 
+        // Проверка на пустое поле
         if (this.lead.phone == '') {
-
             this.errors.phone.empty = true;
             this.errors.phone.notEnough = false;
-
+            this.errors.phone.notValid = false;
             return false;
-
-        } else if (this.lead.phone.length < 9 || this.lead.phone.length > 10) {
-
-            this.errors.phone.empty = false;
-            this.errors.phone.notEnough = true;
-
-            return false;
-
-        } else {
-
-            this.errors.phone.empty = false;
-            this.errors.phone.notEnough = false;
-
-            return true;
         }
 
+        // Проверка длины должно быть не меньше 9 и не больше 10
+        if (this.lead.phone.length < 9 || this.lead.phone.length > 10) {
+            this.errors.phone.empty = false;
+            this.errors.phone.notEnough = true;
+            this.errors.phone.notValid = false;
+            return false;
+        }
+
+        // Проверка по регулярке
+        let reg = /^\+?(972|0)(\-)?0?(([23489]{1}\d{7})|[5]{1}\d{8})$/;
+        if(!reg.test(this.lead.phone)) {
+            this.errors.phone.empty = false;
+            this.errors.phone.notEnough = false;
+            this.errors.phone.notValid = true;
+            return false;
+        }
+
+        // если телефон успешно прошел все проверки
+        this.errors.phone.empty = false;
+        this.errors.phone.notEnough = false;
+        this.errors.phone.notValid = false;
+        return true;
     }
 
     /**
@@ -405,6 +413,29 @@ export class AddLeadPage {
         }
 
         return true;
+    }
+
+
+    /**
+     * Фокус на поле с именем
+     *
+     */
+    nameFocus() {
+        // очищаем поля с обищками
+        this.errors.name.empty = false;
+        this.errors.name.notEnough = false;
+    }
+
+
+    /**
+     * Фокус на поле с телефоном
+     *
+     */
+    phoneFocus() {
+        // очищаем поля с обищками
+        this.errors.phone.empty = false;
+        this.errors.phone.notEnough = false;
+        this.errors.phone.notValid = false;
     }
 
 

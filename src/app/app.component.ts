@@ -1,12 +1,24 @@
 import {Component, ViewChild, OnInit} from '@angular/core';
-import {Platform, Nav, Config, LoadingController, ToastController, AlertController, Events} from 'ionic-angular';
+import {
+    Platform,
+    App,
+    Nav,
+    Config,
+    LoadingController,
+    ViewController,
+    ToastController,
+    AlertController,
+    Events,
+    ModalController
+} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 
 import {Settings} from '../providers/providers';
 
 import {User} from '../providers/user';
+import {CrashManager} from '../providers/crash_manager';
 
-import { File } from '@ionic-native/file';
+import {File} from '@ionic-native/file';
 
 import {LoginPage} from '../pages/login/login';
 import {MainPage} from '../pages/main/main';
@@ -14,6 +26,7 @@ import {EmailConfirmationPage} from '../pages/email-confirmation/email-confirmat
 import {RegistrationDataPage} from '../pages/registration-data/registration-data';
 import {RegistrationWaitingConfirmation} from '../pages/registration-waiting-confirmation/registration-waiting-confirmation';
 import {LicensePage} from '../pages/license/license';
+import {CrashPage} from '../pages/crash/crash';
 
 import {MessagesPage} from '../pages/messages/messages';
 
@@ -64,7 +77,10 @@ export class MyApp {
                 public events: Events,
                 private push: Push,
                 private file: File,
-                private badge: Badge) {
+                private badge: Badge,
+                private crash: CrashManager,
+                private modal: ModalController,
+                public app: App) {
 
         this.events.unsubscribe("badge:set");
         this.events.subscribe("badge:set", (date) => {
@@ -88,6 +104,49 @@ export class MyApp {
             //     this.toast.dismiss();
             // }
         });
+
+        // событие на открытие страницы crash
+        this.events.unsubscribe("crash:page.open");
+        this.events.subscribe("crash:page.open", (data) => {
+            // this.noticeCount = 0;
+
+            console.log('такие данные пришли по эвенту:');
+            console.log(data);
+
+
+            let crashModalPage = this.modal.create(CrashPage,
+                {crashData: data.crashData},
+                {showBackdrop: false, enableBackdropDismiss: false});
+            crashModalPage.present();
+
+
+            crashModalPage.onDidDismiss(data => {
+
+                console.log('закрытие модального окна со страницей ошибок');
+
+            });
+
+
+            // this.nav.setRoot(LoginPage);
+
+            // this.app.getRootNav().setRoot(LoginPage);
+
+            // let nav = app.getActiveNav();
+            // let activeView: ViewController = nav.getActive();
+            // let activeView = this.nav.getActive();
+
+            // activeView.nav.setRoot();
+
+            // if (typeof activeView.instance.backButtonAction === 'function') {
+            //
+            //     activeView.instance.backButtonAction();
+            // }
+
+
+            console.log('событие с главного компонента 2');
+
+        });
+
 
         // Set the default language for translation strings, and the current language.
         // translate.setDefaultLang('en');
@@ -120,6 +179,12 @@ export class MyApp {
 
             loading.present();
 
+            /**
+             * Проверка пользователя на залогинивание
+             *
+             * залогинен или нет
+             *
+             */
             this.user.authCheck()
                 .subscribe(resp => {
 
@@ -130,7 +195,7 @@ export class MyApp {
 
                     if (res.status == 'success') {
 
-                        if(res.default_route == 'agent.lead.deposited') {
+                        if (res.default_route == 'agent.lead.deposited') {
 
                             localStorage.setItem('default_route', 'outgoing');
 
@@ -142,11 +207,23 @@ export class MyApp {
                         // console.log(res.default_route);
                         this.nav.setRoot(MainPage);
 
+                    } else if (res.info == 'not_logged') {
+                        // пользователь не залогинен
+
+                        // обнуляем баджики
+                        this.badge.set(0);
+                        // удаляем все данные
+                        this.user.logout();
+                        // переходим на страницу логина
+                        this.nav.setRoot(LoginPage);
+
                     } else if (res.info == 'unfinished_registration') {
+                        // не законченная регистрация у пользователя
 
-
+                        // действия в зависимости от стейта
                         if (res.state == 0) {
-
+                            // не подтвержден мэил
+                            // переход на страницу мэила
                             this.nav.setRoot(EmailConfirmationPage);
 
                         } else if (res.state == 1) {
@@ -162,31 +239,46 @@ export class MyApp {
                             this.nav.setRoot(LicensePage);
                         }
 
-                        // console.log(res);
-                        // console.log('unfinished_registration');
-                        // return { status: 'error'};
                     }
 
                     loading.dismiss();
 
                 }, (err) => {
-
-                    console.log('проверка логина не прошла');
-                    console.log(err);
+                    // непонятная ошибка
 
                     this.badge.set(0);
 
                     loading.dismiss();
-
-                    // this.navCtrl.push(MainPage);
-                    // Unable to log in
-                    // let toast = this.toastCtrl.create({
-                    //     message: this.loginErrorString,
-                    //     duration: 3000,
-                    //     position: 'top'
-                    // });
                 });
         });
+
+
+        /**
+         * Описание событие клика по аппаратной кнопке возврата
+         *
+         */
+        platform.registerBackButtonAction(() => {
+            // let nav = MyApp.getActiveNav();
+            let nav = app.getActiveNav();
+            let activeView: ViewController = nav.getActive();
+            // let activeView = this.nav.getActive();
+
+            if (activeView != null) {
+
+                if (typeof activeView.instance.backButtonAction === 'function') {
+
+                    activeView.instance.backButtonAction();
+                }
+
+
+                // if(nav.canGoBack()) {
+                //     nav.pop();
+                // }else if (typeof activeView.instance.backButtonAction === 'function')
+                //     activeView.instance.backButtonAction();
+                // else nav.parent.select(0); // goes to the first tab
+            }
+        });
+
 
         // alert('проверка файлов:');
         // alert(this.file.dataDirectory);
@@ -210,6 +302,7 @@ export class MyApp {
             console.warn("Push notifications not initialized. Cordova is not available - Run in physical device");
             return;
         }
+
 
         /**
          * Данные по инициации нотификации
@@ -282,7 +375,7 @@ export class MyApp {
 
                 this.leadToast.present();
 
-            }else if(data.additionalData.type == 2) {
+            } else if (data.additionalData.type == 2) {
 
 
                 let text = {
@@ -321,7 +414,7 @@ export class MyApp {
                 });
                 reminder.present();
 
-            }else{
+            } else {
 
                 // if (this.toast) {
                 //     // return false;
@@ -371,13 +464,9 @@ export class MyApp {
         // After the view is initialized, this.userProfile will be available
         // this.update();
         this.events.publish("child:test");
-        console.log('root');
+        // console.log('root');
     }
 
-
-    alert() {
-        alert('ok worck');
-    }
 
     testClick() {
         this.events.publish("child:test");

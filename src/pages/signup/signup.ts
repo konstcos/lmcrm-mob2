@@ -81,15 +81,15 @@ export class SignupPage {
         // убираем ошибку
         this.state.name = 0;
 
-        // todo проверка на заполнение поля
+        // проверка на заполнение поля
         if (this.account.email == '') {
             // пустой адрес
             this.state.name = 2;
             return false;
         }
 
-        // todo адрес не валидный
-        if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.account.email.trim())) {
+        // адрес не валидный
+        if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,100})+$/.test(this.account.email.trim())) {
             // невалидный мэил
             this.state.name = 3;
             return false;
@@ -102,6 +102,16 @@ export class SignupPage {
         return true;
 
         // console.log('Валидация имени');
+    }
+
+
+    /**
+     * Убираем сообщение об ошибке имени при фокусе
+     *
+     */
+    nameFocus() {
+        // убираем ошибку
+        this.state.name = 0;
     }
 
 
@@ -138,11 +148,23 @@ export class SignupPage {
 
 
     /**
+     * Убираем сообщение об ошибке пароля при фокусе
+     *
+     */
+    passwordFocus() {
+        // убираем ошибку
+        this.state.password = 0;
+    }
+
+
+    /**
      * Валидация подтверждения пароля
      *
      */
     passwordConfirmValidate() {
 
+        // убираем ошибку
+        this.state.confirmPassword = 0;
 
         // todo проверка на заполнение поля
         if (this.account.confirmPassword == '') {
@@ -166,6 +188,16 @@ export class SignupPage {
 
 
     /**
+     * Валидация подтверждения пароля
+     *
+     */
+    passwordConfirmFocus() {
+        // убираем ошибку
+        this.state.confirmPassword = 0;
+    }
+
+
+    /**
      * Возврат на страницу логина
      *
      */
@@ -183,16 +215,21 @@ export class SignupPage {
 
         // проверка на наличия емила
         if (this.account.email.trim() == '') {
+            // пустой мэил
+            this.state.name = 3;
             return false;
         }
 
-        if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.account.email.trim())) {
-            console.log('не валидный мэил');
+        if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,100})+$/.test(this.account.email.trim())) {
+            // невалидный мэил
+            this.state.name = 3;
             return false;
         }
 
         // проверка на наличия пароля
         if (this.account.password.trim() == '') {
+            // пустое поле пароля
+            this.state.password = 2;
             return false;
         }
 
@@ -294,4 +331,12 @@ export class SignupPage {
 
     }
 
+
+    /**
+     * Событие по кнопке возврата
+     *
+     */
+    backButtonAction(){
+        this.goBack();
+    }
 }

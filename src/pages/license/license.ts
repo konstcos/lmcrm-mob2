@@ -161,4 +161,12 @@ export class LicensePage {
         this.nav.setRoot(LoginPage);
     }
 
+
+    /**
+     * Событие по кнопке возврата
+     *
+     */
+    backButtonAction(){
+        this.goBack();
+    }
 }

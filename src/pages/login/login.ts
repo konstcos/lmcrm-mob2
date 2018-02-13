@@ -79,7 +79,7 @@ export class LoginPage {
                 let res = resp.json();
 
                 // console.log('залогинился');
-                // console.log(res);
+                console.log(res);
 
                 // сценарий в зависимости от статуса ответа
                 if (res.status == 'success') {
@@ -189,8 +189,10 @@ export class LoginPage {
 
         // console.log('восстановление пароля');
 
-        let modal = this.modalCtrl.create(PasswordRecovery);
-        modal.present();
+        this.nav.setRoot(PasswordRecovery);
+
+        // let modal = this.modalCtrl.create(PasswordRecovery);
+        // modal.present();
     }
 
 

@@ -104,4 +104,12 @@ export class RegistrationDataRolePageDescription {
     }
 
 
+    /**
+     * Событие по кнопке возврата
+     *
+     */
+    backButtonAction(){
+        this.goBack();
+    }
+
 }

@@ -1,0 +1,119 @@
+<ion-header no-border>
+
+    <ion-navbar color="danger" hideBackButton="true">
+
+        <ion-buttons left>
+            <button color="clear" ion-button (click)="goBack()">
+                <ion-icon name="ios-arrow-back" class="back_arrow"></ion-icon>
+            </button>
+            <!--<button color="primary" ion-button (click)="goBack()">-->
+                <!--{{ 'BACK_TO_LOGIN' | translate }}-->
+            <!--</button>-->
+        </ion-buttons>
+
+        <ion-title text-right>
+            <!--something wrong-->
+            SOMETHING WRONG
+        </ion-title>
+
+        <ion-buttons right="">
+            <button color="clear" ion-button (click)="reload()">
+                <ion-icon name="md-refresh" class="back_arrow"></ion-icon>
+            </button>
+            <!--<button color="primary" ion-button (click)="goBack()">-->
+            <!--{{ 'BACK_TO_LOGIN' | translate }}-->
+            <!--</button>-->
+        </ion-buttons>
+
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+    <div *ngIf="sections.loading">
+
+
+
+    </div>
+
+    <div *ngIf="sections.connectionError">
+
+        <div *ngIf="debug">
+            <div [innerHTML]="webPage()">
+            </div>
+        </div>
+
+        <div *ngIf="!debug">
+            connection error (debug off)
+        </div>
+
+    </div>
+
+    <div *ngIf="sections.serverError">
+
+        <div *ngIf="debug">
+            <div [innerHTML]="webPage()">
+            </div>
+        </div>
+
+        <div *ngIf="!debug">
+            server error (debug off)
+        </div>
+
+    </div>
+
+    <div *ngIf="sections.unknown">
+
+        <div *ngIf="debug">
+
+            <div [innerHTML]="webPage()">
+            </div>
+
+        </div>
+
+        <div *ngIf="!debug">
+
+            unknown error (debug off)
+
+        </div>
+
+    </div>
+
+    <!--<div [innerHTML]="crashData.response._body">-->
+
+    <!--</div>-->
+
+    <!--<iframe-->
+            <!--[src]= "webPage()"-->
+            <!--frameborder="0"-->
+            <!--height="500px"-->
+            <!--width="100%">-->
+
+    <!--</iframe>-->
+
+
+
+    <!--<iframe-->
+            <!--frameborder="0"-->
+            <!--height="500px"-->
+            <!--width="100%">-->
+
+        <!--<div [innerHTML]="webPage()">-->
+        <!--</div>-->
+
+    <!--</iframe>-->
+
+
+    <!--<div text-center>-->
+        <!--<button ion-button color="primary" round small (click)="sendPasswordResetLink()">-->
+            <!--&lt;!&ndash;{{ 'CONFIRMATION_CODE_BUTTON' | translate }}&ndash;&gt;-->
+            <!--{{ 'password_recovery.send_button' | translate }}-->
+            <!--&lt;!&ndash;Send Password Reset Link&ndash;&gt;-->
+        <!--</button>-->
+    <!--</div>-->
+
+
+</ion-content>
+

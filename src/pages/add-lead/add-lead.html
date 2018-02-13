@@ -84,9 +84,10 @@
                     <ion-input
                             text-right
                             type="text"
+                            (focus)="nameFocus()"
                             (blur)='nameValidate($event)'
                             [(ngModel)]="lead.name"
-                            class="add_lead_value" ></ion-input>
+                            class="add_lead_value"></ion-input>
                 </ion-item>
 
                 <div *ngIf="errors.name.empty" class="phone_error">
@@ -112,6 +113,7 @@
                             (ngModelChange)='phoneChange($event)'
                             [(ngModel)]="lead.phone"
                             class="add_lead_value"
+                            (focus)="phoneFocus()"
                             (blur)="phoneValidate()">
 
                     </ion-input>
@@ -121,6 +123,10 @@
                 </div>
                 <div *ngIf="errors.phone.notEnough" class="phone_error">
                     {{ 'adding_lead.phone_error_length' | translate }}
+                </div>
+                <div *ngIf="errors.phone.notValid" class="phone_error">
+                    <!--{{ 'adding_lead.phone_error_length' | translate }}-->
+                    phone is not valid
                 </div>
             </div>
 

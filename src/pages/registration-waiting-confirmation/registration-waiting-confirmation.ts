@@ -99,5 +99,14 @@ export class RegistrationWaitingConfirmation {
         this.nav.setRoot(LoginPage);
     }
 
+
+    /**
+     * Событие по кнопке возврата
+     *
+     */
+    backButtonAction(){
+        this.goBack();
+    }
+
 }
 

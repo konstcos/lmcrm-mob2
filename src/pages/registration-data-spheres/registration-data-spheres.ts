@@ -186,9 +186,12 @@ export class RegistrationDataSpheresPage {
         this.viewCtrl.dismiss(this.selectedSpheres);
     }
 
-    // openModal() {
-    //     let m =  this.modalCtrl.create(LoginPage);
-    //     m.present()
-    // }
 
+    /**
+     * Событие по кнопке возврата
+     *
+     */
+    backButtonAction(){
+        this.goBack();
+    }
 }

@@ -777,6 +777,7 @@
     "credit_credit_card_payment": {
         "title": "מילוי ארנק דרך כרטיס אשראי",
         "name": "שם בעל כרטיס",
+        "surname": "שם משפחה",
         "email": "כתובת מייל",
         "phone": "טלפון",
         "amount": "סכום תשלום",

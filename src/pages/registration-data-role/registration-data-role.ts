@@ -128,5 +128,14 @@ export class RegistrationDataRolePage {
         this.viewCtrl.dismiss({role: this.role});
     }
 
+
+    /**
+     * Событие по кнопке возврата
+     *
+     */
+    backButtonAction(){
+        this.goBack();
+    }
+
 }
 

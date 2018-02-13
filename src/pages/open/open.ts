@@ -693,9 +693,14 @@ export class OpenPage {
                     // добавляем статус в модель
                     item.status_info = data.status;
                     item.status = data.status.id;
-                    item['close_deal_info'] = {
-                        'price': data.dealPrice
-                    };
+
+                    if(data.dealPrice) {
+                        item['close_deal_info'] = {
+                            'price': data.dealPrice
+                        };
+                    }
+
+
 
                     for (let type in item.statuses) {
 

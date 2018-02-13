@@ -1,11 +1,13 @@
 import {Component} from '@angular/core';
-import {NavController, ToastController, ViewController, LoadingController} from 'ionic-angular';
+import {NavController, Nav, ToastController, ViewController, LoadingController, Events} from 'ionic-angular';
 
 import {TranslateService} from 'ng2-translate/ng2-translate';
 
 import {LoginPage} from '../login/login'
 import {RegistrationDataPage} from '../registration-data/registration-data'
 import {User} from '../../providers/user';
+import {CrashManager} from '../../providers/crash_manager';
+
 
 /*
  Generated class for the Signup page.
@@ -19,12 +21,6 @@ import {User} from '../../providers/user';
 })
 export class PasswordRecovery {
 
-    /**
-     * Код подтверждения
-     *
-     */
-    public confirmationCode: string = '';
-
 
     /**
      * Сообщение об ошибке
@@ -32,147 +28,53 @@ export class PasswordRecovery {
      */
     public error: boolean = false;
 
+
+    /**
+     * Меил на востановление пароля
+     *
+     */
+    public email: string = '';
+
+
     constructor(public navCtrl: NavController,
                 public user: User,
+                public nav: Nav,
                 public view: ViewController,
                 public toastCtrl: ToastController,
                 public loadingCtrl: LoadingController,
-                public translateService: TranslateService) {
+                public translateService: TranslateService,
+                public crash: CrashManager,
+                public events: Events) {
 
 
         // let confirmatio = localStorage.getItem('waitConfirmation');
     }
 
 
-    onFocus(event) {
+    /**
+     * Фокус на поле ввода мэила
+     *
+     */
+    onFocus() {
 
         this.error = false;
-        // console.log('focus');
+    }
+
+    /**
+     * Потеря фокуса с поля ввода мэила
+     *
+     */
+    onBlur() {
+
+        this.error = false;
     }
 
 
     /**
-     *  Подтверждение мэила
+     * Валидация мэила
      *
      */
-    // confirm() {
-    //
-    //     // проверка на заполнение поля
-    //     if (this.confirmationCode.trim() == '') {
-    //         // если поле пустое - выходим из метода
-    //         return false;
-    //     }
-    //
-    //     // todo удалить
-    //     console.log('confirmation');
-    //
-    //     // отправка запроса на подтверждение кода
-    //     this.user.activate(this.confirmationCode.trim())
-    //     // ожидание ответа сервера
-    //         .subscribe(resp => {
-    //
-    //             // преобразование ответа в json
-    //             let res = resp.json();
-    //
-    //             console.log('activate');
-    //             console.log(res);
-    //
-    //             // обработка ответа сервера
-    //             if (res.status == 'success') {
-    //                 // при успешной активации
-    //
-    //                 // todo переходим на страницу заполнения данных
-    //                 this.nav.setRoot(RegistrationDataPage);
-    //
-    //             } else {
-    //                 // при ошибке активации
-    //
-    //                 this.error = true;
-    //
-    //                 // сообщаем об ошибке активации
-    //                 console.log('неверный код подтверждения');
-    //
-    //                 // return { status: 'error'};
-    //             }
-    //
-    //         }, err => {
-    //             console.error('ERROR', err);
-    //         });
-    // }
-
-
-
-    /**
-     *  Повторная отправка мэила
-     *
-     */
-    resendActivationCode() {
-
-
-        // todo удалить
-        // console.log('resendActivationCode');
-
-        // отправка запроса на подтверждение кода
-        this.user.resendActivationCode()
-        // ожидание ответа сервера
-            .subscribe(resp => {
-
-                // преобразование ответа в json
-                let res = resp.json();
-
-                // console.log('resendActivationCode');
-                // console.log(res);
-
-            }, err => {
-                console.error('ERROR', err);
-            });
-    }
-
-
-
-
-    doRegistration() {
-
-        // инициация окна загрузки
-        let loading = this.loadingCtrl.create({
-            content: 'Registration, please wait...'
-        });
-
-        // показ окна загрузки
-        // loading.present();
-
-
-        // console.log(this.account);
-
-
-        // account: {email: string, password: string, confirmPassword: string} = {
-        //     email: 'test@example.com',
-        //     password: 'test',
-        //     confirmPassword:
-
-        // this.user.registrationStepOne({email: this.account.email, password: this.account.password})
-        //     .subscribe(result => {
-        //         // If the API returned a successful response, mark the user as logged in
-        //
-        //         let data = result.json();
-        //
-        //         console.log(data);
-        //         // console.log(res);
-        //         // if (res.status == 'success') {
-        //         //     this._loggedIn(res);
-        //         // }
-        //
-        //         // if (res.status == 'Ok') {
-        //         //     this._loggedIn(res);
-        //         // }
-        //
-        //
-        //     }, err => {
-        //         console.error('ERROR', err);
-        //         // alert('ERROR: ' + err);
-        //
-        //     });
-
+    mailValicate() {
 
     }
 
@@ -183,7 +85,48 @@ export class PasswordRecovery {
      */
     sendPasswordResetLink(){
 
-        this.goBack();
+
+        // // инициация окна загрузки
+        // let loading = this.loadingCtrl.create({
+        //     content: 'Please wait...'
+        // });
+        //
+        // // показ окна загрузки
+        // loading.present();
+        //
+        // loading.dismiss();
+
+        this.user.sendForgotPassword({email: this.email})
+            .subscribe(result => {
+                // If the API returned a successful response, mark the user as logged in
+
+                let data = result.json();
+
+                console.log(data);
+
+
+
+                // console.log(res);
+                // if (res.status == 'success') {
+                //     this._loggedIn(res);
+                // }
+
+                // if (res.status == 'Ok') {
+                //     this._loggedIn(res);
+                // }
+
+            }, err => {
+
+                this.crash.responseHandler(err);
+
+
+                // console.error('ERROR', err);
+                // alert('ERROR: ' + err);
+
+            });
+
+
+
     }
 
 
@@ -193,7 +136,9 @@ export class PasswordRecovery {
      */
     goBack() {
         // переходим на страницу логина
-        this.view.dismiss();
+        // this.view.dismiss();
+        this.nav.setRoot(LoginPage);
+
     }
 
 }

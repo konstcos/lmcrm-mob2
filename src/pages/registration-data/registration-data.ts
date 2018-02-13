@@ -124,7 +124,9 @@ export class RegistrationDataPage {
     selectSpheres() {
 
         // модальное окно со сферами системы
-        let dataSpheres = this.modalCtrl.create(RegistrationDataSpheresPage, {spheres: this.sphereSelected});
+        let dataSpheres = this.modalCtrl.create(RegistrationDataSpheresPage,
+            {spheres: this.sphereSelected},
+            {showBackdrop: false, enableBackdropDismiss: false});
         // показ модального окна со сферами
         dataSpheres.present();
 
@@ -145,7 +147,9 @@ export class RegistrationDataPage {
     fillingPersonal() {
 
         // модальное окно со сферами системы
-        let personalData = this.modalCtrl.create(RegistrationDataPersonalPage, {personal: this.personalData});
+        let personalData = this.modalCtrl.create(RegistrationDataPersonalPage,
+            {personal: this.personalData},
+            {showBackdrop: false, enableBackdropDismiss: false});
         // показ модального окна со сферами
         personalData.present();
 
@@ -175,7 +179,9 @@ export class RegistrationDataPage {
     roleMatching() {
 
         // модальное окно со сферами системы
-        let personalData = this.modalCtrl.create(RegistrationDataRolePage, {role: this.role});
+        let personalData = this.modalCtrl.create(RegistrationDataRolePage,
+            {role: this.role},
+            {showBackdrop: false, enableBackdropDismiss: false});
         // показ модального окна со сферами
         personalData.present();
 
@@ -232,7 +238,9 @@ export class RegistrationDataPage {
     switchLeadBuyerOperationMode() {
 
         // модальное окно со режимами лидбайера
-        let operatingModePage = this.modalCtrl.create(RegistrationDataOperatingModePage, {leadBuyerOperationMode: this.leadBuyerOperationMode});
+        let operatingModePage = this.modalCtrl.create(RegistrationDataOperatingModePage,
+            {leadBuyerOperationMode: this.leadBuyerOperationMode},
+            {showBackdrop: false, enableBackdropDismiss: false});
         // показ модального окна с режимами лидбайера
         operatingModePage.present();
 
@@ -267,7 +275,9 @@ export class RegistrationDataPage {
         }
 
         // модальное окно со режимами лидбайера
-        let specializationPage = this.modalCtrl.create(RegistrationDataSpecializationPage, {specializations: this.specializations, role: this.role});
+        let specializationPage = this.modalCtrl.create(RegistrationDataSpecializationPage,
+            {specializations: this.specializations, role: this.role},
+            {showBackdrop: false, enableBackdropDismiss: false});
         // показ модального окна с режимами лидбайера
         specializationPage.present();
 
@@ -370,4 +380,12 @@ export class RegistrationDataPage {
         this.nav.setRoot(LoginPage);
     }
 
+
+    /**
+     * Событие по кнопке возврата
+     *
+     */
+    backButtonAction(){
+        this.goBack();
+    }
 }

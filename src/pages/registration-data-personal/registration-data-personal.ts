@@ -141,6 +141,51 @@ export class RegistrationDataPersonalPage {
 
 
     /**
+     * Фокус на имени
+     *
+     */
+    firstNameFocus() {
+        this.state.firstName = 0;
+    }
+
+
+    /**
+     * Фокус на фамилии
+     *
+     */
+    lastNameFocus() {
+        this.state.lastName = 0;
+    }
+
+
+    /**
+     * Фокус на имени кампании
+     *
+     */
+    companyNameFocus() {
+        this.state.company = 0;
+    }
+
+
+    /**
+     * Фокус на поле с адрессом
+     *
+     */
+    addressFocus() {
+        this.state.address = 0;
+    }
+
+
+    /**
+     * Фокус на поле с паспортом
+     *
+     */
+    passportFocus() {
+        this.state.passport = 0;
+    }
+
+
+    /**
      * Валидация имени
      *
      */
@@ -462,6 +507,16 @@ export class RegistrationDataPersonalPage {
         this.checkStatus();
 
         this.viewCtrl.dismiss({personal: this.personalData, status: this.status});
+    }
+
+
+
+    /**
+     * Событие по кнопке возврата
+     *
+     */
+    backButtonAction(){
+        this.goBack();
     }
 
 }

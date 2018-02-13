@@ -1,0 +1,77 @@
+crash-page {
+
+  .back_arrow {
+    font-size: 20px;
+    padding-left: 10px;
+  }
+
+  ion-content.no-scroll {
+
+    > .scroll-content {
+      overflow-y: auto;
+    }
+
+  }
+
+  .confirmation_data_row {
+
+    margin-bottom: 20px;
+
+    .validation_block {
+
+      .success {
+        color: green;
+      }
+
+      .alert {
+        color: red;
+      }
+
+      padding-bottom: 0;
+    }
+
+    .data_block {
+
+      .label {
+        text-align: right;
+        color: grey;
+        font-size: 12px;
+      }
+
+      .input_row {
+
+        .text-input {
+          margin-top: 7px;
+          margin-bottom: 8px;
+          color: #337AB7;
+        }
+
+      }
+
+      padding-bottom: 0;
+    }
+
+  }
+
+  .confirmation_data_row_separator {
+    margin: 0;
+    color: lightgray;
+    background-color: lightgray;
+
+    &.confirmation_data_row_separator.red {
+      color: red;
+      background-color: red;
+    }
+  }
+
+  .resend_button {
+    margin-top: 20px;
+  }
+
+  .error_message {
+    color: red;
+    font-size: 11px;
+    text-align: right;
+  }
+
+}

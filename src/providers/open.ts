@@ -63,6 +63,14 @@ export class Open {
 
 
     /**
+     * Получение статусов по открытому лиду
+     */
+    getOpenLeadStatuses(data: any) {
+        return this.api.post('api/lead/open/statuses/get', data);
+    }
+
+
+    /**
      * Смена статуса открытого лида
      */
     archive(data: any) {

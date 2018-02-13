@@ -108,4 +108,13 @@ export class SupportPage {
     close() {
         this.view.dismiss();
     }
+
+
+    /**
+     * Событие по кнопке возврата
+     *
+     */
+    backButtonAction(){
+        this.close();
+    }
 }

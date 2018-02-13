@@ -103,4 +103,14 @@ export class AdvantagesPage {
     close() {
         this.view.dismiss();
     }
+
+
+
+    /**
+     * Событие по кнопке возврата
+     *
+     */
+    backButtonAction(){
+        this.close();
+    }
 }
