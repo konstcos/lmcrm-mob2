@@ -161,6 +161,18 @@ export class ObtainPage {
                 let data = result.json();
 
 
+                /**
+                 * Количество уведомлений
+                 *
+                 */
+                let notices = {
+                    notice: data.notices,
+                    auction: data.auctionCount,
+                };
+                // применяем уведомления
+                this.checkNotices(notices);
+
+
                 console.log('обновление обтэин: ');
                 console.log(data);
 
@@ -347,6 +359,18 @@ export class ObtainPage {
 
                     // переводим ответ в json
                     let data = result.json();
+
+                    /**
+                     * Количество уведомлений
+                     *
+                     */
+                    let notices = {
+                        notice: data.notices,
+                        auction: data.auctionCount,
+                    };
+                    console.log(notices);
+                    // применяем уведомления
+                    this.checkNotices(notices);
 
                     // вычесляем количество итемов
                     let itemsLength = data.auctionItems.length;

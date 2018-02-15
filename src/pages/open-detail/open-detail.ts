@@ -6,6 +6,7 @@ import {TranslateService} from 'ng2-translate/ng2-translate';
 import {Open} from '../../providers/open';
 
 import { CallNumber } from '@ionic-native/call-number';
+import {OpenLeadDealPage} from "../open-lead-deal/open-lead-deal";
 
 /*
  Generated class for the OpenDetail page.
@@ -118,42 +119,75 @@ export class OpenDetailPage {
     changeStatus(item) {
         // this.navCtrl.push(OpenLeadStatusesPage);
 
-        console.log('итем: ');
-        console.log(item);
-
-        let modal = this.modalCtrl.create(OpenLeadStatusesPage, {item: item});
-
-        modal.onDidDismiss(data => {
+        // проверка статуса
+        if (item.status_info && item.status_info.type == 5) {
 
 
-            if (data.status) {
-                item.status_info = data.status;
-                item.status = data.status.id;
+            let modal = this.modalCtrl.create(OpenLeadDealPage, {item: item});
 
-                for (let type in this.item.statuses) {
+            modal.onDidDismiss(data => {
 
-                    for (let stat of this.item.statuses[type]) {
+                console.log('данные по сделкам');
+                console.log(data);
 
-                        if (stat.id == data.status.id) {
+            });
 
-                            stat.checked = false;
-                            stat.lock = true;
+            modal.present();
 
-                        } else {
+        } else {
 
-                            stat.checked = false;
-                        }
+            let modal = this.modalCtrl.create(OpenLeadStatusesPage, {item: item});
 
+            modal.onDidDismiss(data => {
+
+
+                if (data.status) {
+                    item.status_info = data.status;
+                    item.status = data.status.id;
+
+                    if(data.dealPrice) {
+                        item['close_deal_info'] = {
+                            'price': data.dealPrice
+                        };
                     }
+
+                    for (let type in this.item.statuses) {
+
+                        for (let stat of this.item.statuses[type]) {
+
+                            if (stat.id == data.status.id) {
+
+                                stat.checked = false;
+                                stat.lock = true;
+
+                            } else {
+
+                                stat.checked = false;
+                            }
+
+                        }
+                    }
+
+                    // проверка на роль
+                    if(this.roles.subRole == 'dealmaker') {
+                        // если диалмэкер
+
+                        // открываем сделку (если это сделка)
+                        if(item.status_info && item.status_info.type == 5) {
+                            this.changeStatus(item);
+                        }
+                    }
+
                 }
-            }
 
 
-            console.log(item);
-            console.log(data);
-        });
+                console.log(item);
+                console.log(data);
+            });
 
-        modal.present();
+            modal.present();
+
+        }
     }
 
 
@@ -291,7 +325,9 @@ export class OpenDetailPage {
             this.events.publish('goTo:open');
         }
 
-        this.view.dismiss();
+
+
+        this.view.dismiss(this.item);
     }
 
 }

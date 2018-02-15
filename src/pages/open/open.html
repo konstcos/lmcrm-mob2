@@ -81,17 +81,36 @@
                     </div>
 
                     <div *ngIf="!item.close_deal_info">
-                        <button ion-button small full (click)="changeStatus(item)">
-                            {{ item.status_info ? item.status_info.stepname : ('exposed.no_status' | translate) }}
-                        </button>
+
+                        <div *ngIf="item.status_info && item.status_info.type == 4" class="open_lead_bad_status">
+                            {{ item.status_info.stepname }}
+                        </div>
+
+                        <div *ngIf="!item.status_info || item.status_info.type != 4">
+                            <button ion-button small full (click)="changeStatus(item)">
+                                {{ item.status_info ? item.status_info.stepname : ('exposed.no_status' | translate) }}
+                            </button>
+                        </div>
+
                     </div>
 
                 </div>
 
                 <div *ngIf="roles.subRole == 'dealmaker'">
-                    <button ion-button small full (click)="changeStatus(item)">
-                        {{ item.status_info ? item.status_info.stepname : ('exposed.no_status' | translate) }}
-                    </button>
+                    <!--<button ion-button small full (click)="changeStatus(item)">-->
+                        <!--{{ item.status_info ? item.status_info.stepname : ('exposed.no_status' | translate) }}-->
+                    <!--</button>-->
+
+                    <div *ngIf="item.status_info && item.status_info.type == 4" class="open_lead_bad_status">
+                        {{ item.status_info.stepname }}
+                    </div>
+
+                    <div *ngIf="!item.status_info || item.status_info.type != 4">
+                        <button ion-button small full (click)="changeStatus(item)">
+                            {{ item.status_info ? item.status_info.stepname : ('exposed.no_status' | translate) }}
+                        </button>
+                    </div>
+
                 </div>
 
             </ion-col>

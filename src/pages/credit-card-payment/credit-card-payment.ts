@@ -51,6 +51,25 @@ export class CreditCardPaymentPage {
 
 
     /**
+     * Состояние проплаты
+     *
+     * дает понять была проплата или не было
+     * для того чтобы понят в основном окне
+     * менять статус итема, или нет
+     */
+    public paymentState: boolean = false;
+
+
+    /**
+     * Статус проплаты
+     *
+     * проплата была сделана успешно
+     * или прошла какая то ошибка
+     */
+    public paymentStatus: string = '';
+
+
+    /**
      * Данные по вводу денег
      *
      */
@@ -85,6 +104,25 @@ export class CreditCardPaymentPage {
      */
     public isLoading: boolean = false;
 
+    /**
+     * Переменная областей на странице
+     *
+     */
+    public sections: any = {
+        // загрузка
+        loading: false,
+        // область с данными
+        data: true,
+        // область с фреймом
+        frame: false,
+        // положительный результат
+        resultSuccess: false,
+        // отрицательный результат
+        resultFail: false,
+        // при возникновении какой то ошибки
+        error: false
+    };
+
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
@@ -94,6 +132,14 @@ export class CreditCardPaymentPage {
                 public loadingCtrl: LoadingController,
                 public alertCtrl: AlertController) {
 
+        // создаем слушатель на сообщения из iFrame
+        window.addEventListener('message', (data) => {
+            // преобразовываем сообщение в json
+            let message = JSON.parse(data.data);
+            // метод обработки ответа
+            this.frameMessageProcessing(message);
+        });
+
         // получение id итема
         this.item = this.navParams.get('item');
 
@@ -102,8 +148,82 @@ export class CreditCardPaymentPage {
     }
 
 
+    /**
+     * Сценарий при полной загрузке компонента
+     *
+     */
     ionViewDidLoad() {
-        // console.log('ionViewDidLoad CreditsPage');
+    }
+
+
+    /**
+     * Переключение областей на странице
+     *
+     * области на странице:
+     *     loading - область со спинером загрузки, показывается во время загрузки
+     *     data - область с данными, показывается когда данные успешно загруженны
+     *     frame - меню/подтверждение на открытие лида
+     *     success - область с ошибкой по открытию лиди
+     *     fail - область подтверждение овердрафта
+     *     error - область с ошибками, появляется во время ошибки загрузки
+     */
+    section(areaName: any = false) {
+
+        // закрываются все разделы
+        this.closeAllSections();
+
+        switch (areaName) {
+
+            case 'loading':
+                // область со спинером загрузки
+                this.sections.loading = true;
+                break;
+
+            case 'data':
+                // область основных данных
+                // (ввод данных для проплаты)
+                this.sections.data = true;
+                break;
+
+            case 'frame':
+                // фрейм сервиса проплаты
+                this.sections.frame = true;
+                break;
+
+            case 'success':
+                // область оповещения об успехе
+                this.sections.resultSuccess = true;
+                break;
+
+            case 'fail':
+                // область оповещения о неудаче
+                this.sections.resultFail = true;
+                break;
+
+
+            case 'error':
+                // непонятная ошибка
+                this.sections.error = true;
+                break;
+
+            default:
+                // alert('wrong area name');
+                break;
+        }
+    }
+
+
+    /**
+     * Закрывает все области
+     *
+     */
+    closeAllSections() {
+        // закрытие всех областей
+        for (let section in this.sections) {
+            // перебираем все области
+            // закрываем их
+            this.sections[section] = false;
+        }
     }
 
 
@@ -212,16 +332,15 @@ export class CreditCardPaymentPage {
         // сохраняем старые данные
         // let oldData = this.data.phone;
 
-            setTimeout(() => {
-                    this.data.phone = event.replace(/\D+/g,"");
-                }
-                , 0);
+        setTimeout(() => {
+                this.data.phone = event.replace(/\D+/g, "");
+            }
+            , 0);
 
 
         console.log(this.data.phone);
 
         // let passportValue = this.personalData.passport.replace(/\D+/g,"");
-
 
 
         // проверка на максимальную длину номера телефона
@@ -314,13 +433,16 @@ export class CreditCardPaymentPage {
         }
 
         // показывает окно загрузки
-        let loading = this.loadingCtrl.create({
-            content: 'Please wait...'
-        });
+        // let loading = this.loadingCtrl.create({
+        //     content: 'Please wait...'
+        // });
+        //
+        // loading.present();
 
-        loading.present();
+        // показываем спинер загрузки
+        this.section('loading');
 
-
+        // подготовка данных для отправки на сервер
         let request = {
             item_id: this.item.id,
             name: this.data.name,
@@ -330,7 +452,7 @@ export class CreditCardPaymentPage {
             amount: this.data.amount,
         };
 
-
+        // запрос на получение данных по кредитке
         this.credits.creditCardPayment(request)
             .subscribe(result => {
                 // при получении итемов
@@ -340,45 +462,46 @@ export class CreditCardPaymentPage {
 
                 console.log(data);
 
+                // обработка результата запроса
                 if (data.status == 'success') {
+                    // при успешном ответе
 
-                    // this.data = {
-                    //     name: data.info.user.last_name + ' ' + data.info.user.first_name,
-                    //     mail: data.info.user.email,
-                    //     phone: data.info.requestPayment.initiator.phone,
-                    //     amount: data.info.requestPayment.amount,
-                    // };
-                    //
-                    // console.log(this.data);
-
-                    // this.invoiceUrl = data.info.ClearingRedirectUrl;
+                    // сохраняем ссылку для получени данных проплаты
+                    // для iFrame
                     this.invoiceUrl = data.info;
 
-                    // console.log(this.invoiceUrl);
+                    // показываем блок с данными
+                    this.section('frame');
 
                 } else {
+                    // при неудаче
 
-                    console.log('error');
+                    // показываем блок с ошибкой
+                    this.section('error');
                 }
 
-                loading.dismiss();
-
-                this.dataBlock = false;
-                this.creditBlock = true;
+                // loading.dismiss();
+                // this.dataBlock = false;
+                // this.creditBlock = true;
 
             }, err => {
                 // в случае ошибки
 
                 console.log('ERROR: ' + err);
 
-                loading.dismiss();
+                this.section('error');
 
-                this.dataBlock = false;
-                this.creditBlock = false;
+                // loading.dismiss();
+                // this.dataBlock = false;
+                // this.creditBlock = false;
             });
     }
 
 
+    /**
+     * Обработка данных для iFrame
+     *
+     */
     webPage() {
 
         return this.domSanitizer.bypassSecurityTrustResourceUrl(this.invoiceUrl);
@@ -386,92 +509,49 @@ export class CreditCardPaymentPage {
 
 
     /**
-     * Сохранить заявку на вывод денег
+     * Обработка сообщения с фрейма
      *
      */
-    makeWithdrawal() {
+    frameMessageProcessing(message) {
 
-        // показывает окно загрузки
-        let loading = this.loadingCtrl.create({
-            content: 'Make withdrawal, please wait...'
-        });
-        loading.present();
+        console.log('получил данные с iFrame');
 
+        // обработка полученного сообщения
+        if (message.status === 'success') {
+            // если успех - показываем раздел оповещения об успехе
 
-        let data = {
-            withdrawal: this.data.amount,
-            company: this.data.company,
-            bank: this.data.bank,
-            branch_number: this.data.branch_number,
-            invoice_number: this.data.invoice_number,
-        };
+            // сохраняем данные об операции
+            this.paymentState = true;
+            this.paymentStatus = 'success';
 
+            this.section('success');
 
-        this.credits.createWithdrawal(data)
-            .subscribe(result => {
-                // при получении итемов
+        } else {
+            // если ошибка - показываем раздел с ошибкой
 
-                // переводим ответ в json
-                let resData = result.json();
+            // сохраняем данные об операции
+            this.paymentState = true;
+            this.paymentStatus = 'fail';
 
-                console.log(resData);
+            this.section('fail');
+        }
 
-                // отключаем окно индикатора загрузки
-                loading.dismiss();
-
-                if (resData.status == 'success') {
-
-                    this.goBack({status: 'success', info: 'makeWithdrawal', data: resData.result})
-
-                } else if (resData.info == 'low_balance') {
-
-
-                    // In your account 40 dollars. You can not withdraw more than this.
-
-                    let message = 'In your wallet <b>&#8362; ' + resData.balance + '</b>. You can not withdraw more than this.';
-
-                    let alert = this.alertCtrl.create({
-                        title: 'Insufficient balance',
-                        message: message,
-                        buttons: [
-                            {
-                                text: 'Ok',
-                                handler: () => {
-                                    console.log('Ok clicked');
-                                }
-                            }
-                        ]
-                    });
-                    alert.present();
-
-                } else {
-
-                    this.goBack({status: 'success', info: 'errorWithdrawal'})
-                }
-
-
-            }, err => {
-                // в случае ошибки
-
-                console.log('ERROR: ' + err);
-
-                // todo выводится сообщение об ошибке (нету связи и т.д.)
-
-                // отключаем окно индикатора загрузки
-                loading.dismiss();
-
-                // this.goBack({status: 'success', info: 'errorReplenishment'})
-            });
-
-
-    }
+    };
 
 
     /**
      * Возврат назад
      *
      */
-    goBack(data: any = {status: 'success', info: false}) {
+    goBack() {
+
+        // формирование данных для основного компонента
+        let data = {
+            state: this.paymentState,
+            status: this.paymentStatus
+        };
+
+        // закрытие окна с передачей данных в основной компонент
         this.view.dismiss(data);
     }
 }

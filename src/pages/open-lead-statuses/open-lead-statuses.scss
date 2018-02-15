@@ -1,16 +1,29 @@
 page-open-lead-statuses {
 
-
-  .status_back_button{
-
+  .spinnerLoading {
+    text-align: center;
+    margin-top: 20%;
   }
 
+  .error_block {
+    margin: 40% 30px 10px;
+    padding: 50px 20px;
+    text-align: center;
+    color: white;
+    background: #DB4437;
+    border-radius: 30px;
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .status_back_button {
+
+  }
 
   .bad_status_color_header {
     color: white;
     background: #CD0000;
   }
-
 
   .bad_status_color {
 
@@ -24,7 +37,6 @@ page-open-lead-statuses {
     //background: #CD0000;
   }
 
-
   .bad_status_color_checked {
     color: #CD0000;
     background: #FEDFDF;
@@ -35,8 +47,6 @@ page-open-lead-statuses {
     //color: #CD0000;
     //background: #EFC5C5;
   }
-
-
 
   .uncertain_status_color_header {
     color: white;
@@ -65,7 +75,6 @@ page-open-lead-statuses {
     //background: #F0DB99;
   }
 
-
   .process_status_color_header {
     color: white;
     background: #00B050;
@@ -92,7 +101,6 @@ page-open-lead-statuses {
     //color: #00B050;
     //background: #99DFB9;
   }
-
 
   .refuseniks_status_color_header {
     color: white;
@@ -121,7 +129,6 @@ page-open-lead-statuses {
     //background: #CBAD99;
   }
 
-
   .deals_status_color_header {
     color: white;
     background: #3F51B5;
@@ -134,8 +141,8 @@ page-open-lead-statuses {
     border-bottom: 1px solid #3F51B5;
     border-radius: 10px;
 
-  //  color: white;
-  //  background: #3F51B5;
+    //  color: white;
+    //  background: #3F51B5;
   }
 
   .deals_status_color_checked {

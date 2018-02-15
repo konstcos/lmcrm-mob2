@@ -5,11 +5,56 @@ credit-card-payment {
     margin-top: 20%;
   }
 
+  .error_block {
+    margin: 40% 30px 10px;
+    padding: 50px 20px;
+    text-align: center;
+    color: white;
+    background: #DB4437;
+    border-radius: 30px;
+    font-size: 18px;
+    line-height: 28px;
+  }
+
   .description {
     color: #909090;
     text-align: center;
     margin: 1% 2px 8%;
     font-size: 12px;
+  }
+
+  .success {
+
+    .message {
+      margin: 20% 30px 10%;
+      color: #155724;
+      background: #D4EDDA;
+      border-radius: 20px;
+      padding: 30px 10px;
+    }
+
+    .success_button_block {
+      margin: 10% 5px;
+      text-align: center;
+    }
+
+  }
+
+  .fail {
+
+    .message {
+      margin: 20% 30px 10%;
+      color: #721C24;
+      background: #F8D7DA;
+      border-radius: 20px;
+      padding: 30px 10px;
+    }
+
+    .success_button_block {
+      margin: 10% 5px;
+      text-align: center;
+    }
+
   }
 
   .withdrawal_block {
@@ -36,7 +81,7 @@ credit-card-payment {
         color: #337AB7;
         padding-right: 10px;
 
-        ion-input{
+        ion-input {
           display: inline;
         }
 

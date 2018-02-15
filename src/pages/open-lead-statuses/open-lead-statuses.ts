@@ -77,6 +77,20 @@ export class OpenLeadStatusesPage {
     public dealBlock: boolean = false;
 
 
+    /**
+     * Переменная областей на странице
+     *
+     */
+    public sections: any = {
+        // загрузка
+        loading: true,
+        // область с данными
+        data: false,
+        // область с ошибкой
+        error: false,
+    };
+
+
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 public open: Open,
@@ -97,9 +111,9 @@ export class OpenLeadStatusesPage {
         // this.statuses = this.item.statuses;
         // item.statuses
 
-        console.log(this.item);
-        console.log(this.newStatus);
-        console.log(this.item.statuses);
+        // console.log(this.item);
+        // console.log(this.newStatus);
+        // console.log(this.item.statuses);
 
         // console.log(this.statuses);
 
@@ -109,6 +123,53 @@ export class OpenLeadStatusesPage {
         // console.log('ionViewDidLoad OpenLeadStatusesPage');
     }
 
+    /**
+     * Переключение областей на странице
+     *
+     * области на странице:
+     *     loading - область со спинером загрузки, показывается во время загрузки
+     *     data - область с данными, показывается когда данные успешно загруженны
+     */
+    section(areaName: any = false) {
+
+        // закрываются все разделы
+        this.closeAllSections();
+
+        switch (areaName) {
+
+            case 'loading':
+                // область со спинером загрузки
+                this.sections.loading = true;
+                break;
+
+            case 'data':
+                // область основных данных
+                // список статусов
+                this.sections.data = true;
+                break;
+
+            default:
+                // alert('wrong area name');
+                break;
+        }
+    }
+
+
+    /**
+     * Закрывает все области
+     *
+     */
+    closeAllSections() {
+        // закрытие всех областей
+        for (let section in this.sections) {
+            // перебираем все области
+            // закрываем их
+            this.sections[section] = false;
+        }
+    }
+
+
+
 
     /**
      * Получение статусов по открытому лиду
@@ -117,10 +178,13 @@ export class OpenLeadStatusesPage {
     getOpenLeadStatuses() {
 
         // показывает окно загрузки
-        let loading = this.loadingCtrl.create({
-            content: 'get statuses, please wait...'
-        });
-        loading.present();
+        // let loading = this.loadingCtrl.create({
+        //     content: 'get statuses, please wait...'
+        // });
+        // loading.present();
+
+        // показываем загрузку, если ее еще нет
+        this.section('loading');
 
         // запрос на получение статусов с сервера
         this.open.getOpenLeadStatuses({openedLeadId: this.item.id})
@@ -132,7 +196,7 @@ export class OpenLeadStatusesPage {
 
                 if(data.status === 'success') {
 
-                    console.log('Статусы получил нормально');
+                    console.log('Статусы получил нормально (это из метода)');
                     console.log(data.openLeadStatuses);
 
                     for (let i in data.openLeadStatuses) {
@@ -162,9 +226,14 @@ export class OpenLeadStatusesPage {
                         }
                     }
 
+                    // выводим страницу с данными
+                    this.section('data');
+
                 } else {
 
                     console.log('ошибка при получении статусов')
+                    // выводим страницу с данными
+                    this.section('error');
                 }
 
 
@@ -180,13 +249,15 @@ export class OpenLeadStatusesPage {
                 //     this.close();
                 // }
 
-                loading.dismiss();
+                // loading.dismiss();
 
             }, err => {
                 // в случае ошибки
 
-                loading.dismiss();
+                // loading.dismiss();
                 console.log('ERROR: ' + err);
+                // выводим страницу с данными
+                this.section('error');
 
                 // todo выводится сообщение об ошибке (нету связи и т.д.)
 
@@ -235,13 +306,17 @@ export class OpenLeadStatusesPage {
 
                         stat.lock = false;
                         stat.checked = true;
-                        this.checkedStatus = stat.id;
-                        this.checkedStatusData = stat;
+                        // this.checkedStatus = stat.id;
+                        // this.checkedStatusData = stat;
+
+                        this.checkedStatus = false;
+                        this.checkedStatusData = false;
                     }
                 }
             }
 
         } else {
+            // если статус еще не отмечен
 
             for (let type in this.statuses) {
 
@@ -265,6 +340,7 @@ export class OpenLeadStatusesPage {
                 }
             }
         }
+
     }
 
 

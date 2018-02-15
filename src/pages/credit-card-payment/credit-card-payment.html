@@ -36,12 +36,14 @@
 <ion-content>
 
     <!-- спинер загрузки -->
-    <div *ngIf="isLoading" class="spinnerLoading">
+    <!--<div *ngIf="isLoading" class="spinnerLoading">-->
+    <div *ngIf="sections.loading" class="spinnerLoading">
         <ion-spinner color="primary" name="crescent"></ion-spinner>
     </div>
 
     <!-- Блок с данными -->
-    <div *ngIf="dataBlock" class="withdrawal_block">
+    <!--<div *ngIf="dataBlock" class="withdrawal_block">-->
+    <div *ngIf="sections.data" class="withdrawal_block">
 
         <!-- строка с данными -->
         <div class="withdrawal_row">
@@ -211,7 +213,8 @@
     </div>
 
     <!-- Блок с данными по проплате -->
-    <div *ngIf="creditBlock">
+    <!--<div *ngIf="creditBlock">-->
+    <div *ngIf="sections.frame">
 
         <!--<iframe-->
                 <!--[src]= "webPage()"-->
@@ -225,11 +228,46 @@
                 [src]= "webPage()"
                 frameborder="0"
                 width="100%"
-                height="550px">
+                height="1250px">
 
         </iframe>
 
     </div>
+
+    <!-- Блок данных с положительным результатом проплаты -->
+    <div *ngIf="sections.resultSuccess" class="success">
+
+        <div class="message" text-center>
+            payment success
+        </div>
+
+        <div class="success_button_block" text-center>
+
+            <button ion-button round small (click)="goBack()">Close</button>
+
+        </div>
+
+
+    </div>
+
+    <!-- Блок данных с ошибкой при проплате -->
+    <div *ngIf="sections.resultFail" class="fail">
+
+        <div class="message" text-center>
+            payment fail
+        </div>
+
+        <div class="success_button_block" text-center>
+            <button ion-button round small (click)="goBack()">Close</button>
+        </div>
+
+    </div>
+
+    <!-- Блок данных с непонятной ошибкой в резльтате работы -->
+    <div *ngIf="sections.error" class="error_block">
+        error while progress, please go back and try again later
+    </div>
+
 
 </ion-content>
 

@@ -49,9 +49,14 @@
         <ion-input
                 type="number"
                 [(ngModel)]="price"
+                (focus)="priceOnFocus()"
                 min="0">
         </ion-input>
         <span class="currency">&#8362;</span>
+    </div>
+
+    <div *ngIf="lowPrice" class="low_price">
+        price can not be less than 2000&#8362;
     </div>
 
     <div class="comment_input">

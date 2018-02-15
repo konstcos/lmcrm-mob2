@@ -569,7 +569,6 @@ export class MainPage {
 
                 this.incomingBadge = data;
             }
-
         });
 
     }

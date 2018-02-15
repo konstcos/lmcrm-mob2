@@ -24,123 +24,135 @@
 
 <ion-content>
 
+    <!-- область загрузки -->
+    <div *ngIf="sections.loading" class="spinnerLoading">
+        <ion-spinner color="primary" name="crescent"></ion-spinner>
+    </div>
+
     <!-- блок со статусами -->
+    <div *ngIf="sections.data">
 
+        <!-- Процессные статусы -->
+        <div *ngIf="statuses['process']">
+            <ion-card>
+                <ion-card-header text-right class="status_card_header process_status_color_header">
+                    {{ 'open_lead_statuses.process' | translate }}
+                </ion-card-header>
 
-    <!-- Процессные статусы -->
-    <div *ngIf="statuses['process']">
-        <ion-card>
-            <ion-card-header text-right class="status_card_header process_status_color_header">
-                {{ 'open_lead_statuses.process' | translate }}
-            </ion-card-header>
+                <ion-list class="status_card_list">
+                    <ion-item *ngFor="let status of statuses['process']" text-right class="status_card_item"
+                              (click)="check(status)"
+                              [ngClass]="status.checked ? 'process_status_color_checked' : 'process_status_color'">
+                        {{ status.stepname }}
+                        <ion-icon *ngIf="status.lock" name="md-lock"></ion-icon>
+                        <ion-icon *ngIf="!status.lock && !status.checked" name="md-square-outline"></ion-icon>
+                        <ion-icon *ngIf="!status.lock && status.checked" name="md-checkbox-outline"></ion-icon>
+                    </ion-item>
+                </ion-list>
+            </ion-card>
+        </div>
+        <!-- конец Процессные статусы -->
 
-            <ion-list class="status_card_list">
-                <ion-item *ngFor="let status of statuses['process']" text-right class="status_card_item"
-                          (click)="check(status)"
-                          [ngClass]="status.checked ? 'process_status_color_checked' : 'process_status_color'">
-                    {{ status.stepname }}
-                    <ion-icon *ngIf="status.lock" name="md-lock"></ion-icon>
-                    <ion-icon *ngIf="!status.lock && !status.checked" name="md-square-outline"></ion-icon>
-                    <ion-icon *ngIf="!status.lock && status.checked" name="md-checkbox-outline"></ion-icon>
-                </ion-item>
-            </ion-list>
-        </ion-card>
+        <!-- Отказные статусы -->
+        <div *ngIf="statuses['uncertain']">
+            <ion-card>
+                <ion-card-header text-right class="status_card_header uncertain_status_color_header">
+                    {{ 'open_lead_statuses.uncertain' | translate }}
+                </ion-card-header>
+
+                <ion-list class="status_card_list">
+                    <ion-item *ngFor="let status of statuses['uncertain']" text-right class="status_card_item"
+                              (click)="check(status)"
+                              [ngClass]="status.checked ? 'uncertain_status_color_checked' : 'uncertain_status_color'">
+                        {{ status.stepname }}
+                        <ion-icon *ngIf="status.lock" name="md-lock"></ion-icon>
+                        <ion-icon *ngIf="!status.lock && !status.checked" name="md-square-outline"></ion-icon>
+                        <ion-icon *ngIf="!status.lock && status.checked" name="md-checkbox-outline"></ion-icon>
+                    </ion-item>
+
+                </ion-list>
+            </ion-card>
+        </div>
+        <!-- конец Отказные статусы -->
+
+        <!-- Отказники -->
+        <div *ngIf="statuses['refuseniks']">
+            <ion-card>
+                <ion-card-header text-right class="status_card_header refuseniks_status_color_header">
+                    {{ 'open_lead_statuses.refuseniks' | translate }}
+                </ion-card-header>
+
+                <ion-list class="status_card_list">
+                    <ion-item *ngFor="let status of statuses['refuseniks']" text-right class="status_card_item"
+                              (click)="check(status)"
+                              [ngClass]="status.checked ? 'refuseniks_status_color_checked' : 'refuseniks_status_color'">
+                        {{ status.stepname }}
+                        <ion-icon *ngIf="status.lock" name="md-lock"></ion-icon>
+                        <ion-icon *ngIf="!status.lock && !status.checked" name="md-square-outline"></ion-icon>
+                        <ion-icon *ngIf="!status.lock && status.checked" name="md-checkbox-outline"></ion-icon>
+                    </ion-item>
+
+                </ion-list>
+            </ion-card>
+        </div>
+        <!-- Конец Отказники -->
+
+        <!-- Статусы плохих лидов -->
+        <div *ngIf="statuses['bad']">
+            <ion-card>
+                <!--<ion-card *ngIf="item.status == 0">-->
+                <ion-card-header text-right class="status_card_header bad_status_color_header">
+                    {{ 'open_lead_statuses.bad' | translate }}
+                </ion-card-header>
+
+                <ion-list class="status_card_list">
+                    <ion-item
+                            *ngFor="let status of statuses['bad']"
+                            text-right class="status_card_item"
+                            (click)="check(status)"
+                            [ngClass]="status.checked ? 'bad_status_color_checked' : 'bad_status_color'">
+                        {{ status.stepname }}
+                        <ion-icon *ngIf="status.lock" name="md-lock"></ion-icon>
+                        <ion-icon *ngIf="!status.lock && !status.checked" name="md-square-outline"></ion-icon>
+                        <ion-icon *ngIf="!status.lock && status.checked" name="md-checkbox-outline"></ion-icon>
+                    </ion-item>
+
+                </ion-list>
+            </ion-card>
+        </div>
+        <!-- конец Статусы плохих лидов -->
+
+        <!-- Сделки -->
+        <div *ngIf="statuses['deals']">
+            <ion-card>
+                <ion-card-header text-right class="status_card_header deals_status_color_header">
+                    {{ 'open_lead_statuses.deals' | translate }}
+                </ion-card-header>
+
+                <ion-list class="status_card_list">
+                    <ion-item *ngFor="let status of statuses['deals']" text-right class="status_card_item "
+                              (click)="check(status)"
+                              [ngClass]="status.checked ? 'deals_status_color_checked' : 'deals_status_color'">
+                        {{ status.stepname }}
+                        <ion-icon *ngIf="status.lock" name="md-lock"></ion-icon>
+                        <ion-icon *ngIf="!status.lock && !status.checked" name="md-square-outline"></ion-icon>
+                        <ion-icon *ngIf="!status.lock && status.checked" name="md-checkbox-outline"></ion-icon>
+                    </ion-item>
+
+                </ion-list>
+            </ion-card>
+        </div>
+        <!-- Конец Сделки -->
+
     </div>
-    <!-- конец Процессные статусы -->
 
+    <!-- область ошибки -->
+    <div *ngIf="sections.error" class="error_block">
 
-    <!-- Отказные статусы -->
-    <div *ngIf="statuses['uncertain']">
-        <ion-card>
-            <ion-card-header text-right class="status_card_header uncertain_status_color_header">
-                {{ 'open_lead_statuses.uncertain' | translate }}
-            </ion-card-header>
+        error while loading, please go back and try again later
 
-            <ion-list class="status_card_list">
-                <ion-item *ngFor="let status of statuses['uncertain']" text-right class="status_card_item"
-                          (click)="check(status)"
-                          [ngClass]="status.checked ? 'uncertain_status_color_checked' : 'uncertain_status_color'">
-                    {{ status.stepname }}
-                    <ion-icon *ngIf="status.lock" name="md-lock"></ion-icon>
-                    <ion-icon *ngIf="!status.lock && !status.checked" name="md-square-outline"></ion-icon>
-                    <ion-icon *ngIf="!status.lock && status.checked" name="md-checkbox-outline"></ion-icon>
-                </ion-item>
-
-            </ion-list>
-        </ion-card>
     </div>
-    <!-- конец Отказные статусы -->
 
-
-    <!-- Отказники -->
-    <div *ngIf="statuses['refuseniks']">
-        <ion-card>
-            <ion-card-header text-right class="status_card_header refuseniks_status_color_header">
-                {{ 'open_lead_statuses.refuseniks' | translate }}
-            </ion-card-header>
-
-            <ion-list class="status_card_list">
-                <ion-item *ngFor="let status of statuses['refuseniks']" text-right class="status_card_item"
-                          (click)="check(status)"
-                          [ngClass]="status.checked ? 'refuseniks_status_color_checked' : 'refuseniks_status_color'">
-                    {{ status.stepname }}
-                    <ion-icon *ngIf="status.lock" name="md-lock"></ion-icon>
-                    <ion-icon *ngIf="!status.lock && !status.checked" name="md-square-outline"></ion-icon>
-                    <ion-icon *ngIf="!status.lock && status.checked" name="md-checkbox-outline"></ion-icon>
-                </ion-item>
-
-            </ion-list>
-        </ion-card>
-    </div>
-    <!-- Конец Отказники -->
-
-
-    <!-- Статусы плохих лидов -->
-    <div *ngIf="statuses['bad']">
-        <ion-card *ngIf="item.status == 0">
-            <ion-card-header text-right class="status_card_header bad_status_color_header">
-                {{ 'open_lead_statuses.bad' | translate }}
-            </ion-card-header>
-
-            <ion-list class="status_card_list">
-                <ion-item
-                        *ngFor="let status of statuses['bad']"
-                        text-right class="status_card_item"
-                        (click)="check(status)"
-                        [ngClass]="status.checked ? 'bad_status_color_checked' : 'bad_status_color'">
-                    {{ status.stepname }}
-                    <ion-icon *ngIf="status.lock" name="md-lock"></ion-icon>
-                    <ion-icon *ngIf="!status.lock && !status.checked" name="md-square-outline"></ion-icon>
-                    <ion-icon *ngIf="!status.lock && status.checked" name="md-checkbox-outline"></ion-icon>
-                </ion-item>
-
-            </ion-list>
-        </ion-card>
-    </div>
-    <!-- конец Статусы плохих лидов -->
-
-
-    <!-- Сделки -->
-    <div *ngIf="statuses['deals']">
-        <ion-card>
-            <ion-card-header text-right class="status_card_header deals_status_color_header">
-                {{ 'open_lead_statuses.deals' | translate }}
-            </ion-card-header>
-
-            <ion-list class="status_card_list">
-                <ion-item *ngFor="let status of statuses['deals']" text-right class="status_card_item "
-                          (click)="check(status)"
-                          [ngClass]="status.checked ? 'deals_status_color_checked' : 'deals_status_color'">
-                    {{ status.stepname }}
-                    <ion-icon *ngIf="status.lock" name="md-lock"></ion-icon>
-                    <ion-icon *ngIf="!status.lock && !status.checked" name="md-square-outline"></ion-icon>
-                    <ion-icon *ngIf="!status.lock && status.checked" name="md-checkbox-outline"></ion-icon>
-                </ion-item>
-
-            </ion-list>
-        </ion-card>
-    </div>
-    <!-- Конец Сделки -->
 
 </ion-content>
 

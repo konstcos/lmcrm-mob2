@@ -33,7 +33,16 @@ export class OpenLeadStatusesDealPage {
      * Процент от сделки
      *
      */
-    public price: number = 0;
+    public price: any = '';
+
+
+    /**
+     * Низкий баланс
+     *
+     * при низком балансе выводится
+     * сообщение что баланс низкий
+     */
+    public lowPrice: boolean = false;
 
 
     /**
@@ -108,16 +117,32 @@ export class OpenLeadStatusesDealPage {
 
 
     /**
+     * Событие по фокусу на поле прайса
+     *
+     */
+    priceOnFocus() {
+        // убираем ошибку
+        this.lowPrice = false;
+    }
+
+
+    /**
      * Закрытие сделки
      *
      */
     closeDeal() {
 
-        if (this.price == 0) {
+        // преобразовываем значение в число
+        let price = Number(this.price);
 
+        // проверка размера баланса
+        if(price < 2000){
+            // если баланс меньше 2000
+            this.lowPrice = true;
             return false;
         }
 
+        // закрытие окна и закрытие сделки
         this.view.dismiss({status: true, price: this.price, comment: this.comment});
     }
 

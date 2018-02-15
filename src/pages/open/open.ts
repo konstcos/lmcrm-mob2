@@ -231,6 +231,20 @@ export class OpenPage {
                 // переводим ответ в json
                 let data = result.json();
 
+                /**
+                 * Количество уведомлений
+                 *
+                 */
+                let notices = {
+                    notice: data.notices,
+                    auction: data.auctionCount,
+                };
+
+                // console.log('Баджи из отданных лидов');
+                console.log(notices);
+                // применение нотификаций к апликации
+                this.checkNotices(notices);
+
                 // вычесляем количество итемов
                 let itemsLength = data.openedLeads.length;
 
@@ -323,10 +337,9 @@ export class OpenPage {
                     auction: data.auctionCount,
                 };
 
-                console.log('Баджи из отданных лидов');
-                console.log(data.notices);
-
-
+                // console.log('Баджи из отданных лидов');
+                // console.log(data.notices);
+                // применение нотификаций к апликации
                 this.checkNotices(notices);
 
                 localStorage.setItem('roles', JSON.stringify(data.roles));
@@ -406,6 +419,21 @@ export class OpenPage {
                     // переводим ответ в json
                     let data = result.json();
 
+                    /**
+                     * Количество уведомлений
+                     *
+                     */
+                    let notices = {
+                        notice: data.notices,
+                        auction: data.auctionCount,
+                    };
+
+                    // console.log('Баджи из отданных лидов');
+                    // console.log(notices);
+                    // применение нотификаций к апликации
+                    this.checkNotices(notices);
+
+
                     // вычесляем количество итемов
                     let itemsLength = data.openedLeads.length;
 
@@ -475,7 +503,19 @@ export class OpenPage {
 
         // модальное окно со статусами
         let modal = this.modalCtrl.create(OpenDetailPage, {itemId: item.id, roles: this.roles});
-        // let modal = this.modalCtrl.create(OpenDetailPage, {item: item, roles: this.roles});
+
+        modal.onDidDismiss(data => {
+
+            // item = data;
+
+            item.status = data.status;
+            item.status_info = data.status_info;
+            item.close_deal_info = data.close_deal_info;
+
+            console.log(data);
+
+        });
+
         modal.present();
     }
 
@@ -645,30 +685,6 @@ export class OpenPage {
                 console.log('данные по сделкам');
                 console.log(data);
 
-                // if (data.status) {
-                //     item.status_info = data.status;
-                //     item.status = data.status.id;
-                //
-                //     for (let type in item.statuses) {
-                //
-                //         for (let stat of item.statuses[type]) {
-                //
-                //             if (stat.id == data.status.id) {
-                //
-                //                 stat.checked = false;
-                //                 stat.lock = true;
-                //
-                //             } else {
-                //
-                //                 stat.checked = false;
-                //             }
-                //
-                //         }
-                //     }
-                // }
-
-                // console.log(item);
-                // console.log(data);
             });
 
             modal.present();
@@ -700,15 +716,9 @@ export class OpenPage {
                         };
                     }
 
-
-
                     for (let type in item.statuses) {
 
                         for (let stat of item.statuses[type]) {
-
-
-                            // if(stat.type == 5)
-
 
                             if (stat.id == data.status.id) {
 
@@ -721,9 +731,6 @@ export class OpenPage {
                             }
                         }
                     }
-
-                    console.log('итэм после: ');
-                    console.log(item);
 
                     // проверка на роль
                     if(this.roles.subRole == 'dealmaker') {
@@ -781,6 +788,7 @@ export class OpenPage {
         //
         // modal.present();
     }
+
 
     customerPage() {
 

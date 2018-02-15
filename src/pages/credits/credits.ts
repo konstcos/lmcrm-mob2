@@ -1105,6 +1105,27 @@ export class CreditsPage {
 
         modal.onDidDismiss(data => {
 
+            // проверка результата
+            if(data.state) {
+                // если были изменения по проплате
+                // т.е. пользователь не просто закрыл окно,
+                // а сделал проплату
+
+                // проверка успешности проплаты
+                if(data.status === 'success') {
+                    // если оплата успешная
+                    // помечаем что заявка успешно
+                    // оплаченна
+                    item.status = 4;
+                }
+            }
+
+
+
+            console.log(data);
+            console.log('а это итем:');
+            console.log(item);
+
             // if (data.info == 'makeWithdrawal') {
             //
             //     let message =

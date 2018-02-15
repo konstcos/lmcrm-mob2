@@ -20,7 +20,7 @@
 
             <span *ngIf="sphere">
             {{ 'masks_by_sphere.sphere_name' | translate:{name: sphere.name} }}
-            <!--of {{ sphere.name }} -->
+                <!--of {{ sphere.name }} -->
         </span>
         </ion-title>
 
@@ -41,7 +41,7 @@
 
 <!-- Кнопка добавления нового лида -->
 <!--<ion-fab bottom right>-->
-    <!--<button ion-fab (click)="createNewMask()"><ion-icon name="md-add"></ion-icon></button>-->
+<!--<button ion-fab (click)="createNewMask()"><ion-icon name="md-add"></ion-icon></button>-->
 <!--</ion-fab>-->
 <!-- конец Кнопка добавления нового лида -->
 
@@ -52,9 +52,9 @@
 
         <!-- Заголовок (имя сферы) -->
         <!--<ion-row>-->
-            <!--<ion-col text-right class="sphere_name">-->
-                <!--Masks of {{ sphere.name }}-->
-            <!--</ion-col>-->
+        <!--<ion-col text-right class="sphere_name">-->
+        <!--Masks of {{ sphere.name }}-->
+        <!--</ion-col>-->
         <!--</ion-row>-->
 
         <ion-card *ngFor="let mask of masks" class="open_card">
@@ -71,20 +71,27 @@
 
                 <ion-row class="content-data-wrapper">
 
+                    <!-- Переключение активности маски -->
                     <ion-col col-3 class="switcher">
-                        <ion-toggle [(ngModel)]="mask.active" (click)="switchActive(mask)"></ion-toggle>
-                        <div *ngIf="mask.active" class="mask_indicator active">
-                            <!--active-->
-                            {{ 'masks_by_sphere.active' | translate }}
+
+                        <!-- Прячем если маска в режиме ожидании подтверждения -->
+                        <div *ngIf="mask.pending">
+                            <ion-toggle [(ngModel)]="mask.active" (click)="switchActive(mask)"></ion-toggle>
+                            <div *ngIf="mask.active" class="mask_indicator active">
+                                <!--active-->
+                                {{ 'masks_by_sphere.active' | translate }}
+                            </div>
+                            <div *ngIf="!mask.active" class="mask_indicator not_active">
+                                <!--not active-->
+                                {{ 'masks_by_sphere.not_active' | translate }}
+                            </div>
                         </div>
-                        <div *ngIf="!mask.active" class="mask_indicator not_active">
-                            <!--not active-->
-                            {{ 'masks_by_sphere.not_active' | translate }}
-                        </div>
+
                     </ion-col>
 
                     <ion-col text-right (click)="editMask(mask)">
-                        <div class="date_data"> <span class="time">{{ mask.updated_at.time }}</span> <span class="date">{{ mask.updated_at.date }}</span></div>
+                        <div class="date_data"><span class="time">{{ mask.updated_at.time }}</span> <span class="date">{{ mask.updated_at.date }}</span>
+                        </div>
                         <div class="name">{{ mask.name }}</div>
                         <div class="description">{{ mask.description }}</div>
                     </ion-col>
@@ -107,7 +114,9 @@
 
         <ion-row *ngIf="masks.length == 0" class="no_masks_row">
             <ion-col text-center>
-                <div class="icon"><ion-icon name="md-contract"></ion-icon></div>
+                <div class="icon">
+                    <ion-icon name="md-contract"></ion-icon>
+                </div>
                 <div>
                     {{ 'masks_by_sphere.no_masks' | translate }}
                     <!--No masks-->

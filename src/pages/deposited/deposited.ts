@@ -350,6 +350,18 @@ export class DepositedPage {
                     // переводим ответ в json
                     let data = result.json();
 
+                    /**
+                     * Количество уведомлений
+                     *
+                     */
+                    let notices = {
+                        notice: data.notices,
+                        auction: data.auctionCount,
+                    };
+
+                    // console.log(notices);
+                    this.checkNotices(notices);
+
                     // вычесляем количество итемов
                     let itemsLength = data.leads.length;
 

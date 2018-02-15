@@ -5,6 +5,13 @@ page-open {
     margin-top: 20%;
   }
 
+  ion-content {
+
+    .scroll-content {
+      padding-bottom: 70px;
+    }
+  }
+
   ion-card.open_card {
 
     .archive {
@@ -29,6 +36,13 @@ page-open {
 
       }
 
+    }
+
+    .open_lead_bad_status {
+      color: #CD0000;
+      text-align: center;
+      font-size: 12px;
+      padding: 5px 5px 5px;
     }
 
     ion-card-content {

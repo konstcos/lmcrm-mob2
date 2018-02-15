@@ -8,6 +8,13 @@ page-deposited {
   color: grey;
   font-size: 12px;
 
+  ion-content {
+
+    .scroll-content {
+      padding-bottom: 70px;
+    }
+  }
+
   .lead_name {
     color: grey;
     font-size: 15px;

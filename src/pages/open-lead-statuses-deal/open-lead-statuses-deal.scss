@@ -6,6 +6,12 @@ open-lead-statuses-deal {
 
   ion-content {
     background: #F8F8F8 !important;
+
+    .low_price {
+      color: #DB4437;
+      font-size: 10px;
+    }
+
   }
 
   .status_back_button {
