@@ -16,39 +16,43 @@
     "SIGNUP_TITLE": "QUICK REGISTRATION",
     "LOGIN_ADVANTAGES": "Why you should use this system?",
 
+    "invalid_credentials": "invalid credentials",
+
+    "#1.1": "Страница восстановлкния пароля",
+
+    "password_recovery": {
+        "placeholder": "enter mail",
+        "send_button": "send password"
+    },
+
     "#2": "Страница с описанием возможностей системы Advantages: ",
 
     "ADVANTAGES_TITLE": "Advantages",
     "ADVANTAGES": {
 
         "1": {
-            "TITLE": "Aenean dictum commodo enim",
-            "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at mollis libero, vel convallis quam"
+            "TITLE": "מכירת לקוחות לא רלוונטיים לעסק שלי",
+            "DESCRIPTION": "דרך הפלטפורמה ניתן להיזדקות על לקוחות פחות מתאימים לפרופיל העסק שלי ובתמורה לקבל רווחים כספיים"
         },
 
         "2": {
-            "TITLE": "Lorem ipsum dolor sit amet, consectetur",
-            "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dictum commodo enim. Duis sit amet ipsum turpis. Integer id quam eu leo egestas placerat"
+            "TITLE": "להזדקות על לקוחות לא רלוונטיים",
+            "DESCRIPTION": "להחליף לקוחות לא רלוונטיים שמתקבלים לעסק בלקוחות מותאמים אישית לפרופיל העסק שלי"
         },
 
         "3": {
-            "TITLE": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-            "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dictum commodo enim. Duis sit amet ipsum turpis. Integer id quam eu leo egestas placerat"
+            "TITLE": "לבחור כיצד נוח לי יותר לשלם לכם",
+            "DESCRIPTION": "אני כבעל מקצוע יכול/ה לבחור כיצד יותר נוח לי לעבוד עם הפלטפורמה כקניינ/ית לידים או באמצעות חלוקת רווחים מעסקאות שסגרתי והתקבל עליהם תשלום בלבד - הכוונה גב אל גב - לא קיבלתי לא שילמתי"
         },
 
         "4": {
-            "TITLE": "Advantage 4",
-            "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dictum commodo enim. Duis sit amet ipsum turpis. Integer id quam eu leo egestas placerat"
+            "TITLE": "למשוך לקוחות איכותיים מותאמים לעסק שלי",
+            "DESCRIPTION": "למשוך לקוחות ממוקדי צורך מותאמים בדיוק מירבי לפרופיל העסק שלי"
         },
 
         "5": {
-            "TITLE": "Advantage 5",
-            "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dictum commodo enim. Duis sit amet ipsum turpis. Integer id quam eu leo egestas placerat"
-        },
-
-        "6": {
-            "TITLE": "Lorem ipsum dolor sit amet, consectetur",
-            "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dictum commodo enim. Duis sit amet ipsum turpis. Integer id quam eu leo egestas placerat. Sed. "
+            "TITLE": "לנהל את המכירות שלי במממשק ניהול נוח",
+            "DESCRIPTION": "פלטמורמה זו מאפשרת לנהל בצורה נוחה וחכמה מכירות בעסק לצורך שיפור תהליך גיוס לקוחות חדשים לעסק שלי"
         }
     },
 
@@ -80,8 +84,40 @@
     "SPECIALIZATION": "Specialization",
     "OPERATING_MODE": "Operating mode",
     "REGISTRATION_DATA_NEXT_BUTTON": "Start getting customers",
-    "REGISTRATION_DATA_AGREEMENTS": "I confirm the user agreements",
-    "REGISTRATION_DATA_USER_AGREEMENTS": "read the user agreements",
+
+    "#5.1": "Выбор специализации агентом",
+
+    "specializations": {
+        "title": "תחום התמחות / מקצוע שלי ",
+        "not_find_specialization": "לא מצאתי את תחום ההתמחות שלי ברשימה",
+        "not_specialization_alert": {
+            "title": "תחום התמחות שלי לא נמצא ברשימה",
+            "sub_title": "במידה ולא מצאת את תחום ההתמחות שלך הזן מספר טלפון שלך ונבחן את בקשתך בהקדם",
+            "cancel": "ביטול",
+            "to_report": "שלח/י"
+        },
+        "not_valid": {
+            "title": "טלפון לא תקין",
+            "sub_title": "הזנת מספר טילפון לא תקין - נא הזן מספר טלפון נייד תקין להתקשרות",
+            "button_ok": "אישור"
+        },
+
+        "notification_successful": {
+            "title": "בקשה ליצירת קשר חוזר",
+            "sub_title": "תודה שפנית - אחד מנציגינו יפנה אליך בהקדם על מנת לצרף אותך לזירה במקצוע מתאים",
+            "button_ok": "אישור"
+        }
+
+    },
+
+    "#5.2": "Выбор режима лидбайера",
+
+    "operating_mode": {
+        "title": "מטרת שימוש במערכת",
+        "all_functions": "לקבל ולמסור לקוחות גם יחד",
+        "only_entering_leads": "רק להרוויח מלקוחות שאני מוסר כשותף",
+        "only_receipt_of_leads": "רק לקבל לקוחות איכותיים לעסק שלי"
+    },
 
     "#6": "Данные по ролям пользователя: ",
 
@@ -96,19 +132,16 @@
 
     "#6.2": "Описание особенностей ролей: ",
     "roleFeatures": {
-        "FEATURE_1": "I can work with your system without making a credit card or any other payment",
-        "FEATURE_2": "For the money received for the introduced irrelevant client, I can open the relevant client",
-        "FEATURE_3": "I can cash out the money received for the deposited customer",
-        "FEATURE_4": "I am willing to pay only with the deals that I closed and got money for them",
-        "FEATURE_5": "I do not have to give a customers in order to get others in return. I can pay for the received relevant customers through a credit card",
-        "FEATURE_6": "I can get monetary benefits for the irrelevant Clients for my business",
-        "FEATURE_7": "I can give away my customers only for deals to earn from successfully closed deals",
-
-        "FEATURE_8": "I can change the irrelevant client to the relevant one",
-        "FEATURE_9": "Give the client to a private group",
-        "FEATURE_10": "I want to be able to work exclusively with a client",
-        "FEATURE_11": "I do not have to record the process of working with my clients",
-        "FEATURE_12": "I can manage my sellers in the system"
+        "FEATURE_1": "אני לא חייב/ת לשלם למערכת שלכם על מנת למשוך לקוחות מותאמים לעסק שלי דרך הפלטפורמה",
+        "FEATURE_2": "אני יכול/ה להיזדקות על לקוח לא רלוונטי ולהחליפו בלקוח מותאם בדיוק מירבי לעסק שלי",
+        "FEATURE_3": "עבור הפקדת/מסירת לקוחות אני יכול/ה לקבל תמורה כספית",
+        "FEATURE_4": "אני יכול לשלם לכם רק מתוך עסקאות שסגרתי והתקבל עליהם תשלום בלבד",
+        "FEATURE_5": "אני לא חייב/ת למסור לכם לקוחות בשביל לקבל לקוחות מותאמים לעסק שלי",
+        "FEATURE_6": "אני יכול/ה למסור לקוחות כך שאוכל להוויח מעסקאות שנסגרו בלבד",
+        "FEATURE_7": "אני יכול להעביר פניות לקבוצה פרטית שלי דרך מערכת שלכם בחינם",
+        "FEATURE_8": "אני יכול לקבל לידים בלעדיים בלבד",
+        "FEATURE_9": "אני לא מחוייב/ת לכם בדיווח על התנהלות שלי מול הלידים",
+        "FEATURE_10": "אני יכול/ה לנהל אנשי מכירות דרך מערכת שלכם"
     },
 
     "#7": "Заполнение персональных данных: ",
@@ -119,19 +152,30 @@
     "PERSONAL_DATA_LAST_NAME": "Last name",
     "PERSONAL_DATA_COMPANY": "Company",
     "PERSONAL_DATA_PHONE": "Phone",
-    "PERSONAL_DATA_PHONE_ERROR_LENGTH": "the length of the phone number must be at least 9 digits",
+    "PERSONAL_DATA_ADDRESS": "כתובת בית העסק",
+    "PERSONAL_DATA_PASSPORT": "תעודת זהות של עסק או ח.פ חברה",
+    "PERSONAL_DATA_REGION": "איזור גאוגרפי של בית העסק",
+    "PERSONAL_DATA_PHONE_ERROR_LENGTH": "מספר טלפון נייד חייב להכיל 10 ספרות",
+    "PERSONAL_DATA_ISRAEL": "ישראל",
+    "PERSONAL_DATA_WRONG_PASSPORT_NUMBER": "מספר ת״ז או ח.פ שרשמת לא תקין",
 
-    "#8": "Выбор сферы: ",
+    "#8": "Договор: ",
 
-    "SPHERE_TITLE": "Select spheres",
+    "i_agree": "согласен",
 
-    "#9": "Шапка и основные данные в меню",
+    "#9 ---------": "Шапка и основные данные в меню",
+
+    "leadbuyer": "лидбайер",
+    "dealmaker": "диалмэйкер",
+    "agent": "агент",
+    "salesman": "продавец",
 
     "#9.1": "Главное меню",
 
     "user_can_open_leads": "you can open <b>{{ price }}</b> leads",
     "user_have_leads": "you have <b>{{ amount }}</b> incoming leads",
     "main_menu_no_mask": "no mask",
+    "main_menu_not_active": "not active",
 
     "pages": {
         "customer_filter": "Customers filters",
@@ -203,7 +247,8 @@
     "incoming": {
         "you_do_not_have_any_leads-to_get_the_leads": "<div> You do not have any leads</div><div class='take_leads'> To get the leads, select the mask</div><div class='take_leads'>on the client filter page</div>",
         "you_do_not_have_any_leads": "<div> You do not have any leads</div>",
-        "no_leads_by_filter": "<div> No leads by filter</div>"
+        "no_leads_by_filter": "<div> No leads by filter</div>",
+        "select_mask_button": "select mask"
     },
 
     "#11": "Детали по входящим лидам 'incoming': ",
@@ -215,7 +260,66 @@
         "added_to_you_auction": "added to you auction",
         "sphere": "sphere",
         "mask_name": "mask name",
-        "expose_lead_data": "expose lead data"
+        "expose_lead_data": "expose lead data",
+
+        "open_lead_area": {
+            "common_description": "<div class='item'>בלחיצה על כפתור ״חשיפת פרטי התקשרות״ יחשף מספר הטלפון של הלקוח לצורך התקשרות עימו.</div> <div class='item'>במעמד זה תנוכה מחשבונך סכום עלות חשיפת ליד לפי פילטר שנבחר על ידך במשיכת פרופיל לקוח מסוג זה. </div> <div class='item'>לאחר החשיפת פרטי הלקוח תעברו למסך ״חשפתי״ במערכת לצורך התנהלות שוטפת מול הלקוח.</div>",
+
+            "leadbuyer_selective": "<div class='item'>יש לך אפשרות לחשוף את פרטי התקשרות בפעם אחת או לקבל חשיפה בלעדית כל עוד ספקי שירות אחרים לא הספיקו לחשוף את הפניה לפניך. </div> <div class='item'>עלות חשיפה בלעדית שווה לכמות פעמים מקסימלית שניתן לחשוף פרטי התקשרות עם הלקוח כפול עלות חשיפה לפי הפילטר הנבחר.</div>",
+            "leadbuyer_only_one": "ספקי שירות אחרים כבר הספיקו לחשוף את פרטי התקשרות לפניך לפחות פעם אחת לכן ניתן לחשוף את פרטי הלקוח רק פעם אחת בלבד כל עוד פרטיו לא נחשפו כמות מקסימלית של פעמים.",
+            "leadbuyer_only_exclusively": "פרטי התקשרות עם לקוח זה כבר נחשפו על ידיך פעם אחת לכן אתה יכול רק להשלים חשיפה בלעדית כל עוד ספקי שירות אחרים לא הספיקו לחשוף את הפניה מלבדך",
+
+            "dealmaker": "מכיוון שאתם שותפים בעסקאות ניתן לחשוף את הלקוח רק פעם אחת בלבד. חשיפה בלעדית ניתנת למשתמשים שותפים בלידים בלבד.",
+            "cancel": "ביטול וחזרה למסך ״קיבלתי״",
+            "success": "חשיפת פרטי התקשרות",
+            "open_exclusively": "חשיפה בלעדית",
+            "open_one": "חשיפה פעם אחת",
+            "overdraftConfirmation": {
+                "head": "אישור שימוש במשיכת יתר",
+                "description": "נכון לעכשיו אין מספיק כסף בארנק שלך לפרעון תשלום חשיפת ליד - במידה ואת/ה רוצה לבצע את הרכישה בכל זאת, סכום זה יכנס לך לחוב מצטבר שיקוזז מרווחים עתידיים.",
+                "confirm": "אישור",
+                "cancel": "ביטול"
+            },
+
+            "errorOpenLead": {
+                "head": "שגיאה באת פתיחת ליד",
+                "cancel": "הבנתי"
+            },
+            "incomprehensibleError": "שגיאת שרת לא ידועה, נסו שנית"
+        },
+        "dealmaker_no_status": {
+            "title": "לא ניתן לחשוף את פרטי הלקוח זה עקב חוסר עדכון של לקוח קודם",
+            "sub_title": "לא עודכן סטטוס של לקוח אחרון שחשפת! על מנת לחשוף את פרטי הלקוח לבעל מקצוע שעובד מולנו בשותפות על בסיס עסקאות עליך קודם כול לעדכן סטטוס מהימן של הלקוח הקודם שחשפת להיתנהלות תקינה עם המערכת",
+            "button_ok": "הבנתי"
+        },
+        "not_enough_money": {
+            "title": "לא ניתן לחשוף את פרטי לקוח - חסר קרדיט לזכותך",
+            "sub_title": "כרגע אין מספיק כסף בארנק אלקטוני לזכותך! על מנת לחשוף פרטי יצירת קשר על הלקוח עליך לטעון את הארנק שלך או למסור לקוחות - לבחירתך",
+            "button_ok": "הבנתי"
+        },
+        "lead_already_open": {
+            "title": "לקוח זה כבר נחשף בעבר",
+            "sub_title": "כבר חשפת את פרטי לקוח זה בעבר - תעבור למסך חשפתי ומצא את הלקוח",
+            "button_ok": "הבנתי"
+        },
+        "lead_withdrawn_from_auction": {
+            "title": "הלקוח זה הוסר הרגע מהמכרז",
+            "sub_title": "בזמן שצפית בפניה הלקוח הוסר ממכרז עקב חשיפה מקסימלית על ידי בעלי מקצוע אחרים",
+            "button_ok": "הבנתי"
+        },
+        "overdraft_confirmation": {
+            "title": "אישור שימוש במשיכת יתר",
+            "sub_title": "נכון לעכשיו אין מספיק כסף בארנק שלך לפרעון תשלום חשיפת ליד - במידה ואת/ה רוצה לבצע את הרכישה בכל זאת, סכום זה יכנס לך לחוב מצטבר שיקוזז מרווחים עתידיים.",
+            "button_cancel": "ביטול",
+            "button_confirmation": "אישור"
+        },
+        "open_lead_confirmation": {
+            "title": "חשיפת לקוחות",
+            "open_all": "חשיפה בלעדית",
+            "open_one": "חשיפה פעם אחת",
+            "button_cancel": "ביטול",
+            "button_confirmation": "חשיפת לקוח"
+        }
     },
 
     "#12": "Исходящие лиды 'Outgoing': ",
@@ -225,6 +329,11 @@
         "to_add_the_lead": "To add the lead, click this button",
         "no_leads_by_filter": "<div> No leads by filter</div>"
     },
+
+    "New lead": "New lead",
+    "Auction": "Auction",
+    "Private Group": "Private Group",
+    "Closed deal": "Closed deal",
 
     "#13": "Детали по исходящим лидам: ",
 
@@ -248,7 +357,11 @@
         "no_status": "No status",
         "you_do_not_have_any_leads-to_get_the_leads": "<div> You do not have any leads</div><div class='take_leads'> To get the leads, select the mask</div><div class='take_leads'>on the client filter page</div>",
         "you_do_not_have_any_leads": "<div> You do not have any leads</div>",
-        "no_leads_by_filter": "<div> No open leads by filter</div>"
+        "no_leads_by_filter": "<div> No open leads by filter</div>",
+        "no_open_leads_button": "get leads",
+        "dealmaker_no_status": {
+
+        }
     },
 
     "#15": "Детали по открытым лидам: ",
@@ -299,13 +412,128 @@
         "amount": "amount",
         "no_statements": "No statements",
         "no_transactions": "No transactions",
-        "no_files": "No files"
+        "no_files": "No files",
+        "paymentWithWallet": {
+            "success": {
+                "title": "Payment success",
+                "message": "The payment from the wallet was successful",
+                "ok_button": "got it"
+            },
+            "fail": {
+                "title": "Payment failed",
+                "message": "Money can not be transferred - please contact your portfolio manager for further inquiries",
+                "ok_button": "got it"
+            }
+        },
+        "manuallyPayment": {
+            "success": {
+                "title": "Successful payment by bank transfer",
+                "message": "Payment was successfully disbursed and approved",
+                "ok_button": "got it"
+            }
+        },
+        "showInfo": {
+            "price": {
+                "title": "Value of commission from transaction",
+                "message": "The amount for which the deal is closed"
+            },
+            "share": {
+                "title": "Share of the system",
+                "message": "Part of the amount of the deal you need to pay to the system"
+            },
+            "date": {
+                "title": "Date of transaction execution",
+                "message": "The date on which a transaction was made by changing the transaction status to a closed transaction in the system"
+            },
+            "status": {
+                "title": "Transaction status",
+                "message": "Transaction status defines the status of the transaction"
+            },
+            "ok_button": "got it"
+        },
+        "makePaymentActionSheet": {
+            "title": "Select a preferred payment method for a closed transaction",
+            "from_credit_card": "Credit card payment",
+            "manual_payment": "Payment by bank transfer",
+            "from_system_wallet": "Pay through my wallet",
+            "cancel_button": "Close window"
+        },
+        "receivedNextPaymentData": {
+            "title": "Make an additional payment for a closed transaction",
+            "message": "Enter the value of the additional payment received from your customer for this transaction",
+            "input_name": "amount",
+            "cancel_button": "Cancel",
+            "make_button": "Make Payment"
+        },
+        "closeFewPaymentDealConfirmation": {
+            "title": "Confirmation of the closing of a payment card",
+            "message": "Are you sure that a full fee has been received from a customer for this transaction?",
+            "cancel_button": "Cancel",
+            "completed_button": "completed"
+        },
+        "insufficientNextPayment": {
+            "title": "The amount entered is incorrect",
+            "message": "The minimum amount to execute a transaction in this area is &#8362;1000, and you are entering &#8362;{{amount}}",
+            "ok_button": "Approval"
+        }
+    },
+
+    "#17.1": "Оплата сделки с системного кошелька",
+
+    "open_lead_deal_system_wallet_payment": {
+        "title": "תשלום דרך הארנק",
+        "on_you_wallet": "לזכותך בארנק:",
+        "price": "סכום:",
+        "pay_button": "תשלום",
+        "not_enough_money": "אין לרשותך מספיק כספים בארנק על מנת לפרוע את חוב בגין עסקה שנסגרה. יש לבחור שיטת תשלום חלופית לפרעון החוב דרך כ.א או בהעברה בנקאית",
+        "confirmPayment": {
+            "title": "אישור העברת תשלום",
+            "message": "שים לב לאחר לחיצה על אישור סכום תשלום זה יקוזז מארנק אלקטרוני שלך לצורך פרעון חוב בגין סגירת עסקה - לא ניתן לבטל פעולה זו",
+            "cancel_button": "ביטול",
+            "pay_button": "אישור"
+        }
+    },
+
+    "#17.2": "Оплата сделки через банковскую транзакцию",
+
+    "open_lead_deal_manual_payment": {
+        "title": "תשלום בהעברה בנקאית",
+        "for_payment": "על מנת לפרוע את החוב בגין עסקה שנסגרה בשיטת תשלום דרך העברה בנקאית עליך להעביר את סכום החוב המצוין לפרטי חשבון הבאים:",
+        "press_the_button": "וללחוץ על כפתור 'אישור העברת כספים'",
+        "confirm_button": "אישור העברה",
+        "confirmPayment": {
+            "title": "אישור העברת תשלום",
+            "message": "את/ה מאשר/ת שסכום החוב שלך בגין סגירת עסקה הועבר בהצלחה לחשבוננו",
+            "cancel_button": "ביטול",
+            "confirm_button": "אישור"
+        }
+    },
+
+    "#17.3": "Оплата сделки через кредитную карточку",
+
+    "open_lead_deal_credit_card_payment": {
+        "title": "תשלום דרך כרטיס אשראי",
+        "name": "שם בעל הכרטיס",
+        "email": "כתובת דוא'ל",
+        "phone": "טלפון",
+        "amount": "סכום תשלום",
+        "required_field": "חובה למלא שדה זה",
+        "confirm_button": "אישור"
+    },
+
+    "#17.4": "Окно закрытия сделки",
+
+    "open_lead_deal_close": {
+        "back_button": "חזרה לסטטוסים",
+        "info": "<div>על מנת לסגור את העסקה עליך לציין את שווי סך כול שכר טרחה כולל מעמ שקיבלת מלקוח מגין עסקה זו</div> <br> <div>הכוונה שעליך לציין את סך כל מחיר כולל מע'מ שאת/ה מוציא/ה בחשבונית ללקוח בגין עסקה זו</div>",
+        "price": "שווי שכר טרחה שקיבלתי",
+        "comment": "הערות",
+        "close_deal": "סגרתי את העסקה"
     },
 
     "#18": "Органайзер по открытому лиду",
 
     "open_lead_organizer": {
-        "title": "Open Lead Status",
 
         "filter": {
             "title": "Filter",
@@ -331,6 +559,22 @@
             "done": "done"
         },
 
+        "actionSheet": {
+            "apply": "Apply",
+            "edit": "Edit",
+            "dell": "Dell",
+            "cancel": "Cancel"
+        },
+
+        "edit": {
+            "reminder_title": "Reminder",
+            "comment_title": "Comment",
+            "date": "date",
+            "time": "time",
+            "comment": "comment",
+            "save": "Save"
+        },
+
         "no_reminders": "no reminders",
         "no_reminders_by_filter": "no reminders by filter",
         "no_comments": "no comments",
@@ -347,10 +591,27 @@
         "private_group": "For private group",
         "name": "name",
         "phone": "phone",
+        "name_empty": "name required",
+        "name_error_length": "имя должно быть не короче двух символов",
         "phone_empty": "this field required",
         "phone_error_length": "the length of the phone number must be at least 9 digits",
         "comment": "comment",
         "group_members": "Group members",
+        "success_adding": {
+            "head": "Your customer has been successfully entered",
+            "description_common": "<div class='item'>At these moments, a customer who was entered by you received an SMS to confirm the needs. If he does not refuse to contact us, his details will be verified with a professional telephone consultant on our behalf and will be put up for sale in our tender.  </div> <div class='item'>The status of the customer in the auction including your royalties for delivery is to be seen on the outgoing page.</div>",
+            "description_private": "Your client has been successfully delivered to a private group. You can select the participants to whom you can forward the customer from a private group",
+            "thanks": "We thank you for your participation and trust in our system.",
+            "got_it": "got it"
+        },
+        "fail_area": {
+            "head": "Unfortunately we can not add the above client",
+            "got_it": "got it"
+        },
+        "error_area": {
+            "head": "Sorry, server error. Try later",
+            "got_it": "got it"
+        },
         "no_spheres": "No spheres",
         "add_lead": "add lead"
     },
@@ -423,14 +684,101 @@
             "cancel": "Cancel"
         },
 
-
         "BankTransactionAlertSuccess": {
             "title": "Payment confirmed",
             "message": "After processing the payment by the administration, the money will be credited to your wallet in the system",
             "OK": "Ok"
+        },
+
+        "payByBankConfirmation": {
+            "title": "אישור העברה בנקאית",
+            "message": "אני מאשר שאני העברתי את הסכום המתבקש בהעברה בנקאית לחשבון הבא: {{requisites}}",
+            "cancel_button": "ביטול",
+            "confirm_button": "אישור"
+        },
+
+        "status": {
+            "Waiting payment": "ממתין להעברת תשלום",
+            "Waiting processing": "ממתין לעיבוד הבקשה",
+            "Waiting confirmed": "ממתין לפרעון תשלום",
+            "Confirmed": "העברת תשלום אושרה",
+            "Rejected": "העברת תשלום נדחתה"
+        },
+
+        "number": "מס'"
+    },
+
+    "#21_1": "Страница вывода денег из системы",
+
+    "credit_withdrawal": {
+        "title": "משיכת כספים מארנק שלי",
+        "enter_data": "הכנס את סכום המשיכה המבוקש",
+        "amount": "סכום",
+        "amount_error": "שגיאה",
+        "company": "שם חברה",
+        "company_error": "שדה זה הינו שדה חובה",
+        "bank": "מספר בנק",
+        "bank_error": "הזנת מספר בנק שלך זה הינו שדה חובה",
+        "branch_number": "מספר סניף בנק",
+        "branch_number_error": "הזנת מספר סניף בנק שלך הינו שדה חובה",
+        "invoice_number": "מספר חשבון בנק",
+        "invoice_number_error": "הזנת מספר חשבון בנק שלך הינו שדה חובה",
+        "make_withdrawal_button": "בצע משיכה",
+
+        "minimumAmountAlert": {
+            "title": "טעות בהזנת נתונים",
+            "message": "הסכום המינימלי למשיכה צריך להיות גדול או שווה לסכום הבא <b>2000 &#8362;</b>. הזנת סכום הבא: <b>{{amount}} &#8362;</b>.",
+            "ok_button": "הבנתי"
+        },
+
+        "confirmation": {
+            "title": "אישור הצהרה למשיכת כספים",
+            "message": "לאחר אישורך תוקם הצהרה על משיכת סכום של <b>{{amount}} &#8362;</b> מארנק שלך",
+            "cancel_button": "ביטול",
+            "ok_button": "אישור"
+        },
+
+        "insufficient_balance": {
+            "title": "אין מספיק כסף בארנק שלך",
+            "message": "המאזן הנוכחי בארנק שלך <b> &#8362;{{balance}}</b> לכן לא ניתן למשוך את הסכום המבוקש",
+            "ok_button": "הבנתי"
         }
+    },
 
+    "#21_2": "Страница ввода денег в систему",
 
+    "credit_replenishment": {
+        "title": "הפקדת כספים לארנק שלי",
+        "select_amount_text": "בחר את סכום ההפקדה הרצוי",
+        "show_all_masks": "כל הפילטרים שלי",
+        "credits": "קרדיטים",
+        "make_replenishment_button": "בצע הפקדה",
+
+        "all_mask": {
+            "title": "בסכום הבא: {{amount} תקבל:",
+            "credits": "קרדיטים",
+            "ok_button": "הבנתי"
+        },
+
+        "confirmation": {
+            "title": "אישור הפקדת כספים",
+            "message": "לאחר אישורך תוקם הצהרה להפקדת כספים בסכום הבא: <b>{{selected_amount}} &#8362;</b> לארנק שלך",
+            "cancel_button": "ביטול",
+            "ok_button": "אישור"
+        }
+    },
+
+    "#21_3": "Оплата ввода через кредитную карточку",
+
+    "credit_credit_card_payment": {
+        "title": "מילוי ארנק דרך כרטיס אשראי",
+        "name": "שם בעל כרטיס",
+        "surname": "שם משפחה",
+        "email": "כתובת מייל",
+        "phone": "טלפון",
+        "amount": "סכום תשלום",
+        "required_field": "חובה למלא שדה זה",
+        "confirm_button": "אישור"
     },
 
     "#22": "Страница поддержки (список телефонов всех акк.менеджеров)",
@@ -487,7 +835,204 @@
         "no_masks": "No masks",
         "add_mask_first": "First add a masks",
         "new_mask_button_in_content": "Create a new mask",
-        "new_mask_button_in_footer": "new mask"
+        "new_mask_button_in_footer": "new mask",
+        "waiting_for_approval": "waiting for admin approval"
+    },
+
+    "----- #27": "Редактирование маски агента и создание новой",
+
+    "edit_mask": {
+        "title_new_mask": "פרופיל של פילטר חדש",
+        "title_edit_mask": "עריכת פילטר קיים",
+        "mask_name": "* שם פילטר",
+        "description": "תיאור פילטר פרטני יותר",
+        "error": "חייבת להיות לפחות בחירה אחת בכל מסנן",
+        "dell_button": "מחק פילטר",
+        "region": "איזור גיואוגרפי למשיכה",
+        "israel": "ישראל",
+        "save_button": "שמור פילטר"
+    },
+
+    "#29": "Общий органайзер мобильного приложения",
+
+    "organizer": {
+        "title": "המארגן שלי",
+        "no_items": "אין פריטים במארגן",
+        "filter": {
+            "title": "מסננים",
+            "type": "סוג מסנן",
+            "all": "הצג את כולם",
+            "states": {
+                "pending": "הצג משימות עתידיות",
+                "overdue": "הצג משיפות שפג תוקפם",
+                "done": "הצג משימות שביצעתי"
+            },
+            "reset": "אתחול",
+            "apply": "הפעלת סינון"
+        },
+
+        "actionSheet": {
+            "apply": "בוצע",
+            "open_lead": "פרטי לקוח",
+            "open_lead_organizer": "פתיחת מארגן ללקוח זה",
+            "edit": "עריכה",
+            "dell": "מחיקה",
+            "cancel": "ביטול"
+        }
+
+    },
+
+    "#40": "Приватная группа агента",
+
+    "private_group": {
+        "title": "קבוצה פרטית שלי",
+        "dell": "מחק קשר",
+        "waiting": "ממתין לאישור",
+        "no_members_in_group": "אין חברים בקבוצה פרטית",
+        "add_member": "הוסף איש קשר חדש",
+        "member_action": {
+            "delete": "מחק איש קשר",
+            "cancel": "ביטול"
+        },
+        "member_delete_confirmation": {
+            "title": "מחיקת איש קשר",
+            "delete": "מחק בכל זאת",
+            "cancel": "ביטול מחיקה",
+            "will_be_removed": "איש קשר זה הוסר מרשימה פרטית שלך"
+        }
+    },
+
+    "#41": "Добавление участников в приватную группу",
+
+    "add_members": {
+        "title": "מצא איש קשר לקבוצה פרטית",
+        "header_search_input_placeholder": "הזן שם מלא של איש קשר, טלפון או דואר אלקטרוני שלו",
+        "content_search_input_placeholder": "הזן דואל, טלפון או שם מלא",
+        "content_search_button": "חפש",
+        "no_search_result": "<div>איש קשר זה אינו נוכח במערכת</div> <div>להזמנת איש קשר זה לקבוצה פרטית שלך</div> <div>הכנס/י את הדואר האלקטרוני שלו</div>",
+        "invite_placeholder": "דואר אלקטרוני של איש קשר לצורך הזמנה",
+        "invite_error_valid_mail": "הכנסת כתובת דואר אלקטרוני לא תקנית",
+        "invite_error_can_not_added": "משתמש זה קיים במערכת אך אתה לא יכול להוסיפו לקבוצה פרטית שלך",
+        "invite_error_agent_in_group": "איש קשר זה כבר קיים בקבוצה פרטית שלך",
+        "invite_send_button": "שלח הזמנה",
+        "add_to_group_button": "הוסף לקבוצה איש קשר חדש"
+    },
+
+    "#42": "Статистика пользователя",
+
+    "statistic": {
+        "title": "ססטיסטיקה שלי",
+        "leads_name": "לידים",
+        "statuses_name": "סטטוסים",
+        "transitions_name": "יעילות",
+        "sphere": "תחום",
+        "date": "תאריך",
+        "from": "מ:",
+        "to": "ל:",
+        "no_sphere": "אין תחום",
+        "no_enough_leads": "לא הצטברו מספיק נתונים לסטטיסטיקה",
+        "open_leads_needed": "נדרש",
+        "you_have": "יש לך",
+        "by_period": "לתקופה",
+        "by_all": "כל הזמן",
+        "leads_block_title": "סטטיסטיקה של כלל לקוחות",
+        "leads_block_data_added": "לקוחות שנמסרו",
+        "leads_block_data_operator_banned": "נפסלו על ידי קונטקט",
+        "leads_block_data_users_banned": "משתמשים נחסמו",
+        "leads_block_data_seen": "לקוחות התקבלו",
+        "leads_block_data_open": "לקוחות שנחשפו",
+        "leads_block_title_agent": "סטטיסטיקה שלי בלבד",
+        "leads_block_title_salesmen": "סטטיסטיקה של אנשי מכירות שלי",
+        "leads_block_data_salesman_presence": "משויך לתחום",
+        "leads_block_data_salesman_active": "פעילות",
+        "status": {
+            "no_status": "לא עודכן",
+            "progress": "לקוחות בתהליך מתקדם",
+            "uncertain": "לקוחות ללא ודאות",
+            "refuseniks": "לקוחות שסירבו או סורבו",
+            "bad": "לקוחות לא תקינים",
+            "close_deal": "לקוחות שסגרתי ושולמו"
+        },
+        "transitions": {
+            "period": "לתקופה",
+            "all": "כל הזמן"
+        },
+        "range": {
+            "today": "היום",
+            "yesterday": "אתמול",
+            "this_week": "השבוע",
+            "previous_week": "שבוע קודם",
+            "this_month": "החודש",
+            "previous_month": "חודש קודם",
+            "custom_range": "בהתאמה אישית",
+            "cancel": "cancel",
+            "apply": "apply"
+        }
+
+    },
+
+    "#43": "Коммуникации (нотификации и переписка)",
+
+    "communication": {
+        "title": "תקשורת",
+        "notice_name": "התראות",
+        "messages_name": "הודעות",
+        "no_notification": "אין התראות",
+        "no_notification_by_filter": "אין התראות לפי מסנן שנבחר",
+        "reset_filter": "אתחול מסנן",
+        "no_messages": "אין הודעות",
+        "filter": {
+            "title": "פילטר לפי התראות",
+            "period": "תקופה",
+            "from": "From",
+            "to": "To",
+            "period_reset": "אתחול תקופה",
+            "statuses": "סטטוסים",
+            "all_statuses": "כל הסטטוסים",
+            "not_market": "התראות לא מסומנות",
+            "market": "התראות מסומנות",
+            "type": "סוג התראה",
+            "all_type": "כל הסוגים",
+            "apply_button": "אישור",
+            "reset_button": "אתחול"
+        },
+
+        "notification_type": {
+            "New Lead Added": "לקוח חדש התווסף למערכת שלך",
+            "Open Lead Reminder": "תזכורת לטיפול בלקוח",
+            "Receiving the money": "מזל טוב, התקבלו כספים חדשים לארנק שלך",
+            "Masks adoption": "פילטר שלך למשיכת לקוחות חדשים התקבל אצלנו וממתין לאישור",
+            "The mask is confirmed": "הפילטר שלך למשיכת לקוחות אושר בהצלה",
+            "The mask is divided and confirmed": "הפילטר שלך למשיכת לקוחות חולק למספר פילטרים ואושר בהצלחה",
+            "Banned": "החשבון שלך נחסם - צור קשר עם מנהל תיק לקוח ישיר שלך בו הייתה חסימה לבירור",
+            "Unbanned": "הוסרה חסימה מחשבונך במערכת - בדוק כי אתה עובד לפי תקנון של המערכת",
+            "Account manager payroll": "התבקש תשלום למשיכה ע''י מנהל תיק לקוח שלך",
+            "Close deal": "מזל טוב על קבלת תשלום שכ''ט שלך - כאט עליך להזרים תמלוגים מעסקה זו לפלטפורמה",
+            "Close deal waiting confirmation": "תודה על העברה - העסקה ממתינה לאישור פירעון תשלום בחשבוננו",
+            "Close deal expired": "פג תוקף העברת תשלום בגין עסקה שנסגרה אצלכם  - חשבונך נחסם לחשיפת פניות חדשות במערכת עד לפרעון החוב",
+            "New request payments": "בקשתך להפקדת / משיכת כספים למערכת התקבלה",
+            "Request payments waiting payment": "בקשתך להפקדת / משיכת כספים למערכת ממתינה לאישור"
+        },
+
+        " -- end -- ": "end"
+    },
+
+    "#44": "Кошелек пользователя",
+
+    "wallet": {
+        "title": "ארנק שלי",
+        "buyed": "רכשתי",
+        "earned": "הרווחתי",
+        "wasted": "בזבזתי",
+        "overdraft": "מסגרת אשראי",
+
+        "description": {
+            "buyed": "אלו כספים קנויים על ידי באמצעות תשלום בכ.א או העברה בנקאית שעומדים לרשותי בארנק אלקטרוני לצורך משיכת לקוחות מטרה ממערכת",
+            "earned": "אלו כספים שעומדים לרשותי בגין הפניית לקוחות למכרזנו משירותים דומים או משלימים לשירות שלך",
+            "wasted": "אילו כספים שהתבזבנו על זמן עבודה של הון אנושי מקצועי ששמוציא לקוחות פוטנציאליים למכרז וינוכו מהכספים שהרווחת על הפניית לקוחות למכרזנו. בהגעה לתקרת בזבוז לא תוכל/י יותר להפנות לנו לקוחות עד לבירור מול מנהל תיק לקוח שלך",
+            "overdraft": "זו מסגרת אשראי שניתנה לי - חוב זה ינוכה מרווחים עתידיים על הפניית לקוחות למכרזנו  בתחומים דומים ומשלימים לצורך משיכת לקוחות מטרה ממערכת או בגין תשלום עמלות מעסקאות שסגרתם והתקבל בגינם תשלום"
+        }
+
     },
 
 

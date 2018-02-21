@@ -1,11 +1,11 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, ViewController, ModalController, Events} from 'ionic-angular';
+import {NavController, NavParams, LoadingController, ViewController, ModalController, Events} from 'ionic-angular';
 import {OpenLeadStatusesPage} from "../open-lead-statuses/open-lead-statuses";
 import {OpenLeadOrganizerPage} from "../open-lead-organizer/open-lead-organizer";
 import {TranslateService} from 'ng2-translate/ng2-translate';
 import {Open} from '../../providers/open';
 
-import { CallNumber } from '@ionic-native/call-number';
+import {CallNumber} from '@ionic-native/call-number';
 import {OpenLeadDealPage} from "../open-lead-deal/open-lead-deal";
 
 /*
@@ -30,17 +30,24 @@ export class OpenDetailPage {
 
 
     /**
+     *  id лида
+     *
+     */
+    public leadId: any = false;
+
+
+    /**
+     * id открытого лида
+     *
+     */
+    public openLeadId: any = false;
+
+
+    /**
      * Переход со страницы obtain
      *
      */
     public fromObtain: any = false;
-
-
-    /**
-     * Индикатор загрузки
-     *
-     */
-    public isLoading: boolean = true;
 
 
     /**
@@ -52,6 +59,31 @@ export class OpenDetailPage {
         subRole: 'any',
     };
 
+
+    /**
+     * Указание на необходимость обновления
+     * родительского компонента
+     *
+     */
+    public reloadNeeded: boolean = false;
+
+
+    /**
+     * Области с данными на странице
+     *
+     */
+    public sections: any = {
+        // область со спинером загрузки
+        loading: true,
+        // область с данными
+        data: false,
+        // подтверждение отправки лида на аукцион
+        auction: false,
+        // вывод ошибки
+        error: false
+    };
+
+
     constructor(public navCtrl: NavController,
                 public view: ViewController,
                 public navParams: NavParams,
@@ -59,56 +91,142 @@ export class OpenDetailPage {
                 public events: Events,
                 public open: Open,
                 public translate: TranslateService,
+                public loadingCtrl: LoadingController,
                 private callNumber: CallNumber) {
 
         // получение id открытого лида
         let itemId = navParams.get('itemId');
 
+        // получение ролей, если они есть
         this.roles = navParams.get('roles');
 
-        // console.log('Итем открытого лида');
-        // console.log(itemId);
+        // компонент может выбираться из разных мест,
+        // в каждом месте свои нюансы, поэтому
+        // выборка данных так усложненна
+        // позже, желательно, доделать
 
-        // проверка наличия данных
+        // проверка наличия id открытого лида
         if (itemId) {
-            // если итем есть
+            // если передан id открытого лида
 
-            this.loadData(itemId);
+            // сохраняем его id в компоненте
+            this.openLeadId = itemId;
+            this.loadData();
 
         } else {
             // если итема нет
 
+            // получение имени компонента,
+            // с которого был вызван этот компонент
             let pageFrom = navParams.get('pageFrom');
 
+            // проверка имени родительского компонента
             if (pageFrom != 'organizer') {
+                // если страница вызвана не с органайзера
 
+                // сохраняе в компоненте что нужно вернутся
+                // на страницу incoming
                 this.fromObtain = true;
             }
 
+            // попытка найти id открытого лида
             let openLeadId = navParams.get('openLeadId');
 
             // проверка наличия id открытого лида
             if (openLeadId) {
                 // если есть
 
+                // сохраняем id открытого лида в компоненте
+                this.openLeadId = openLeadId;
+
                 // подгрузка итемов с сервера
-                this.loadData(openLeadId);
+                this.loadData();
 
             } else {
                 // если нет
 
                 // попытка найти id лида
-                let leadId = navParams.get('leadId');
+                this.leadId = navParams.get('leadId');
 
-                // подгрузка итемов с сервера
-                this.loadDataByLeadId(leadId);
+                // проверка наличия id лида
+                if (this.leadId) {
+                    // если id лида есть
+                    // подгружаем итемы с сервера
+                    this.loadDataByLeadId();
+
+                } else {
+                    // если итема нет
+
+                    // выводим страницу с ошибками
+                    this.section('error');
+                }
             }
         }
-
     }
 
+
+    /**
+     * Событие при загрузки компонента
+     *
+     */
     ionViewDidLoad() {
-        console.log('ionViewDidLoad OpenDetailPage');
+    }
+
+
+    /**
+     * Переключение областей на странице
+     *
+     * три области на странице:
+     *     loading - область со спинером загрузки, показывается во время загрузки
+     *     data - область с данными, показывается когда данные успешно загруженны
+     *     auction - подтверждение отправки лида на аукцион
+     *     error - область с ошибками, появляется во время ошибки загрузки
+     */
+    section(sectionName: any = false) {
+
+        // закрываются все разделы
+        this.closeAllSections();
+
+        switch (sectionName) {
+
+            case 'loading':
+                // область со спинером загрузки
+                this.sections.loading = true;
+                break;
+
+            case 'data':
+                // область основных данных
+                this.sections.data = true;
+                break;
+
+            case 'auction':
+                // вывод ошибки
+                this.sections.auction = true;
+                break;
+
+            case 'error':
+                // вывод ошибки
+                this.sections.error = true;
+                break;
+
+            default:
+                // alert('wrong area name');
+                break;
+        }
+    }
+
+
+    /**
+     * Закрывает все области
+     *
+     */
+    closeAllSections() {
+        // закрытие всех областей
+        for (let section in this.sections) {
+            // перебираем все области
+            // закрываем их
+            this.sections[section] = false;
+        }
     }
 
 
@@ -127,9 +245,6 @@ export class OpenDetailPage {
 
             modal.onDidDismiss(data => {
 
-                console.log('данные по сделкам');
-                console.log(data);
-
             });
 
             modal.present();
@@ -145,7 +260,7 @@ export class OpenDetailPage {
                     item.status_info = data.status;
                     item.status = data.status.id;
 
-                    if(data.dealPrice) {
+                    if (data.dealPrice) {
                         item['close_deal_info'] = {
                             'price': data.dealPrice
                         };
@@ -169,20 +284,17 @@ export class OpenDetailPage {
                     }
 
                     // проверка на роль
-                    if(this.roles.subRole == 'dealmaker') {
+                    if (this.roles.subRole == 'dealmaker') {
                         // если диалмэкер
 
                         // открываем сделку (если это сделка)
-                        if(item.status_info && item.status_info.type == 5) {
+                        if (item.status_info && item.status_info.type == 5) {
                             this.changeStatus(item);
                         }
                     }
 
                 }
 
-
-                console.log(item);
-                console.log(data);
             });
 
             modal.present();
@@ -192,69 +304,122 @@ export class OpenDetailPage {
 
 
     /**
-     * Подгрузки итемов открытого лида
+     * Загрузка данных открытого лида по id открытого лида
      *
      */
-    loadData(openLeadId) {
+    loadData() {
 
-        // console.log('Начало: Получение данных итема открытого лида');
+        // проверка наличия id открытого лида
+        if (!this.openLeadId) {
+            // если его нет
+            // переходим на страницу ошибки
+            this.section('error');
+            return false;
+        }
 
+        // выбираем id открытого лида
+        // для удобства
+        let openLeadId = this.openLeadId;
+
+        // включаем блок спинера загрузки
+        this.section('loading');
+
+        // запрос на получение данных
         this.open.loadOpenLeadData(openLeadId)
             .subscribe(result => {
+                // данные с сервера получены успешно
 
                 // переводим ответ в json
                 let data = result.json();
 
-                // console.log('полученные данные по только что открытому лиду: ');
-                // console.log(data);
+                // определяем статус запроса
+                if (data.status == 'success') {
+                    // при успешном статусе
 
-                this.item = data.openLead;
-                this.roles.role = data.roles.role;
-                this.roles.subRole = data.roles.subRole;
+                    // заносим данные в модель
+                    // данные итема
+                    this.item = data.data.openLead;
+                    // данные роли
+                    this.roles.role = data.data.roles.role;
+                    // данные дополнительной роли
+                    this.roles.subRole = data.data.roles.subRole;
 
+                    // выводим секцию с данными
+                    this.section('data');
 
-                this.isLoading = false;
+                } else {
+                    // при ошибке
 
-                // console.log(data);
+                    // выводим секцию с ошибкой
+                    this.section('error');
+                }
 
             }, err => {
+                // ошибка при получении данных с сервера
 
-                this.isLoading = false;
-                console.log('ERROR: ' + err);
+                // выводим секцию с ошибкой
+                this.section('error');
             });
 
     }
 
 
     /**
-     * Подгрузки итемов открытого лида
+     * Подгрузки итемов открытого лида по id лида
      *
      */
-    loadDataByLeadId(leadId) {
+    loadDataByLeadId() {
 
-        console.log('Начало: Получение данных итема открытого лида');
+        // проверка наличия id лида
+        if (!this.leadId) {
+            // если его нет
+            // переходим на страницу ошибки
+            this.section('error');
+            return false;
+        }
 
+        // если есть id лида
 
+        // выбираем id лида для удобства
+        let leadId = this.leadId;
+
+        // включаем блок спинера загрузки
+        this.section('loading');
+
+        // запрос на получение данных
         this.open.loadOpenLeadDataByLeadId(leadId)
             .subscribe(result => {
-
+                // данные с сервера получены успешно
                 // переводим ответ в json
                 let data = result.json();
 
+                // определяем статус запроса
+                if (data.status == 'success') {
+                    // при успешном статусе
 
-                console.log('полученные данные по только что открытому лиду: ');
-                console.log(data);
+                    // заносим данные в модель
+                    // данные итема
+                    this.item = data.data.openLead;
+                    // данные роли
+                    this.roles.role = data.data.roles.role;
+                    // данные дополнительной роли
+                    this.roles.subRole = data.data.roles.subRole;
 
-                this.item = data.openLead;
+                    // выводим секцию с данными
+                    this.section('data');
 
-                this.isLoading = false;
+                } else {
+                    // при ошибке
 
-                // console.log(data);
+                    // выводим секцию с ошибкой
+                    this.section('error');
+                }
 
             }, err => {
+                // ошибка при получении данных с сервера
 
-                this.isLoading = false;
-                console.log('ERROR: ' + err);
+                // выводим секцию с ошибкой
+                this.section('error');
             });
 
     }
@@ -265,39 +430,26 @@ export class OpenDetailPage {
      */
     openLeadOrganizer() {
 
-        // console.log(this.item.id);
-
         let modal = this.modalCtrl.create(OpenLeadOrganizerPage, {itemsId: this.item.id});
 
         modal.present();
+    }
 
 
-        // this.organizer.get({ openLeadId: item.id })
-        //     .subscribe(result => {
-        //
-        //         // переводим ответ в json
-        //         let data = result.json();
-        //
-        //         let modal = this.modalCtrl.create(OpenLeadOrganizerPage, {items: data});
-        //
-        //         modal.present();
-        //
-        //         console.log(data);
-        //
-        //     }, err => {
-        //
-        //         // в случае ошибки
-        //
-        //         console.log('ERROR: ' + err);
-        //
-        //         // todo выводится сообщение об ошибке (нету связи и т.д.)
-        //
-        //         // отключаем окно индикатора загрузки
-        //         // infiniteScroll.complete();
-        //
-        //     });
+    /**
+     * Подтверждение отправки лида на аукцион
+     */
+    auctionConfirmation() {
+        this.section('auction');
+    }
 
 
+    /**
+     * Отмена отправки лида на аукцион
+     *
+     */
+    auctionCanceled() {
+        this.section('data');
     }
 
 
@@ -306,11 +458,90 @@ export class OpenDetailPage {
      *
      */
     makeCall(item) {
-        // console.log(item.lead.phone.phone);
 
         this.callNumber.callNumber(item.lead.phone.phone, true)
             .then(() => console.log('Launched dialer!'))
             .catch(() => console.log('Error launching dialer'));
+    }
+
+
+    /**
+     * Обновление данных на странице
+     *
+     */
+    refresh() {
+
+        // проверка наличия id лида в компоненте
+        if (this.leadId) {
+            // если он есть, загружаем по нему данные
+            this.loadDataByLeadId();
+            return true;
+        }
+
+        // если в компоненте не сохранен id лида
+
+        // проверяем наличие id открытого лида
+        if (this.openLeadId) {
+            // если есть - загружаем данные по id открытого лида
+            this.loadData();
+            return true;
+        }
+
+        // в компоненте нет ни id лида,
+        // ни id открытого лида
+
+        // выходим из метода
+        return false;
+    }
+
+
+    /**
+     * Отправка лида на аукцион
+     *
+     */
+    sendToAuction() {
+
+        let loader = this.loadingCtrl.create({
+            content: "Please wait...",
+        });
+        loader.present();
+
+        // запрос на отправку лида на аукцион
+        this.open.sendLeadToAuction({id: this.item.id})
+            .subscribe(result => {
+                // при получении итемов
+
+                // переводим ответ в json
+                let data = result.json();
+
+                // проверка на ошибку
+                if (data.status === 'fail') {
+                    // если ошибка есть
+
+                    // убираем загрузчик
+                    loader.dismiss();
+                    // выводим ошибку
+                    this.section('error');
+                    // выходим из метода
+                    return false;
+                }
+
+                // убираем загрузчик
+                loader.dismiss();
+                // указание что родительский
+                // компонент нужно обновить
+                this.reloadNeeded = true;
+                // закрыть текущий компонент
+                this.close();
+
+            }, err => {
+                // в случае ошибки
+
+                // убираем загрузчик
+                loader.dismiss();
+                // выводим ошибку
+                this.section('error');
+            });
     }
 
 
@@ -320,13 +551,34 @@ export class OpenDetailPage {
      */
     close() {
 
-        if (this.fromObtain) {
+        // проверка указания на обновления
+        if(this.reloadNeeded) {
+            // если есть указание на обновление
+            // закрыть окно и обновить предыдущий компонент
+            this.view.dismiss({reload: true});
+        }
 
+        // проверка секции аукциона
+        if (this.sections.auction) {
+            // если открыт раздел аукциона
+            // переходим на раздел данных
+            this.section('data');
+            // выходим из метода
+            return false;
+        }
+
+        // проверка компонента с которого
+        // попали в этот компонент
+        if (this.fromObtain) {
+            // если пришли со страницы Incoming
+            // т.е. окно данных открылось сразу
+            // после открытия лида
+            // принудительно переходим на открытые лиды
             this.events.publish('goTo:open');
         }
 
-
-
+        // если компонент вызван с компонента открытых лидов
+        // возвращаемся в открытые лиды
         this.view.dismiss(this.item);
     }
 

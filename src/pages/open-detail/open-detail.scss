@@ -51,6 +51,33 @@ page-open-detail {
       margin-top: 20%;
     }
 
+    .auction_block {
+
+      .auction_data {
+        margin: 20% 20px 0;
+        font-size: 16px;
+        line-height: 25px;
+        color: grey;
+        text-align: center;
+      }
+
+      .auction_buttons_block {
+
+        margin-top: 10%;
+
+        .auction_button_send {
+
+          margin-top: 10%;
+        }
+
+        .auction_button_cancel {
+
+          margin-top: 10%;
+        }
+
+      }
+    }
+
     .open_lead_bad_status {
       color: #CD0000;
       text-align: center;
@@ -86,7 +113,6 @@ page-open-detail {
 
     }
 
-
     .data_block_header {
       color: gray;
       margin-bottom: 10px;
@@ -105,7 +131,7 @@ page-open-detail {
     }
 
     .status_block {
-      margin-bottom: 10px;
+      margin-bottom: 5px;
     }
 
     .data_block {
@@ -134,6 +160,23 @@ page-open-detail {
         }
       }
     }
+
+    .error_area {
+
+      .error_text {
+        color: #A9A9A9;
+        font-size: 16px;
+        text-align: center;
+        margin: 20% 0;
+      }
+
+      .error_button {
+        margin: 30px 0;
+        text-align: center;
+      }
+
+    }
+
   }
 
 }

@@ -12,11 +12,45 @@ page-obtain {
     .scroll-content {
       padding-bottom: 70px;
     }
+
+    .obtain_item {
+
+      .col {
+        padding: 0;
+      }
+
+      .voice_icon_block {
+        font-size: 18px;
+        color: grey;
+        padding-top: 6px;
+        cursor: pointer;
+
+        &.voice {
+          color: #337AB7;
+        }
+
+      }
+
+    }
   }
 
   .spinnerLoading {
     text-align: center;
     margin-top: 20%;
+  }
+
+  .item-right-data_block {
+    //margin-right: 10px;
+    //padding-top: 5px;
+  }
+
+  .voice_item_side {
+
+    &.col {
+      padding: 0;
+      margin: 0;
+    }
+
   }
 
   .lead_name {

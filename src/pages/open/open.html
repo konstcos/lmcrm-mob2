@@ -23,6 +23,15 @@
                 <button ion-button clear small (click)="openLeadOrganizer(item)">
                     <ion-icon name="md-alarm"></ion-icon>
                 </button>
+
+                <button *ngIf="item.voice" ion-button clear small (click)="switchVoiceShow(item)">
+                    <ion-icon name="md-volume-up"></ion-icon>
+                </button>
+
+                <button *ngIf="item.advertising" ion-button clear small (click)="sendToAuctionConfirmation(item)">
+                    <ion-icon name="md-person-add"></ion-icon>
+                </button>
+
             </ion-col>
             <ion-col col-3 text-right align-self-center class="archive" [ngClass]="item.archive == 1 ? 'zipped' : ''" (click)="archive(item)">
                 {{ 'exposed.archive' | translate }}
@@ -49,7 +58,20 @@
 
         </ion-card-content>
 
+        <!-- звуковые записи -->
+        <ion-row *ngIf="isVoiceShow(item)">
+            <ion-col text-center>
 
+                <div *ngFor="let voice of item.voice" text-center class="voice_item_side">
+                    <audio controls>
+                        <source src="{{ voice.url }}" type="audio/mpeg">
+                    </audio>
+                </div>
+
+            </ion-col>
+        </ion-row>
+
+        <!-- Вывод статуса по открытому лиду -->
         <ion-row>
             <ion-col>
 
@@ -114,7 +136,6 @@
                 </div>
 
             </ion-col>
-
         </ion-row>
 
     </ion-card>

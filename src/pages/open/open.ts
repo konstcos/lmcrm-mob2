@@ -21,7 +21,7 @@ import {Storage} from '@ionic/storage';
 
 import {Open} from '../../providers/open';
 
-import { CallNumber } from '@ionic-native/call-number';
+import {CallNumber} from '@ionic-native/call-number';
 
 /*
  Generated class for the Open page.
@@ -158,8 +158,6 @@ export class OpenPage {
     }
 
     ionViewDidLoad() {
-        console.log('ionViewDidLoad OpenPage');
-        console.log(this.settings.settings);
 
         // отписываемся от события по смене фильтра
         this.events.unsubscribe('openLeadFilter');
@@ -508,6 +506,13 @@ export class OpenPage {
 
             // item = data;
 
+            // проверка на обновление
+            if (data.reload) {
+                // если есть указание на обновление
+                // обновляем страницу
+                this.loadItems();
+            }
+
             item.status = data.status;
             item.status_info = data.status_info;
             item.close_deal_info = data.close_deal_info;
@@ -710,7 +715,7 @@ export class OpenPage {
                     item.status_info = data.status;
                     item.status = data.status.id;
 
-                    if(data.dealPrice) {
+                    if (data.dealPrice) {
                         item['close_deal_info'] = {
                             'price': data.dealPrice
                         };
@@ -733,11 +738,11 @@ export class OpenPage {
                     }
 
                     // проверка на роль
-                    if(this.roles.subRole == 'dealmaker') {
+                    if (this.roles.subRole == 'dealmaker') {
                         // если диалмэкер
 
                         // открываем сделку (если это сделка)
-                        if(item.status_info && item.status_info.type == 5) {
+                        if (item.status_info && item.status_info.type == 5) {
                             this.changeStatus(item);
                         }
                     }
@@ -790,16 +795,126 @@ export class OpenPage {
     }
 
 
+    /**
+     * Окно подтверждения отправки открытого лида на аукцион
+     *
+     */
+    sendToAuctionConfirmation(item) {
+
+        // алерт подтверждения на передачу открытого лида на акуцион
+        let prompt = this.alertCtrl.create({
+            title: 'send lead to auction',
+            message: "Confirm sending the Lead to the auction",
+            buttons: [
+                {
+                    text: 'Cancel',
+                    handler: data => {
+                        console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'Send',
+                    handler: data => {
+                        console.log('Send clicked');
+                        this.sendToAuction(item);
+                    }
+                }
+            ]
+        });
+        prompt.present();
+
+
+    }
+
+
+    /**
+     * Отправка лида на аукцион
+     *
+     */
+    sendToAuction(item) {
+
+        this.open.sendLeadToAuction({id: item.id})
+            .subscribe(result => {
+                // при получении итемов
+
+                // переводим ответ в json
+                let data = result.json();
+
+                console.log('пришел ответ с сервера');
+                console.log(data);
+
+                // проверка на ошибку
+                if (data.status === 'fail') {
+                    // если ошибка есть
+                    console.log('Ошибка');
+                    return false;
+                }
+
+                // если ошибки нет, обновляем страницу лидов
+                this.loadItems();
+
+            }, err => {
+                // в случае ошибки
+
+                console.log('ERROR: ' + err);
+
+                // todo выводится сообщение об ошибке (нету связи и т.д.)
+
+                // отключаем окно индикатора загрузки
+            });
+
+        console.log('пошел отправлять лид на аукцион');
+        console.log(item);
+
+    }
+
+
     customerPage() {
 
         this.events.publish("main:openCustomer");
     }
 
+
+    /**
+     * Условия, при которых блок итема с аудиозаписями будет показан
+     *
+     */
+    isVoiceShow(item) {
+
+        if (item.voice && item.voiceShow && item.voiceShow == true) {
+
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /**
+     * Показать или спрятать блок с аудиозаписями итема
+     *
+     */
+    switchVoiceShow(item) {
+
+        if (!item.voice) {
+            return false;
+        }
+
+        if (!item.voiceShow) {
+            item.voiceShow = true;
+            return true;
+        }
+
+        item.voiceShow = false;
+        return true;
+    }
+
+
     /**
      * Переход на страницу фильтров по фильтру
      *
      */
-    goToIncomingPage(){
+    goToIncomingPage() {
         // console.log('переход на страницу входящих лидов');
         this.events.publish("tab:switch_incoming", {});
     }

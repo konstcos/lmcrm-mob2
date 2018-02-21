@@ -95,6 +95,25 @@
 
         </div>
 
+        <div class="voice_block" *ngIf="item.voice">
+
+            <ion-row align-items-center class="data_block_item">
+
+
+                <ion-col text-center>
+
+                    <div *ngFor="let voice of item.voice" text-center class="voice_item_side">
+                        <audio controls>
+                            <source src="{{ voice.url }}" type="audio/mpeg">
+                        </audio>
+                    </div>
+
+                </ion-col>
+
+
+            </ion-row>
+
+        </div>
 
         <div class="data_block">
 

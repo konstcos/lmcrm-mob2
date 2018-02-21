@@ -28,7 +28,7 @@ export class Open {
 
 
     /**
-     * Получение с сервера данных открытого лида
+     * Получение с сервера данных открытого лида по id открытого лида
      */
     loadOpenLeadData(openLeadId: number) {
         return this.api.post('api/data/opened/lead', {openLeadId: openLeadId});
@@ -36,12 +36,9 @@ export class Open {
 
 
     /**
-     * Получение с сервера данных открытого лида
+     * Получение с сервера данных открытого лида по id лида
      */
     loadOpenLeadDataByLeadId(leadId: number) {
-
-        console.log(leadId);
-
         return this.api.post('api/data/opened/lead', {leadId: leadId});
     }
 
@@ -156,6 +153,15 @@ export class Open {
      */
     makeCreditCardTransaction(data: any) {
         return this.api.post('api/deal/credit/card/payment/make', data);
+    }
+
+
+    /**
+     * Отправка лида полученного по адвертайзингу на аукцион
+     *
+     */
+    sendLeadToAuction(data: any) {
+        return this.api.post('api/lead/advertising/send/to/auction', data);
     }
 
 

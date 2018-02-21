@@ -41,19 +41,21 @@
 <ion-content padding>
 
     <!-- спинер загрузки -->
-    <div *ngIf="isLoading" class="spinnerLoading">
+    <div *ngIf="sections.loading" class="spinnerLoading">
         <ion-spinner color="primary" name="crescent"></ion-spinner>
     </div>
 
-    <div *ngIf="item && !isLoading">
+    <!-- блок с данными -->
+    <div *ngIf="sections.data">
 
+        <!-- имя клиента -->
         <div class="data_block_header">
             <ion-row align-items-center>
                 <ion-col text-right class="name"> {{ item.lead.name }} {{ item.lead.surname }}</ion-col>
             </ion-row>
         </div>
 
-
+        <!-- телефон клиента -->
         <div class="data_block">
 
             <ion-row align-items-center class="data_block_item" (click)="makeCall(item)">
@@ -70,13 +72,30 @@
 
         </div>
 
+        <!-- блок с кнопкой передачи по адвертайзингу -->
+        <div *ngIf="item.advertising" class="">
+
+            <ion-row align-items-center>
+                <ion-col text-center>
+
+                    <button ion-button round icon-left small color="light" (click)="auctionConfirmation()">
+                        <ion-icon name="md-person-add"></ion-icon>
+                        send to auction
+                    </button>
+
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+        <!-- блок со статусами -->
         <div class="status_block">
             <!--<ion-row>-->
-                <!--<ion-col>-->
-                    <!--<button ion-button small full (click)="changeStatus(item)">-->
-                        <!--{{ item.status_info ? item.status_info.stepname : ('exposed_detail.no_status' | translate) }}-->
-                    <!--</button>-->
-                <!--</ion-col>-->
+            <!--<ion-col>-->
+            <!--<button ion-button small full (click)="changeStatus(item)">-->
+            <!--{{ item.status_info ? item.status_info.stepname : ('exposed_detail.no_status' | translate) }}-->
+            <!--</button>-->
+            <!--</ion-col>-->
             <!--</ion-row>-->
 
 
@@ -95,12 +114,13 @@
 
                                     <ion-col>
                                         <div class="deal_data_title">{{ 'exposed.deal_name' | translate }}</div>
-                                        <div  class="deal_data_data">{{ item.status_info.stepname }}</div>
+                                        <div class="deal_data_data">{{ item.status_info.stepname }}</div>
                                     </ion-col>
 
                                     <ion-col>
                                         <div class="deal_data_title">{{ 'exposed.deal_price' | translate }}</div>
-                                        <div  class="deal_data_data"><b>&#8362;</b> {{ item.close_deal_info.price }}</div>
+                                        <div class="deal_data_data"><b>&#8362;</b> {{ item.close_deal_info.price }}
+                                        </div>
                                     </ion-col>
 
                                 </ion-row>
@@ -112,7 +132,7 @@
 
                         <div *ngIf="!item.close_deal_info">
                             <!--<button ion-button small full (click)="changeStatus(item)">-->
-                                <!--{{ item.status_info ? item.status_info.stepname : ('exposed_detail.no_status' | translate) }}-->
+                            <!--{{ item.status_info ? item.status_info.stepname : ('exposed_detail.no_status' | translate) }}-->
                             <!--</button>-->
 
                             <div *ngIf="item.status_info && item.status_info.type == 4" class="open_lead_bad_status">
@@ -121,7 +141,8 @@
 
                             <div *ngIf="!item.status_info || item.status_info.type != 4">
                                 <button ion-button small full (click)="changeStatus(item)">
-                                    {{ item.status_info ? item.status_info.stepname : ('exposed.no_status' | translate) }}
+                                    {{ item.status_info ? item.status_info.stepname : ('exposed.no_status' | translate)
+                                    }}
                                 </button>
                             </div>
 
@@ -131,7 +152,7 @@
 
                     <div *ngIf="roles.subRole == 'dealmaker'">
                         <!--<button ion-button small full (click)="changeStatus(item)">-->
-                            <!--{{ item.status_info ? item.status_info.stepname : ('exposed_detail.no_status' | translate) }}-->
+                        <!--{{ item.status_info ? item.status_info.stepname : ('exposed_detail.no_status' | translate) }}-->
                         <!--</button>-->
 
                         <div *ngIf="item.status_info && item.status_info.type == 4" class="open_lead_bad_status">
@@ -152,6 +173,28 @@
 
         </div>
 
+        <!-- блок с голосовыми записями -->
+        <div class="voice_block" *ngIf="item.voice">
+
+            <ion-row align-items-center class="data_block_item">
+
+
+                <ion-col text-center>
+
+                    <div *ngFor="let voice of item.voice" text-center class="voice_item_side">
+                        <audio controls>
+                            <source src="{{ voice.url }}" type="audio/mpeg">
+                        </audio>
+                    </div>
+
+                </ion-col>
+
+
+            </ion-row>
+
+        </div>
+
+        <!-- блок с датой и именем открывшего лид-->
         <div class="data_block">
 
             <ion-row align-items-center class="data_block_item">
@@ -184,7 +227,7 @@
 
         </div>
 
-
+        <!-- дополнительные данные и данные фильтра -->
         <div class="data_block">
 
             <ion-row align-items-center *ngFor="let filter of item.lead.filter" class="data_block_item">
@@ -211,7 +254,7 @@
 
         </div>
 
-
+        <!-- сфера и имя маски -->
         <div class="data_block">
 
             <ion-row align-items-center class="data_block_item">
@@ -229,12 +272,57 @@
                 <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
                 <ion-col text-right>
                     <div class="label">{{ 'exposed_detail.mask_name' | translate }}</div>
-                    <div class="value">{{ item.mask_name2 ? item.mask_name2.name : ('exposed_detail.deleted' | translate) }}</div>
+                    <div class="value">{{ item.mask_name2 ? item.mask_name2.name : ('exposed_detail.deleted' |
+                        translate) }}
+                    </div>
                 </ion-col>
                 <ion-col col-1 text-right>
                     <ion-icon class="icon_param mask_color" name="ios-funnel"></ion-icon>
                 </ion-col>
             </ion-row>
+
+        </div>
+
+    </div>
+
+    <!-- блок с ошибкой -->
+    <div *ngIf="sections.error" class="error_area">
+
+        <div class="error_text">
+            {{ 'incoming_detail.open_lead_area.incomprehensibleError' | translate }}
+        </div>
+
+        <div class="error_button">
+            <button ion-button large color="light" (click)="refresh()">
+                <ion-icon name="md-refresh"></ion-icon>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- подтверждение отправки лида на аукцион -->
+    <div *ngIf="sections.auction" class="auction_block">
+
+        <div class="auction_data">
+            The Lead will be sent for auction.
+            It disappears from the Exposed section and appears in the Outgoing section.
+            As with other introduced Leads, you will be able to profit from this Leads.
+        </div>
+
+        <div class="auction_buttons_block">
+
+            <div text-center class="auction_button_send">
+                <button ion-button small round color="secondary" (click)="sendToAuction()">
+                    send to auction
+                </button>
+            </div>
+
+
+            <div text-center class="auction_button_cancel">
+                <button ion-button small round (click)="auctionCanceled()" color="danger">
+                    cancel
+                </button>
+            </div>
 
         </div>
 

@@ -487,6 +487,41 @@ export class ObtainPage {
     }
 
 
+    /**
+     * Условия, при которых блок итема с аудиозаписями будет показан
+     *
+     */
+    isVoiceShow(item) {
+
+        if(item.voice && item.voiceShow && item.voiceShow == true) {
+
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /**
+     * Показать или спрятать блок с аудиозаписями итема
+     *
+     */
+    switchVoiceShow(item) {
+
+        if(!item.voice) {
+            return false;
+        }
+
+        if (!item.voiceShow) {
+            item.voiceShow = true;
+            return true;
+        }
+
+        item.voiceShow = false;
+        return true;
+    }
+
+
     customerPage() {
         // this.navCtrl.setRoot(CustomersPage);
 
