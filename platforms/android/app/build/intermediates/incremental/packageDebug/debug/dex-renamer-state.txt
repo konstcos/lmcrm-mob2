@@ -1,0 +1,7 @@
+#Mon May 07 21:50:07 EEST 2018
+base.0=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0
+renamed.1=classes2.dex
+renamed.0=classes.dex
+file.1=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0/classes2.dex
+base.1=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0
+file.0=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0/classes.dex

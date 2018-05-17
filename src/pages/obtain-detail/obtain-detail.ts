@@ -499,9 +499,6 @@ export class ObtainDetailPage {
 
         this.translate.get('incoming_detail.open_lead_confirmation', {}).subscribe((res: any) => {
 
-            console.log('перевод');
-            console.log(res);
-
             text['title'] = res['title'];
             text['open_all'] = res['open_all'];
             text['open_one'] = res['open_one'];

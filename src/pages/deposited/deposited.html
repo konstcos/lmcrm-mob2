@@ -15,18 +15,13 @@
     <ion-list inlist>
         <ion-item *ngFor="let item of items" (click)="detail(item)">
 
-            <!--<h2  >{{ item.name }} {{ item.surname }}</h2>-->
-            <!--<p >{{ item.sphere.name }} \\ {{ item.sName }} </p>-->
-
-            <!--<div item-right class="item-right-data" text-right>-->
-            <!--<div> {{ item.date }}</div>-->
-            <!--<div> 0 $ <ion-icon ios="ios-eye" md="md-eye"></ion-icon> {{ item.opened }}</div>-->
-            <!--</div>-->
-
-
+            <!-- левый блок -->
             <div text-left>
+
+                <!-- время внесения лида -->
                 <div class="data_time"><span class="time">{{ item.date.time }}</span> {{ item.date.date }}</div>
-                <!--<div class="data_time"> {{ item.date }}</div>-->
+
+                <!-- заработанная сумма и количество открытий лида -->
                 <div >
                     <span class="opened"> <ion-icon ios="ios-eye" md="md-eye"></ion-icon> {{ item.opened }} </span>
                     <!--<span class="cash"> <ion-icon ios="ios-eye" md="ios-cash"></ion-icon> {{ item.earnings }}</span>-->
@@ -34,16 +29,21 @@
                 </div>
             </div>
 
-
+            <!-- правый блок -->
             <div item-right class="item-right-data" text-right>
 
+                <!-- назначение лида (аукцион / для диалмейкеров / для приватной группы -->
+                <div class="purpose">{{ item.purposeName }}</div>
+
+                <!-- блок с именем / фамилией клиента -->
                 <div class="lead_name">{{ item.name }} {{ item.surname }}</div>
-                <div class="sphere_name"><span class="status_name">{{ item.sName | translate}}</span> / {{ item.sphere.name }}
+
+                <!-- имя маски / имя сферы-->
+                <div class="sphere_name">
+                    <span class="status_name">{{ item.sName | translate}}</span> / {{ item.sphere.name }}
                 </div>
 
-
             </div>
-
 
         </ion-item>
     </ion-list>

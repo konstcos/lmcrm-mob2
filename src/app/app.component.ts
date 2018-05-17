@@ -37,10 +37,12 @@ import {Badge} from '@ionic-native/badge';
 
 
 import {TranslateService} from 'ng2-translate/ng2-translate';
+
 // import {FCM} from "@ionic-native/fcm";
 
 @Component({
-    template: `<ion-nav #content [root]="rootPage" ></ion-nav>`,
+    template: `
+        <ion-nav #content [root]="rootPage"></ion-nav>`,
     // providers: [Content]
 })
 export class MyApp {
@@ -143,16 +145,16 @@ export class MyApp {
             // }
 
 
-            console.log('событие с главного компонента 2');
+            // console.log('событие с главного компонента 2');
 
         });
 
 
         // todo Set the default language for translation strings, and the current language.
-        translate.setDefaultLang('en');
-        translate.use('en');
-        // translate.setDefaultLang('he');
-        // translate.use('he');
+        // translate.setDefaultLang('en');
+        // translate.use('en');
+        translate.setDefaultLang('he');
+        translate.use('he');
 
         settings.load();
 
@@ -356,14 +358,13 @@ export class MyApp {
             if (data.additionalData.type == 1) {
 
                 if (this.leadToast) {
-                    // return false;
 
                     return false;
                 }
 
                 this.leadToast = this.toastCtrl.create({
                     // message: 'new notification ' + this.noticeCount,
-                    message: 'you have new lead ',
+                    message: 'you have new lead',
                     showCloseButton: true,
                     position: 'top'
                 });
@@ -414,21 +415,26 @@ export class MyApp {
                 });
                 reminder.present();
 
-            } else {
+            } else if (data.additionalData.type == 4) {
 
-                // if (this.toast) {
-                //     // return false;
-                //
-                //     this.toast.dismiss();
-                // }
-                //
-                // this.toast = this.toastCtrl.create({
-                //     // message: 'new notification ' + this.noticeCount,
-                //     message: 'you have new notification ',
-                //     showCloseButton: true,
-                //     position: 'bottom'
-                // });
-                // this.toast.present();
+                if (this.leadToast) {
+
+                    return false;
+                }
+
+                this.leadToast = this.toastCtrl.create({
+                    message: data.additionalData.message,
+                    showCloseButton: true,
+                    position: 'top'
+                });
+
+                this.leadToast.onDidDismiss(() => {
+                    this.leadToast = false;
+                });
+
+                this.leadToast.present();
+
+            } else {
 
                 if (this.atherToast) {
                     // return false;
@@ -437,7 +443,6 @@ export class MyApp {
                 }
 
                 this.atherToast = this.toastCtrl.create({
-                    // message: 'new notification ' + this.noticeCount,
                     message: 'you have new notification ',
                     showCloseButton: true,
                     position: 'bottom'

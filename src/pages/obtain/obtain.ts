@@ -67,6 +67,11 @@ export class ObtainPage {
         subRole: 'any',
     };
 
+    /**
+     * Голосовые записи
+     */
+    public voices: any = {};
+
 
     /**
      * Конструктор класса
@@ -160,6 +165,18 @@ export class ObtainPage {
                 // переводим ответ в json
                 let data = result.json();
 
+                let agentData = {
+                    roles: data.roles,
+                    name: data.name,
+                    surname: data.surname,
+                    email: data.email,
+                    prices: data.spherePrice,
+                    wallet: data.wallet,
+                    leadsBySphere: data.leadsBySphere,
+                };
+
+
+                this.events.publish('agentData:get', agentData);
 
                 /**
                  * Количество уведомлений
@@ -172,17 +189,16 @@ export class ObtainPage {
                 // применяем уведомления
                 this.checkNotices(notices);
 
-
-                console.log('обновление обтэин: ');
-                console.log(data);
-
-
                 // вычесляем количество итемов
                 let itemsLength = data.auctionItems.length;
 
                 // обработка итемов
                 if (itemsLength != 0) {
                     // если больше нуля
+
+                    // получаем записи разговоров
+                    // по полученным итемам
+                    this.getVoices(data.auctionItems);
 
                     // добавляем полученные итемы на страницу
                     this.items = data.auctionItems;
@@ -243,17 +259,6 @@ export class ObtainPage {
 
         this.isLoading = true;
 
-        // todo показываем индикатор загрузки
-
-        // инициация окна загрузки
-        // let loading = this.loadingCtrl.create({
-        //     content: 'Receiving leads, please wait...'
-        // });
-
-        // показ окна загрузки
-        // loading.present();
-
-
         // получение итемов с сервера
         this.get()
         // обработка итемов
@@ -306,7 +311,9 @@ export class ObtainPage {
                 if (itemsLength != 0) {
                     // если больше нуля
 
-                    // console.log(data.auctionItems);
+                    // получаем записи разговоров
+                    // по полученным итемам
+                    this.getVoices(data.auctionItems);
 
                     // добавляем полученные итемы на страницу
                     this.items = data.auctionItems;
@@ -319,9 +326,6 @@ export class ObtainPage {
                     // показываем оповещение что итемов нет
                     this.noItems = true;
                 }
-
-                // отключаем окно индикатора загрузки
-                // loading.dismiss();
 
             }, err => {
                 // в случае ошибки
@@ -360,6 +364,19 @@ export class ObtainPage {
                     // переводим ответ в json
                     let data = result.json();
 
+                    let agentData = {
+                        roles: data.roles,
+                        name: data.name,
+                        surname: data.surname,
+                        email: data.email,
+                        prices: data.spherePrice,
+                        wallet: data.wallet,
+                        leadsBySphere: data.leadsBySphere,
+                    };
+
+                    this.events.publish('agentData:get', agentData);
+
+
                     /**
                      * Количество уведомлений
                      *
@@ -378,6 +395,10 @@ export class ObtainPage {
                     // обработка итемов
                     if (itemsLength != 0) {
                         // если больше нуля
+
+                        // получаем записи разговоров
+                        // по полученным итемам
+                        this.getVoices(data.auctionItems);
 
                         // добавляем полученные итемы на страницу
                         this.items = this.items.concat(data.auctionItems);
@@ -444,7 +465,7 @@ export class ObtainPage {
         let modal = this.modalCtrl.create(ObtainDetailPage, {itemId: item.auctionId, item: item, roles: this.roles});
         modal.present();
 
-        if(item.isSeen == 0) {
+        if (item.isSeen == 0) {
 
             // помечаем итем что он уже просмотрен
             this.obtain.markSeenAuction({auctionId: item.auctionId})
@@ -483,7 +504,6 @@ export class ObtainPage {
         }
 
 
-
     }
 
 
@@ -493,8 +513,7 @@ export class ObtainPage {
      */
     isVoiceShow(item) {
 
-        if(item.voice && item.voiceShow && item.voiceShow == true) {
-
+        if (this.voices[item.id] && item.voiceShow && item.voiceShow == true) {
             return true;
         }
 
@@ -503,12 +522,29 @@ export class ObtainPage {
 
 
     /**
+     * Проверка голоса на существование
+     */
+    isVoiceExists(item) {
+
+        return this.voices[item.id] && this.voices[item.id] != false && this.voices[item.id] != 'loading';
+    }
+
+
+    /**
+     * Проверка загружается запись или нет
+     *
+     */
+    isVoiceLoading(item) {
+        return this.voices[item.id] && this.voices[item.id] === 'loading';
+    }
+
+    /**
      * Показать или спрятать блок с аудиозаписями итема
      *
      */
     switchVoiceShow(item) {
 
-        if(!item.voice) {
+        if (!item.voice) {
             return false;
         }
 
@@ -521,6 +557,70 @@ export class ObtainPage {
         return true;
     }
 
+
+    /**
+     * Получение голосовых записей по итемам
+     *
+     */
+    getVoices(items) {
+
+        // если итемов нет, выходим из метода
+        if (items.length === 0) return false;
+
+        // локальный массив с итемами по
+        // которым нужно получить записи звуков
+        let itemsIdArray = [];
+
+        // если есть итемы
+        // перебираем все и формируем
+        // общий массив и локальный
+        for (let item of items) {
+            // запись в локальный массив
+            itemsIdArray.push(item.id);
+            // запись в общий массив
+            this.voices[item.id] = 'loading';
+        }
+
+        // получение записей с сервера
+        this.obtain.getVoices({leads: itemsIdArray})
+        // обработка записей
+            .subscribe(result => {
+                // при удачном получении
+
+                // переводим ответ в json
+                let data = result.json();
+
+                // проверка запроса
+                if (data.status === 'success') {
+                    // если успешний
+
+                    // добавляем звуковые записи в объект
+                    for (let item of itemsIdArray) {
+                        this.voices[item] = data.voices[item] ? data.voices[item] : false;
+                    }
+
+                } else {
+                    // при ошибке выставляем все в false
+                    for (let item of itemsIdArray) {
+                        this.voices[item] = false;
+                    }
+                }
+
+                console.log('записи с сервера');
+                console.log(data);
+
+            }, err => {
+                // в случае ошибки
+
+                // выставляем все записи в false
+                for (let item of itemsIdArray) {
+                    this.voices[item] = false;
+                }
+
+                console.log('ERROR 1: ' + err);
+            });
+
+    }
 
     customerPage() {
         // this.navCtrl.setRoot(CustomersPage);

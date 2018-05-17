@@ -181,6 +181,18 @@ export class DepositedPage {
                 // переводим ответ в json
                 let data = result.json();
 
+                let agentData = {
+                    roles: data.roles,
+                    name: data.name,
+                    surname: data.surname,
+                    email: data.email,
+                    prices: data.spherePrice,
+                    wallet: data.wallet,
+                    leadsBySphere: data.leadsBySphere,
+                };
+
+                this.events.publish('agentData:get', agentData);
+
                 /**
                  * Количество уведомлений
                  *
@@ -349,6 +361,18 @@ export class DepositedPage {
 
                     // переводим ответ в json
                     let data = result.json();
+
+                    let agentData = {
+                        roles: data.roles,
+                        name: data.name,
+                        surname: data.surname,
+                        email: data.email,
+                        prices: data.spherePrice,
+                        wallet: data.wallet,
+                        leadsBySphere: data.leadsBySphere,
+                    };
+
+                    this.events.publish('agentData:get', agentData);
 
                     /**
                      * Количество уведомлений

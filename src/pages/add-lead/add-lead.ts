@@ -318,12 +318,12 @@ export class AddLeadPage {
         }
 
         // Проверка длины должно быть не меньше 9 и не больше 10
-        if (this.lead.phone.length < 9 || this.lead.phone.length > 10) {
-            this.errors.phone.empty = false;
-            this.errors.phone.notEnough = true;
-            this.errors.phone.notValid = false;
-            return false;
-        }
+        // if (this.lead.phone.length < 9 || this.lead.phone.length > 10) {
+        //     this.errors.phone.empty = false;
+        //     this.errors.phone.notEnough = true;
+        //     this.errors.phone.notValid = false;
+        //     return false;
+        // }
 
         // Проверка по регулярке
         let reg = /^\+?(972|0)(\-)?0?(([23489]{1}\d{7})|[5]{1}\d{8})$/;
@@ -347,44 +347,49 @@ export class AddLeadPage {
      */
     phoneChange(event) {
 
+        setTimeout(() => {
+                this.lead.phone = event.replace(/\D+/g, "");
+            }
+            , 0);
+
         // сохраняем старые данные
-        let oldData = this.lead.phone;
-
-        // проверка на максимальную длину номера телефона
-        if (event.length > 10) {
-
-            // возвращаем старые данные
-            setTimeout(() => {
-                    this.lead.phone = oldData;
-                }
-                , 0);
-
-            return false;
-        }
+        // let oldData = this.lead.phone;
+        //
+        // // проверка на максимальную длину номера телефона
+        // if (event.length > 10) {
+        //
+        //     // возвращаем старые данные
+        //     setTimeout(() => {
+        //             this.lead.phone = oldData;
+        //         }
+        //         , 0);
+        //
+        //     return false;
+        // }
 
 
         // перебираем все символы новых данных
-        for (let item = 0; item < event.length; item++) {
-
-            // если символ из новых данных не равняется символу в старых данных
-            // (выбор нового введенного символа)
-            if (event[item] != this.lead.phone[item]) {
-
-                // проверка нового символа на integer
-                if (!Number(event[item]) && event[item] != '0') {
-                    // если новый символ не цифра
-
-                    // возвращаем старые данные
-                    setTimeout(() => {
-                            this.lead.phone = oldData;
-                        }
-                        , 0);
-                }
-
-                // выходим из цикла
-                break;
-            }
-        }
+        // for (let item = 0; item < event.length; item++) {
+        //
+        //     // если символ из новых данных не равняется символу в старых данных
+        //     // (выбор нового введенного символа)
+        //     if (event[item] != this.lead.phone[item]) {
+        //
+        //         // проверка нового символа на integer
+        //         if (!Number(event[item]) && event[item] != '0') {
+        //             // если новый символ не цифра
+        //
+        //             // возвращаем старые данные
+        //             setTimeout(() => {
+        //                     this.lead.phone = oldData;
+        //                 }
+        //                 , 0);
+        //         }
+        //
+        //         // выходим из цикла
+        //         break;
+        //     }
+        // }
     }
 
 

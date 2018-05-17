@@ -407,6 +407,35 @@ export class User {
 
 
     /**
+     * Подтверждение принадлежности мэила пользователю
+     *
+     */
+    forgotPasswordEmailConfirmation(data: any) {
+        return this.api.post('api/send/forgot/password/email/confirmation', data);
+
+    }
+
+
+    /**
+     * Подтверждение принадлежности мэила пользователю
+     *
+     */
+    saveNewPassword(data: any) {
+        return this.api.post('api/save/new/password', data);
+
+    }
+
+
+    /**
+     * todo Пост на отправку мэила по забытому паролю
+     *
+     */
+    // sendForgotPassword(data: any) {
+    //     return this.api.post('api/send/forgot/password', data);
+    //
+    // }
+
+    /**
      * Process a login/signup response to store user data
      */
     _loggedIn(resp) {

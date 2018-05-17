@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "859646101662",
+    "firebase_url": "https://contact-e85f6.firebaseio.com",
+    "project_id": "contact-e85f6",
+    "storage_bucket": "contact-e85f6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:859646101662:android:c0cdd52cd68d286d",
+        "android_client_info": {
+          "package_name": "backoffice.contact.org.il"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "859646101662-v6d1j4gq2prnbf74ufj7vf0tmbjk7gbj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsbMC3vRK2lQXN4IsJIdJglgt8tjS2Ru0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

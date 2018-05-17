@@ -19,6 +19,51 @@ deal-payment-card {
     margin-top: 20%;
   }
 
+  .success {
+
+    .message {
+      margin: 20% 30px 10%;
+      color: #155724;
+      background: #D4EDDA;
+      border-radius: 20px;
+      padding: 30px 10px;
+    }
+
+    .success_button_block {
+      margin: 10% 5px;
+      text-align: center;
+    }
+
+  }
+
+  .fail {
+
+    .message {
+      margin: 20% 30px 10%;
+      color: #721C24;
+      background: #F8D7DA;
+      border-radius: 20px;
+      padding: 30px 10px;
+    }
+
+    .success_button_block {
+      margin: 10% 5px;
+      text-align: center;
+    }
+
+  }
+
+  .error_block {
+    margin: 40% 30px 10px;
+    padding: 50px 20px;
+    text-align: center;
+    color: white;
+    background: #DB4437;
+    border-radius: 30px;
+    font-size: 18px;
+    line-height: 28px;
+  }
+
   .description {
     color: #909090;
     text-align: center;

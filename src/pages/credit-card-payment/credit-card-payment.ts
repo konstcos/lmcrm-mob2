@@ -123,6 +123,18 @@ export class CreditCardPaymentPage {
         error: false
     };
 
+    /**
+     * Линк фрейма
+     *
+     */
+    private url:SafeResourceUrl;
+
+    /**
+     * Показывать/прятать спинер фрейма
+     *
+     */
+    private frameSpinnerShow: boolean = false;
+
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
@@ -303,12 +315,6 @@ export class CreditCardPaymentPage {
             return false;
         }
 
-        // Проверка длины должно быть не меньше 9 и не больше 10
-        // if (this.data.phone.length < 9 || this.data.phone.length > 10) {
-        //     this.errors.phone = true;
-        //     return false;
-        // }
-
         // Проверка по регулярке
         let reg = /^\+?(972|0)(\-)?0?(([23489]{1}\d{7})|[5]{1}\d{8})$/;
         if (!reg.test(this.data.phone)) {
@@ -329,9 +335,6 @@ export class CreditCardPaymentPage {
         console.log('сработал чендж телефона');
         console.log(event);
 
-        // сохраняем старые данные
-        // let oldData = this.data.phone;
-
         setTimeout(() => {
                 this.data.phone = event.replace(/\D+/g, "");
             }
@@ -340,53 +343,6 @@ export class CreditCardPaymentPage {
 
         console.log(this.data.phone);
 
-        // let passportValue = this.personalData.passport.replace(/\D+/g,"");
-
-
-        // проверка на максимальную длину номера телефона
-        // if (event.length > 10) {
-        //
-        //     // возвращаем старые данные
-        //     setTimeout(() => {
-        //             this.data.phone = oldData;
-        //         }
-        //         , 0);
-        //
-        //     return false;
-        // }
-
-
-        // перебираем все символы новых данных
-        // for (let item = 0; item < event.length; item++) {
-        //
-        //     console.log('перебор всей строки');
-        //
-        //     // если символ из новых данных не равняется символу в старых данных
-        //     // (выбор нового введенного символа)
-        //     if (event[item] != this.data.phone[item]) {
-        //
-        //         console.log('первый if');
-        //
-        //         // проверка нового символа на integer
-        //         if (!Number(event[item]) && event[item] != '0') {
-        //             // если новый символ не цифра
-        //
-        //             console.log('второй if');
-        //
-        //             // возвращаем старые данные
-        //             setTimeout(() => {
-        //
-        //                     console.log('сработал таймаут');
-        //
-        //                     this.data.phone = oldData;
-        //                 }
-        //                 , 0);
-        //         }
-        //
-        //         // выходим из цикла
-        //         break;
-        //     }
-        // }
     }
 
     /**
@@ -460,7 +416,7 @@ export class CreditCardPaymentPage {
                 // переводим ответ в json
                 let data = result.json();
 
-                console.log(data);
+                // console.log(data);
 
                 // обработка результата запроса
                 if (data.status == 'success') {
@@ -471,7 +427,7 @@ export class CreditCardPaymentPage {
                     this.invoiceUrl = data.info;
 
                     // показываем блок с данными
-                    this.section('frame');
+                    this.loadIFrame();
 
                 } else {
                     // при неудаче
@@ -499,13 +455,37 @@ export class CreditCardPaymentPage {
 
 
     /**
+     * Старт загрузки фрейма
+     *
+     */
+    loadIFrame() {
+        this.section('frame');
+        this.url = this.domSanitizer.bypassSecurityTrustResourceUrl(this.invoiceUrl);
+        this.frameSpinnerShow = true;
+    }
+
+
+    /**
+     * Событие по загрузке фрейма
+     *
+     */
+    frameOnLoad() {
+        this.frameSpinnerShow = false;
+    }
+
+    /**
      * Обработка данных для iFrame
      *
      */
-    webPage() {
-
-        return this.domSanitizer.bypassSecurityTrustResourceUrl(this.invoiceUrl);
-    }
+    // webPage() {
+    //
+    //     let url = this.domSanitizer.bypassSecurityTrustResourceUrl(this.invoiceUrl);
+    //
+    //     console.log('загрузился фрэйм');
+    //     this.section('frame');
+    //
+    //     return url;
+    // }
 
 
     /**

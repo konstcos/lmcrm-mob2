@@ -36,13 +36,17 @@
 <ion-content>
 
     <!-- спинер загрузки -->
-    <!--<div *ngIf="isLoading" class="spinnerLoading">-->
     <div *ngIf="sections.loading" class="spinnerLoading">
         <ion-spinner color="primary" name="crescent"></ion-spinner>
     </div>
 
+    <!-- спинер загрузки -->
+    <div *ngIf="frameSpinnerShow" class="spinnerLoading">
+        <ion-spinner color="primary" name="crescent"></ion-spinner>
+    </div>
+
+
     <!-- Блок с данными -->
-    <!--<div *ngIf="dataBlock" class="withdrawal_block">-->
     <div *ngIf="sections.data" class="withdrawal_block">
 
         <!-- строка с данными -->
@@ -213,24 +217,25 @@
     </div>
 
     <!-- Блок с данными по проплате -->
-    <!--<div *ngIf="creditBlock">-->
     <div *ngIf="sections.frame">
+
+        <iframe
+                [src]= "url"
+                frameborder="0"
+                width="100%"
+                height="1250px"
+                (load)="frameOnLoad()">
+
+        </iframe>
 
         <!--<iframe-->
                 <!--[src]= "webPage()"-->
                 <!--frameborder="0"-->
-                <!--height="500px"-->
-                <!--width="100%">-->
+                <!--width="100%"-->
+                <!--height="1250px"-->
+                <!--(load)="frameOnLoad()">-->
 
         <!--</iframe>-->
-
-        <iframe
-                [src]= "webPage()"
-                frameborder="0"
-                width="100%"
-                height="1250px">
-
-        </iframe>
 
     </div>
 

@@ -9,6 +9,8 @@ import {
     AlertController
 } from 'ionic-angular';
 
+import {TranslateService} from 'ng2-translate/ng2-translate';
+
 import {OpenDetailPage} from '../open-detail/open-detail'
 import {OpenLeadStatusesPage} from "../open-lead-statuses/open-lead-statuses";
 import {OpenLeadOrganizerPage} from "../open-lead-organizer/open-lead-organizer";
@@ -91,6 +93,11 @@ export class OpenPage {
         subRole: 'any',
     };
 
+    /**
+     * Голосовые записи
+     */
+    public voices: any = {};
+
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
@@ -104,7 +111,8 @@ export class OpenPage {
                 public organizer: OpenLeadOrganizer,
                 public alertCtrl: AlertController,
                 public events: Events,
-                private callNumber: CallNumber) {
+                private callNumber: CallNumber,
+                public translate: TranslateService) {
 
 
         storage.ready().then(() => {
@@ -229,6 +237,18 @@ export class OpenPage {
                 // переводим ответ в json
                 let data = result.json();
 
+                let agentData = {
+                    roles: data.roles,
+                    name: data.name,
+                    surname: data.surname,
+                    email: data.email,
+                    prices: data.spherePrice,
+                    wallet: data.wallet,
+                    leadsBySphere: data.leadsBySphere,
+                };
+
+                this.events.publish('agentData:get', agentData);
+
                 /**
                  * Количество уведомлений
                  *
@@ -249,6 +269,10 @@ export class OpenPage {
                 // обработка итемов
                 if (itemsLength != 0) {
                     // если больше нуля
+
+                    // получаем записи разговоров
+                    // по полученным итемам
+                    this.getVoices(data.openedLeads);
 
                     // добавляем полученные итемы на страницу
                     this.items = data.openedLeads;
@@ -323,9 +347,6 @@ export class OpenPage {
                 // переводим ответ в json
                 let data = result.json();
 
-                console.log('получил open: ');
-                console.log(data);
-
                 /**
                  * Количество уведомлений
                  *
@@ -356,8 +377,8 @@ export class OpenPage {
 
                 this.roles = data.roles;
 
-                console.log('Роли:');
-                console.log(this.roles);
+                // console.log('Роли:');
+                // console.log(this.roles);
 
                 // вычесляем количество итемов
                 let itemsLength = data.openedLeads.length;
@@ -367,6 +388,10 @@ export class OpenPage {
                 // обработка итемов
                 if (itemsLength != 0) {
                     // если больше нуля
+
+                    // получаем записи разговоров
+                    // по полученным итемам
+                    this.getVoices(data.openedLeads);
 
                     // добавляем полученные итемы на страницу
                     this.items = data.openedLeads;
@@ -417,6 +442,18 @@ export class OpenPage {
                     // переводим ответ в json
                     let data = result.json();
 
+                    let agentData = {
+                        roles: data.roles,
+                        name: data.name,
+                        surname: data.surname,
+                        email: data.email,
+                        prices: data.spherePrice,
+                        wallet: data.wallet,
+                        leadsBySphere: data.leadsBySphere,
+                    };
+
+                    this.events.publish('agentData:get', agentData);
+
                     /**
                      * Количество уведомлений
                      *
@@ -438,6 +475,10 @@ export class OpenPage {
                     // обработка итемов
                     if (itemsLength != 0) {
                         // если больше нуля
+
+                        // получаем записи разговоров
+                        // по полученным итемам
+                        this.getVoices(data.openedLeads);
 
                         // добавляем полученные итемы на страницу
                         this.items = this.items.concat(data.openedLeads);
@@ -801,19 +842,33 @@ export class OpenPage {
      */
     sendToAuctionConfirmation(item) {
 
+        let text = {
+            "title": "Send to auction",
+            "message": "The Lead will be sent for auction. It disappears from the Exposed section and appears in the Outgoing section. As with other introduced Leads, you will be able to profit from this Leads.",
+            "cancel_button": "cancel",
+            "apply_button": "send to auction"
+        };
+
+        this.translate.get('exposed_detail.send_to_auction', {}).subscribe((res: any) => {
+            text['title'] = res['button_title'];
+            text['message'] = res['text'];
+            text['cancel_button'] = res['cancel_button'];
+            text['apply_button'] = res['apply_button'];
+        });
+
         // алерт подтверждения на передачу открытого лида на акуцион
         let prompt = this.alertCtrl.create({
-            title: 'send lead to auction',
-            message: "Confirm sending the Lead to the auction",
+            title: text['title'],
+            message: text['message'],
             buttons: [
                 {
-                    text: 'Cancel',
+                    text: text['cancel_button'],
                     handler: data => {
                         console.log('Cancel clicked');
                     }
                 },
                 {
-                    text: 'Send',
+                    text: text['apply_button'],
                     handler: data => {
                         console.log('Send clicked');
                         this.sendToAuction(item);
@@ -881,8 +936,8 @@ export class OpenPage {
      */
     isVoiceShow(item) {
 
-        if (item.voice && item.voiceShow && item.voiceShow == true) {
-
+        if (this.voices[item.lead_id] && item.voiceShow && item.voiceShow == true) {
+            // lead_id
             return true;
         }
 
@@ -896,7 +951,7 @@ export class OpenPage {
      */
     switchVoiceShow(item) {
 
-        if (!item.voice) {
+        if (!this.voices[item.lead_id]) {
             return false;
         }
 
@@ -919,5 +974,64 @@ export class OpenPage {
         this.events.publish("tab:switch_incoming", {});
     }
 
+    /**
+     * Получение голосовых записей по итемам
+     *
+     */
+    getVoices(items) {
+
+        // если итемов нет, выходим из метода
+        if (items.length === 0) return false;
+
+        // локальный массив с итемами по
+        // которым нужно получить записи звуков
+        let itemsIdArray = [];
+
+        // если есть итемы
+        // перебираем все и формируем
+        // общий массив и локальный
+        for (let item of items) {
+            // запись в локальный массив
+            itemsIdArray.push(item.lead_id);
+            // запись в общий массив
+            this.voices[item.lead_id] = 'loading';
+        }
+
+        // получение записей с сервера
+        this.open.getVoices({leads: itemsIdArray})
+        // обработка записей
+            .subscribe(result => {
+                // при удачном получении
+
+                // переводим ответ в json
+                let data = result.json();
+
+                // проверка запроса
+                if(data.status === 'success') {
+                    // если успешний
+
+                    // добавляем звуковые записи в объект
+                    for(let item of itemsIdArray) {
+                        this.voices[item] = data.voices[item] ? data.voices[item] : false;
+                    }
+
+                } else {
+                    // при ошибке выставляем все в false
+                    for(let item of itemsIdArray) {
+                        this.voices[item] = false;
+                    }
+                }
+
+            }, err => {
+                // в случае ошибки
+
+                // выставляем все записи в false
+                for(let item of itemsIdArray) {
+                    this.voices[item] = false;
+                }
+
+                console.log('ERROR 1: ' + err);
+            });
+    }
 
 }

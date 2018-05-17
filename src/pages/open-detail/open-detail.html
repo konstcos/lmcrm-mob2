@@ -80,7 +80,7 @@
 
                     <button ion-button round icon-left small color="light" (click)="auctionConfirmation()">
                         <ion-icon name="md-person-add"></ion-icon>
-                        send to auction
+                        {{ 'exposed_detail.send_to_auction.button_title' | translate }}
                     </button>
 
                 </ion-col>
@@ -304,23 +304,25 @@
     <div *ngIf="sections.auction" class="auction_block">
 
         <div class="auction_data">
-            The Lead will be sent for auction.
-            It disappears from the Exposed section and appears in the Outgoing section.
-            As with other introduced Leads, you will be able to profit from this Leads.
+            {{ 'exposed_detail.send_to_auction.text' | translate }}
+            <!--The Lead will be sent for auction.-->
+            <!--It disappears from the Exposed section and appears in the Outgoing section.-->
+            <!--As with other introduced Leads, you will be able to profit from this Leads.-->
         </div>
 
         <div class="auction_buttons_block">
 
             <div text-center class="auction_button_send">
                 <button ion-button small round color="secondary" (click)="sendToAuction()">
-                    send to auction
+                    {{ 'exposed_detail.send_to_auction.apply_button' | translate }}
                 </button>
             </div>
 
 
             <div text-center class="auction_button_cancel">
                 <button ion-button small round (click)="auctionCanceled()" color="danger">
-                    cancel
+                    {{ 'exposed_detail.send_to_auction.cancel_button' | translate }}
+                    <!--cancel-->
                 </button>
             </div>
 

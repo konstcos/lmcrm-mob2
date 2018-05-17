@@ -88,6 +88,15 @@
             <ion-row align-items-center class="data_block_item">
                 <!--<ion-col col-1 text-left><ion-icon class="color_green icon_param" name="md-eye"></ion-icon></ion-col>-->
                 <ion-col text-right>
+                    <div class="label">{{ 'outgoing_detail.purpose' | translate }}</div>
+                    <div class="value">{{ item.purposeName }}</div>
+                </ion-col>
+                <ion-col col-1 text-right><ion-icon class="sphere_color icon_param" name="ios-cloud"></ion-icon></ion-col>
+            </ion-row>
+
+            <ion-row align-items-center class="data_block_item">
+                <!--<ion-col col-1 text-left><ion-icon class="color_green icon_param" name="md-eye"></ion-icon></ion-col>-->
+                <ion-col text-right>
                     <div class="label">{{ 'outgoing_detail.status' | translate }}</div>
                     <div class="value">{{ item.sName }}</div>
                 </ion-col>

@@ -165,4 +165,10 @@ export class Open {
     }
 
 
+    /**
+     * Получение голосовых записей
+     */
+    getVoices(data: any) {
+        return this.api.post('api/get/leads/voices', data);
+    }
 }

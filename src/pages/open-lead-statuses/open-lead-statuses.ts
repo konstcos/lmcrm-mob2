@@ -400,11 +400,8 @@ export class OpenLeadStatusesPage {
                 // переводим ответ в json
                 let data = result.json();
 
-                console.log('сделка закрылась нормально: ');
+                console.log('данные полученные с сервера при закрытии сделки:');
                 console.log(data);
-
-                console.log('цена за сделку');
-                console.log(price);
 
                 if (data.status == 'success') {
 
@@ -446,9 +443,8 @@ export class OpenLeadStatusesPage {
     close(stat = false, price = false) {
         // доработать
 
-        console.log('закрываю окно с прайсом:');
-        console.log(price);
 
+        // todo
         for (let type in this.statuses) {
 
             for (let stat of this.statuses[type]) {

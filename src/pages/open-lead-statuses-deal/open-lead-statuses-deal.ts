@@ -136,7 +136,7 @@ export class OpenLeadStatusesDealPage {
         let price = Number(this.price);
 
         // проверка размера баланса
-        if(price < 2000){
+        if(price < 1000){
             // если баланс меньше 2000
             this.lowPrice = true;
             return false;

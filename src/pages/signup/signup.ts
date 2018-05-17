@@ -95,13 +95,9 @@ export class SignupPage {
             return false;
         }
 
-        // todo такой адрес уже есть
-
         // помечаем что ввод успешен
         this.state.name = 1;
         return true;
-
-        // console.log('Валидация имени');
     }
 
 

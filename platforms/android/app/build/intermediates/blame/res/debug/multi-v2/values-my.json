@@ -1,0 +1,26 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-my/values-my.xml",
+            "map": [
+                {
+                    "source": "/home/cosine/.gradle/caches/transforms-1/files-1.1/play-services-basement-11.0.1.aar/244e8c8b601c112196cec0dfc0704a1f/res/values-my/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "285",
+                        "endColumns": "212",
+                        "endOffsets": "497"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "105",
+                        "endColumns": "212",
+                        "endOffsets": "313"
+                    }
+                }
+            ]
+        }
+    ]
+}

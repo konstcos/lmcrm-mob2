@@ -28,16 +28,17 @@
     <ion-list inlist>
         <ion-item *ngFor="let item of items">
 
-            <!--<h2  >{{ item.name }}</h2>-->
-            <!--<p >{{ item.sphere.name }} ({{ item.mask.name }}) </p>-->
-
             <div text-left class="obtain_item">
 
                 <div class="row">
 
-                    <!--<ion-col col-12></ion-col>-->
-                    <ion-col col-1 align-self-center class="voice_icon_block" [ngClass]="{'voice': item.voice}" (click)="switchVoiceShow(item)">
-                        <ion-icon name="md-volume-up"></ion-icon>
+                    <!--<ion-col col-1 align-self-center class="voice_icon_block" [ngClass]="{'voice': item.voice}" (click)="switchVoiceShow(item)">-->
+                    <ion-col col-1 align-self-center class="voice_icon_block" [ngClass]="{'voice': isVoiceExists(item)}" (click)="switchVoiceShow(item)">
+
+                        <!--<ion-spinner *ngIf="isVoiceLoading(item)" class="voice_spinner" name="crescent"></ion-spinner>-->
+                        <ion-icon *ngIf="isVoiceLoading(item)" name="md-volume-up"></ion-icon>
+                        <ion-icon *ngIf="!isVoiceLoading(item)" name="md-volume-up"></ion-icon>
+
                     </ion-col>
 
                     <ion-col (click)="detail(item)">
@@ -53,8 +54,8 @@
 
                     <ion-col class="item-right-data item-right-data_block" align-self-center text-right (click)="detail(item)">
                         <div class="lead_name">
-                            <span *ngIf="item.isSeen == 0" class="new_obtain">new</span>
-                            {{ item.name }}
+                            <div *ngIf="item.isSeen == 0" class="new_obtain">new</div>
+                            <div class="text">{{ item.name }}</div>
                         </div>
                         <div class="sphere_name"> (<span class="mask_name">{{ item.mask.name }}</span>) {{ item.sphere.name }}
                         </div>
@@ -62,33 +63,13 @@
 
                 </div>
 
-                <!--<div class="data_time">-->
-                    <!--<span class="time">{{ item.auction_added.time }}</span>-->
-                    <!--{{item.auction_added.date }}-->
-                <!--</div>-->
-                <!--<div class="opened">-->
-                    <!--<ion-icon ios="ios-eye" md="md-eye"></ion-icon>-->
-                    <!--<span class="count">{{ item.opened }}</span> <span class="price"><b>&#8362;</b> {{ item.price }}</span>-->
-                <!--</div>-->
-
             </div>
 
-
-            <!--<div item-right class="item-right-data" text-right (click)="detail(item)">-->
-
-                <!--<div class="lead_name">-->
-                    <!--<span *ngIf="item.isSeen == 0" class="new_obtain">new</span>-->
-                    <!--{{ item.name }}-->
-                <!--</div>-->
-                <!--<div class="sphere_name"> (<span class="mask_name">{{ item.mask.name }}</span>) {{ item.sphere.name }}-->
-                <!--</div>-->
-            <!--</div>-->
-
-            <!-- todo вывод звуковых дорожек -->
+            <!-- вывод звуковых дорожек -->
             <div class="row" *ngIf="isVoiceShow(item)">
 
                 <ion-col>
-                    <div *ngFor="let voice of item.voice" text-center class="voice_item_side">
+                    <div *ngFor="let voice of voices[item.id]" text-center class="voice_item_side">
                         <audio controls>
                             <source src="{{ voice.url }}" type="audio/mpeg">
                         </audio>

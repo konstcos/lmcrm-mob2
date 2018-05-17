@@ -22,7 +22,25 @@
 
     "password_recovery": {
         "placeholder": "enter mail",
-        "send_button": "send password"
+        "send_button": "send password",
+        "confirmation_code": {
+            "sub_title": "confirmation code for mail:",
+            "wrong_code": "wrong code",
+            "comment": "enter the code that was sent to your email address",
+            "button": "Send Confirmation code"
+        },
+        "new_password": {
+            "sub_title": "enter new password for email",
+            "button": "save new password"
+        },
+        "success_page": {
+            "text": "The password was successfully changed, go to the login page and log in using your new password.",
+            "button": "Go to login"
+        },
+        "error_page": {
+            "text": "processing error, please try retrying",
+            "button": "try again"
+        }
     },
 
     "#2": "Страница с описанием возможностей системы Advantages: ",
@@ -154,7 +172,7 @@
     "PERSONAL_DATA_PHONE": "Phone",
     "PERSONAL_DATA_ADDRESS": "כתובת בית העסק",
     "PERSONAL_DATA_PASSPORT": "תעודת זהות של עסק או ח.פ חברה",
-    "PERSONAL_DATA_REGION": "איזור גאוגרפי של בית העסק",
+    "PERSONAL_DATA_REGION": "Enter or choose the name of the locality where your business is located",
     "PERSONAL_DATA_PHONE_ERROR_LENGTH": "מספר טלפון נייד חייב להכיל 10 ספרות",
     "PERSONAL_DATA_ISRAEL": "ישראל",
     "PERSONAL_DATA_WRONG_PASSPORT_NUMBER": "מספר ת״ז או ח.פ שרשמת לא תקין",
@@ -219,6 +237,7 @@
         "all_open_lead_statuses": "All statuses",
         "lead_statuses": "Lead statuses",
         "all_lead_statuses": "All statuses",
+        "open_lead_no_status": "No status",
 
         "statusesList": {
             "bad_lead": "Bad lead",
@@ -342,6 +361,7 @@
         "phone": "phone",
         "email": "email",
         "sphere": "sphere",
+        "purpose": "purpose",
         "status": "status",
         "added_at": "added at"
     },
@@ -375,7 +395,13 @@
         "you": "You",
         "sphere": "sphere",
         "deleted": "deleted",
-        "mask_name": "mask name"
+        "mask_name": "mask name",
+        "send_to_auction": {
+            "button_title": "Send to auction",
+            "text": "The Lead will be sent for auction. It disappears from the Exposed section and appears in the Outgoing section. As with other introduced Leads, you will be able to profit from this Leads.",
+            "apply_button": "send to auction",
+            "cancel_button": "cancel"
+        }
     },
 
     "#16": "Смена статуса по открытому лиду: ",
@@ -594,6 +620,7 @@
         "name_empty": "name required",
         "name_error_length": "имя должно быть не короче двух символов",
         "phone_empty": "this field required",
+        "phone_not_valid": "phone is not valid",
         "phone_error_length": "the length of the phone number must be at least 9 digits",
         "comment": "comment",
         "group_members": "Group members",

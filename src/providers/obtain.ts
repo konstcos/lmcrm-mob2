@@ -48,4 +48,12 @@ export class Obtain {
     markSeenAuction(data: any){
         return this.api.post('api/mark/seen/obtain', data);
     }
+
+
+    /**
+     * Получение голосовых записей
+     */
+    getVoices(data: any) {
+        return this.api.post('api/get/leads/voices', data);
+    }
 }

@@ -277,7 +277,7 @@ export class OpenLeadDealPage {
                     message = res;
                 });
 
-                this.translate.get('open_lead_deal.manuallyPayment.success.OK', {}).subscribe((res: string) => {
+                this.translate.get('open_lead_deal.manuallyPayment.success.ok_button', {}).subscribe((res: string) => {
                     ok_button = res;
                 });
 

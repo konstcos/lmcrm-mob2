@@ -166,56 +166,6 @@
 
     </div>
 
-    <!-- Поле с улицей агента -->
-    <div class="personal_data_row">
-
-        <ion-row>
-
-            <!-- Иконка валидации -->
-            <ion-col col-1 align-self-center text-right class="validation_block">
-                <!-- Успешная валидация -->
-                <ion-icon *ngIf="state.address == 2" class="success" name="md-checkmark"></ion-icon>
-                <!-- Ошибка валидации -->
-                <ion-icon *ngIf="state.address == 3" class="alert" name="md-alert"></ion-icon>
-            </ion-col>
-
-            <!-- Блок с именем пользователя -->
-            <ion-col class="data_block">
-                <!-- Лейбл ввода имени -->
-                <div class="label">
-                    {{ 'PERSONAL_DATA_ADDRESS' | translate }}
-                    <!--Address-->
-                </div>
-                <!-- Инпут имени пользователя -->
-                <ion-input
-                        class="input_row"
-                        [(ngModel)]="personalData.address"
-                        type="text"
-                        text-right
-                        (focus)="addressFocus()"
-                        (blur)="addressValidate()"
-                        name="firstName">
-                </ion-input>
-
-                <!-- Разделительная черта -->
-                <div>
-                    <hr class="personal_data_row_separator" [ngClass]="(state.address == 3) ? 'red' : '' ">
-                </div>
-
-            </ion-col>
-        </ion-row>
-
-        <!-- Сообщение с ошибкой -->
-        <ion-row
-                class="error_message"
-                *ngIf="state.address == 3">
-            <ion-col>
-                {{ 'PERSONAL_DATA_FIRST_NAME_ERROR_REQUIRED' | translate }}
-            </ion-col>
-        </ion-row>
-
-    </div>
-
     <!-- Поле с паспортом -->
     <div class="personal_data_row">
 
@@ -266,6 +216,57 @@
         </ion-row>
 
     </div>
+
+    <!-- Поле с улицей агента -->
+    <div class="personal_data_row">
+
+        <ion-row>
+
+            <!-- Иконка валидации -->
+            <ion-col col-1 align-self-center text-right class="validation_block">
+                <!-- Успешная валидация -->
+                <ion-icon *ngIf="state.address == 2" class="success" name="md-checkmark"></ion-icon>
+                <!-- Ошибка валидации -->
+                <ion-icon *ngIf="state.address == 3" class="alert" name="md-alert"></ion-icon>
+            </ion-col>
+
+            <!-- Блок с именем пользователя -->
+            <ion-col class="data_block">
+                <!-- Лейбл ввода имени -->
+                <div class="label">
+                    {{ 'PERSONAL_DATA_ADDRESS' | translate }}
+                    <!--Address-->
+                </div>
+                <!-- Инпут имени пользователя -->
+                <ion-input
+                        class="input_row"
+                        [(ngModel)]="personalData.address"
+                        type="text"
+                        text-right
+                        (focus)="addressFocus()"
+                        (blur)="addressValidate()"
+                        name="firstName">
+                </ion-input>
+
+                <!-- Разделительная черта -->
+                <div>
+                    <hr class="personal_data_row_separator" [ngClass]="(state.address == 3) ? 'red' : '' ">
+                </div>
+
+            </ion-col>
+        </ion-row>
+
+        <!-- Сообщение с ошибкой -->
+        <ion-row
+                class="error_message"
+                *ngIf="state.address == 3">
+            <ion-col>
+                {{ 'PERSONAL_DATA_FIRST_NAME_ERROR_REQUIRED' | translate }}
+            </ion-col>
+        </ion-row>
+
+    </div>
+
 
     <!-- Поле с телефоном -->
     <!--<div class="personal_data_row">-->

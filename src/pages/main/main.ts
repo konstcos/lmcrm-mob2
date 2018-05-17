@@ -66,6 +66,7 @@ import {SupportPage} from "../support/support";
 import {CreditCalculatorPage} from "../credit-calculator/credit-calculator";
 // страница кошелька
 import {WalletPage} from "../wallet/wallet";
+import {TranslateService} from "ng2-translate/ng2-translate";
 
 /*
  Основная страница приложения.
@@ -137,6 +138,13 @@ export class MainPage {
             to: null,
         },
     };
+
+
+    /**
+     * Название отсутствующего статуса в фильтре открытых лидов
+     *
+     */
+    openLeadNoStatusName: string = 'No status';
 
 
     /**
@@ -271,7 +279,8 @@ export class MainPage {
                 public popoverCtrl: PopoverController,
                 public modalCtrl: ModalController,
                 private badge: Badge,
-                public alertCtrl: AlertController) {
+                public alertCtrl: AlertController,
+                public translate: TranslateService) {
 
 
         this.events.unsubscribe("notices:clear");
@@ -408,14 +417,13 @@ export class MainPage {
         this.events.unsubscribe("notice:new");
 
         this.events.subscribe("notice:new", (items) => {
-
-            // console.log('нотификации');
-            // console.log(items);
-
             this.notices = items;
-
         });
 
+        this.translate.get('filter.open_lead_no_status', {}).subscribe((res: string) => {
+            this.filter.openLeadStatus[0].name = res;
+            this.openLeadNoStatusName = res;
+        });
 
     }
 
@@ -713,7 +721,7 @@ export class MainPage {
 
                     this.openLeadStatuses = data.statuses;
 
-                    this.openLeadStatuses.unshift({id: 0, name: 'No status', status: false});
+                    this.openLeadStatuses.unshift({id: 0, name: this.openLeadNoStatusName, status: false});
 
                     // перебираем все сферы и добавляем status
                     for (let openLeadStatus in this.openLeadStatuses) {
