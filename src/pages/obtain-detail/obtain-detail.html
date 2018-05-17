@@ -59,6 +59,34 @@
 
         </div>
 
+
+        <div class="data_block">
+
+            <ion-row align-items-center class="data_block_item">
+                <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
+                <ion-col text-right>
+                    <div class="label">{{ 'incoming_detail.sphere' | translate }}</div>
+                    <div class="value">{{ item.sphere.name }}</div>
+                </ion-col>
+                <ion-col col-1 text-right>
+                    <ion-icon class="icon_param sphere_color" name="ios-cloud"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+            <ion-row align-items-center class="data_block_item">
+                <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
+                <ion-col text-right>
+                    <div class="label">{{ 'incoming_detail.mask_name' | translate }}</div>
+                    <div class="value">{{ item.mask.name }}</div>
+                </ion-col>
+                <ion-col col-1 text-right>
+                    <ion-icon class="icon_param mask_color" name="ios-funnel"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+
         <div class="data_block">
 
             <ion-row align-items-center class="data_block_item" (click)="dateInfo()">
@@ -117,17 +145,6 @@
 
         <div class="data_block">
 
-            <ion-row align-items-center *ngFor="let filter of item.filter" class="data_block_item">
-                <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
-                <ion-col text-right>
-                    <div class="label">{{ filter.label }}</div>
-                    <div class="value">{{ filter.value ? filter.value : '&nbsp;' }}</div>
-                </ion-col>
-                <ion-col col-1 text-right>
-                    <ion-icon class="icon_param doc_color" name="ios-paper"></ion-icon>
-                </ion-col>
-            </ion-row>
-
             <ion-row align-items-center *ngFor="let additional of item.additional" class="data_block_item">
                 <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
                 <ion-col text-right>
@@ -139,34 +156,65 @@
                 </ion-col>
             </ion-row>
 
+            <ion-row align-items-center *ngFor="let filter of item.filter" class="data_block_item">
+                <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
+                <ion-col text-right>
+                    <div class="label">{{ filter.label }}</div>
+                    <div class="value">{{ filter.value ? filter.value : '&nbsp;' }}</div>
+                </ion-col>
+                <ion-col col-1 text-right>
+                    <ion-icon class="icon_param doc_color" name="ios-paper"></ion-icon>
+                </ion-col>
+            </ion-row>
+
         </div>
 
 
+        <!-- регион -->
         <div class="data_block">
 
             <ion-row align-items-center class="data_block_item">
                 <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
                 <ion-col text-right>
-                    <div class="label">{{ 'incoming_detail.sphere' | translate }}</div>
-                    <div class="value">{{ item.sphere.name }}</div>
+                    <div class="label">{{ 'incoming_detail.region' | translate }}</div>
+                    <div class="value">{{ item.region }}</div>
                 </ion-col>
                 <ion-col col-1 text-right>
-                    <ion-icon class="icon_param sphere_color" name="ios-cloud"></ion-icon>
-                </ion-col>
-            </ion-row>
-
-            <ion-row align-items-center class="data_block_item">
-                <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
-                <ion-col text-right>
-                    <div class="label">{{ 'incoming_detail.mask_name' | translate }}</div>
-                    <div class="value">{{ item.mask.name }}</div>
-                </ion-col>
-                <ion-col col-1 text-right>
-                    <ion-icon class="icon_param mask_color" name="ios-funnel"></ion-icon>
+                    <ion-icon class="icon_param doc_color" name="ios-paper"></ion-icon>
                 </ion-col>
             </ion-row>
 
         </div>
+
+
+        <!-- комментарий -->
+        <div class="data_block" *ngIf="item.comment">
+
+            <ion-row align-items-center class="data_block_item">
+                <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
+                <ion-col text-right>
+                    <div class="label">{{ 'incoming_detail.comment' | translate }}</div>
+                    <div class="value">{{ item.comment }}</div>
+                </ion-col>
+                <ion-col col-1 text-right>
+                    <ion-icon class="icon_param doc_color" name="ios-paper"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+            <!--<ion-row align-items-center class="data_block_item">-->
+                <!--&lt;!&ndash;<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>&ndash;&gt;-->
+                <!--<ion-col text-right>-->
+                    <!--<div class="label">{{ 'incoming_detail.mask_name' | translate }}</div>-->
+                    <!--<div class="value">{{ item.mask.name }}</div>-->
+                <!--</ion-col>-->
+                <!--<ion-col col-1 text-right>-->
+                    <!--<ion-icon class="icon_param mask_color" name="ios-funnel"></ion-icon>-->
+                <!--</ion-col>-->
+            <!--</ion-row>-->
+
+        </div>
+
+
     </div>
 
     <!-- Область открытия лида -->

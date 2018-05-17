@@ -280,6 +280,8 @@
         "sphere": "sphere",
         "mask_name": "mask name",
         "expose_lead_data": "expose lead data",
+        "comment": "Comment",
+        "region": "Region",
 
         "open_lead_area": {
             "common_description": "<div class='item'>בלחיצה על כפתור ״חשיפת פרטי התקשרות״ יחשף מספר הטלפון של הלקוח לצורך התקשרות עימו.</div> <div class='item'>במעמד זה תנוכה מחשבונך סכום עלות חשיפת ליד לפי פילטר שנבחר על ידך במשיכת פרופיל לקוח מסוג זה. </div> <div class='item'>לאחר החשיפת פרטי הלקוח תעברו למסך ״חשפתי״ במערכת לצורך התנהלות שוטפת מול הלקוח.</div>",

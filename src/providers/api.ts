@@ -13,11 +13,11 @@ import 'rxjs/add/operator/map';
  */
 @Injectable()
 export class Api {
-    // url: string = 'http://lmcrm.cos';
+    url: string = 'http://lmcrm.cos';
     // url: string = 'http://lmcrm.biz.tm';
     // url: string = 'http://demo.contact.org.il';
     // todo вернуть
-    url: string = 'https://backoffice.contact.org.il';
+    // url: string = 'https://backoffice.contact.org.il';
 
 
     user: any = User;
