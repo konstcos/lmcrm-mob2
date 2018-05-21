@@ -272,7 +272,7 @@ export class OpenPage {
 
                     // получаем записи разговоров
                     // по полученным итемам
-                    this.getVoices(data.openedLeads);
+                    // this.getVoices(data.openedLeads);
 
                     // добавляем полученные итемы на страницу
                     this.items = data.openedLeads;
@@ -391,7 +391,7 @@ export class OpenPage {
 
                     // получаем записи разговоров
                     // по полученным итемам
-                    this.getVoices(data.openedLeads);
+                    // this.getVoices(data.openedLeads);
 
                     // добавляем полученные итемы на страницу
                     this.items = data.openedLeads;
@@ -478,7 +478,7 @@ export class OpenPage {
 
                         // получаем записи разговоров
                         // по полученным итемам
-                        this.getVoices(data.openedLeads);
+                        // this.getVoices(data.openedLeads);
 
                         // добавляем полученные итемы на страницу
                         this.items = this.items.concat(data.openedLeads);
@@ -936,7 +936,8 @@ export class OpenPage {
      */
     isVoiceShow(item) {
 
-        if (this.voices[item.lead_id] && item.voiceShow && item.voiceShow == true) {
+        // if (this.voices[item.lead_id] && item.voiceShow && item.voiceShow == true) {
+        if (item['voice'] && item.voiceShow && item.voiceShow == true) {
             // lead_id
             return true;
         }
@@ -951,7 +952,11 @@ export class OpenPage {
      */
     switchVoiceShow(item) {
 
-        if (!this.voices[item.lead_id]) {
+        // if (!this.voices[item.lead_id]) {
+        //     return false;
+        // }
+
+        if (!item['voice']) {
             return false;
         }
 

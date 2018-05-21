@@ -198,7 +198,7 @@ export class ObtainPage {
 
                     // получаем записи разговоров
                     // по полученным итемам
-                    this.getVoices(data.auctionItems);
+                    // this.getVoices(data.auctionItems);
 
                     // добавляем полученные итемы на страницу
                     this.items = data.auctionItems;
@@ -313,7 +313,7 @@ export class ObtainPage {
 
                     // получаем записи разговоров
                     // по полученным итемам
-                    this.getVoices(data.auctionItems);
+                    // this.getVoices(data.auctionItems);
 
                     // добавляем полученные итемы на страницу
                     this.items = data.auctionItems;
@@ -398,7 +398,7 @@ export class ObtainPage {
 
                         // получаем записи разговоров
                         // по полученным итемам
-                        this.getVoices(data.auctionItems);
+                        // this.getVoices(data.auctionItems);
 
                         // добавляем полученные итемы на страницу
                         this.items = this.items.concat(data.auctionItems);
@@ -513,11 +513,12 @@ export class ObtainPage {
      */
     isVoiceShow(item) {
 
-        if (this.voices[item.id] && item.voiceShow && item.voiceShow == true) {
-            return true;
-        }
+        // if (this.voices[item.id] && item.voiceShow && item.voiceShow == true) {
+        // if (item['voice'] && item.voiceShow && item.voiceShow == true) {
+        //     return true;
+        // }
 
-        return false;
+        return item['voice'] && item.voiceShow && item.voiceShow == true;
     }
 
 
@@ -526,7 +527,8 @@ export class ObtainPage {
      */
     isVoiceExists(item) {
 
-        return this.voices[item.id] && this.voices[item.id] != false && this.voices[item.id] != 'loading';
+        // return this.voices[item.id] && this.voices[item.id] != false && this.voices[item.id] != 'loading';
+        return item['voice'];
     }
 
 
@@ -535,7 +537,8 @@ export class ObtainPage {
      *
      */
     isVoiceLoading(item) {
-        return this.voices[item.id] && this.voices[item.id] === 'loading';
+        // return this.voices[item.id] && this.voices[item.id] === 'loading';
+        return item['voice'] && item['voiceShow'];
     }
 
     /**
@@ -544,16 +547,28 @@ export class ObtainPage {
      */
     switchVoiceShow(item) {
 
+        console.log('switchVoiceShow');
+        console.log(item);
+
         if (!item.voice) {
             return false;
         }
+
+        console.log('if (!item.voice)');
+
 
         if (!item.voiceShow) {
             item.voiceShow = true;
             return true;
         }
 
+        console.log('if (!item.voiceShow)');
+
+
         item.voiceShow = false;
+
+        console.log('ОК');
+
         return true;
     }
 

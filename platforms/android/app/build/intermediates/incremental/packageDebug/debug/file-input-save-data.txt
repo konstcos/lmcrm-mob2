@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Mon May 07 21:50:07 EEST 2018
+#Sun May 20 18:45:32 EEST 2018
 122.file=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable-land-mdpi-v4/screen.png
 60.set=ANDROID_RESOURCE
 129.file=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/assets/debug/www/index.html

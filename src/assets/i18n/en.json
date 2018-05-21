@@ -341,6 +341,7 @@
             "button_cancel": "ביטול",
             "button_confirmation": "חשיפת לקוח"
         }
+
     },
 
     "#12": "Исходящие лиды 'Outgoing': ",
@@ -503,6 +504,11 @@
             "title": "The amount entered is incorrect",
             "message": "The minimum amount to execute a transaction in this area is &#8362;1000, and you are entering &#8362;{{amount}}",
             "ok_button": "Approval"
+        },
+        "outstanding_payments": {
+            "title": "Payment fail",
+            "message": "You still have outstanding payments",
+            "ok_button": "OK"
         }
     },
 

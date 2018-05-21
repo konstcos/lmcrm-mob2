@@ -1,4 +1,3 @@
-
 <ion-content>
 
     <!-- Обновление страницы -->
@@ -24,7 +23,9 @@
                     <ion-icon name="md-alarm"></ion-icon>
                 </button>
 
-                <button *ngIf="voices[item.id]" ion-button clear small (click)="switchVoiceShow(item)">
+                <!--<button *ngIf="voices[item.id]" ion-button clear small (click)="switchVoiceShow(item)">-->
+                <button *ngIf="item['voice']" ion-button clear small (click)="switchVoiceShow(item)">
+
                     <ion-icon name="md-volume-up"></ion-icon>
                 </button>
 
@@ -33,10 +34,12 @@
                 </button>
 
             </ion-col>
-            <ion-col col-3 text-right align-self-center class="archive" [ngClass]="item.archive == 1 ? 'zipped' : ''" (click)="archive(item)">
+            <ion-col col-3 text-right align-self-center class="archive" [ngClass]="item.archive == 1 ? 'zipped' : ''"
+                     (click)="archive(item)">
                 {{ 'exposed.archive' | translate }}
                 <ion-icon *ngIf="item.archive == 0" name="md-square-outline" class="archive_icon"></ion-icon>
-                <ion-icon *ngIf="item.archive == 1" name="md-checkbox-outline" class="archive_icon selected_icon"></ion-icon>
+                <ion-icon *ngIf="item.archive == 1" name="md-checkbox-outline"
+                          class="archive_icon selected_icon"></ion-icon>
             </ion-col>
         </ion-row>
 
@@ -46,7 +49,7 @@
             <ion-row>
 
                 <ion-col class="item-left-data" text-left>
-                    <div class="date"> <span class="time">{{ item.date.time }}</span> {{ item.date.date }}</div>
+                    <div class="date"><span class="time">{{ item.date.time }}</span> {{ item.date.date }}</div>
                     <div> {{ item.lead.sphere.name }}</div>
                 </ion-col>
 
@@ -62,7 +65,7 @@
         <ion-row *ngIf="isVoiceShow(item)">
             <ion-col text-center>
 
-                <div *ngFor="let voice of voices[item.lead_id]" text-center class="voice_item_side">
+                <div *ngFor="let voice of item['voice']" text-center class="voice_item_side">
                     <audio controls>
                         <source src="{{ voice.url }}" type="audio/mpeg">
                     </audio>
@@ -87,12 +90,12 @@
 
                                 <ion-col>
                                     <div class="deal_data_title">{{ 'exposed.deal_name' | translate }}</div>
-                                    <div  class="deal_data_data">{{ item.status_info.stepname }}</div>
+                                    <div class="deal_data_data">{{ item.status_info.stepname }}</div>
                                 </ion-col>
 
                                 <ion-col>
                                     <div class="deal_data_title">{{ 'exposed.deal_price' | translate }}</div>
-                                    <div  class="deal_data_data"><b>&#8362;</b> {{ item.close_deal_info.price }}</div>
+                                    <div class="deal_data_data"><b>&#8362;</b> {{ item.close_deal_info.price }}</div>
                                 </ion-col>
 
                             </ion-row>
@@ -120,7 +123,7 @@
 
                 <div *ngIf="roles.subRole == 'dealmaker'">
                     <!--<button ion-button small full (click)="changeStatus(item)">-->
-                        <!--{{ item.status_info ? item.status_info.stepname : ('exposed.no_status' | translate) }}-->
+                    <!--{{ item.status_info ? item.status_info.stepname : ('exposed.no_status' | translate) }}-->
                     <!--</button>-->
 
                     <div *ngIf="item.status_info && item.status_info.type == 4" class="open_lead_bad_status">
@@ -143,7 +146,9 @@
 
     <ion-row *ngIf="noItems && !isFilterOn && roles.role == 'agent'" class="no_leads_row" text-center>
         <ion-col>
-            <div class="icon"><ion-icon name="md-contract"></ion-icon></div>
+            <div class="icon">
+                <ion-icon name="md-contract"></ion-icon>
+            </div>
 
             <div class="leads_text">
                 <!--<div> You do not have any leads</div>-->
@@ -162,7 +167,9 @@
 
     <ion-row *ngIf="noItems && !isFilterOn && roles.role != 'agent'" class="no_leads_row" text-center>
         <ion-col>
-            <div class="icon"><ion-icon name="md-contract"></ion-icon></div>
+            <div class="icon">
+                <ion-icon name="md-contract"></ion-icon>
+            </div>
 
             <div class="leads_text" [innerHTML]="'exposed.you_do_not_have_any_leads' | translate">
                 <!--<div> You do not have any leads</div>-->
@@ -173,7 +180,9 @@
 
     <ion-row *ngIf="noItems && isFilterOn" class="no_leads_row" text-center>
         <ion-col>
-            <div class="icon"><ion-icon name="md-contract"></ion-icon></div>
+            <div class="icon">
+                <ion-icon name="md-contract"></ion-icon>
+            </div>
 
             <div class="leads_text" [innerHTML]="'exposed.no_leads_by_filter' | translate">
                 <!--<div> No open leads by filter</div>-->

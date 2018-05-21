@@ -1069,6 +1069,16 @@ export class MainPage {
 
         this.isFilterOn = false;
 
+        // проверка периода "от"
+        if (this.filter.period.from) {
+            this.isFilterOn = true;
+        }
+
+        // проверка периода "к"
+        if (this.filter.period.to) {
+            this.isFilterOn = true;
+        }
+
         // пересчет сферы
         // перебираем все сферы и добавляем status
         for (let currentSphere in this.spheres) {

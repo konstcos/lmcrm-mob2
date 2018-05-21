@@ -69,7 +69,8 @@
             <div class="row" *ngIf="isVoiceShow(item)">
 
                 <ion-col>
-                    <div *ngFor="let voice of voices[item.id]" text-center class="voice_item_side">
+                    <!--<div *ngFor="let voice of voices[item.id]" text-center class="voice_item_side">-->
+                    <div *ngFor="let voice of item['voice']" text-center class="voice_item_side">
                         <audio controls>
                             <source src="{{ voice.url }}" type="audio/mpeg">
                         </audio>

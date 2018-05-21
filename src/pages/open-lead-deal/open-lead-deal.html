@@ -36,7 +36,15 @@
 
 <ion-content>
 
-    <!-- скрытый блок с инпутом для вайла -->
+
+    <!-- Обновление страницы -->
+    <ion-refresher (ionRefresh)="refresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <!-- конец Обновление страницы -->
+
+
+    <!-- скрытый блок с инпутом для файла -->
     <div class="file_input">
         <!-- инпут для вайла -->
         <input id="fileElem" (change)="onChange($event)" type="file">

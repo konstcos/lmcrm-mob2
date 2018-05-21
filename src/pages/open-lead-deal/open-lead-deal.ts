@@ -73,7 +73,7 @@ export class OpenLeadDealPage {
         this.item = this.navParams.get('item');
 
         // загрузка данных по сделке
-        this.getDealData();
+        this.getDealData(false);
     }
 
 
@@ -86,7 +86,7 @@ export class OpenLeadDealPage {
      * Получение данных по сделке
      *
      */
-    getDealData() {
+    getDealData(refresher) {
 
         this.open.getDealData({openLeadId: this.item.id})
             .subscribe(result => {
@@ -108,11 +108,20 @@ export class OpenLeadDealPage {
                     console.log('Данные по сделкам');
                     console.log(this.deal);
 
+                    if(refresher) {
+                        // отключаем окно индикатора загрузки
+                        refresher.complete();
+                    }
 
                 } else {
                     // this.close();
 
                     console.log('Ошибка запроса');
+
+                    if(refresher) {
+                        // отключаем окно индикатора загрузки
+                        refresher.complete();
+                    }
 
                 }
 
@@ -187,7 +196,7 @@ export class OpenLeadDealPage {
                 alert.present();
 
                 // обновление страницы
-                this.getDealData();
+                this.getDealData(false);
 
             } else if (data.status == 'fail') {
                 // при неудаче
@@ -217,7 +226,7 @@ export class OpenLeadDealPage {
                 alert.present();
 
                 // обновление страницы
-                this.getDealData();
+                this.getDealData(false);
             }
 
         });
@@ -241,7 +250,7 @@ export class OpenLeadDealPage {
 
             console.log(data);
             // обновление страницы
-            this.getDealData();
+            this.getDealData(false);
 
         });
 
@@ -290,7 +299,7 @@ export class OpenLeadDealPage {
                 alert.present();
 
                 // обновление страницы
-                this.getDealData();
+                this.getDealData(false);
 
             }
 
@@ -314,7 +323,7 @@ export class OpenLeadDealPage {
         let message = '';
         let ok_button = 'OK';
 
-        this.translate.get('open_lead_deal.manuallyPayment.success.OK', {}).subscribe((res: string) => {
+        this.translate.get('open_lead_deal.manuallyPayment.success.ok_button', {}).subscribe((res: string) => {
             ok_button = res;
         });
 
@@ -730,9 +739,9 @@ export class OpenLeadDealPage {
             message = res;
         });
 
-        this.translate.get('open_lead_deal.receivedNextPaymentData.input_name', {}).subscribe((res: string) => {
-            input_name = res;
-        });
+        // this.translate.get('open_lead_deal.receivedNextPaymentData.input_name', {}).subscribe((res: string) => {
+        //     input_name = res;
+        // });
 
         this.translate.get('open_lead_deal.receivedNextPaymentData.cancel_button', {}).subscribe((res: string) => {
             cancel_button = res;
@@ -748,7 +757,7 @@ export class OpenLeadDealPage {
             message: message,
             inputs: [
                 {
-                    name: input_name,
+                    name: 'amount',
                     placeholder: '0',
                     type: 'number',
                 },
@@ -815,22 +824,37 @@ export class OpenLeadDealPage {
                     toast.present();
 
                     // обновление данных по сделке
-                    this.getDealData();
+                    this.getDealData(false);
 
                 } else {
 
                     if (data.info == 'outstanding_payments') {
 
+                        let title = 'Payment fail';
+                        let message = 'You still have outstanding payments';
+                        let ok_button = 'OK';
+
+                        this.translate.get('open_lead_deal.outstanding_payments.title', {}).subscribe((res: string) => {
+                            title = res;
+                        });
+
+                        this.translate.get('open_lead_deal.outstanding_payments.message', {amount: amount}).subscribe((res: string) => {
+                            message = res;
+                        });
+
+                        this.translate.get('open_lead_deal.outstanding_payments.ok_button', {}).subscribe((res: string) => {
+                            ok_button = res;
+                        });
+
+
                         let alert = this.alertCtrl.create({
-                            title: 'Payment fail',
-                            subTitle: 'You still have outstanding payments',
-                            buttons: ['OK']
+                            title: title,
+                            subTitle: message,
+                            buttons: [ok_button]
                         });
                         alert.present();
 
                     }
-
-
                 }
 
                 // this.dealData = data.dealData;
@@ -925,7 +949,7 @@ export class OpenLeadDealPage {
 
                 if (data.status == 'success') {
                     // обновление данных по сделке
-                    this.getDealData();
+                    this.getDealData(false);
                 }
 
                 // this.dealData = data.dealData;
@@ -992,6 +1016,16 @@ export class OpenLeadDealPage {
     close(stat = false) {
 
         this.view.dismiss({status: stat});
+    }
+
+
+    /**
+     * Закрытие страницы
+     *
+     */
+    refresh(refresher) {
+        // загрузка данных по сделке
+        this.getDealData(refresher);
     }
 
 }
