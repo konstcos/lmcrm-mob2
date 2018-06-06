@@ -1,10 +1,13 @@
 profile-page {
 
+  .content {
+    background: #F8F8F8;
+  }
+
   .back_arrow {
     font-size: 20px;
     padding-left: 10px;
   }
-
 
   .payment_title {
     font-weight: 500;
@@ -13,6 +16,101 @@ profile-page {
     margin-bottom: 20px;
   }
 
+  .data_container {
+
+    .data_block {
+
+      background: #FFFFFF;
+      padding: 20px 10px 0;
+      margin: 0 0 20px 0;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+      .data_item {
+        //margin: 0 5px 10px;
+
+        padding: 20px 5px 5px;
+        //border-top: solid #D2D2D2 1px;
+
+        border-bottom: solid #D2D2D2 1px;
+
+        &:first-child {
+          padding-top: 0;
+          //border-top: none;
+        }
+
+        .label {
+          text-align: right;
+          color: grey;
+          font-size: 10px;
+          margin-bottom: 5px;
+        }
+
+        .data {
+          color: #337AB7;
+          font-size: 12px;
+          text-align: right;
+
+          .phone_block {
+
+            .phone_item {
+
+              margin-bottom: 15px;
+
+              &:last-child {
+                margin-bottom: 5px;
+              }
+
+              .phone {
+
+                .main {
+                  color: darkred;
+                  font-size: 10px;
+                }
+
+              }
+
+              .comment {
+
+              }
+
+            }
+
+          }
+
+          .region {
+
+            .name {
+
+            }
+
+            .path {
+
+              .path_item {
+                color: grey;
+                margin: 0 1px;
+
+                &:first-child {
+                  margin-right: 0;
+                }
+
+              }
+
+            }
+
+          }
+
+          .specialization_item {
+            margin: 0 2px;
+          }
+
+        }
+
+        .edit {
+          margin: 10px 0 0;
+        }
+      }
+    }
+  }
 
   .personal_data_row {
 

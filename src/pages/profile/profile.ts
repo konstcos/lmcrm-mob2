@@ -24,7 +24,7 @@ import {MainPage} from '../main/main'
 })
 export class ProfilePage {
 
-    public profileData = [];
+    public profileData = false;
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
@@ -55,12 +55,23 @@ export class ProfilePage {
                     // переводим ответ в json
                     let data = result.json();
 
-                    data.password = '';
-                    data.password_confirmation = '';
 
-                    this.profileData = data;
+                    if(data.status == 'success') {
 
-                    console.log(data);
+                        data.password = '';
+                        data.password_confirmation = '';
+
+                        data.data.region.path.reverse();
+
+                        this.profileData = data.data;
+
+
+                        // console.log(data);
+                        console.log(data.data);
+                        // console.log(this.profileData);
+                        // console.log(this.profileData.length);
+                    }
+
 
                 }, err => {
                     // в случае ошибки
