@@ -362,7 +362,6 @@ export class User {
      *
      */
     getAgentProfile() {
-
         return this.api.post('api/profile/get', {});
     }
 
@@ -377,11 +376,29 @@ export class User {
 
 
     /**
+     * Сохранение основных данных пользователя в профиле
+     * (имя, фамилия, компания, паспорт)
+     *
+     */
+    saveProfileMainData(data: any) {
+        return this.api.post('api/profile/main/data/save', data);
+    }
+
+
+    /**
+     * Сохранение настроек итема сеттинга на сервере
+     *
+     */
+    saveSettingOption(data: any) {
+        return this.api.post('api/profile/settings/option/save', data);
+    }
+
+
+    /**
      * Сохранение профиля пользователя
      *
      */
     saveAgentProfile(data: any) {
-
         return this.api.post('api/profile/save', data);
     }
 
@@ -391,7 +408,6 @@ export class User {
      *
      */
     getWalletData() {
-
         return this.api.post('api/get/wallet/data', {});
     }
 
@@ -402,7 +418,6 @@ export class User {
      */
     sendForgotPassword(data: any) {
         return this.api.post('api/send/forgot/password', data);
-
     }
 
 
@@ -425,15 +440,6 @@ export class User {
 
     }
 
-
-    /**
-     * todo Пост на отправку мэила по забытому паролю
-     *
-     */
-    // sendForgotPassword(data: any) {
-    //     return this.api.post('api/send/forgot/password', data);
-    //
-    // }
 
     /**
      * Process a login/signup response to store user data

@@ -93,7 +93,28 @@ import {ItemCreatePage} from '../pages/item-create/item-create';
 import {ItemDetailPage} from '../pages/item-detail/item-detail';
 import {MenuPage} from '../pages/menu/menu';
 import {SettingsPage} from '../pages/settings/settings';
+
+// Профиль агента
 import {ProfilePage} from '../pages/profile/profile';
+// редактирование основных данных о пользователе в профиле
+import {ProfileEditMainDataPage} from '../pages/profile_edit_main_data/profile_edit_main_data';
+// редактирование специализаций пользователя в профиле
+import {ProfileEditSpecializationsPage} from '../pages/profile_edit_specializations/profile_edit_specializations';
+// редактирование режима работы лидбайера в профиле
+import {ProfileEditLeadBuyerOperatingModePage} from '../pages/profile_edit_lead_buyer_operating_mode/profile_edit_lead_buyer_operating_mode';
+// редактирование данных о пользователе в его профиле
+import {ProfileEditAboutPage} from '../pages/profile_edit_about/profile_edit_about';
+// редактирование пароля пользователя в профиле
+import {ProfileEditPasswordPage} from '../pages/profile_edit_password/profile_edit_password';
+// редактирование телефонов пользователя в профиле
+import {ProfileEditPhonesPage} from '../pages/profile_edit_phones/profile_edit_phones';
+// редактирование банковских данных пользователя в профиле
+import {ProfileEditBankDataPage} from '../pages/profile_edit_bank_data/profile_edit_bank_data';
+// редактирование региона пользователя в профиле
+import {ProfileEditRegionPage} from '../pages/profile_edit_region/profile_edit_region';
+
+
+
 import {SearchPage} from '../pages/search/search';
 import {SupportPage} from '../pages/support/support';
 
@@ -211,6 +232,14 @@ let pages = [
     EditMaskPage,
 
     ProfilePage,
+    ProfileEditMainDataPage,
+    ProfileEditSpecializationsPage,
+    ProfileEditLeadBuyerOperatingModePage,
+    ProfileEditAboutPage,
+    ProfileEditPasswordPage,
+    ProfileEditPhonesPage,
+    ProfileEditBankDataPage,
+    ProfileEditRegionPage,
 
     MessagesPage,
     CorrespondencePage,

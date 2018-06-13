@@ -18,8 +18,19 @@
 
 <ion-content padding>
 
+    <!-- спинер загрузки -->
+    <div *ngIf="sections.loading" class="spinnerLoading">
+        <ion-spinner color="primary" name="crescent"></ion-spinner>
+    </div>
 
-    <div class="data_container" *ngIf="profileData">
+    <!-- Обновление страницы -->
+    <ion-refresher (ionRefresh)="refresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <!-- конец Обновление страницы -->
+
+
+    <div class="data_container" *ngIf="sections.data">
 
         <!-- Блок основных данных по агенту -->
         <div class="data_block">
@@ -66,7 +77,7 @@
             </div>
 
             <div class="edit">
-                <button ion-button clear small color="default">Edit</button>
+                <button ion-button clear small color="default" (click)="editMainData()">Edit</button>
             </div>
 
         </div>
@@ -92,7 +103,7 @@
             </div>
 
             <div class="edit">
-                <button ion-button clear small color="default">Edit</button>
+                <button ion-button clear small color="default" (click)="editSpecializations()">Edit</button>
             </div>
 
         </div>
@@ -112,7 +123,7 @@
             </div>
 
             <div class="edit">
-                <button ion-button clear small color="default">Edit</button>
+                <button ion-button clear small color="default" (click)="editLeadBuyerOperatingMode()">Edit</button>
             </div>
 
         </div>
@@ -132,7 +143,7 @@
             </div>
 
             <div class="edit">
-                <button ion-button clear small color="default">Edit</button>
+                <button ion-button clear small color="default" (click)="editAbout()">Edit</button>
             </div>
 
         </div>
@@ -141,35 +152,38 @@
         <div class="data_block">
 
             <div class="data_item">
-                <!--<div class="label">-->
-                <!--{{ 'profile.about' | translate }}-->
-                <!--</div>-->
-
-                <div class="data">
-
-                    <ion-row>
-                        <ion-col col-2 align-self-center>
-                            <ion-toggle [(ngModel)]="profileData.allow_access_to_profile"></ion-toggle>
-                        </ion-col>
-                        <ion-col dir="rtl" align-self-center>Allow the administration to access my profile</ion-col>
-                    </ion-row>
-
-                </div>
-            </div>
-
-            <div class="data_item">
-                <!--<div class="label">-->
-                <!--{{ 'profile.about' | translate }}-->
-                <!--</div>-->
 
                 <div class="data">
 
                     <ion-row>
                         <ion-col col-2 align-self-center>
                             <ion-toggle
-                                    [(ngModel)]="profileData.settings.auction_lead_notification_by_email"></ion-toggle>
+                                    [(ngModel)]="profileData.allow_access_to_profile"
+                                    (ionChange)="settingsToggleChange('allow_access_to_profile')">
+                            </ion-toggle>
                         </ion-col>
-                        <ion-col dir="rtl" align-self-center>Receive notification of new leads by email</ion-col>
+                        <ion-col dir="rtl" align-self-center (click)="toggleLabelClick('allow_access_to_profile')">
+                            Allow the administration to access my profile
+                        </ion-col>
+                    </ion-row>
+
+                </div>
+            </div>
+
+            <div class="data_item">
+
+                <div class="data">
+
+                    <ion-row>
+                        <ion-col col-2 align-self-center>
+                            <ion-toggle
+                                    [(ngModel)]="profileData.settings.auction_lead_notification_by_email"
+                                    (ionChange)="settingsToggleChange('auction_lead_notification_by_email')">
+                            </ion-toggle>
+                        </ion-col>
+                        <ion-col dir="rtl" align-self-center (click)="toggleLabelClick('auction_lead_notification_by_email')">
+                            Receive notification of new leads by email
+                        </ion-col>
                     </ion-row>
 
                 </div>
@@ -187,14 +201,10 @@
 
                 <div class="data">
                     <div class="edit">
-                        <button ion-button small color="danger">Change password</button>
+                        <button ion-button small color="danger" (click)="editPassword()">Change password</button>
                     </div>
                 </div>
             </div>
-
-            <!--<div class="edit">-->
-            <!--<button ion-button clear small color="default">Edit</button>-->
-            <!--</div>-->
 
         </div>
 
@@ -228,7 +238,7 @@
             </div>
 
             <div class="edit">
-                <button ion-button clear small color="default">Edit</button>
+                <button ion-button clear small color="default" (click)="editPhones()">Edit</button>
             </div>
 
         </div>
@@ -277,7 +287,7 @@
             </div>
 
             <div class="edit">
-                <button ion-button clear small color="default">Edit</button>
+                <button ion-button clear small color="default" (click)="editBankData()">Edit</button>
             </div>
 
         </div>
@@ -322,9 +332,24 @@
             </div>
 
             <div class="edit">
-                <button ion-button clear small color="default">Edit</button>
+                <button ion-button clear small color="default" (click)="editRegion()">Edit</button>
             </div>
 
+        </div>
+
+    </div>
+
+    <!-- блок с ошибкой -->
+    <div *ngIf="sections.error" class="error_area">
+
+        <div class="error_text">
+            {{ 'incoming_detail.open_lead_area.incomprehensibleError' | translate }}
+        </div>
+
+        <div class="error_button">
+            <button ion-button large color="light" (click)="refresh()">
+                <ion-icon name="md-refresh"></ion-icon>
+            </button>
         </div>
 
     </div>
