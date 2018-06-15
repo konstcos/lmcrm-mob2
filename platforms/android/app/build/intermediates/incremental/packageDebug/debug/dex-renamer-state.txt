@@ -1,4 +1,4 @@
-#Sun May 20 18:45:32 EEST 2018
+#Fri Jun 15 16:46:20 EEST 2018
 base.0=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0
 renamed.1=classes2.dex
 renamed.0=classes.dex

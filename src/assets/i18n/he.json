@@ -398,6 +398,7 @@
         "sphere": "תחום",
         "deleted": "נמחק",
         "mask_name": "שם של פילטר",
+        "comment": "הערות",
         "send_to_auction": {
             "button_title": "נשלח למכרז",
             "text": "לאחר לחיצה על כפתור מחזור תוכל/י להזדכות על לקוחות במידה והלקוח הממוחזר יעודכן על ידכם מראש ויקבל מכם אישור על יציאה מחודשת למכרז למציאת ספקי שירות שמתאימים לו. במקרה הנ''ל תוכלו להשתתף ברווחים ממכירת לקוח זה במכרז. ניתן לראות בשקיפות מלאה את גובה הרווחים שלך מכל לקוח שנמסר על ידכם בפניות שנמסרו על ידך.",
@@ -441,6 +442,8 @@
         "no_statements": "אין הצהרות על תקבולים",
         "no_transactions": "אין צהרות על תשלומים",
         "no_files": "קבצים מצורפים",
+        "phone_copied_to_clipboard": "{{ phone_number }} copied to clipboard",
+        "name_copied_to_clipboard": "{{ name }} copied to clipboard",
         "paymentWithWallet": {
             "success": {
                 "title": "תשלום מוצלח בארנק",

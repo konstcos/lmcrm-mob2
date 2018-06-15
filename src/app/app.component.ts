@@ -434,6 +434,29 @@ export class MyApp {
 
                 this.leadToast.present();
 
+
+            } else if (data.additionalData.type == 8) {
+
+                // alert(JSON.stringify(data));
+
+                if (this.leadToast) {
+
+                    return false;
+                }
+
+                this.leadToast = this.toastCtrl.create({
+                    // message: data.additionalData.message,
+                    message: data.message,
+                    showCloseButton: true,
+                    position: 'bottom'
+                });
+
+                this.leadToast.onDidDismiss(() => {
+                    this.leadToast = false;
+                });
+
+                this.leadToast.present();
+
             } else {
 
                 if (this.atherToast) {

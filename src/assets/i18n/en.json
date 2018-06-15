@@ -399,6 +399,7 @@
         "sphere": "sphere",
         "deleted": "deleted",
         "mask_name": "mask name",
+        "comment": "Comment",
         "send_to_auction": {
             "button_title": "Send to auction",
             "text": "The Lead will be sent for auction. It disappears from the Exposed section and appears in the Outgoing section. As with other introduced Leads, you will be able to profit from this Leads.",
@@ -442,6 +443,8 @@
         "no_statements": "No statements",
         "no_transactions": "No transactions",
         "no_files": "No files",
+        "phone_copied_to_clipboard": "{{ phone_number }} copied to clipboard",
+        "name_copied_to_clipboard": "{{ name }} copied to clipboard",
         "paymentWithWallet": {
             "success": {
                 "title": "Payment success",
