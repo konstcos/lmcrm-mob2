@@ -145,27 +145,31 @@
 
         <div class="data_block">
 
-            <ion-row align-items-center *ngFor="let additional of item.additional" class="data_block_item">
-                <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
-                <ion-col text-right>
-                    <div class="label">{{ additional.label }}</div>
-                    <div class="value">{{ additional.value ? additional.value : '&nbsp;' }}</div>
-                </ion-col>
-                <ion-col col-1 text-right>
-                    <ion-icon class="icon_param doc_color" name="ios-paper"></ion-icon>
-                </ion-col>
-            </ion-row>
+            <div *ngFor="let additional of item.additional">
+                <ion-row align-items-center *ngIf="additional.value && additional.value.trim().length > 0 && additional.value.trim() != '00-00-0000' && additional.value.trim() != '0000-00-00'" class="data_block_item">
+                    <ion-col text-right>
+                        <div class="label">{{ additional.label }}</div>
+                        <div class="value">{{ additional.value ? additional.value : '&nbsp;' }}</div>
+                    </ion-col>
+                    <ion-col col-1 text-right>
+                        <ion-icon class="icon_param doc_color" name="ios-paper"></ion-icon>
+                    </ion-col>
+                </ion-row>
+            </div>
 
-            <ion-row align-items-center *ngFor="let filter of item.filter" class="data_block_item">
-                <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
-                <ion-col text-right>
-                    <div class="label">{{ filter.label }}</div>
-                    <div class="value">{{ filter.value ? filter.value : '&nbsp;' }}</div>
-                </ion-col>
-                <ion-col col-1 text-right>
-                    <ion-icon class="icon_param doc_color" name="ios-paper"></ion-icon>
-                </ion-col>
-            </ion-row>
+            <div *ngFor="let filter of item.filter">
+                <ion-row align-items-center *ngIf="filter.value && filter.value.trim().length > 0 && filter.value.trim() != '00-00-0000' && filter.value.trim() != '0000-00-00'" class="data_block_item">
+                    <ion-col text-right>
+                        <div class="label">{{ filter.label }}</div>
+                        <div class="value">{{ filter.value ? filter.value : '&nbsp;' }}</div>
+                    </ion-col>
+                    <ion-col col-1 text-right>
+                        <ion-icon class="icon_param doc_color" name="ios-paper"></ion-icon>
+                    </ion-col>
+                </ion-row>
+            </div>
+
+
 
         </div>
 
@@ -173,7 +177,7 @@
         <!-- регион -->
         <div class="data_block">
 
-            <ion-row align-items-center class="data_block_item">
+            <ion-row align-items-center *ngIf="item.region && item.region.trim().length > 0" class="data_block_item">
                 <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
                 <ion-col text-right>
                     <div class="label">{{ 'incoming_detail.region' | translate }}</div>

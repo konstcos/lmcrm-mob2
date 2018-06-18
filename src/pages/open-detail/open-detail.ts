@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, LoadingController, ViewController, ModalController, Events} from 'ionic-angular';
+import {NavController, NavParams, LoadingController, ViewController, ModalController, Events, ToastController} from 'ionic-angular';
 import {OpenLeadStatusesPage} from "../open-lead-statuses/open-lead-statuses";
 import {OpenLeadOrganizerPage} from "../open-lead-organizer/open-lead-organizer";
 import {TranslateService} from 'ng2-translate/ng2-translate';
@@ -7,6 +7,7 @@ import {Open} from '../../providers/open';
 
 import {CallNumber} from '@ionic-native/call-number';
 import {OpenLeadDealPage} from "../open-lead-deal/open-lead-deal";
+import { Clipboard } from '@ionic-native/clipboard';
 
 /*
  Generated class for the OpenDetail page.
@@ -17,7 +18,7 @@ import {OpenLeadDealPage} from "../open-lead-deal/open-lead-deal";
 @Component({
     selector: 'page-open-detail',
     templateUrl: 'open-detail.html',
-    providers: [Open, CallNumber]
+    providers: [Open, CallNumber, Clipboard]
 })
 export class OpenDetailPage {
 
@@ -91,7 +92,9 @@ export class OpenDetailPage {
                 public events: Events,
                 public open: Open,
                 public translate: TranslateService,
+                public toastCtrl: ToastController,
                 public loadingCtrl: LoadingController,
+                private clipboard: Clipboard,
                 private callNumber: CallNumber) {
 
         // получение id открытого лида
@@ -332,6 +335,8 @@ export class OpenDetailPage {
                 // переводим ответ в json
                 let data = result.json();
 
+                console.log(data);
+
                 // определяем статус запроса
                 if (data.status == 'success') {
                     // при успешном статусе
@@ -542,6 +547,64 @@ export class OpenDetailPage {
                 // выводим ошибку
                 this.section('error');
             });
+    }
+
+
+    /**
+     * Копирование имени в буфер обмена
+     *
+     */
+    copyNameToClipboard() {
+
+        // формируем имя лида
+        let name = this.item.lead.name;
+        // добавляем фамилию, если есть
+        name += this.item.lead.surname ? ' ' + this.item.lead.surname : '';
+
+        // формируем текст для оповещения в тосте
+        let name_text = '';
+        // получаем перевод
+        this.translate.get('open_lead_deal.name_copied_to_clipboard', {name: name}).subscribe((res: any) => {
+            name_text = res;
+        });
+
+        // копируем имя в буфер омбена
+        this.clipboard.copy(name);
+
+        // показываем тост с сообщением
+        let toast = this.toastCtrl.create({
+            message: name_text,
+            duration: 3000,
+            position: 'bottom'
+        });
+        toast.present();
+    }
+
+
+    /**
+     * Копирование телефона в буфер обмена
+     *
+     */
+    copyPhoneToClipboard() {
+
+        // копирование данных в буфер обмена
+        this.clipboard.copy(this.item.lead.phone.phone);
+
+        // формируем текст для оповещения в тосте
+        let phone_text = '';
+        // получаем перевод
+        this.translate.get('open_lead_deal.phone_copied_to_clipboard', {phone_number: this.item.lead.phone.phone}).subscribe((res: any) => {
+            phone_text = res;
+        });
+
+        // показываем тост с сообщением
+        let toast = this.toastCtrl.create({
+            message: phone_text,
+            duration: 3000,
+            position: 'bottom'
+        });
+        toast.present();
+
     }
 
 

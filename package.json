@@ -21,6 +21,7 @@
     "@angular/platform-server": "2.4.8",
     "@ionic-native/badge": "^3.12.1",
     "@ionic-native/call-number": "^4.3.3",
+    "@ionic-native/clipboard": "^4.7.0",
     "@ionic-native/core": "^3.7.0",
     "@ionic-native/fcm": "^3.7.0",
     "@ionic-native/file": "^4.0.0",

@@ -51,6 +51,9 @@
         <!-- имя клиента -->
         <div class="data_block_header">
             <ion-row align-items-center>
+                <ion-col class="copy_button" col-2 text-center (click)="copyNameToClipboard()">
+                    <ion-icon name="copy"></ion-icon>
+                </ion-col>
                 <ion-col text-right class="name"> {{ item.lead.name }} {{ item.lead.surname }}</ion-col>
             </ion-row>
         </div>
@@ -58,14 +61,15 @@
         <!-- телефон клиента -->
         <div class="data_block">
 
-            <ion-row align-items-center class="data_block_item" (click)="makeCall(item)">
-                <ion-col col-1 text-left>
+            <ion-row align-items-center class="data_block_item">
+                <ion-col class="copy_button" col-1 text-center (click)="copyPhoneToClipboard()">
+                    <ion-icon name="copy"></ion-icon>
                 </ion-col>
-                <ion-col text-right>
+                <ion-col text-right (click)="makeCall(item)">
                     <div class="label">{{ 'exposed_detail.phone' | translate }}</div>
                     <div class="value">{{ item.lead.phone.phone }}</div>
                 </ion-col>
-                <ion-col col-1 text-right>
+                <ion-col col-1 text-right (click)="makeCall(item)">
                     <ion-icon class="color_green icon_param" name="ios-call"></ion-icon>
                 </ion-col>
             </ion-row>
@@ -211,46 +215,49 @@
                 </ion-col>
             </ion-row>
 
-            <ion-row align-items-center class="data_block_item">
-                <!--<ion-col col-1 text-left><ion-icon class="help_icon" name="md-help-circle"></ion-icon></ion-col>-->
-                <ion-col text-right>
-                    <div class="label">{{ 'exposed_detail.opened_by' | translate }}</div>
-                    <div class="value">{{ 'exposed_detail.you' | translate }}
-                        <!--<span class="date_time">{{ item.auction_added.time }}</span>-->
-                        <!--<span class="date_date">{{ item.auction_added.date }}</span>-->
-                    </div>
-                </ion-col>
-                <ion-col col-1 text-right>
-                    <ion-icon class="icon_param calendar_color" name="md-calendar"></ion-icon>
-                </ion-col>
-            </ion-row>
+            <!--<ion-row align-items-center class="data_block_item">-->
+                <!--&lt;!&ndash;<ion-col col-1 text-left><ion-icon class="help_icon" name="md-help-circle"></ion-icon></ion-col>&ndash;&gt;-->
+                <!--<ion-col text-right>-->
+                    <!--<div class="label">{{ 'exposed_detail.opened_by' | translate }}</div>-->
+                    <!--<div class="value">{{ 'exposed_detail.you' | translate }}-->
+                        <!--&lt;!&ndash;<span class="date_time">{{ item.auction_added.time }}</span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<span class="date_date">{{ item.auction_added.date }}</span>&ndash;&gt;-->
+                    <!--</div>-->
+                <!--</ion-col>-->
+                <!--<ion-col col-1 text-right>-->
+                    <!--<ion-icon class="icon_param calendar_color" name="md-calendar"></ion-icon>-->
+                <!--</ion-col>-->
+            <!--</ion-row>-->
 
         </div>
 
         <!-- дополнительные данные и данные фильтра -->
         <div class="data_block">
 
-            <ion-row align-items-center *ngFor="let filter of item.lead.filter" class="data_block_item">
-                <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
-                <ion-col text-right>
-                    <div class="label">{{ filter.label }}</div>
-                    <div class="value">{{ filter.value ? filter.value : '&nbsp;' }}</div>
-                </ion-col>
-                <ion-col col-1 text-right>
-                    <ion-icon class="icon_param doc_color" name="ios-paper"></ion-icon>
-                </ion-col>
-            </ion-row>
+            <div *ngFor="let additional of item.lead.additional">
+                <ion-row align-items-center *ngIf="additional.value && additional.value.trim().length > 0 && additional.value.trim() != '00-00-0000' && additional.value.trim() != '0000-00-00'" class="data_block_item">
+                    <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
+                    <ion-col text-right>
+                        <div class="label">{{ additional.label }}</div>
+                        <div class="value">{{ additional.value ? additional.value : '&nbsp;' }}</div>
+                    </ion-col>
+                    <ion-col col-1 text-right>
+                        <ion-icon class="icon_param doc_color" name="ios-paper"></ion-icon>
+                    </ion-col>
+                </ion-row>
+            </div>
 
-            <ion-row align-items-center *ngFor="let additional of item.lead.additional" class="data_block_item">
-                <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
-                <ion-col text-right>
-                    <div class="label">{{ additional.label }}</div>
-                    <div class="value">{{ additional.value ? additional.value : '&nbsp;' }}</div>
-                </ion-col>
-                <ion-col col-1 text-right>
-                    <ion-icon class="icon_param doc_color" name="ios-paper"></ion-icon>
-                </ion-col>
-            </ion-row>
+            <div *ngFor="let filter of item.lead.filter">
+                <ion-row align-items-center *ngIf="filter.value && filter.value.trim().length > 0 && filter.value.trim() != '00-00-0000' && filter.value.trim() != '0000-00-00'" class="data_block_item">
+                    <ion-col text-right>
+                        <div class="label">{{ filter.label }}</div>
+                        <div class="value">{{ filter.value ? filter.value : '&nbsp;' }}</div>
+                    </ion-col>
+                    <ion-col col-1 text-right>
+                        <ion-icon class="icon_param doc_color" name="ios-paper"></ion-icon>
+                    </ion-col>
+                </ion-row>
+            </div>
 
         </div>
 
@@ -283,7 +290,41 @@
 
         </div>
 
+        <!-- регион -->
+        <div class="data_block">
+
+            <ion-row align-items-center *ngIf="item.region && item.region.trim().length > 0" class="data_block_item">
+                <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
+                <ion-col text-right>
+                    <div class="label">{{ 'incoming_detail.region' | translate }}</div>
+                    <div class="value">{{ item.region }}</div>
+                </ion-col>
+                <ion-col col-1 text-right>
+                    <ion-icon class="icon_param doc_color" name="ios-paper"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+        <!-- Комментарий -->
+        <div class="data_block" *ngIf="item.lead.comment && item.lead.comment.trim().length > 0">
+
+            <ion-row align-items-center class="data_block_item">
+                <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
+                <ion-col text-right>
+                    <div class="label">{{ 'exposed_detail.comment' | translate }}</div>
+                    <div class="value">{{ item.lead.comment }}</div>
+                </ion-col>
+                <ion-col col-1 text-right>
+                    <ion-icon class="icon_param sphere_color" name="ios-paper"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+        </div>
+
     </div>
+
+
 
     <!-- блок с ошибкой -->
     <div *ngIf="sections.error" class="error_area">

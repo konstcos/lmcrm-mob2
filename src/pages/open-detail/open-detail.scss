@@ -46,6 +46,11 @@ page-open-detail {
 
     background: #F8F8F8 !important;
 
+    .copy_button {
+      color: #8DA0AF;
+    }
+
+
     .spinnerLoading {
       text-align: center;
       margin-top: 20%;
@@ -151,9 +156,11 @@ page-open-detail {
         .label {
           color: grey;
           font-size: 11px;
+          direction: rtl;
         }
 
         .value {
+          direction: rtl;
           margin-top: 2px;
           color: #4E4E4E;
           font-size: 13px;

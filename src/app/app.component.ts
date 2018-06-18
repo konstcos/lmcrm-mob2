@@ -151,10 +151,10 @@ export class MyApp {
 
 
         // todo Set the default language for translation strings, and the current language.
-        translate.setDefaultLang('en');
-        translate.use('en');
-        // translate.setDefaultLang('he');
-        // translate.use('he');
+        // translate.setDefaultLang('en');
+        // translate.use('en');
+        translate.setDefaultLang('he');
+        translate.use('he');
 
         settings.load();
 
@@ -426,6 +426,29 @@ export class MyApp {
                     message: data.additionalData.message,
                     showCloseButton: true,
                     position: 'top'
+                });
+
+                this.leadToast.onDidDismiss(() => {
+                    this.leadToast = false;
+                });
+
+                this.leadToast.present();
+
+
+            } else if (data.additionalData.type == 8) {
+
+                // alert(JSON.stringify(data));
+
+                if (this.leadToast) {
+
+                    return false;
+                }
+
+                this.leadToast = this.toastCtrl.create({
+                    // message: data.additionalData.message,
+                    message: data.message,
+                    showCloseButton: true,
+                    position: 'bottom'
                 });
 
                 this.leadToast.onDidDismiss(() => {
