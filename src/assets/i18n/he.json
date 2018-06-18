@@ -442,8 +442,8 @@
         "no_statements": "אין הצהרות על תקבולים",
         "no_transactions": "אין צהרות על תשלומים",
         "no_files": "קבצים מצורפים",
-        "phone_copied_to_clipboard": "{{ phone_number }} copied to clipboard",
-        "name_copied_to_clipboard": "{{ name }} copied to clipboard",
+        "phone_copied_to_clipboard": "מספר טלפון הועתק",
+        "name_copied_to_clipboard": "{{ name }} הועתק",
         "paymentWithWallet": {
             "success": {
                 "title": "תשלום מוצלח בארנק",
