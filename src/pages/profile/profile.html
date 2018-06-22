@@ -33,14 +33,14 @@
     <div class="data_container" *ngIf="sections.data">
 
         <!-- Блок основных данных по агенту -->
-        <div class="data_block">
+        <div class="data_block space_bottom">
 
             <div class="data_item">
                 <div class="label">
                     {{ 'profile.first_name' | translate }}
                 </div>
 
-                <div class="data">
+                <div class="data block">
                     {{ profileData.main.first_name }}
                 </div>
             </div>
@@ -50,7 +50,7 @@
                     {{ 'profile.last_name' | translate }}
                 </div>
 
-                <div class="data">
+                <div class="data block">
                     {{ profileData.main.last_name }}
                 </div>
             </div>
@@ -60,25 +60,24 @@
                     {{ 'profile.company' | translate }}
                 </div>
 
-                <div class="data">
+                <div class="data block">
                     {{ profileData.main.company }}
                 </div>
             </div>
 
             <div class="data_item">
                 <div class="label">
-                    <!--{{ 'profile.company' | translate }}-->
                     Passport
                 </div>
 
-                <div class="data">
+                <div class="data block">
                     {{ profileData.main.passport }}
                 </div>
             </div>
 
-            <div class="edit">
-                <button ion-button clear small color="default" (click)="editMainData()">Edit</button>
-            </div>
+            <!--<div class="edit">-->
+                <!--<button ion-button clear small color="default" (click)="editMainData()">Edit</button>-->
+            <!--</div>-->
 
         </div>
 
@@ -297,6 +296,17 @@
 
             <div class="data_item">
                 <div class="label">
+                    <!--{{ 'profile.last_name' | translate }}-->
+                    Street
+                </div>
+
+                <div class="data">
+                    {{ profileData.street.length > 0 ? profileData.street : ' &nbsp; ' }}
+                </div>
+            </div>
+
+            <div class="data_item">
+                <div class="label">
                     <!--{{ 'profile.first_name' | translate }}-->
                     Region
                 </div>
@@ -317,17 +327,6 @@
                         </span>
                     </div>
 
-                </div>
-            </div>
-
-            <div class="data_item">
-                <div class="label">
-                    <!--{{ 'profile.last_name' | translate }}-->
-                    Street
-                </div>
-
-                <div class="data">
-                    {{ profileData.street }}
                 </div>
             </div>
 

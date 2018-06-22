@@ -151,10 +151,10 @@ export class MyApp {
 
 
         // todo Set the default language for translation strings, and the current language.
-        // translate.setDefaultLang('en');
-        // translate.use('en');
-        translate.setDefaultLang('he');
-        translate.use('he');
+        translate.setDefaultLang('en');
+        translate.use('en');
+        // translate.setDefaultLang('he');
+        // translate.use('he');
 
         settings.load();
 

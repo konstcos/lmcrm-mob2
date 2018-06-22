@@ -9,7 +9,7 @@
             </button>
         </ion-buttons>
 
-        <ion-title>{{ 'profile.title' | translate }}</ion-title>
+        <ion-title (click)="close()">back to {{ 'profile.title' | translate }}</ion-title>
 
     </ion-navbar>
 
@@ -18,6 +18,151 @@
 
 <ion-content padding>
 
-    редактирование регионов
+    <!-- спинер загрузки -->
+    <div *ngIf="sections.loading" class="spinnerLoading">
+        <ion-spinner color="primary" name="crescent"></ion-spinner>
+    </div>
+
+    <!-- блок с данными -->
+    <div class="data" *ngIf="sections.data">
+
+        <!-- Поле с именем пользователя -->
+        <div class="personal_data_row">
+
+            <ion-row>
+
+                <!-- Иконка валидации -->
+                <ion-col col-1 align-self-center text-right class="validation_block">
+
+                    <!-- Успешная валидация -->
+                    <!--<ion-icon *ngIf="state.firstName == 2" class="success" name="md-checkmark"></ion-icon>-->
+                    <!-- Ошибка валидации -->
+                    <!--<ion-icon *ngIf="state.firstName == 3" class="alert" name="md-alert"></ion-icon>-->
+
+                </ion-col>
+
+                <!-- Блок с именем пользователя -->
+                <ion-col class="data_block" [ngClass]="(state.firstName == 3) ? 'error' : '' ">
+                    <!-- Лейбл ввода имени -->
+                    <div class="label">
+                        Street
+                    </div>
+                    <!-- Инпут имени пользователя -->
+                    <ion-input
+                            class="input_row"
+                            type="text"
+                            [(ngModel)]="data.street"
+                            text-right
+                            name="first_name">
+                    </ion-input>
+
+                </ion-col>
+            </ion-row>
+
+
+            <!-- Сообщение с ошибкой -->
+            <ion-row
+                    class="error_message"
+                    *ngIf="false">
+                <ion-col>
+                    {{ 'profile.first_name_required' | translate }}
+                </ion-col>
+            </ion-row>
+
+        </div>
+        <!-- Конец Поле с именем пользователя -->
+
+        <!-- Поле с регионом -->
+        <div class="region_data_row">
+
+            <ion-row>
+
+                <!-- Блок с именем пользователя -->
+                <ion-col class="" text-right>
+                    <!-- Лейбл ввода имени -->
+                    <div class="label" text-right>
+                        Region
+                    </div>
+
+                    <!--<div text-right class="region_item" (click)="clearRegions()">-->
+
+                    <!--<ion-col class="region_selected_name">-->
+                    <!--{{ 'PERSONAL_DATA_ISRAEL' | translate }}-->
+                    <!--&lt;!&ndash;Israel&ndash;&gt;-->
+                    <!--</ion-col>-->
+                    <!--<ion-col col-1 text-center>-->
+                    <!--</ion-col>-->
+
+                    <!--</div>-->
+
+
+                    <div *ngFor="let selectRegion of selectRegions" class="region_item"
+                         (click)="dellRegion(selectRegion)">
+
+
+                        <ion-row>
+                            <ion-col class="">
+                                {{ selectRegion.name }}
+                            </ion-col>
+                            <ion-col col-1 text-center>
+                                <ion-icon *ngIf="selectRegion.parent_id != 0" class="dell_region_button"
+                                          name="md-close"></ion-icon>
+                            </ion-col>
+                        </ion-row>
+
+                    </div>
+
+
+                </ion-col>
+            </ion-row>
+
+            <div class="region_variant_block">
+
+                <div *ngIf="regionsLoading" text-center>
+                    <ion-spinner color="primary" name="crescent"></ion-spinner>
+                </div>
+
+                <div *ngIf="noChildRegions" text-center class="no_child_regions">
+                    there are no child regions in the selected region
+                </div>
+
+                <div *ngIf="regionsBlock">
+
+
+                    <div *ngFor="let region of regions" class="region_variant_item" text-center
+                         (click)="switchRegion(region)">
+
+                        {{ region.name }}
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- блок с ошибкой -->
+    <div *ngIf="sections.error" class="error_area">
+
+        <div class="error_text">
+            Something went wrong, please go back and try again
+        </div>
+
+        <div class="error_button">
+            <button ion-button large color="light" (click)="close('refresh')">
+                Go back
+            </button>
+        </div>
+
+    </div>
 
 </ion-content>
+
+<ion-footer>
+    <button ion-button small full no-margin (click)="saveData()" [disabled]="isSaveDisabled()">
+        {{ 'profile.save' | translate }}
+    </button>
+</ion-footer>

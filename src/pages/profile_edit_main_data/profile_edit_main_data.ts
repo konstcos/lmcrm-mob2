@@ -38,7 +38,6 @@ export class ProfileEditMainDataPage {
         first_name: false,
         last_name: false,
         company: false,
-        passport: false,
     };
 
     /**
@@ -54,7 +53,6 @@ export class ProfileEditMainDataPage {
         firstName: 2,
         lastName: 2,
         company: 2,
-        passport: 2,
     };
 
 
@@ -67,10 +65,6 @@ export class ProfileEditMainDataPage {
         loading: true,
         // область с данными
         data: false,
-
-
-        // подтверждение отправки лида на аукцион
-        auction: false,
         // вывод ошибки
         error: false
     };
@@ -80,8 +74,6 @@ export class ProfileEditMainDataPage {
                 public view: ViewController,
                 public loadingCtrl: LoadingController,
                 public user: User) {
-        // получение id открытого лида
-        // this.profileData = navParams.get('data');
 
         // получаем данные с родительской страницы
         let data = navParams.get('data');
@@ -93,7 +85,6 @@ export class ProfileEditMainDataPage {
             this.data.first_name = data.main.first_name;
             this.data.last_name = data.main.last_name;
             this.data.company = data.main.company;
-            this.data.passport = data.main.passport;
 
             // выводим секцию с данными
             this.section('data');
@@ -132,11 +123,6 @@ export class ProfileEditMainDataPage {
                 this.sections.data = true;
                 break;
 
-            case 'auction':
-                // вывод ошибки
-                this.sections.auction = true;
-                break;
-
             case 'error':
                 // вывод ошибки
                 this.sections.error = true;
@@ -172,8 +158,7 @@ export class ProfileEditMainDataPage {
         // todo валидация данных
 
         let loading = this.loadingCtrl.create({
-            // content: 'Please wait...'
-        });
+       });
 
         loading.present();
 
@@ -221,22 +206,29 @@ export class ProfileEditMainDataPage {
      */
     isSaveDisabled(): boolean {
 
-        if(this.sections.error)
+        // при включенной страние ошибки
+        // OFF (выключаем кнопку)
+        if (this.sections.error)
             return true;
 
-        if(this.profileData.main.first_name === this.data.first_name)
-            return true;
+        // при изменении в имени
+        // ON (включаем кнопку)
+        if (this.profileData.main.first_name !== this.data.first_name)
+            return false;
 
-        if(this.profileData.main.last_name === this.data.last_name)
-            return true;
+        // при изменении в фамилии
+        // ON (включаем кнопку)
+        if (this.profileData.main.last_name !== this.data.last_name)
+            return false;
 
-        if(this.profileData.main.company === this.data.last_name)
-            return true;
+        // при изменении в названии компании
+        // ON (включаем кнопку)
+        if(this.profileData.main.company !== this.data.company)
+            return false;
 
-        if(this.profileData.main.passport === this.data.passport)
-            return true;
-
-        return false;
+        // если до этого кнопка небыла включана
+        // OFF (выключаем кнопку)
+        return true;
     }
 
 

@@ -315,9 +315,9 @@ export class PasswordRecovery {
         if (this.credentials.confirmPassword != '') {
             this.passwordConfirmValidate();
         }
-        return true;
 
-        // console.log('Валидация пароля');
+        // успешная валидация
+        return true;
     }
 
 

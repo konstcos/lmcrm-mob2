@@ -9,15 +9,52 @@
             </button>
         </ion-buttons>
 
-        <ion-title>{{ 'profile.title' | translate }}</ion-title>
+        <ion-title (click)="close()">back to {{ 'profile.title' | translate }}</ion-title>
 
     </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
 
-    выбор режимов для лидбайера
+    <!-- спинер загрузки -->
+    <div *ngIf="sections.loading" class="spinnerLoading">
+        <ion-spinner color="primary" name="crescent"></ion-spinner>
+    </div>
+
+    <!-- блок с данными -->
+    <div class="data" *ngIf="sections.data">
+
+        <ion-list radio-group [(ngModel)]="selectedMode">
+
+            <ion-item *ngFor="let item of items">
+                <ion-label class="sphere_name" text-right>{{ item.name }}</ion-label>
+                <ion-radio value="{{ item.id }}"></ion-radio>
+            </ion-item>
+
+        </ion-list>
+
+    </div>
+
+    <!-- блок с ошибкой -->
+    <div *ngIf="sections.error" class="error_area">
+
+        <div class="error_text">
+            Something went wrong, please go back and try again
+        </div>
+
+        <div class="error_button">
+            <button ion-button large color="light" (click)="close('refresh')">
+                Go back
+            </button>
+        </div>
+
+    </div>
 
 </ion-content>
+
+<ion-footer>
+    <button ion-button small full no-margin (click)="saveData()" [disabled]="isSaveDisabled()">
+        {{ 'profile.save' | translate }}
+    </button>
+</ion-footer>

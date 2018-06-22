@@ -386,6 +386,69 @@ export class User {
 
 
     /**
+     * Сохранение основных данных пользователя в профиле
+     *
+     */
+    saveProfileAbout(data: any) {
+        return this.api.post('api/profile/about/save', data);
+    }
+
+
+    /**
+     * Изменение пароля через профиль агента
+     *
+     */
+    changePasswordThroughProfile(data: any) {
+        return this.api.post('api/profile/password/change', data);
+    }
+
+
+    /**
+     * Сохранение банковских данных пользователя
+     *
+     */
+    saveBankData(data: any) {
+        return this.api.post('api/profile/bank/data/save', data);
+    }
+
+
+    /**
+     * Сохранение телефонов пользователя
+     *
+     */
+    savePhones(data: any) {
+        return this.api.post('api/profile/phones/save', data);
+    }
+
+
+    /**
+     * Сохранение специализаций агента
+     *
+     */
+    saveProfileSpecializations(data: any) {
+        return this.api.post('api/profile/specializations/save', data);
+    }
+
+
+    /**
+     * Сохранение специализаций агента
+     *
+     */
+    saveProfileOperatingMode(data: any) {
+        return this.api.post('api/profile/operating/mode/save', data);
+    }
+
+
+    /**
+     * Сохранение региона в профиле пользователя
+     *
+     */
+    saveProfileRegion(data: any) {
+        return this.api.post('api/profile/region/save', data);
+    }
+
+
+    /**
      * Сохранение настроек итема сеттинга на сервере
      *
      */

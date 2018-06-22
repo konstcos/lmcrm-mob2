@@ -394,35 +394,33 @@ export class ProfilePage {
 
     /**
      * Редактирование основных данных агента
-     * todo
+     * todo основные данные не редактируются, удалить потом
      */
-    editMainData() {
-        // console.log(statuses);
-        let modal = this.modalController.create(ProfileEditMainDataPage, {data: this.profileData});
-
-        // события по закрытию модального окна
-        modal.onDidDismiss(data => {
-
-            // данные были сохраненны успешно
-            if(data.state === 'data_saved') {
-                this.profileData['main'].first_name = data.data.first_name;
-                this.profileData['main'].last_name = data.data.last_name;
-                this.profileData['main'].company = data.data.company;
-                this.profileData['main'].passport = data.data.passport;
-            }
-
-            // обновление данных на родительской странице
-            if(data.state === 'refresh') {
-                this.loadData();
-            }
-
-            console.log('данные по редактированию главных данных');
-            console.log(data);
-
-        });
-
-        modal.present();
-    }
+    // editMainData() {
+    //
+    //     // открытие модального окна
+    //     let modal = this.modalController.create(ProfileEditMainDataPage, {data: this.profileData});
+    //
+    //     // события по закрытию модального окна
+    //     modal.onDidDismiss(data => {
+    //
+    //         // данные были сохраненны успешно
+    //         if(data.state === 'data_saved') {
+    //             // обновляем данные в моделе
+    //             this.profileData['main'].first_name = data.data.first_name;
+    //             this.profileData['main'].last_name = data.data.last_name;
+    //             this.profileData['main'].company = data.data.company;
+    //         }
+    //
+    //         // обновление данных на родительской странице
+    //         // если пришла команда с родительского окна
+    //         if(data.state === 'refresh') {
+    //             this.loadData();
+    //         }
+    //     });
+    //
+    //     modal.present();
+    // }
 
 
     /**
@@ -431,7 +429,7 @@ export class ProfilePage {
      */
     editSpecializations() {
         // console.log(statuses);
-        let modal = this.modalController.create(ProfileEditSpecializationsPage, {item: 1});
+        let modal = this.modalController.create(ProfileEditSpecializationsPage, {data: this.profileData});
 
 
         modal.onDidDismiss(data => {
@@ -451,15 +449,33 @@ export class ProfilePage {
      */
     editLeadBuyerOperatingMode() {
         // console.log(statuses);
-        let modal = this.modalController.create(ProfileEditLeadBuyerOperatingModePage, {item: 1});
+        let modal = this.modalController.create(ProfileEditLeadBuyerOperatingModePage, {data: this.profileData});
 
 
+        // события по закрытию модального окна
         modal.onDidDismiss(data => {
 
-            console.log('данные по статусу');
+            console.log('вот такие денные: ');
             console.log(data);
 
+            // данные были сохраненны успешно
+            if (data.state === 'data_saved') {
+
+                console.log('data_saved');
+                console.log(data);
+
+                // обновляем данные в моделе
+                this.profileData['modes_leadbuyer'] = data.data.modes_leadbuyer;
+                this.profileData['modes_leadbuyer_id'] = data.data.modes_leadbuyer_id;
+            }
+
+            // обновление данных на родительской странице
+            // если пришла команда с родительского окна
+            if (data.state === 'refresh') {
+                this.loadData();
+            }
         });
+
 
         modal.present();
     }
@@ -467,18 +483,27 @@ export class ProfilePage {
 
     /**
      * Редактирование данных о пользователе (о себе)
-     * todo
+     *
      */
     editAbout() {
-        // console.log(statuses);
-        let modal = this.modalController.create(ProfileEditAboutPage, {item: 1});
 
+        // открытие модального окна
+        let modal = this.modalController.create(ProfileEditAboutPage, {data: this.profileData});
 
+        // события по закрытию модального окна
         modal.onDidDismiss(data => {
 
-            console.log('данные по статусу');
-            console.log(data);
+            // данные были сохраненны успешно
+            if (data.state === 'data_saved') {
+                // обновляем данные в моделе
+                this.profileData['main'].about = data.data.about;
+            }
 
+            // обновление данных на родительской странице
+            // если пришла команда с родительского окна
+            if (data.state === 'refresh') {
+                this.loadData();
+            }
         });
 
         modal.present();
@@ -487,18 +512,34 @@ export class ProfilePage {
 
     /**
      * Смена пароля
-     * todo
+     *
      */
     editPassword() {
         // console.log(statuses);
-        let modal = this.modalController.create(ProfileEditPasswordPage, {item: 1});
+        let modal = this.modalController.create(ProfileEditPasswordPage);
 
-
+        // события по закрытию модального окна
         modal.onDidDismiss(data => {
 
-            console.log('данные по статусу');
+            console.log('смена пароля закончена');
             console.log(data);
 
+            // данные были сохраненны успешно
+            if (data.state === 'data_saved') {
+                // обновляем данные в моделе
+
+                const toast = this.toastController.create({
+                    message: 'Password changed successfully',
+                    duration: 3000
+                });
+                toast.present();
+            }
+
+            // обновление данных на родительской странице
+            // если пришла команда с родительского окна
+            if (data.state === 'refresh') {
+                this.loadData();
+            }
         });
 
         modal.present();
@@ -507,14 +548,21 @@ export class ProfilePage {
 
     /**
      * Редактирование телефона
-     * todo
+     *
      */
     editPhones() {
-        // console.log(statuses);
-        let modal = this.modalController.create(ProfileEditPhonesPage, {item: 1});
 
+        // открытие модального окна
+        let modal = this.modalController.create(ProfileEditPhonesPage, {data: this.profileData});
 
+        // события по закрытию модального окна
         modal.onDidDismiss(data => {
+
+            // обновление данных на родительской странице
+            // если пришла команда с родительского окна
+            if (data.state === 'refresh') {
+                this.loadData();
+            }
 
             console.log('данные по статусу');
             console.log(data);
@@ -527,18 +575,30 @@ export class ProfilePage {
 
     /**
      * Редактирование банковских данных
-     * todo
+     *
      */
     editBankData() {
-        // console.log(statuses);
-        let modal = this.modalController.create(ProfileEditBankDataPage, {item: 1});
 
+        // открытие модального окна
+        let modal = this.modalController.create(ProfileEditBankDataPage, {data: this.profileData});
 
+        // события по закрытию модального окна
         modal.onDidDismiss(data => {
 
-            console.log('данные по статусу');
-            console.log(data);
+            // данные были сохраненны успешно
+            if (data.state === 'data_saved') {
+                // обновляем данные в моделе
+                this.profileData['payment'].company = data.data.company;
+                this.profileData['payment'].bank = data.data.bank;
+                this.profileData['payment'].branch_number = data.data.branch_number;
+                this.profileData['payment'].invoice_number = data.data.invoice_number;
+            }
 
+            // обновление данных на родительской странице
+            // если пришла команда с родительского окна
+            if (data.state === 'refresh') {
+                this.loadData();
+            }
         });
 
         modal.present();
@@ -547,14 +607,27 @@ export class ProfilePage {
 
     /**
      * Редактирование региона
-     * todo
+     *
      */
     editRegion() {
         // console.log(statuses);
-        let modal = this.modalController.create(ProfileEditRegionPage, {item: 1});
+        let modal = this.modalController.create(ProfileEditRegionPage, {data: this.profileData});
 
 
         modal.onDidDismiss(data => {
+
+            // данные были сохраненны успешно
+            if (data.state === 'data_saved') {
+                // обновляем данные в моделе
+                this.profileData['street'] = data.data.street;
+                this.profileData['region'] = data.data.region;
+            }
+
+            // обновление данных на родительской странице
+            // если пришла команда с родительского окна
+            if (data.state === 'refresh') {
+                this.loadData();
+            }
 
             console.log('данные по статусу');
             console.log(data);

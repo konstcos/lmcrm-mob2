@@ -326,7 +326,7 @@ export class AddLeadPage {
         // }
 
         // Проверка по регулярке
-        let reg = /^\+?(972|0)(\-)?0?(([23489]{1}\d{7})|[5]{1}\d{8})$/;
+        let reg = /^\+?(972|0)(\-)?0?(([23489]{1}\d{7})|[57]{1}\d{8})$/;
         if(!reg.test(this.lead.phone)) {
             this.errors.phone.empty = false;
             this.errors.phone.notEnough = false;

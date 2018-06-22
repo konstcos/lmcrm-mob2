@@ -9,15 +9,123 @@
             </button>
         </ion-buttons>
 
-        <ion-title>{{ 'profile.title' | translate }}</ion-title>
+        <ion-title (click)="close()">back to {{ 'profile.title' | translate }}</ion-title>
 
     </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
 
-    редактирование телефонов
+    <!-- спинер загрузки -->
+    <div *ngIf="sections.loading" class="spinnerLoading">
+        <ion-spinner color="primary" name="crescent"></ion-spinner>
+    </div>
+
+    <!-- блок с данными -->
+    <div class="data" *ngIf="sections.data">
+
+        <div *ngFor="let phone of data">
+
+            <!-- Поле с телефоном -->
+            <div class="personal_data_row" *ngIf="!phone.delete" >
+
+                <ion-row>
+
+                    <!--Иконка индикатор главный/не главный номер -->
+                    <ion-col col-4 align-self-center text-center class="main_button" (click)="setPhoneAsMain(phone)">
+
+                        <!-- Успешная валидация -->
+                        <!--<ion-icon class="success" name="md-checkmark"></ion-icon>-->
+                        <!--<ion-icon *ngIf="phone.main == 1" class="success" name="md-checkmark"></ion-icon>-->
+                        <span *ngIf="phone.main == 1" class="main">main</span>
+                        <span *ngIf="phone.main == 0" class="use_as_main">use as main</span>
+                        <!-- Ошибка валидации -->
+                        <!--<ion-icon *ngIf="phone.main == 0" class="alert" name="md-alert"></ion-icon>-->
+
+                    </ion-col>
+
+                    <!-- Блок с именем пользователя -->
+                    <!--<ion-col class="data_block" [ngClass]="(state.firstName == 3) ? 'error' : '' ">-->
+                    <ion-col class="data_block">
+                        <!-- Лейбл ввода имени -->
+                        <!--<div class="label">-->
+                        <!--{{ 'profile.first_name' | translate }}-->
+                        <!--</div>-->
+                        <!-- Инпут имени пользователя -->
+                        <ion-input
+                                class="input_row"
+                                type="text"
+                                [(ngModel)]="phone.phone"
+                                text-right>
+                        </ion-input>
+
+                    </ion-col>
+
+                    <ion-col col-2 align-self-center text-center (click)="phoneDeleteConfirmation(phone)">
+                        <ion-icon class="trash" name="md-trash"></ion-icon>
+                    </ion-col>
+
+                </ion-row>
+
+                <!-- Сообщение с ошибкой -->
+                <ion-row
+                        class="error_message"
+                        *ngIf="phone.errors">
+                    <ion-col>
+                        <div *ngFor="let error of phone.errors">{{ error }}</div>
+                    </ion-col>
+                    <ion-col col-2></ion-col>
+                </ion-row>
+
+                <!-- Комментарий -->
+                <ion-row
+                        class="comment_block">
+                    <ion-col>
+                        <ion-textarea
+                                class="about_text"
+                                [(ngModel)]="phone.comment"
+                                text-right
+                                placeholder="enter comment"
+                                rows="5">
+                        </ion-textarea>
+                    </ion-col>
+                </ion-row>
+
+
+            </div>
+            <!-- Конец Поля с телефоном -->
+
+        </div>
+
+        <!-- Добавление нового телефонного номера -->
+        <div class="add_new_phone">
+            <button ion-button small full round no-margin (click)="addPhone()">
+                add phone
+            </button>
+        </div>
+
+
+    </div>
+    <!-- блок с ошибкой -->
+    <div *ngIf="sections.error" class="error_area">
+
+        <div class="error_text">
+            Something went wrong, please go back and try again
+        </div>
+
+        <div class="error_button">
+            <button ion-button large color="light" (click)="close('refresh')">
+                Go back
+            </button>
+        </div>
+
+    </div>
 
 </ion-content>
+
+<ion-footer>
+    <button ion-button small full no-margin (click)="saveData()" [disabled]="isSaveDisabled()">
+        {{ 'profile.save' | translate }}
+    </button>
+</ion-footer>

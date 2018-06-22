@@ -2,6 +2,167 @@ profile_edit_region_page {
 
   .content {
     background: #F8F8F8;
+
+    .spinnerLoading {
+      text-align: center;
+      margin-top: 20%;
+    }
+
+    .data {
+
+      .personal_data_row {
+
+        margin-bottom: 20px;
+
+        .validation_block {
+
+          .success {
+            color: green;
+          }
+
+          .alert {
+            color: red;
+          }
+
+          padding-bottom: 0;
+        }
+
+        .data_block {
+
+          .label {
+            text-align: right;
+            color: grey;
+            font-size: 12px;
+          }
+
+          .input_row {
+
+            .text-input {
+              //margin-top: 7px;
+              //margin-bottom: 5px;
+              margin: 7px 2px 5px;
+              color: #337AB7;
+            }
+
+          }
+
+          border-bottom: 1px #E4E4E4 solid;
+          padding-bottom: 0;
+
+          &.error {
+            border-bottom: 1px #CA8888 solid;
+          }
+
+        }
+
+      }
+
+    }
+
+    .error_area {
+
+      .error_text {
+        color: #A9A9A9;
+        font-size: 16px;
+        text-align: center;
+        margin: 20% 0;
+      }
+
+      .error_button {
+        margin: 30px 0;
+        text-align: center;
+      }
+    }
+
+    .region_data_row {
+
+      .label {
+        color: grey;
+        font-size: 12px;
+        margin-bottom: 10px;
+      }
+
+    }
+
+    .region_item {
+      color: #8CA3B7;
+      font-size: 12px;
+      margin-top: 20px;
+      cursor: pointer;
+
+      &:last-child {
+        color: #337AB7;
+      }
+
+      $rightPadding: 20px;
+
+      & + .region_item {
+        margin-right: $rightPadding;
+
+        & + .region_item {
+          margin-right: $rightPadding * 2;
+
+          & + .region_item {
+            margin-right: $rightPadding * 3;
+
+            & + .region_item {
+              margin-right: $rightPadding * 4;
+
+              & + .region_item {
+                margin-right: $rightPadding * 5;
+
+                & + .region_item {
+                  margin-right: $rightPadding * 6;
+
+                  & + .region_item {
+                    margin-right: $rightPadding * 7;
+
+                    & + .region_item {
+                      margin-right: $rightPadding * 8;
+
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .region_selected_name {
+        color: #337AB7;
+        font-size: 14px;
+      }
+
+      .dell_region_button {
+        color: #FF7B7B;
+        font-size: 10px;
+      }
+
+    }
+
+    .region_variant_block {
+      margin-top: 30px;
+      //margin-left: 30%;
+
+      .no_child_regions {
+        font-size: 10px;
+        color: grey;
+      }
+
+      .region_variant_item {
+        padding: 10px 0;
+        margin: 12px 20px;
+        font-size: 12px;
+        cursor: pointer;
+        color: grey;
+        font-weight: 500;
+        border-bottom: solid 1px #CACACA;
+        border-radius: 20px;
+      }
+
+    }
+
   }
 
   .back_arrow {

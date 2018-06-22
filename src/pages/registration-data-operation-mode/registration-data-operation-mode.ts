@@ -18,7 +18,6 @@ import {User} from '../../providers/user';
 })
 export class RegistrationDataOperatingModePage {
 
-
     /**
      * Массив с итемами сфер на странице
      *

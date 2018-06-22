@@ -176,68 +176,17 @@
         </div>
         <!-- Конец Поле с компанией пользователя -->
 
-        <!-- Поле с паспортом пользователя -->
-        <div class="personal_data_row">
-
-            <ion-row>
-
-                <!-- Иконка валидации -->
-                <ion-col col-1 align-self-center text-right class="validation_block">
-
-                    <!-- Успешная валидация -->
-                    <ion-icon *ngIf="state.passport == 2" class="success" name="md-checkmark"></ion-icon>
-                    <!-- Ошибка валидации -->
-                    <ion-icon *ngIf="state.passport == 3" class="alert" name="md-alert"></ion-icon>
-
-                </ion-col>
-
-                <!-- Блок с именем пользователя -->
-                <ion-col class="data_block" [ngClass]="(state.passport == 3) ? 'error' : '' ">
-                    <!-- Лейбл ввода имени -->
-                    <div class="label">
-                        <!--{{ 'profile.passport' | translate }}-->
-                        Passport
-                    </div>
-                    <!-- Инпут имени пользователя -->
-                    <ion-input
-                            class="input_row"
-                            type="text"
-                            [(ngModel)]="data.passport"
-                            text-right
-                            name="first_name">
-                    </ion-input>
-
-                    <!--(blur)="firstNameValidate()"-->
-
-                </ion-col>
-            </ion-row>
-
-
-            <!-- Сообщение с ошибкой -->
-            <ion-row
-                    class="error_message"
-                    *ngIf="false">
-                <ion-col>
-                    {{ 'profile.passport_required' | translate }}
-                </ion-col>
-            </ion-row>
-
-        </div>
-        <!-- Конец Поле с паспортом пользователя -->
-
     </div>
 
     <!-- блок с ошибкой -->
     <div *ngIf="sections.error" class="error_area">
 
         <div class="error_text">
-            <!--{{ 'incoming_detail.open_lead_area.incomprehensibleError' | translate }}-->
             Something went wrong, please go back and try again
         </div>
 
         <div class="error_button">
             <button ion-button large color="light" (click)="close('refresh')">
-                <!--<ion-icon name="md-refresh"></ion-icon>-->
                 Go back
             </button>
         </div>

@@ -9,7 +9,7 @@
             </button>
         </ion-buttons>
 
-        <ion-title>{{ 'profile.title' | translate }}</ion-title>
+        <ion-title (click)="close()">back to {{ 'profile.title' | translate }}</ion-title>
 
     </ion-navbar>
 
@@ -18,6 +18,45 @@
 
 <ion-content padding>
 
-    выбор специализаций
+
+    <!-- спинер загрузки -->
+    <div *ngIf="sections.loading" class="spinnerLoading">
+        <ion-spinner color="primary" name="crescent"></ion-spinner>
+    </div>
+
+    <!-- блок с данными -->
+    <div class="data" *ngIf="sections.data">
+
+        <ion-list>
+
+            <ion-item *ngFor="let item of specializations" dir="rtl">
+                <ion-label class="sphere_name">{{ item.name }}</ion-label>
+                <ion-checkbox [(ngModel)]="item.status" (ionChange)='selectSpecialization(item)'></ion-checkbox>
+            </ion-item>
+
+        </ion-list>
+
+    </div>
+
+    <!-- блок с ошибкой -->
+    <div *ngIf="sections.error" class="error_area">
+
+        <div class="error_text">
+            Something went wrong, please go back and try again
+        </div>
+
+        <div class="error_button">
+            <button ion-button large color="light" (click)="close('refresh')">
+                Go back
+            </button>
+        </div>
+
+    </div>
 
 </ion-content>
+
+<ion-footer>
+    <button ion-button small full no-margin (click)="saveData()" [disabled]="isSaveDisabled()">
+        {{ 'profile.save' | translate }}
+    </button>
+</ion-footer>
