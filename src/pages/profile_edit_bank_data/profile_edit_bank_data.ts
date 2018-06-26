@@ -153,6 +153,30 @@ export class ProfileEditBankDataPage {
 
 
     /**
+     * проверка чтобы вводились только числа (не буквы)
+     */
+    branchNumberCheck(event) {
+        setTimeout(() => {
+                this.data.branch_number = event.replace(/\D+/g, "");
+            }
+            , 0);
+
+    }
+
+
+    /**
+     * проверка чтобы вводились только числа (не буквы)
+     */
+    invoceNumberCheck(event) {
+        setTimeout(() => {
+                this.data.invoice_number = event.replace(/\D+/g, "");
+            }
+            , 0);
+
+    }
+
+
+    /**
      * Сохранение основных данных о агенте
      *
      */

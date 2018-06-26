@@ -35,7 +35,7 @@ export class ProfileEditRegionPage {
      *
      */
     public data: any = {
-        street: false,
+        // street: false,
         region: false,
     };
 
@@ -110,7 +110,7 @@ export class ProfileEditRegionPage {
             // если данные есть
 
             // заводим нужные данные
-            this.data.street = data.street;
+            // this.data.street = data.street;
             this.data.region = data.region;
 
             this.preparationOfTheRegion();
@@ -398,7 +398,7 @@ export class ProfileEditRegionPage {
 
         loading.present();
 
-        this.user.saveProfileRegion({street: this.data.street, regionId: this.selectedRegionId})
+        this.user.saveProfileRegion({regionId: this.selectedRegionId})
             .subscribe(result => {
                     // при получении итемов
 
@@ -412,7 +412,7 @@ export class ProfileEditRegionPage {
                     if (data.status == 'success') {
                         // ответ получе нормально
 
-                        this.data.street = data.street;
+                        // this.data.street = data.street;
                         this.data.region = data.region;
 
                         // закрытие модального окна

@@ -35,11 +35,7 @@ export class ProfileEditSpecializationsPage {
      * Данные
      *
      */
-    public data: any = {
-        // first_name: false,
-        // last_name: false,
-        // company: false,
-    };
+    public data: any = [];
 
 
     /**
@@ -47,6 +43,13 @@ export class ProfileEditSpecializationsPage {
      *
      */
     public specializations: any = false;
+
+
+    /**
+     * Новые специализации которые пришли с сервера
+     *
+     */
+    public newSpecializations: any = [];
 
 
     /**
@@ -87,9 +90,6 @@ export class ProfileEditSpecializationsPage {
         // получаем данные с родительской страницы
         let data = navParams.get('data');
 
-        console.log('открылся');
-        console.log(data);
-
         // проверка данных
         if (data) {
             // если данные есть
@@ -99,21 +99,18 @@ export class ProfileEditSpecializationsPage {
             // this.data.last_name = data.main.last_name;
             // this.data.company = data.main.company;
 
+            // заносим в модель основные данные
+            this.profileData = JSON.parse(JSON.stringify(data));
+
             // получение специализаций
-            this.getSpecializations('leadbuyer');
+            this.getSpecializations(this.profileData.roles.sub);
 
             // выводим секцию с данными
             this.section('data');
-            // заносим в модель основные данные
-            this.profileData = data;
-
-            console.log('попал куда нужно');
 
         } else {
             // если данных нет
             // включаем раздел с ошибкой
-
-            console.log('сразу ошибка');
 
 
             this.section('error');
@@ -193,9 +190,6 @@ export class ProfileEditSpecializationsPage {
                 // переводим ответ в json
                 let data = result.json();
 
-                // console.log('получил все специализаций с сервера');
-                console.log(data);
-
                 let specializations = data.specializations;
 
                 // сценарий в зависимости от наличия данных сфер
@@ -209,6 +203,9 @@ export class ProfileEditSpecializationsPage {
                     }
 
                     this.specializations = specializations;
+
+                    // подготовка специализаций
+                    this.prepareSavedSpecializations();
 
                 } else {
                     // если уже есть сохраненные сферы
@@ -252,53 +249,133 @@ export class ProfileEditSpecializationsPage {
 
 
     /**
+     * Подготовка уже сохраненных специализаций
+     * Выделяет в массиве уже сохраненные специализации
+     */
+    prepareSavedSpecializations() {
+
+        // проверка, есть ли специализации
+        // если нет - выходим
+        if(!this.profileData.specializations || this.profileData.specializations.length === 0) {
+            return false;
+        }
+
+        // преобразование массива специализаций в объект
+        // с ключом - id специализации
+        let savedSpecializations = {};
+
+        for(let specialization of this.profileData.specializations) {
+            savedSpecializations[specialization.id] = specialization.name;
+        }
+
+        // перебираем все специализации, загруженные с сервера,
+        // и проставляем true где есть уже сохраненная специализация
+        for(let loadedSpecialization of this.specializations) {
+            if(savedSpecializations[loadedSpecialization.id]) {
+                loadedSpecialization.status = true;
+            }
+        }
+    }
+
+
+    /**
+     * Выбрать или убрать сферу
+     *
+     */
+    selectSpecialization(item) {
+
+        console.log('selectSpecialization: ');
+        console.log(item);
+
+        // if (item.defoult) {
+        //     item.defoult = false;
+        //     return false;
+        // }
+        //
+        // let added = false;
+        //
+        // let newItems = [];
+        //
+        // for (let specialization in this.selectedSpecializations) {
+        //
+        //     if (item.id != this.selectedSpecializations[specialization]) {
+        //
+        //         newItems.push(this.selectedSpecializations[specialization])
+        //
+        //     } else {
+        //
+        //         added = true;
+        //     }
+        // }
+        //
+        // if (!added) {
+        //     newItems.push(item.id)
+        // }
+        //
+        // this.selectedSpecializations = newItems;
+        //
+        // console.log('выбрал сферу');
+        // console.log(this.selectedSpecializations);
+
+        // this.selectedSpheres;
+
+    }
+
+
+
+    /**
      * Сохранение основных данных о агенте
      *
      */
     saveData() {
 
-        // todo валидация данных
+        let loading = this.loadingCtrl.create({
+        });
 
-        // let loading = this.loadingCtrl.create({
-        // });
-        //
-        // loading.present();
-        //
-        // this.user.saveProfileMainData(this.data)
-        //     .subscribe(result => {
-        //             // при получении итемов
-        //
-        //             // переводим ответ в json
-        //             let data = result.json();
-        //
-        //             // обработка ответа
-        //             if (data.status == 'success') {
-        //                 // ответ получе нормально
-        //
-        //                 // закрытие модального окна
-        //                 // с передачей данных родительскому
-        //                 this.close('data_saved');
-        //
-        //             } else {
-        //                 // ошибка в ответе
-        //
-        //                 // вывод блока с ошибкой
-        //                 this.section('error');
-        //             }
-        //
-        //             loading.dismiss();
-        //
-        //         }, err => {
-        //             // в случае ошибки
-        //
-        //             loading.dismiss();
-        //
-        //             // вывод блока с ошибкой
-        //             this.section('error');
-        //
-        //             console.log('ERROR: ' + err);
-        //         }
-        //     );
+        loading.present();
+
+        this.user.saveProfileSpecializations({specializations: this.specializations})
+            .subscribe(result => {
+                    // при получении итемов
+
+                    // переводим ответ в json
+                    let data = result.json();
+
+                    console.log(data);
+
+                    // обработка ответа
+                    if (data.status == 'success') {
+                        // ответ получе нормально
+
+                        console.log('Новые специализации с сервера:');
+                        console.log(data.specializations);
+
+                        this.newSpecializations = data.specializations;
+
+                        // закрытие модального окна
+                        // с передачей данных родительскому
+                        this.close('data_saved');
+
+                    } else {
+                        // ошибка в ответе
+
+                        // вывод блока с ошибкой
+                        this.section('error');
+                    }
+
+                    loading.dismiss();
+
+                }, err => {
+                    // в случае ошибки
+
+                    loading.dismiss();
+
+                    // вывод блока с ошибкой
+                    this.section('error');
+
+                    console.log('ERROR: ' + err);
+                }
+            );
     }
 
 
@@ -313,24 +390,23 @@ export class ProfileEditSpecializationsPage {
         if (this.sections.error)
             return true;
 
-        // при изменении в имени
-        // ON (включаем кнопку)
-        if (this.profileData.main.first_name !== this.data.first_name)
-            return false;
+        let specializationNotChecked = true;
 
-        // при изменении в фамилии
-        // ON (включаем кнопку)
-        if (this.profileData.main.last_name !== this.data.last_name)
-            return false;
+        for(let specialization of this.specializations) {
 
-        // при изменении в названии компании
-        // ON (включаем кнопку)
-        if(this.profileData.main.company !== this.data.company)
-            return false;
+            if(specialization.status) {
+                specializationNotChecked = false;
+            }
+        }
+
+        if(specializationNotChecked) {
+            return true;
+        }
+
 
         // если до этого кнопка небыла включана
         // OFF (выключаем кнопку)
-        return true;
+        return false;
     }
 
 
@@ -353,7 +429,7 @@ export class ProfileEditSpecializationsPage {
         switch (state) {
 
             case 'data_saved':
-                returnedData.data = this.data;
+                returnedData.data = this.newSpecializations;
                 break;
         }
 

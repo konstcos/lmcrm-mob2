@@ -352,44 +352,6 @@ export class AddLeadPage {
             }
             , 0);
 
-        // сохраняем старые данные
-        // let oldData = this.lead.phone;
-        //
-        // // проверка на максимальную длину номера телефона
-        // if (event.length > 10) {
-        //
-        //     // возвращаем старые данные
-        //     setTimeout(() => {
-        //             this.lead.phone = oldData;
-        //         }
-        //         , 0);
-        //
-        //     return false;
-        // }
-
-
-        // перебираем все символы новых данных
-        // for (let item = 0; item < event.length; item++) {
-        //
-        //     // если символ из новых данных не равняется символу в старых данных
-        //     // (выбор нового введенного символа)
-        //     if (event[item] != this.lead.phone[item]) {
-        //
-        //         // проверка нового символа на integer
-        //         if (!Number(event[item]) && event[item] != '0') {
-        //             // если новый символ не цифра
-        //
-        //             // возвращаем старые данные
-        //             setTimeout(() => {
-        //                     this.lead.phone = oldData;
-        //                 }
-        //                 , 0);
-        //         }
-        //
-        //         // выходим из цикла
-        //         break;
-        //     }
-        // }
     }
 
 

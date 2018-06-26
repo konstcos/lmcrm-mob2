@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Fri Jun 15 18:08:10 EEST 2018
+#Mon Jun 25 22:22:54 EEST 2018
 122.file=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/assets/debug/www/assets/fonts/roboto-medium.woff
 60.set=ASSET
 129.file=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/assets/debug/www/service-worker.js

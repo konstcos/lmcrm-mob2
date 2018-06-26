@@ -95,7 +95,7 @@
 
                     <span *ngFor="let specialization of profileData.specializations; let i = index"
                           class="specialization_item">
-                        {{ specialization }}<span *ngIf="i != (profileData.specializations.length - 1)">,</span>
+                        {{ specialization.name }}<span *ngIf="i != (profileData.specializations.length - 1)">,</span>
                     </span>
 
                 </div>
@@ -243,7 +243,7 @@
         </div>
 
         <!-- Банковские данные -->
-        <div class="data_block">
+        <div class="data_block" *ngIf="profileData.roles.sub === 'leadbayer'">
 
             <div class="data_item">
                 <div class="label">
@@ -251,7 +251,7 @@
                 </div>
 
                 <div class="data">
-                    {{ profileData.payment.company }}
+                    {{ profileData.payment.company ? profileData.payment.company : '&nbsp;' }}
                 </div>
             </div>
 
@@ -261,7 +261,7 @@
                 </div>
 
                 <div class="data">
-                    {{ profileData.payment.bank }}
+                    {{ profileData.payment.bank ? profileData.payment.bank : '&nbsp;' }}
                 </div>
             </div>
 
@@ -271,7 +271,7 @@
                 </div>
 
                 <div class="data">
-                    {{ profileData.payment.branch_number }}
+                    {{ profileData.payment.branch_number ? profileData.payment.branch_number : '&nbsp;' }}
                 </div>
             </div>
 
@@ -281,7 +281,7 @@
                 </div>
 
                 <div class="data">
-                    {{ profileData.payment.invoice_number }}
+                    {{ profileData.payment.invoice_number ? profileData.payment.invoice_number : '&nbsp;' }}
                 </div>
             </div>
 
@@ -293,17 +293,6 @@
 
         <!-- Регион -->
         <div class="data_block">
-
-            <div class="data_item">
-                <div class="label">
-                    <!--{{ 'profile.last_name' | translate }}-->
-                    Street
-                </div>
-
-                <div class="data">
-                    {{ profileData.street.length > 0 ? profileData.street : ' &nbsp; ' }}
-                </div>
-            </div>
 
             <div class="data_item">
                 <div class="label">
@@ -327,6 +316,17 @@
                         </span>
                     </div>
 
+                </div>
+            </div>
+
+            <div class="data_item">
+                <div class="label">
+                    <!--{{ 'profile.last_name' | translate }}-->
+                    Street
+                </div>
+
+                <div class="data block">
+                    {{ profileData.street && profileData.street.length > 0 ? profileData.street : ' &nbsp; ' }}
                 </div>
             </div>
 

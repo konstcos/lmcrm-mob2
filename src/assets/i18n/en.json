@@ -675,7 +675,7 @@
             "company": "Company",
             "bank": "Bank",
             "branch_number": "Branch number",
-            "invoice_number": "Invoice number"
+            "invoice_number": "Account number"
         },
         "save": "Save"
     },

@@ -57,6 +57,9 @@
                                 class="input_row"
                                 type="text"
                                 [(ngModel)]="phone.phone"
+                                (ngModelChange)="phoneChange($event, phone)"
+                                (blur)="phoneValidate(phone)"
+                                (focus)="phoneFocus(phone)"
                                 text-right>
                         </ion-input>
 
@@ -66,6 +69,26 @@
                         <ion-icon class="trash" name="md-trash"></ion-icon>
                     </ion-col>
 
+                </ion-row>
+
+                <!-- Сообщение о пустом поле -->
+                <ion-row
+                        class="error_message"
+                        *ngIf="phone.empty">
+                    <ion-col>
+                        <div >field required</div>
+                    </ion-col>
+                    <ion-col col-2></ion-col>
+                </ion-row>
+
+                <!-- Сообщение о невалидном номере -->
+                <ion-row
+                        class="error_message"
+                        *ngIf="phone.notValid">
+                    <ion-col>
+                        <div >phone is not valid</div>
+                    </ion-col>
+                    <ion-col col-2></ion-col>
                 </ion-row>
 
                 <!-- Сообщение с ошибкой -->

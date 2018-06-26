@@ -171,6 +171,72 @@ export class ProfileEditPhonesPage {
 
 
     /**
+     * Валидация телефона когда убирается фокус с поля
+     *
+     */
+    phoneValidate(phone) {
+
+        // Проверка на пустое поле
+        if (phone.phone == '') {
+            phone.empty = true;
+            phone.notEnough = false;
+            phone.notValid = false;
+            return false;
+        }
+
+        // Проверка длины должно быть не меньше 9 и не больше 10
+        // if (this.lead.phone.length < 9 || this.lead.phone.length > 10) {
+        //     this.errors.phone.empty = false;
+        //     this.errors.phone.notEnough = true;
+        //     this.errors.phone.notValid = false;
+        //     return false;
+        // }
+
+        // Проверка по регулярке
+        let reg = /^\+?(972|0)(\-)?0?(([23489]{1}\d{7})|[57]{1}\d{8})$/;
+        if(!reg.test(phone.phone)) {
+            phone.empty = false;
+            phone.notEnough = false;
+            phone.notValid = true;
+            return false;
+        }
+
+        // если телефон успешно прошел все проверки
+        phone.empty = false;
+        phone.notEnough = false;
+        phone.notValid = false;
+        return true;
+    }
+
+
+    /**
+     * Фокус на поле с телефоном
+     *
+     */
+    phoneFocus(phone) {
+        // очищаем поля с обищками
+        phone.empty = false;
+        phone.notEnough = false;
+        phone.notValid = false;
+
+        phone.errors = false;
+    }
+
+
+    /**
+     * Проверка поля с телефонным номером при вводе нового символа
+     *
+     */
+    phoneChange(event, phone) {
+
+        setTimeout(() => {
+                phone.phone = event.replace(/\D+/g, "");
+            }
+            , 0);
+    }
+
+
+    /**
      * Удаление телефона
      *
      */
@@ -264,7 +330,50 @@ export class ProfileEditPhonesPage {
      */
     saveData() {
 
-        // todo валидация данных
+        // валидация данных
+
+        let validate = true;
+        for(let phone of this.data) {
+            if(!phone.delete) {
+                if(!this.phoneValidate(phone)) {
+                    validate = false;
+                }
+            }
+        }
+
+        if(!validate) {
+            return false;
+        }
+
+
+        // отметка главного телефона
+        let isMainPhone = false;
+        // перебираем все телефоны
+        // ищем главный телефон
+        for(let phone of this.data) {
+            // если телефон выделен как главный
+            if(phone.main = 1) {
+                // проверка на наличие главного телефона
+                if(isMainPhone) {
+                    // если главный телефон уже есть
+                    // помечаем этот как не главный
+                    phone.main = 0;
+
+                } else {
+                    // если главного телефона еще нет
+                    // помечаем что главный телефон уже выбран
+                    isMainPhone = true;
+                }
+            }
+        }
+
+        // если его нет - назначаем первый
+        if(!isMainPhone) {
+            if(this.data && this.data.length > 0) {
+                this.data[0].main = 1;
+            }
+        }
+
 
         let loading = this.loadingCtrl.create({
         });
@@ -289,6 +398,7 @@ export class ProfileEditPhonesPage {
                         // this.close('data_saved');
 
                         this.profileData.phones = data.phones;
+                        this.data = data.phones;
 
                         const toast = this.toastController.create({
                             message: 'phones successfully saved',

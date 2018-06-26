@@ -431,12 +431,31 @@ export class ProfilePage {
         // console.log(statuses);
         let modal = this.modalController.create(ProfileEditSpecializationsPage, {data: this.profileData});
 
-
+        // события по закрытию модального окна
         modal.onDidDismiss(data => {
 
-            console.log('данные по статусу');
+            console.log('вот такие денные: ');
             console.log(data);
 
+            // данные были сохраненны успешно
+            if (data.state === 'data_saved') {
+
+                console.log('data_saved in profile');
+                console.log(data);
+                console.log(this.profileData);
+
+                this.profileData['specializations'] = data.data;
+
+                // обновляем данные в моделе
+                // this.profileData['modes_leadbuyer'] = data.data.modes_leadbuyer;
+                // this.profileData['modes_leadbuyer_id'] = data.data.modes_leadbuyer_id;
+            }
+
+            // обновление данных на родительской странице
+            // если пришла команда с родительского окна
+            if (data.state === 'refresh') {
+                this.loadData();
+            }
         });
 
         modal.present();
@@ -445,7 +464,8 @@ export class ProfilePage {
 
     /**
      * Редактирование специализаций
-     * todo
+     *
+     *
      */
     editLeadBuyerOperatingMode() {
         // console.log(statuses);
@@ -619,7 +639,6 @@ export class ProfilePage {
             // данные были сохраненны успешно
             if (data.state === 'data_saved') {
                 // обновляем данные в моделе
-                this.profileData['street'] = data.data.street;
                 this.profileData['region'] = data.data.region;
             }
 

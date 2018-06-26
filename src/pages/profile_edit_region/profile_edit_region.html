@@ -27,49 +27,49 @@
     <div class="data" *ngIf="sections.data">
 
         <!-- Поле с именем пользователя -->
-        <div class="personal_data_row">
+        <!--<div class="personal_data_row">-->
 
-            <ion-row>
+            <!--<ion-row>-->
 
-                <!-- Иконка валидации -->
-                <ion-col col-1 align-self-center text-right class="validation_block">
+                <!--&lt;!&ndash; Иконка валидации &ndash;&gt;-->
+                <!--<ion-col col-1 align-self-center text-right class="validation_block">-->
 
-                    <!-- Успешная валидация -->
-                    <!--<ion-icon *ngIf="state.firstName == 2" class="success" name="md-checkmark"></ion-icon>-->
-                    <!-- Ошибка валидации -->
-                    <!--<ion-icon *ngIf="state.firstName == 3" class="alert" name="md-alert"></ion-icon>-->
+                    <!--&lt;!&ndash; Успешная валидация &ndash;&gt;-->
+                    <!--&lt;!&ndash;<ion-icon *ngIf="state.firstName == 2" class="success" name="md-checkmark"></ion-icon>&ndash;&gt;-->
+                    <!--&lt;!&ndash; Ошибка валидации &ndash;&gt;-->
+                    <!--&lt;!&ndash;<ion-icon *ngIf="state.firstName == 3" class="alert" name="md-alert"></ion-icon>&ndash;&gt;-->
 
-                </ion-col>
+                <!--</ion-col>-->
 
-                <!-- Блок с именем пользователя -->
-                <ion-col class="data_block" [ngClass]="(state.firstName == 3) ? 'error' : '' ">
-                    <!-- Лейбл ввода имени -->
-                    <div class="label">
-                        Street
-                    </div>
-                    <!-- Инпут имени пользователя -->
-                    <ion-input
-                            class="input_row"
-                            type="text"
-                            [(ngModel)]="data.street"
-                            text-right
-                            name="first_name">
-                    </ion-input>
+                <!--&lt;!&ndash; Блок с именем пользователя &ndash;&gt;-->
+                <!--<ion-col class="data_block" [ngClass]="(state.firstName == 3) ? 'error' : '' ">-->
+                    <!--&lt;!&ndash; Лейбл ввода имени &ndash;&gt;-->
+                    <!--<div class="label">-->
+                        <!--Street-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; Инпут имени пользователя &ndash;&gt;-->
+                    <!--<ion-input-->
+                            <!--class="input_row"-->
+                            <!--type="text"-->
+                            <!--[(ngModel)]="data.street"-->
+                            <!--text-right-->
+                            <!--name="first_name">-->
+                    <!--</ion-input>-->
 
-                </ion-col>
-            </ion-row>
+                <!--</ion-col>-->
+            <!--</ion-row>-->
 
 
-            <!-- Сообщение с ошибкой -->
-            <ion-row
-                    class="error_message"
-                    *ngIf="false">
-                <ion-col>
-                    {{ 'profile.first_name_required' | translate }}
-                </ion-col>
-            </ion-row>
+            <!--&lt;!&ndash; Сообщение с ошибкой &ndash;&gt;-->
+            <!--<ion-row-->
+                    <!--class="error_message"-->
+                    <!--*ngIf="false">-->
+                <!--<ion-col>-->
+                    <!--{{ 'profile.first_name_required' | translate }}-->
+                <!--</ion-col>-->
+            <!--</ion-row>-->
 
-        </div>
+        <!--</div>-->
         <!-- Конец Поле с именем пользователя -->
 
         <!-- Поле с регионом -->

@@ -221,6 +221,15 @@ export class ProfileEditPasswordPage {
     }
 
 
+    passwordConfirmOnchange() {
+        // проверка подтверждения пароля
+        if (this.data.password_confirmation == this.data.password) {
+            // помечаем что ввод успешен
+            this.state.password_confirmation = 1;
+            return true;
+        }
+    }
+
     /**
      * Валидация подтверждения пароля
      *

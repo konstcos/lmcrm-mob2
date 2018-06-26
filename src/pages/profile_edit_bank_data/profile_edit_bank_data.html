@@ -35,14 +35,14 @@
                 <ion-col col-1 align-self-center text-right class="validation_block">
 
                     <!-- Успешная валидация -->
-                    <ion-icon *ngIf="state.company == 2" class="success" name="md-checkmark"></ion-icon>
+                    <!--<ion-icon *ngIf="state.company == 2" class="success" name="md-checkmark"></ion-icon>-->
                     <!-- Ошибка валидации -->
-                    <ion-icon *ngIf="state.company == 3" class="alert" name="md-alert"></ion-icon>
+                    <!--<ion-icon *ngIf="state.company == 3" class="alert" name="md-alert"></ion-icon>-->
 
                 </ion-col>
 
                 <!-- Блок с именем пользователя -->
-                <ion-col class="data_block" [ngClass]="(state.company == 3) ? 'error' : '' ">
+                <ion-col class="data_block">
                     <!-- Лейбл ввода имени -->
                     <div class="label">
                         {{ 'profile.payment_info.company' | translate }}
@@ -81,14 +81,14 @@
                 <ion-col col-1 align-self-center text-right class="validation_block">
 
                     <!-- Успешная валидация -->
-                    <ion-icon *ngIf="state.bank == 2" class="success" name="md-checkmark"></ion-icon>
+                    <!--<ion-icon *ngIf="state.bank == 2" class="success" name="md-checkmark"></ion-icon>-->
                     <!-- Ошибка валидации -->
-                    <ion-icon *ngIf="state.bank == 3" class="alert" name="md-alert"></ion-icon>
+                    <!--<ion-icon *ngIf="state.bank == 3" class="alert" name="md-alert"></ion-icon>-->
 
                 </ion-col>
 
                 <!-- Блок с именем пользователя -->
-                <ion-col class="data_block" [ngClass]="(state.bank == 3) ? 'error' : '' ">
+                <ion-col class="data_block">
                     <!-- Лейбл ввода имени -->
                     <div class="label">
                         {{ 'profile.payment_info.bank' | translate }}
@@ -129,14 +129,14 @@
                 <ion-col col-1 align-self-center text-right class="validation_block">
 
                     <!-- Успешная валидация -->
-                    <ion-icon *ngIf="state.branch_number == 2" class="success" name="md-checkmark"></ion-icon>
+                    <!--<ion-icon *ngIf="state.branch_number == 2" class="success" name="md-checkmark"></ion-icon>-->
                     <!-- Ошибка валидации -->
-                    <ion-icon *ngIf="state.branch_number == 3" class="alert" name="md-alert"></ion-icon>
+                    <!--<ion-icon *ngIf="state.branch_number == 3" class="alert" name="md-alert"></ion-icon>-->
 
                 </ion-col>
 
                 <!-- Блок с именем пользователя -->
-                <ion-col class="data_block" [ngClass]="(state.branch_number == 3) ? 'error' : '' ">
+                <ion-col class="data_block">
                     <!-- Лейбл ввода имени -->
                     <div class="label">
                         {{ 'profile.payment_info.branch_number' | translate }}
@@ -146,8 +146,8 @@
                             class="input_row"
                             type="text"
                             [(ngModel)]="data.branch_number"
-                            text-right
-                            name="first_name">
+                            (ngModelChange)="branchNumberCheck($event)"
+                            text-right>
                     </ion-input>
 
                     <!--(blur)="firstNameValidate()"-->
@@ -177,14 +177,14 @@
                 <ion-col col-1 align-self-center text-right class="validation_block">
 
                     <!-- Успешная валидация -->
-                    <ion-icon *ngIf="state.invoice_number == 2" class="success" name="md-checkmark"></ion-icon>
+                    <!--<ion-icon *ngIf="state.invoice_number == 2" class="success" name="md-checkmark"></ion-icon>-->
                     <!-- Ошибка валидации -->
-                    <ion-icon *ngIf="state.invoice_number == 3" class="alert" name="md-alert"></ion-icon>
+                    <!--<ion-icon *ngIf="state.invoice_number == 3" class="alert" name="md-alert"></ion-icon>-->
 
                 </ion-col>
 
                 <!-- Блок с именем пользователя -->
-                <ion-col class="data_block" [ngClass]="(state.invoice_number == 3) ? 'error' : '' ">
+                <ion-col class="data_block">
                     <!-- Лейбл ввода имени -->
                     <div class="label">
                         {{ 'profile.payment_info.invoice_number' | translate }}
@@ -194,8 +194,8 @@
                             class="input_row"
                             type="text"
                             [(ngModel)]="data.invoice_number"
-                            text-right
-                            name="first_name">
+                            (ngModelChange)="invoceNumberCheck($event)"
+                            text-right>
                     </ion-input>
 
                     <!--(blur)="firstNameValidate()"-->
