@@ -67,7 +67,8 @@
 
             <div class="data_item">
                 <div class="label">
-                    Passport
+                    {{ 'profile.passport' | translate }}
+                    <!--Passport-->
                 </div>
 
                 <div class="data block">
@@ -86,8 +87,8 @@
 
             <div class="data_item">
                 <div class="label">
-                    <!--{{ 'profile.first_name' | translate }}-->
-                    Specializations
+                    {{ 'profile.specializations' | translate }}
+                    <!--Specializations-->
                 </div>
 
                 <div class="data">
@@ -102,7 +103,10 @@
             </div>
 
             <div class="edit">
-                <button ion-button clear small color="default" (click)="editSpecializations()">Edit</button>
+                <button ion-button clear small color="default" (click)="editSpecializations()">
+                    {{ 'profile.edit' | translate }}
+                    <!--Edit-->
+                </button>
             </div>
 
         </div>
@@ -112,8 +116,8 @@
 
             <div class="data_item">
                 <div class="label">
-                    <!--{{ 'profile.first_name' | translate }}-->
-                    Operating mode
+                    {{ 'profile.operating_mode' | translate }}
+                    <!--Operating mode-->
                 </div>
 
                 <div class="data">
@@ -122,7 +126,10 @@
             </div>
 
             <div class="edit">
-                <button ion-button clear small color="default" (click)="editLeadBuyerOperatingMode()">Edit</button>
+                <button ion-button clear small color="default" (click)="editLeadBuyerOperatingMode()">
+                    {{ 'profile.edit' | translate }}
+                    <!--Edit-->
+                </button>
             </div>
 
         </div>
@@ -142,7 +149,10 @@
             </div>
 
             <div class="edit">
-                <button ion-button clear small color="default" (click)="editAbout()">Edit</button>
+                <button ion-button clear small color="default" (click)="editAbout()">
+                    {{ 'profile.edit' | translate }}
+                    <!--Edit-->
+                </button>
             </div>
 
         </div>
@@ -162,7 +172,8 @@
                             </ion-toggle>
                         </ion-col>
                         <ion-col dir="rtl" align-self-center (click)="toggleLabelClick('allow_access_to_profile')">
-                            Allow the administration to access my profile
+                            {{ 'profile.switchers.allow_access_to_profile' | translate }}
+                            <!--Allow the administration to access my profile-->
                         </ion-col>
                     </ion-row>
 
@@ -181,7 +192,8 @@
                             </ion-toggle>
                         </ion-col>
                         <ion-col dir="rtl" align-self-center (click)="toggleLabelClick('auction_lead_notification_by_email')">
-                            Receive notification of new leads by email
+                            {{ 'profile.switchers.auction_lead_notification_by_email' | translate }}
+                            <!--Receive notification of new leads by email-->
                         </ion-col>
                     </ion-row>
 
@@ -200,7 +212,10 @@
 
                 <div class="data">
                     <div class="edit">
-                        <button ion-button small color="danger" (click)="editPassword()">Change password</button>
+                        <button ion-button small color="danger" (click)="editPassword()">
+                            {{ 'profile.change_password_button' | translate }}
+                            <!--Change password-->
+                        </button>
                     </div>
                 </div>
             </div>
@@ -212,8 +227,8 @@
 
             <div class="data_item">
                 <div class="label">
-                    <!--{{ 'profile.first_name' | translate }}-->
-                    Phones
+                    {{ 'profile.phones' | translate }}
+                    <!--Phones-->
                 </div>
 
                 <div class="data">
@@ -223,8 +238,11 @@
 
                         <div class="phone_item" *ngFor="let phone of profileData.phones; let i = index">
 
-                            <div class="phone">
-                                <span *ngIf="phone.main" class="main">main</span>
+                            <div class="phone" dir="rtl">
+                                <span *ngIf="phone.main" dir="rtl" class="main">
+                                    {{ 'profile.main_phone' | translate }}
+                                    <!--main-->
+                                </span>
                                 {{ phone.phone }}
                             </div>
                             <div class="comment" dir="rtl" *ngIf="phone.comment.trim().length > 0">
@@ -237,7 +255,10 @@
             </div>
 
             <div class="edit">
-                <button ion-button clear small color="default" (click)="editPhones()">Edit</button>
+                <button ion-button clear small color="default" (click)="editPhones()">
+                    {{ 'profile.edit' | translate }}
+                    <!--Edit-->
+                </button>
             </div>
 
         </div>
@@ -286,7 +307,10 @@
             </div>
 
             <div class="edit">
-                <button ion-button clear small color="default" (click)="editBankData()">Edit</button>
+                <button ion-button clear small color="default" (click)="editBankData()">
+                    {{ 'profile.edit' | translate }}
+                    <!--Edit-->
+                </button>
             </div>
 
         </div>
@@ -296,8 +320,8 @@
 
             <div class="data_item">
                 <div class="label">
-                    <!--{{ 'profile.first_name' | translate }}-->
-                    Region
+                    {{ 'profile.region' | translate }}
+                    <!--Region-->
                 </div>
 
                 <div class="data">
@@ -321,8 +345,8 @@
 
             <div class="data_item">
                 <div class="label">
-                    <!--{{ 'profile.last_name' | translate }}-->
-                    Street
+                    {{ 'profile.street' | translate }}
+                    <!--Street-->
                 </div>
 
                 <div class="data block">
@@ -331,7 +355,10 @@
             </div>
 
             <div class="edit">
-                <button ion-button clear small color="default" (click)="editRegion()">Edit</button>
+                <button ion-button clear small color="default" (click)="editRegion()">
+                    {{ 'profile.edit' | translate }}
+                    <!--Edit-->
+                </button>
             </div>
 
         </div>

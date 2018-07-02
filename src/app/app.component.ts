@@ -95,6 +95,7 @@ export class MyApp {
             this.badge.set(date)
         });
 
+        // событие очистки нотификаций
         this.events.unsubscribe("notices:clear");
         this.events.subscribe("notices:clear", () => {
             this.noticeCount = 0;
@@ -105,6 +106,14 @@ export class MyApp {
             // if(this.toast){
             //     this.toast.dismiss();
             // }
+        });
+
+        // событие перехода на сраницу подтверждения лицензии
+        this.events.unsubscribe("license:checkout");
+        this.events.subscribe("license:checkout", () => {
+
+            console.log('перешол на страницу лицензии по событию');
+            this.nav.setRoot(LicensePage, {loginPage: false});
         });
 
         // событие на открытие страницы crash
@@ -151,10 +160,10 @@ export class MyApp {
 
 
         // todo Set the default language for translation strings, and the current language.
-        translate.setDefaultLang('en');
-        translate.use('en');
-        // translate.setDefaultLang('he');
-        // translate.use('he');
+        // translate.setDefaultLang('en');
+        // translate.use('en');
+        translate.setDefaultLang('he');
+        translate.use('he');
 
         settings.load();
 
@@ -176,7 +185,7 @@ export class MyApp {
 
             // todo проверка авторизации
             let loading = this.loadingCtrl.create({
-                content: 'Please wait...'
+                // content: 'Please wait...'
             });
 
             loading.present();
@@ -192,8 +201,8 @@ export class MyApp {
 
                     let res = resp.json();
 
-                    // console.log('данные из провреки логина: ');
-                    // console.log(res);
+                    console.log('данные из провреки логина: ');
+                    console.log(res);
 
                     if (res.status == 'success') {
 
@@ -222,6 +231,17 @@ export class MyApp {
                     } else if (res.info == 'unfinished_registration') {
                         // не законченная регистрация у пользователя
 
+
+                        if (res.default_route == 'agent.lead.deposited') {
+
+                            localStorage.setItem('default_route', 'outgoing');
+
+                        } else {
+
+                            localStorage.setItem('default_route', 'incoming');
+                        }
+
+
                         // действия в зависимости от стейта
                         if (res.state == 0) {
                             // не подтвержден мэил
@@ -238,7 +258,8 @@ export class MyApp {
 
                         } else if (!res.license_agreement) {
 
-                            this.nav.setRoot(LicensePage);
+                            // this.nav.setRoot(LicensePage);
+                            this.nav.setRoot(MainPage);
                         }
 
                     }

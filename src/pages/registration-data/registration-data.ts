@@ -93,7 +93,7 @@ export class RegistrationDataPage {
         address: '',
         passport: '',
         region: 1,
-        // phone: '',
+        phone: '',
     };
 
 
@@ -144,11 +144,11 @@ export class RegistrationDataPage {
      * Заполнение персонральных данных агента
      *
      */
-    fillingPersonal() {
+    fillingPersonal(phoneError: any = false) {
 
         // модальное окно со сферами системы
         let personalData = this.modalCtrl.create(RegistrationDataPersonalPage,
-            {personal: this.personalData},
+            {personal: this.personalData, phoneError: phoneError},
             {showBackdrop: false, enableBackdropDismiss: false});
         // показ модального окна со сферами
         personalData.present();
@@ -210,7 +210,7 @@ export class RegistrationDataPage {
             this.leadBuyerOperatingModeShow = this.role == 1;
 
             // установка разрешение на дальнейшее продвижение
-            if(this.role == 1 || this.role == 0){
+            if (this.role == 1 || this.role == 0) {
                 // если роль не выбрана или выбрана роль лидбайера
 
                 // дальше двигаться нельзя,
@@ -249,7 +249,7 @@ export class RegistrationDataPage {
             // сохранение выбранных сфер в модели
             this.leadBuyerOperationMode = data.leadBuyerOperationMode == 0 ? false : data.leadBuyerOperationMode;
 
-            if(this.leadBuyerOperationMode){
+            if (this.leadBuyerOperationMode) {
                 // выставляем подтверждение режима лидбайера в true
                 this.confirmation.leadBuyerOperatingMode = true;
                 this.confirmation.operationModeResolution = true;
@@ -270,7 +270,7 @@ export class RegistrationDataPage {
         console.log('Specialization:');
         console.log(this.specializations);
 
-        if(this.role === 0) {
+        if (this.role === 0) {
             return false;
         }
 
@@ -286,7 +286,7 @@ export class RegistrationDataPage {
             // сохранение выбранных специализаций в модели
             this.specializations = (!data.specializations || data.specializations.length == 0) ? [] : data.specializations;
 
-            this.confirmation.specialization = !data.specializations  || data.specializations.length != 0;
+            this.confirmation.specialization = !data.specializations || data.specializations.length != 0;
 
             console.log('Specializations:');
             console.log(data.specializations);
@@ -294,7 +294,7 @@ export class RegistrationDataPage {
             // console.log('Logoute:');
             // console.log(data.logout);
 
-            if(data.logout) {
+            if (data.logout) {
                 this.goBack();
             }
 
@@ -318,7 +318,7 @@ export class RegistrationDataPage {
     saveRegistrationData() {
 
         // проверка данных
-        if(!(this.confirmation.specialization && this.confirmation.operationModeResolution && this.confirmation.personal && this.confirmation.role)){
+        if (!(this.confirmation.specialization && this.confirmation.operationModeResolution && this.confirmation.personal && this.confirmation.role)) {
             // если не все данные заполненны
             // выходим из метода
             console.log('не все данные заполненны');
@@ -344,7 +344,18 @@ export class RegistrationDataPage {
                 console.log(data);
 
                 if (data.status == 'success') {
+
                     this.nav.setRoot(LicensePage);
+
+                } else {
+
+                    if (data.info == 'validator error' && data.errors.phone && data.errors.phone.length > 0) {
+                        console.log('data.info == \'validator error');
+                        console.log(data);
+
+                        this.fillingPersonal(data.errors.phone);
+                    }
+
                 }
 
 
@@ -365,7 +376,7 @@ export class RegistrationDataPage {
      * Подтверждение пользовательского соглашения
      *
      */
-    confirmUserAgreement(){
+    confirmUserAgreement() {
         this.confirmation.agreement = !this.confirmation.agreement;
     }
 
@@ -385,7 +396,7 @@ export class RegistrationDataPage {
      * Событие по кнопке возврата
      *
      */
-    backButtonAction(){
+    backButtonAction() {
         this.goBack();
     }
 }

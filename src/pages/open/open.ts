@@ -633,11 +633,20 @@ export class OpenPage {
 
                     if (item.archive == 0) {
 
-                        message = item.lead.name + ' extraction from archive';
+                        this.translate.get('exposed.extracting_from_archive', {lead_name: item.lead.name}).subscribe((res: string) => {
+                            message = res;
+                        });
+
+                        // message = item.lead.name + ' extraction from archive';
 
                     } else if (item.archive == 1) {
 
-                        message = item.lead.name + ' sent to the archive';
+                        this.translate.get('exposed.sent_to_archive', {lead_name: item.lead.name}).subscribe((res: string) => {
+                            message = res;
+                        });
+
+
+                        // message = item.lead.name + ' sent to the archive';
                     }
 
                     let toast = this.toastCtrl.create({
@@ -653,10 +662,21 @@ export class OpenPage {
 
                     if (data.info == 'wrong_status') {
 
+                        let alertCantArchive = {
+                            title: 'Cant archive',
+                            message: 'You can not archive a lead with this status'
+                        };
+
+
+                        this.translate.get('exposed.cant_archive', {}).subscribe((res: any) => {
+                            alertCantArchive.title = res.title;
+                            alertCantArchive.message = res.message;
+                        });
+
 
                         let alert = this.alertCtrl.create({
-                            title: 'Cant archive',
-                            message: 'You can not archive a lead with this status',
+                            title: alertCantArchive.title,
+                            message: alertCantArchive.message,
                             buttons: ['OK']
                         });
                         alert.present();
@@ -1012,17 +1032,17 @@ export class OpenPage {
                 let data = result.json();
 
                 // проверка запроса
-                if(data.status === 'success') {
+                if (data.status === 'success') {
                     // если успешний
 
                     // добавляем звуковые записи в объект
-                    for(let item of itemsIdArray) {
+                    for (let item of itemsIdArray) {
                         this.voices[item] = data.voices[item] ? data.voices[item] : false;
                     }
 
                 } else {
                     // при ошибке выставляем все в false
-                    for(let item of itemsIdArray) {
+                    for (let item of itemsIdArray) {
                         this.voices[item] = false;
                     }
                 }
@@ -1031,7 +1051,7 @@ export class OpenPage {
                 // в случае ошибки
 
                 // выставляем все записи в false
-                for(let item of itemsIdArray) {
+                for (let item of itemsIdArray) {
                     this.voices[item] = false;
                 }
 

@@ -9,7 +9,7 @@
             </button>
         </ion-buttons>
 
-        <ion-title (click)="close()">back to {{ 'profile.title' | translate }}</ion-title>
+        <ion-title (click)="close()">{{ 'profile.title_sub_page' | translate }}</ion-title>
 
     </ion-navbar>
 
@@ -38,8 +38,14 @@
                         <!-- Успешная валидация -->
                         <!--<ion-icon class="success" name="md-checkmark"></ion-icon>-->
                         <!--<ion-icon *ngIf="phone.main == 1" class="success" name="md-checkmark"></ion-icon>-->
-                        <span *ngIf="phone.main == 1" class="main">main</span>
-                        <span *ngIf="phone.main == 0" class="use_as_main">use as main</span>
+                        <span *ngIf="phone.main == 1" class="main">
+                            {{ 'profile.main_phone' | translate }}
+                            <!--main-->
+                        </span>
+                        <span *ngIf="phone.main == 0" class="use_as_main">
+                            {{ 'profile.use_as_main' | translate }}
+                            <!--use as main-->
+                        </span>
                         <!-- Ошибка валидации -->
                         <!--<ion-icon *ngIf="phone.main == 0" class="alert" name="md-alert"></ion-icon>-->
 
@@ -55,7 +61,7 @@
                         <!-- Инпут имени пользователя -->
                         <ion-input
                                 class="input_row"
-                                type="text"
+                                type="tel"
                                 [(ngModel)]="phone.phone"
                                 (ngModelChange)="phoneChange($event, phone)"
                                 (blur)="phoneValidate(phone)"
@@ -76,7 +82,10 @@
                         class="error_message"
                         *ngIf="phone.empty">
                     <ion-col>
-                        <div >field required</div>
+                        <div >
+                            {{ 'profile.password_required' | translate }}
+                            <!--field required-->
+                        </div>
                     </ion-col>
                     <ion-col col-2></ion-col>
                 </ion-row>
@@ -86,7 +95,7 @@
                         class="error_message"
                         *ngIf="phone.notValid">
                     <ion-col>
-                        <div >phone is not valid</div>
+                        <div >{{ 'adding_lead.phone_not_valid' | translate }}</div>
                     </ion-col>
                     <ion-col col-2></ion-col>
                 </ion-row>
@@ -109,7 +118,6 @@
                                 class="about_text"
                                 [(ngModel)]="phone.comment"
                                 text-right
-                                placeholder="enter comment"
                                 rows="5">
                         </ion-textarea>
                     </ion-col>
@@ -122,9 +130,10 @@
         </div>
 
         <!-- Добавление нового телефонного номера -->
-        <div class="add_new_phone">
-            <button ion-button small full round no-margin (click)="addPhone()">
-                add phone
+        <div class="add_new_phone" text-right>
+            <button ion-button small round no-margin (click)="addPhone()">
+                <ion-icon name="md-add"></ion-icon>
+                <!--add phone-->
             </button>
         </div>
 

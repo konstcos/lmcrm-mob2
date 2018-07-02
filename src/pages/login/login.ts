@@ -65,7 +65,7 @@ export class LoginPage {
 
         // показывает окно загрузки
         let loading = this.loadingCtrl.create({
-            content: 'Login, please wait...'
+            // content: 'Login, please wait...'
         });
         loading.present();
 

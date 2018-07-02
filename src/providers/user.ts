@@ -421,6 +421,16 @@ export class User {
     }
 
 
+
+    /**
+     * Сохранение специализаций агента
+     *
+     */
+    getAllProfileSpecializationsByRole(data: any) {
+        return this.api.post('api/profile/specializations/get', data);
+    }
+
+
     /**
      * Сохранение специализаций агента
      *

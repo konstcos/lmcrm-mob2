@@ -6,6 +6,7 @@ import {
     LoadingController,
 } from 'ionic-angular';
 
+import {TranslateService} from 'ng2-translate/ng2-translate';
 
 import {User} from '../../providers/user';
 
@@ -68,7 +69,8 @@ export class ProfileEditLeadBuyerOperatingModePage {
                 public navParams: NavParams,
                 public view: ViewController,
                 public loadingCtrl: LoadingController,
-                public user: User) {
+                public user: User,
+                public translate: TranslateService) {
 
         // получаем данные с родительской страницы
         let data = navParams.get('data');
@@ -77,6 +79,12 @@ export class ProfileEditLeadBuyerOperatingModePage {
             // если данные есть
 
             this.selectedMode = data.modes_leadbuyer_id;
+
+            this.translate.get('operating_mode', {}).subscribe((res: string) => {
+                this.items[0]['name'] = res['only_receipt_of_leads'];
+                this.items[1]['name'] = res['only_entering_leads'];
+                this.items[2]['name'] = res['all_functions'];
+            });
 
             // выводим секцию с данными
             this.section('data');

@@ -295,14 +295,14 @@ export class PasswordRecovery {
             this.passwordConfirmValidate();
         }
 
-        // todo проверка на заполнение поля
+        // проверка на заполнение поля
         if (this.credentials.password == '') {
             // пустое поле пароля
             this.statePassword.password = 2;
             return false;
         }
 
-        // todo длина пароля
+        // длина пароля
         if (this.credentials.password.length < 5) {
             // если поле меньше определенного количества (5)
             this.statePassword.password = 3;
@@ -501,6 +501,14 @@ export class PasswordRecovery {
 
         // сохраняем токен подтверждения пароля
         // this.passwordConfirmationCode = data.code;
+
+        if(!this.passwordValidate()) {
+            return false;
+        }
+
+        if(!this.passwordConfirmValidate()) {
+            return false;
+        }
 
         // спинер загрузке
         this.section('loading');

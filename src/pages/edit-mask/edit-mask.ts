@@ -7,6 +7,8 @@ import {CustomersPage} from '../customers/customers'
 import {User} from '../../providers/user';
 import {Customer} from '../../providers/customer';
 
+import {TranslateService} from 'ng2-translate/ng2-translate';
+
 /*
  Generated class for the EditMask page.
 
@@ -113,7 +115,8 @@ export class EditMaskPage {
                 public nav: Nav,
                 public user: User,
                 public toast: ToastController,
-                public customer: Customer) {
+                public customer: Customer,
+                public translate: TranslateService) {
 
 
         let subRole = this.navParams.get('subRole');
@@ -449,8 +452,14 @@ export class EditMaskPage {
         // проверка наличия имени маски
         if (this.mask.name == '') {
 
+            let nameMessage = 'enter the name';
+
+            this.translate.get('edit_mask.empty_name', {}).subscribe((res: string) => {
+                nameMessage = res;
+            });
+
             let toast = this.toast.create({
-                message: 'enter the name',
+                message: nameMessage,
                 duration: 3000,
                 position: 'bottom'
             });
@@ -489,8 +498,14 @@ export class EditMaskPage {
 
         if(filtersErrors){
 
+            let eachOptionCheckMessage = 'enter the name';
+
+            this.translate.get('edit_mask.empty_option_check', {}).subscribe((res: string) => {
+                eachOptionCheckMessage = res;
+            });
+
             let toast = this.toast.create({
-                message: 'Each filter must have at least one option',
+                message: eachOptionCheckMessage,
                 duration: 3000,
                 position: 'bottom'
             });

@@ -198,6 +198,35 @@
 
         </div>
 
+        <!-- сфера и имя маски -->
+        <div class="data_block">
+
+            <ion-row align-items-center class="data_block_item">
+                <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
+                <ion-col text-right>
+                    <div class="label">{{ 'exposed_detail.sphere' | translate }}</div>
+                    <div class="value">{{ item.lead.sphere.name }}</div>
+                </ion-col>
+                <ion-col col-1 text-right>
+                    <ion-icon class="icon_param sphere_color" name="ios-cloud"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+            <ion-row align-items-center class="data_block_item">
+                <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
+                <ion-col text-right>
+                    <div class="label">{{ 'exposed_detail.mask_name' | translate }}</div>
+                    <div class="value">{{ item.mask_name2 ? item.mask_name2.name : ('exposed_detail.deleted' |
+                        translate) }}
+                    </div>
+                </ion-col>
+                <ion-col col-1 text-right>
+                    <ion-icon class="icon_param mask_color" name="ios-funnel"></ion-icon>
+                </ion-col>
+            </ion-row>
+
+        </div>
+
         <!-- блок с датой и именем открывшего лид-->
         <div class="data_block">
 
@@ -235,11 +264,14 @@
         <div class="data_block">
 
             <div *ngFor="let additional of item.lead.additional">
-                <ion-row align-items-center *ngIf="additional.value && additional.value.trim().length > 0 && additional.value.trim() != '00-00-0000' && additional.value.trim() != '0000-00-00'" class="data_block_item">
+                <!--<ion-row align-items-center *ngIf="additional.value && additional.value.trim().length > 0 && additional.value.trim() != '00-00-0000' && additional.value.trim() != '0000-00-00'" class="data_block_item">-->
+                <ion-row align-items-center class="data_block_item">
                     <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
                     <ion-col text-right>
                         <div class="label">{{ additional.label }}</div>
-                        <div class="value">{{ additional.value ? additional.value : '&nbsp;' }}</div>
+                        <!--<div class="value">{{ additional.value ? additional.value : '-&#45;&#45; no data &#45;&#45;&#45;&#45;' }}</div>-->
+                        <div class="value" *ngIf="additional.value && additional.value.trim().length > 0 && additional.value.trim() != '00-00-0000' && additional.value.trim() != '0000-00-00'">{{ additional.value }}</div>
+                        <div class="value" *ngIf="!additional.value || additional.value.trim().length <= 0 || additional.value.trim() == '00-00-0000' || additional.value.trim() == '0000-00-00'">{{ 'no_additional_data_for_lead' | translate }}</div>
                     </ion-col>
                     <ion-col col-1 text-right>
                         <ion-icon class="icon_param doc_color" name="ios-paper"></ion-icon>
@@ -248,10 +280,14 @@
             </div>
 
             <div *ngFor="let filter of item.lead.filter">
-                <ion-row align-items-center *ngIf="filter.value && filter.value.trim().length > 0 && filter.value.trim() != '00-00-0000' && filter.value.trim() != '0000-00-00'" class="data_block_item">
+                <!--<ion-row align-items-center *ngIf="filter.value && filter.value.trim().length > 0 && filter.value.trim() != '00-00-0000' && filter.value.trim() != '0000-00-00'" class="data_block_item">-->
+                <ion-row align-items-center class="data_block_item">
                     <ion-col text-right>
                         <div class="label">{{ filter.label }}</div>
-                        <div class="value">{{ filter.value ? filter.value : '&nbsp;' }}</div>
+                        <!--<div class="value">{{ filter.value ? filter.value : '&nbsp;' }}</div>-->
+                        <div class="value" *ngIf="filter.value && filter.value.trim().length > 0 && filter.value.trim() != '00-00-0000' && filter.value.trim() != '0000-00-00'">{{ filter.value }}</div>
+                        <div class="value" *ngIf="!filter.value || filter.value.trim().length <= 0 || filter.value.trim() == '00-00-0000' || filter.value.trim() == '0000-00-00'">{{ 'no_additional_data_for_lead' | translate }}</div>
+
                     </ion-col>
                     <ion-col col-1 text-right>
                         <ion-icon class="icon_param doc_color" name="ios-paper"></ion-icon>
@@ -261,34 +297,6 @@
 
         </div>
 
-        <!-- сфера и имя маски -->
-        <div class="data_block">
-
-            <ion-row align-items-center class="data_block_item">
-                <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
-                <ion-col text-right>
-                    <div class="label">{{ 'exposed_detail.sphere' | translate }}</div>
-                    <div class="value">{{ item.lead.sphere.name }}</div>
-                </ion-col>
-                <ion-col col-1 text-right>
-                    <ion-icon class="icon_param sphere_color" name="ios-cloud"></ion-icon>
-                </ion-col>
-            </ion-row>
-
-            <ion-row align-items-center class="data_block_item">
-                <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
-                <ion-col text-right>
-                    <div class="label">{{ 'exposed_detail.mask_name' | translate }}</div>
-                    <div class="value">{{ item.mask_name2 ? item.mask_name2.name : ('exposed_detail.deleted' |
-                        translate) }}
-                    </div>
-                </ion-col>
-                <ion-col col-1 text-right>
-                    <ion-icon class="icon_param mask_color" name="ios-funnel"></ion-icon>
-                </ion-col>
-            </ion-row>
-
-        </div>
 
         <!-- регион -->
         <div class="data_block">
@@ -307,16 +315,20 @@
         </div>
 
         <!-- Комментарий -->
-        <div class="data_block" *ngIf="item.lead.comment && item.lead.comment.trim().length > 0">
+        <!--<div class="data_block" *ngIf="item.lead.comment && item.lead.comment.trim().length > 0">-->
+        <div class="data_block">
 
             <ion-row align-items-center class="data_block_item">
                 <!--<ion-col col-1 text-left><ion-icon ios="ios-eye" md="md-eye"></ion-icon></ion-col>-->
                 <ion-col text-right>
                     <div class="label">{{ 'exposed_detail.comment' | translate }}</div>
-                    <div class="value">{{ item.lead.comment }}</div>
+
+                    <div class="value" *ngIf="item.lead.comment && item.lead.comment.trim().length > 0">{{ item.lead.comment }}</div>
+                    <div class="value" *ngIf="!item.lead.comment || item.lead.comment.trim().length <= 0">{{ 'no_additional_data_for_lead' | translate }}</div>
+
                 </ion-col>
                 <ion-col col-1 text-right>
-                    <ion-icon class="icon_param sphere_color" name="ios-paper"></ion-icon>
+                    <ion-icon class="icon_param doc_color" name="ios-paper"></ion-icon>
                 </ion-col>
             </ion-row>
 

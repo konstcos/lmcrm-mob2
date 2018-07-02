@@ -26,7 +26,7 @@ export class RegistrationDataPersonalPage {
         firstName: '',
         lastName: '',
         company: '',
-        // phone: '',
+        phone: '',
         passport: '',
         address: '',
         region: 1
@@ -46,7 +46,7 @@ export class RegistrationDataPersonalPage {
         firstName: 1,
         lastName: 1,
         company: 1,
-        // phone: 1,
+        phone: 1,
         passport: 1,
         address: 1,
         region: 1,
@@ -90,6 +90,17 @@ export class RegistrationDataPersonalPage {
     public phoneErrors: any = 0;
 
 
+    /**
+     * Состояние телефона
+     *
+     */
+    public phoneState: any = {
+        empty: false,
+        notEnough: false,
+        notValid: false
+    };
+
+
     constructor(public navCtrl: NavController,
                 public user: User,
                 public viewCtrl: ViewController,
@@ -99,6 +110,9 @@ export class RegistrationDataPersonalPage {
 
         // получение данных по персональным данным
         this.personalData = this.navParams.get('personal');
+        this.phoneErrors = this.navParams.get('phoneError');
+
+        console.log(this.phoneErrors);
 
         // сделать валидацию имени если поле не пустое
         if (this.personalData.firstName != '') {
@@ -125,10 +139,16 @@ export class RegistrationDataPersonalPage {
             this.passportValidate();
         }
 
+
+        console.log(this.personalData);
+
         // сделать валидацию телефонного номера если поле не пустое
-        // if (this.personalData.phone != '') {
-        //     this.phoneValidate();
-        // }
+        if (this.personalData.phone != '') {
+
+            console.log(" this.personalData.phone != '' ");
+
+            this.phoneValidate();
+        }
 
         this.switchRegion(1);
 
@@ -228,10 +248,10 @@ export class RegistrationDataPersonalPage {
     passportValidate() {
 
         // убираем все буквы в номере
-        let passportValue = this.personalData.passport.replace(/\D+/g,"");
+        let passportValue = this.personalData.passport.replace(/\D+/g, "");
 
         // добавление нулей в начало номера, если номер меньше 9
-        if(passportValue.length < 9  && passportValue!=0) {
+        if (passportValue.length < 9 && passportValue != 0) {
             // считаем сколько нулей нужно добавить
             let count_zero = 9 - Number(passportValue.length);
             // цикл добавления нулей
@@ -246,7 +266,7 @@ export class RegistrationDataPersonalPage {
         // валидация номера паспорта
         let passportValue_validate = this.passportNumberValidator(passportValue);
 
-        if(passportValue_validate) {
+        if (passportValue_validate) {
 
             this.state.passport = 2;
 
@@ -291,24 +311,48 @@ export class RegistrationDataPersonalPage {
      */
     phoneValidate() {
 
-        if (this.personalData.phone == '') {
-
+        if(this.phoneErrors) {
             this.state.phone = 3;
-            this.phoneErrors = 1;
-            // console.log('error 1')
-
-        } else if (this.personalData.phone.length < 9 || this.personalData.phone.length > 10) {
-
-            this.state.phone = 3;
-            this.phoneErrors = 2;
-            // console.log('error 2')
-
-        } else {
-
-            this.state.phone = 2;
-            this.phoneErrors = 0;
-            // console.log('success 1')
+            return false;
         }
+
+        if (this.personalData.phone == '') {
+            this.state.phone = 3;
+            this.phoneState.empty = true;
+            this.phoneState.notEnough = false;
+            this.phoneState.notValid = false;
+            return false;
+        }
+
+        // Проверка по регулярке
+        let reg = /^\+?(972|0)(\-)?0?(([23489]{1}\d{7})|[57]{1}\d{8})$/;
+        if (!reg.test(this.personalData.phone)) {
+            this.state.phone = 3;
+            this.phoneState.empty = false;
+            this.phoneState.notEnough = false;
+            this.phoneState.notValid = true;
+            return false;
+        }
+
+        // если телефон успешно прошел все проверки
+        this.state.phone = 2;
+        this.phoneState.empty = false;
+        this.phoneState.notEnough = false;
+        this.phoneState.notValid = false;
+        return true;
+    }
+
+
+    /**
+     * Фокус на телефоне
+     *
+     */
+    phoneFocus() {
+        this.phoneErrors = false;
+        this.state.phone = 0;
+        this.phoneState.empty = false;
+        this.phoneState.notEnough = false;
+        this.phoneState.notValid = false;
     }
 
 
@@ -494,7 +538,7 @@ export class RegistrationDataPersonalPage {
         // this.status = (this.state.firstName == 2) && (this.state.lastName == 2) && (this.state.company == 2) && (this.state.phone == 2) && (this.state.address == 2) && (this.state.passport == 2);
 
         // без телефона
-        this.status = (this.state.firstName == 2) && (this.state.lastName == 2) && (this.state.company == 2) && (this.state.address == 2) && (this.state.passport == 2);
+        this.status = (this.state.firstName == 2) && (this.state.lastName == 2) && (this.state.company == 2) && (this.state.address == 2) && (this.state.passport == 2) && (this.state.phone == 2);
     }
 
 
@@ -510,12 +554,11 @@ export class RegistrationDataPersonalPage {
     }
 
 
-
     /**
      * Событие по кнопке возврата
      *
      */
-    backButtonAction(){
+    backButtonAction() {
         this.goBack();
     }
 

@@ -5,6 +5,7 @@
     "APPLY": "APPLY",
     "DEAL_MAKER": "deal maker",
     "LEAD_BUYER": "lead buyer",
+    "no_additional_data_for_lead": "This data was not filled out",
 
     "#1": "Страница логина (первая страница): ",
 
@@ -170,8 +171,8 @@
     "PERSONAL_DATA_LAST_NAME": "Last name",
     "PERSONAL_DATA_COMPANY": "Company",
     "PERSONAL_DATA_PHONE": "Phone",
-    "PERSONAL_DATA_ADDRESS": "כתובת בית העסק",
-    "PERSONAL_DATA_PASSPORT": "תעודת זהות של עסק או ח.פ חברה",
+    "PERSONAL_DATA_ADDRESS": "Adress",
+    "PERSONAL_DATA_PASSPORT": "Passport",
     "PERSONAL_DATA_REGION": "Enter or choose the name of the locality where your business is located",
     "PERSONAL_DATA_PHONE_ERROR_LENGTH": "מספר טלפון נייד חייב להכיל 10 ספרות",
     "PERSONAL_DATA_ISRAEL": "ישראל",
@@ -179,7 +180,9 @@
 
     "#8": "Договор: ",
 
-    "i_agree": "согласен",
+    "i_agree": "I agree",
+    "sign_a_contract_later": "sign a contract later",
+    "go_to_main_page": "Go to main page",
 
     "#9 ---------": "Шапка и основные данные в меню",
 
@@ -340,6 +343,10 @@
             "open_one": "חשיפה פעם אחת",
             "button_cancel": "ביטול",
             "button_confirmation": "חשיפת לקוח"
+        },
+        "contract_confirmation": {
+            "contract_text": "You have not confirmed the contract yet. You can not open leads until you confirm the contract.",
+            "contract_button": "Go to contract confirmation"
         }
 
     },
@@ -382,6 +389,12 @@
         "you_do_not_have_any_leads": "<div> You do not have any leads</div>",
         "no_leads_by_filter": "<div> No open leads by filter</div>",
         "no_open_leads_button": "get leads",
+        "sent_to_archive": "{{ lead_name }} sent to the archive",
+        "extracting_from_archive": "{{ lead_name }} extraction from archive",
+        "cant_archive": {
+            "title": "Cant archive",
+            "message": "You can not archive a lead with this status"
+        },
         "dealmaker_no_status": {
 
         }
@@ -650,6 +663,10 @@
             "head": "Sorry, server error. Try later",
             "got_it": "got it"
         },
+        "contract_confirmation": {
+          "contract_text": "You have not confirmed the contract yet. Before adding a lead into the system, you need to confirm the contract.",
+          "contract_button": "Go to contract confirmation"
+        },
         "no_spheres": "No spheres",
         "add_lead": "add lead"
     },
@@ -666,17 +683,32 @@
         "company_required": "this field required",
         "about": "About",
         "about_required": "this field required",
+        "phones": "Phones",
+        "main_phone": "main",
+        "use_as_main": "use as main",
         "password": "Password",
         "password_required": "this field required",
         "password_confirmation": "Password confirmation",
         "password_confirmation_required": "this field required",
         "payment_information": "Payment information",
+        "passport": "Passport",
+        "specializations": "Specializations",
+        "operating_mode": "Operating mode",
+        "region": "Region",
+        "street": "Street",
+        "title_sub_page": "Back to profile",
+        "switchers": {
+          "allow_access_to_profile": "Allow the administration to access my profile",
+          "auction_lead_notification_by_email": "Receive notification of new leads by email"
+        },
+        "change_password_button": "Change password",
         "payment_info": {
             "company": "Company",
             "bank": "Bank",
             "branch_number": "Branch number",
             "invoice_number": "Account number"
         },
+        "edit": "Edit",
         "save": "Save"
     },
 
@@ -888,6 +920,8 @@
         "dell_button": "מחק פילטר",
         "region": "איזור גיואוגרפי למשיכה",
         "israel": "ישראל",
+        "empty_name": "enter the name",
+        "empty_option_check": "Each filter must have at least one option",
         "save_button": "שמור פילטר"
     },
 

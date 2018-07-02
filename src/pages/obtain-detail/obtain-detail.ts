@@ -1,11 +1,12 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, ViewController, AlertController, ModalController} from 'ionic-angular';
+import {NavController, NavParams, ViewController, AlertController, ModalController, Events} from 'ionic-angular';
 import {TranslateService} from 'ng2-translate/ng2-translate';
 import {OpenLeadStatusesPage} from "../open-lead-statuses/open-lead-statuses";
 import {OpenDetailPage} from '../open-detail/open-detail'
 
 
 import {Obtain} from '../../providers/obtain';
+import {LicensePage} from "../license/license";
 
 /*
  Generated class for the ObtainDetail page.
@@ -56,6 +57,8 @@ export class ObtainDetailPage {
         errorOpenLead: false,
         // область подтверждения овердрафта
         overdraftConfirmation: false,
+        // не подтвержденна лицензия
+        license_not_confirmed: false,
         // вывод ошибки
         error: false
     };
@@ -155,6 +158,8 @@ export class ObtainDetailPage {
     constructor(public navCtrl: NavController,
                 public view: ViewController,
                 public obtain: Obtain,
+                // public nav: Nav,
+                public events: Events,
                 public navParams: NavParams,
                 public modalCtrl: ModalController,
                 public alertCtrl: AlertController,
@@ -237,6 +242,10 @@ export class ObtainDetailPage {
                 this.openButtonShow = false;
                 break;
 
+            case 'license':
+                // вывод ошибки
+                this.area.license_not_confirmed = true;
+                break;
 
             case 'error':
                 // вывод ошибки
@@ -587,6 +596,11 @@ export class ObtainDetailPage {
                         // открываем область с подтверждением овердрафта
                         this.areaSwitch('overdraftConfirmation');
 
+                    } else if(data.info == 'no_license') {
+
+                        // показываем область с ошибкой
+                        this.areaSwitch('license');
+
                     } else {
                         // другая ошибка
 
@@ -609,6 +623,18 @@ export class ObtainDetailPage {
                 this.areaSwitch('error');
             });
 
+    }
+
+
+    /**
+     * Переход на страницу подписания договора
+     *
+     */
+    goToLicensePage() {
+        // закрываем модальное окно
+        this.close();
+        // переход на страницу подписи лицензии
+        this.events.publish('license:checkout');
     }
 
 

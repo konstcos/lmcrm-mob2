@@ -269,60 +269,74 @@
 
 
     <!-- Поле с телефоном -->
-    <!--<div class="personal_data_row">-->
+    <div class="personal_data_row">
 
-        <!--<ion-row>-->
+        <ion-row>
 
-            <!--&lt;!&ndash; Иконка валидации &ndash;&gt;-->
-            <!--<ion-col col-1 align-self-center text-right class="validation_block">-->
-                <!--&lt;!&ndash; Успешная валидация &ndash;&gt;-->
-                <!--<ion-icon *ngIf="state.phone == 2" class="success" name="md-checkmark"></ion-icon>-->
-                <!--&lt;!&ndash; Ошибка валидации &ndash;&gt;-->
-                <!--<ion-icon *ngIf="state.phone == 3" class="alert" name="md-alert"></ion-icon>-->
-            <!--</ion-col>-->
+            <!-- Иконка валидации -->
+            <ion-col col-1 align-self-center text-right class="validation_block">
+                <!-- Успешная валидация -->
+                <ion-icon *ngIf="state.phone == 2" class="success" name="md-checkmark"></ion-icon>
+                <!-- Ошибка валидации -->
+                <ion-icon *ngIf="state.phone == 3" class="alert" name="md-alert"></ion-icon>
+            </ion-col>
 
-            <!--&lt;!&ndash; Блок с именем пользователя &ndash;&gt;-->
-            <!--<ion-col class="data_block">-->
-                <!--&lt;!&ndash; Лейбл ввода имени &ndash;&gt;-->
-                <!--<div class="label">{{ 'PERSONAL_DATA_PHONE' | translate }}</div>-->
-                <!--&lt;!&ndash; Инпут имени пользователя &ndash;&gt;-->
-                <!--<ion-input-->
-                        <!--class="input_row"-->
-                        <!--(ngModelChange)='phoneChange($event)'-->
-                        <!--[(ngModel)]="personalData.phone"-->
-                        <!--type="tel"-->
-                        <!--text-right-->
-                        <!--(blur)="phoneValidate()"-->
-                        <!--name="firstName">-->
-                <!--</ion-input>-->
+            <!-- Блок с именем пользователя -->
+            <ion-col class="data_block">
+                <!-- Лейбл ввода имени -->
+                <div class="label">{{ 'PERSONAL_DATA_PHONE' | translate }}</div>
+                <!-- Инпут имени пользователя -->
+                <ion-input
+                        class="input_row"
+                        (ngModelChange)='phoneChange($event)'
+                        [(ngModel)]="personalData.phone"
+                        type="tel"
+                        text-right
+                        (focus)="phoneFocus()"
+                        (blur)="phoneValidate()"
+                        name="firstName">
+                </ion-input>
 
-                <!--&lt;!&ndash; Разделительная черта &ndash;&gt;-->
-                <!--<div>-->
-                    <!--<hr class="personal_data_row_separator" [ngClass]="(state.phone == 3) ? 'red' : '' ">-->
-                <!--</div>-->
-            <!--</ion-col>-->
-        <!--</ion-row>-->
+                <!-- Разделительная черта -->
+                <div>
+                    <hr class="personal_data_row_separator" [ngClass]="(state.phone == 3) ? 'red' : '' ">
+                </div>
+            </ion-col>
+        </ion-row>
 
 
-        <!--&lt;!&ndash; Сообщение с ошибкой о пустом поле &ndash;&gt;-->
-        <!--<ion-row-->
-                <!--class="error_message"-->
-                <!--*ngIf="phoneErrors == 1">-->
-            <!--<ion-col>-->
-                <!--{{ 'PERSONAL_DATA_FIRST_NAME_ERROR_REQUIRED' | translate }}-->
-            <!--</ion-col>-->
-        <!--</ion-row>-->
+        <!-- Сообщение с ошибкой о пустом поле -->
+        <ion-row
+                class="error_message"
+                *ngIf="phoneState.empty">
+            <ion-col>
+                {{ 'PERSONAL_DATA_FIRST_NAME_ERROR_REQUIRED' | translate }}
+            </ion-col>
+        </ion-row>
 
-        <!--&lt;!&ndash; Сообщение с ошибкой о недостаточном количестве чисел &ndash;&gt;-->
-        <!--<ion-row-->
-                <!--class="error_message"-->
-                <!--*ngIf="phoneErrors == 2">-->
-            <!--<ion-col col-8 offset-4>-->
-                <!--{{ 'PERSONAL_DATA_PHONE_ERROR_LENGTH' | translate }}-->
-            <!--</ion-col>-->
-        <!--</ion-row>-->
+        <!-- Сообщение с ошибкой о недостаточном количестве чисел -->
+        <ion-row
+                class="error_message"
+                *ngIf="phoneState.notValid">
+            <ion-col col-8 offset-4>
+                {{ 'adding_lead.phone_not_valid' | translate }}
+            </ion-col>
+        </ion-row>
 
-    <!--</div>-->
+        <div *ngIf="phoneErrors">
+
+            <ion-row
+                    class="error_message"
+                    *ngFor="let error of phoneErrors">
+                <ion-col col-8 offset-4>
+                    {{ error }}
+                </ion-col>
+            </ion-row>
+
+        </div>
+
+
+    </div>
 
 
     <!-- Поле с регионом -->

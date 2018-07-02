@@ -250,6 +250,24 @@
 
     </div>
 
+    <!-- Область с ошибкой -->
+    <div *ngIf="area.license_not_confirmed" class="contract_area">
+
+        <div class="contract_text">
+            <!--{{ 'adding_lead.error_area.got_it' | translate }}-->
+            {{ 'adding_lead.contract_confirmation.contract_text' | translate }}
+        </div>
+
+        <div class="contract_button">
+            <button ion-button round color="light" (click)="goToLicensePage()">
+                <!--{{ 'adding_lead.error_area.got_it' | translate }}-->
+                {{ 'adding_lead.contract_confirmation.contract_button' | translate }}
+                <!--got it-->
+            </button>
+        </div>
+
+    </div>
+
 </ion-content>
 
 

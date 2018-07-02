@@ -182,7 +182,7 @@ export class ProfileEditSpecializationsPage {
         });
 
         // запрос на получении данных сферы
-        this.user.getSpecializations(role)
+        this.user.getAllProfileSpecializationsByRole(role)
         // обработка итемов
             .subscribe(result => {
                 // при получении итемов

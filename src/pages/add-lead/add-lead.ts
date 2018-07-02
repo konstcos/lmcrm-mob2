@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, Events, AlertController} from 'ionic-angular';
+import {NavController, NavParams, Events, AlertController, Nav} from 'ionic-angular';
 
 
 /**
@@ -9,6 +9,7 @@ import {NavController, NavParams, Events, AlertController} from 'ionic-angular';
 // модель пользователя
 import {User} from "../../providers/user";
 import {Deposited} from "../../providers/deposited";
+import {LicensePage} from '../license/license';
 
 
 /*
@@ -81,6 +82,8 @@ export class AddLeadPage {
         successPrivate: false,
         // область с ошибкой добавления лида
         fail: false,
+        // не подтвержденна лицензия
+        license_not_confirmed: false,
         // вывод ошибки
         error: false
     };
@@ -103,12 +106,12 @@ export class AddLeadPage {
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 public user: User,
+                public nav: Nav,
                 public deposited: Deposited,
                 public alertCtrl: AlertController,
                 public events: Events) {
 
         this.getSpheres();
-
     }
 
 
@@ -157,6 +160,11 @@ export class AddLeadPage {
             case 'error':
                 // вывод ошибки
                 this.area.error = true;
+                break;
+
+            case 'license':
+                // вывод ошибки
+                this.area.license_not_confirmed = true;
                 break;
 
             default:
@@ -327,7 +335,7 @@ export class AddLeadPage {
 
         // Проверка по регулярке
         let reg = /^\+?(972|0)(\-)?0?(([23489]{1}\d{7})|[57]{1}\d{8})$/;
-        if(!reg.test(this.lead.phone)) {
+        if (!reg.test(this.lead.phone)) {
             this.errors.phone.empty = false;
             this.errors.phone.notEnough = false;
             this.errors.phone.notValid = true;
@@ -366,14 +374,14 @@ export class AddLeadPage {
         this.errors.name.empty = false;
 
         // проверка наличия имени
-        if(this.lead.name.length == 0){
+        if (this.lead.name.length == 0) {
             // сообщаем что это обязательное поле
             this.errors.name.empty = true;
             return false;
         }
 
         // проверка чтобы имя не было короче 2 символов
-        if(this.lead.name.length < 2){
+        if (this.lead.name.length < 2) {
             // сообщаем что имя не должно быть меньше двух символов
             this.errors.name.notEnough = true;
             return false;
@@ -422,8 +430,8 @@ export class AddLeadPage {
         // валидация имени
         let nameValidate = this.nameValidate();
 
-        if(!phoneValidate) return false;
-        if(!nameValidate) return false;
+        if (!phoneValidate) return false;
+        if (!nameValidate) return false;
 
         // если есть участники группы
         if (this.lead.member) {
@@ -470,12 +478,21 @@ export class AddLeadPage {
                     }
 
 
+                } else if (data.status == 'fail') {
 
+                    console.log('check status fail');
+                    console.log(data);
 
-                } else if(data.status == 'fail') {
+                    if (data.info == 'no_license') {
 
-                    this.errorMessage = data.message;
-                    this.areaSwitch('fail');
+                        this.areaSwitch('license');
+
+                    } else {
+
+                        this.errorMessage = data.message;
+                        this.areaSwitch('fail');
+                    }
+
 
                 } else {
                     this.areaSwitch('error');
@@ -506,6 +523,15 @@ export class AddLeadPage {
      */
     ionViewWillEnter() {
 
+    }
+
+
+    /**
+     * Переход на страницу подписания договора
+     *
+     */
+    goToLicensePage() {
+        this.nav.setRoot(LicensePage, {loginPage: false});
     }
 
 

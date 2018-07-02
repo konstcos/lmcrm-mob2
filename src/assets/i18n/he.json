@@ -5,6 +5,7 @@
     "APPLY": "אישור",
     "DEAL_MAKER": "עסקאות",
     "LEAD_BUYER": "לידים",
+    "no_additional_data_for_lead": "נתון זה לא הוקלד",
 
     "#1": "Страница логина (первая страница): ",
 
@@ -180,6 +181,8 @@
     "#8": "Договор: ",
 
     "i_agree": "אני מסכימ/ה",
+    "sign_a_contract_later": "אני מעוניינ/ת לחתום בשלב מאוחר יותר",
+    "go_to_main_page": "מעבר לעמוד ראשי",
 
     "#9": "Шапка и основные данные в меню",
 
@@ -340,7 +343,12 @@
             "open_one": "חשיפה פעם אחת",
             "button_cancel": "ביטול",
             "button_confirmation": "חשיפת לקוח"
+        },
+        "contract_confirmation": {
+            "contract_text": "You have not confirmed the contract yet. You can not open leads until you confirm the contract.",
+            "contract_button": "Go to contract confirmation"
         }
+
     },
 
     "#12": "Исходящие лиды 'Outgoing': ",
@@ -381,6 +389,8 @@
         "you_do_not_have_any_leads": "<div>אין לך כרגע פניות שחשפת תעבור/י למסך קיבלתי ותחשוף לידים שנראים לך רלוונטיים</div>",
         "no_leads_by_filter": "<div> אין לך כרגע פניות מתאימות במכרז לפי מסננים שבחרת</div>",
         "no_open_leads_button": "מעבר למסך קיבלתי",
+        "sent_to_archive": "{{ lead_name }} sent to the archive",
+        "extracting_from_archive": "{{ lead_name }} extraction from archive",
         "dealmaker_no_status": {
 
         }
@@ -649,6 +659,10 @@
             "head": "מתנצלים, שגיאת שרת. נסו מאוחר יותר",
             "got_it": "הבנתי"
         },
+        "contract_confirmation": {
+            "contract_text": "You have not confirmed the contract yet. Before adding a lead into the system, you need to confirm the contract.",
+            "contract_button": "Go to contract confirmation"
+        },
         "no_spheres": "אין תחומים",
         "add_lead": "הוסף לקוח"
     },
@@ -665,17 +679,32 @@
         "company_required": "חובה להזין שדה זה",
         "about": "אודות בית העסק",
         "about_required": "חובה להזין שדה זה",
+        "phones": "טלפונים שלי ליצירת קשר",
+        "main_phone": "ראשוני",
+        "use_as_main": "סמן כראשי",
         "password": "סיסמא",
         "password_required": "חובה להזין שדה זה",
         "password_confirmation": "חזרה על סיסמא",
         "password_confirmation_required": "חובה להזין שדה זה",
         "payment_information": "פרטי בנק למשיכת רווחים",
+        "passport": "ת''ז או ח.פ של בית העסק",
+        "specializations": "התמחות שלי",
+        "operating_mode": "מטרה של שימוש בתוכנה",
+        "region": "עיר / יישוב בו רשום בית העסק",
+        "street": "הקלד/י שם רחוב ומספר בית",
+        "title_sub_page": "חזרה לפרופיל",
+        "switchers": {
+            "allow_access_to_profile": "אשר/י למנהל מערכת להיכנס לפרופיל שלי",
+            "auction_lead_notification_by_email": "קבלת הודעות תזכורת למייל ללקוחות חדשים"
+        },
+        "change_password_button": "שינוי סיסמה",
         "payment_info": {
             "company": "שם חברה בהנהלת חשבונות",
             "bank": "מספר בנק",
             "branch_number": "מספר סניף",
             "invoice_number": "מספר חשבון"
         },
+        "edit": "ערוך",
         "save": "שמור"
     },
 
@@ -873,7 +902,7 @@
         "add_mask_first": "קודם תקים פילטר",
         "new_mask_button_in_content": "הקמת פילטר חדש",
         "new_mask_button_in_footer": "פילטר חדש",
-        "waiting_for_approval": "waiting for admin approval"
+        "waiting_for_approval": "האישור תלוי ועומד"
     },
 
     "----- #27": "Редактирование маски агента и создание новой",
@@ -887,6 +916,8 @@
         "dell_button": "מחק פילטר",
         "region": "איזור גיואוגרפי למשיכה",
         "israel": "ישראל",
+        "empty_name": "יש להזין את שם המסנן",
+        "empty_option_check": "חייבת להיות לפחות בחירה אחת בכל מסנן",
         "save_button": "שמור פילטר"
     },
 

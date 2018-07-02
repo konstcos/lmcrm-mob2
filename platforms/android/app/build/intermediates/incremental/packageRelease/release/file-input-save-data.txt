@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Tue Jun 19 13:28:15 EEST 2018
+#Sat Jun 30 20:36:58 EEST 2018
 122.file=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/assets/release/www/assets/fonts/roboto-light.woff2
 60.set=ASSET
 129.file=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/assets/release/www/assets/fonts/Hebrew/OpenSansHebrewExtraBold/OpenSansHebrewExtraBold.svg
@@ -13,7 +13,7 @@
 136.file=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/res/release/resources-release.ap_/res/mipmap-hdpi-v4/icon.png
 1.file=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/assets/release/www/build/main.js
 13.base=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/assets/release
-45.file=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/res/release/resources-release.ap_/res/mipmap-xxxhdpi-v4/icon.png
+45.file=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/res/release/resources-release.ap_/res/mipmap-ldpi-v4/icon.png
 60.base=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/assets/release
 92.file=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/assets/release/www/assets/fonts/noto-sans-bold.ttf
 8.file=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/assets/release/www/assets/fonts/English/NTR/NTR-Regular.svg
@@ -86,7 +86,7 @@
 88.set=ASSET
 135.file=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/res/release/resources-release.ap_/res/drawable-port-xxhdpi-v4/screen.png
 0.file=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/assets/release/www/assets/fonts/roboto-medium.ttf
-44.file=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/res/release/resources-release.ap_/res/mipmap-ldpi-v4/icon.png
+44.file=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/res/release/resources-release.ap_/res/mipmap-xxxhdpi-v4/icon.png
 12.base=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/assets/release
 7.file=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/assets/release/www/cordova-js-src/platform.js
 91.file=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/assets/release/www/assets/icon/icon.png
@@ -312,7 +312,7 @@
 109.base=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/assets/release
 114.set=ASSET
 18.base=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/assets/release
-146.file=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/res/release/resources-release.ap_/res/drawable-land-hdpi-v4/screen.png
+146.file=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/res/release/resources-release.ap_/res/drawable-port-ldpi-v4/screen.png
 156.base=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/res/release/resources-release.ap_
 55.file=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/assets/release/www/manifest.json
 106.set=ASSET
@@ -386,7 +386,7 @@ count=163
 54.file=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/assets/release/www/assets/fonts/roboto-regular.woff
 64.base=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/assets/release
 158.set=ASSET
-147.file=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/res/release/resources-release.ap_/res/drawable-port-ldpi-v4/screen.png
+147.file=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/res/release/resources-release.ap_/res/drawable-land-hdpi-v4/screen.png
 115.base=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/assets/release
 14.file=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/res/release/resources-release.ap_/res/drawable-land-xxxhdpi-v4/screen.png
 24.base=/home/cosine/Mobile/lmcrm2/platforms/android/app/build/intermediates/assets/release

@@ -192,6 +192,10 @@ export class ProfilePage {
                     } else {
                         // ошибка в ответе
 
+
+                        console.log('error');
+                        console.log(data);
+
                         // todo добавить блок с выводом ошибки
 
                     }

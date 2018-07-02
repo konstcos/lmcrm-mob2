@@ -45,6 +45,17 @@ export class LicensePage {
     public licenseData = '';
 
 
+    public signLaterCheckbox: boolean = false;
+
+
+    /**
+     * Проверка перехода
+     * (со страницы логина или других страниц)
+     *
+     */
+    public isLoginPage: boolean = true;
+
+
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 public user: User,
@@ -55,6 +66,16 @@ export class LicensePage {
                 public alertCtrl: AlertController,
                 public translateService: TranslateService,
                 public modalCtrl: ModalController) {
+
+        // проверка с какой страницы был переход
+        let isFromLoginPage = navParams.get('loginPage');
+
+        if(!isFromLoginPage) {
+            this.isLoginPage = false;
+        }
+
+        console.log('isFromLoginPage');
+        console.log(isFromLoginPage);
 
         console.log('страница для лицензии');
 
@@ -144,6 +165,14 @@ export class LicensePage {
                 loading.dismiss();
             });
 
+    }
+
+
+    /**
+     * Переход на главную страницу без подписания договора
+     */
+    goToMainPage() {
+        this.nav.setRoot(MainPage);
     }
 
 
