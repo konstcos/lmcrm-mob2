@@ -239,7 +239,7 @@ export class CreditReplenishmentPage {
 
         // показывает окно загрузки
         let loading = this.loadingCtrl.create({
-            content: 'Make replenishment, please wait...'
+            // content: 'Make replenishment, please wait...'
         });
         loading.present();
 

@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="backoffice.contact.org.il"
     android:hardwareAccelerated="true"
-    android:versionCode="100026"
-    android:versionName="1.0.26" >
+    android:versionCode="100027"
+    android:versionName="1.0.27" >
 
     <uses-sdk
         android:minSdkVersion="18"

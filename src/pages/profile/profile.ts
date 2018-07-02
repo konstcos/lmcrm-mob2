@@ -7,6 +7,7 @@ import {
     ToastController,
 } from 'ionic-angular';
 
+import {TranslateService} from 'ng2-translate/ng2-translate';
 
 import {User} from '../../providers/user';
 import {MainPage} from '../main/main'
@@ -72,7 +73,8 @@ export class ProfilePage {
                 public view: ViewController,
                 public modalController: ModalController,
                 public toastController: ToastController,
-                public user: User) {
+                public user: User,
+                public translate: TranslateService) {
 
         // загрузка основных данных профиля пользователя
         this.loadData();
@@ -321,18 +323,40 @@ export class ProfilePage {
 
                     if (data.status === 'success') {
 
+                        let message = 'option switched successfully';
+
+                        this.translate.get('profile.option_switched_successfully', {}).subscribe((res: string) => {
+                            message = res;
+                        });
+
                         const toast = this.toastController.create({
-                            message: 'option switched successfully',
+                            message: message,
                             duration: 3000
                         });
                         toast.present();
 
                     } else {
 
-                        // todo вернуть переключатель на место
+                        // возврат переключателя на место
+                        switch (settingOptionName) {
+                            // доступ к профилю (хранится в agent_info)
+                            case 'allow_access_to_profile':
+                                this.profileData['allow_access_to_profile'] = !this.profileData['allow_access_to_profile'];
+                                break;
+
+                            // доступ в сеттингах
+                            default:
+                                this.profileData['settings'][settingOptionName] = !this.profileData['settings'][settingOptionName];
+                        }
+
+                        let message = 'option switched error';
+
+                        this.translate.get('profile.option_switched_error', {}).subscribe((res: string) => {
+                            message = res;
+                        });
 
                         const toast = this.toastController.create({
-                            message: 'option switched error',
+                            message: message,
                             duration: 3000
                         });
                         toast.present();

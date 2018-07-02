@@ -257,7 +257,10 @@
             "for_deals": "רווח מעסקאות",
             "private_group": "לקבוצה פרטית שלי"
         },
-
+        "dateTime": {
+            "cancel": "ביטול",
+            "apply": "אישור"
+        },
         "apply": "אישור",
         "reset": "איתחול"
     },
@@ -389,8 +392,13 @@
         "you_do_not_have_any_leads": "<div>אין לך כרגע פניות שחשפת תעבור/י למסך קיבלתי ותחשוף לידים שנראים לך רלוונטיים</div>",
         "no_leads_by_filter": "<div> אין לך כרגע פניות מתאימות במכרז לפי מסננים שבחרת</div>",
         "no_open_leads_button": "מעבר למסך קיבלתי",
-        "sent_to_archive": "{{ lead_name }} sent to the archive",
-        "extracting_from_archive": "{{ lead_name }} extraction from archive",
+        "sent_to_archive": "{{ lead_name }} התווסף לארכיון",
+        "extracting_from_archive": "{{ lead_name }} שוחזר מארכיון",
+        "cant_archive": {
+            "title": "לא ניתן להכניס לארכיון",
+            "message": "לא ניתן להכניס לארכיון לקוח עם סטטוס זה",
+            "ok_button": "אישור"
+        },
         "dealmaker_no_status": {
 
         }
@@ -704,6 +712,8 @@
             "branch_number": "מספר סניף",
             "invoice_number": "מספר חשבון"
         },
+        "option_switched_successfully": "האפשרות עודכנה בהצלחה",
+        "option_switched_error": "האפשרות לא עודכנה",
         "edit": "ערוך",
         "save": "שמור"
     },
@@ -954,6 +964,8 @@
 
     "private_group": {
         "title": "קבוצה פרטית שלי",
+        "active": "פעיל",
+        "rejected": "נדחה",
         "dell": "מחק קשר",
         "waiting": "ממתין לאישור",
         "no_members_in_group": "אין חברים בקבוצה פרטית",
@@ -1025,6 +1037,7 @@
             "period": "לתקופה",
             "all": "כל הזמן"
         },
+        "summary": "סיכום",
         "range": {
             "today": "היום",
             "yesterday": "אתמול",
@@ -1033,10 +1046,11 @@
             "this_month": "החודש",
             "previous_month": "חודש קודם",
             "custom_range": "בהתאמה אישית",
-            "cancel": "cancel",
-            "apply": "apply"
-        }
-
+            "cancel": "ביטול",
+            "apply": "אישור"
+        },
+        "cancel": "ביטול",
+        "apply": "אישור"
     },
 
     "#43": "Коммуникации (нотификации и переписка)",

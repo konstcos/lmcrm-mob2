@@ -58,7 +58,8 @@
                     <ion-select
                             [(ngModel)]="currentSphere"
                             interface="action-sheet"
-                            (ionChange)="sphereChange()">
+                            (ionChange)="sphereChange()"
+                            cancelText="{{'statistic.cancel' | translate}}">
                         <ion-option *ngFor="let sphere of spheres" value="{{ sphere.id }}">{{ sphere.name }}
                         </ion-option>
                         <!--<ion-option value="m">Male</ion-option>-->
@@ -73,7 +74,9 @@
                     <ion-select
                             [(ngModel)]="datePeriod"
                             interface="action-sheet"
-                            (ionChange)="datePeriodChange()">
+                            (ionChange)="datePeriodChange()"
+                            okText="{{'statistic.apply' | translate}}"
+                            cancelText="{{'statistic.cancel' | translate}}">
 
                         <ion-option *ngFor="let period of datePeriodData" value="{{ period.id }}">{{ period.name }}
                         </ion-option>
@@ -506,7 +509,12 @@
 
                     <ion-row *ngFor="let status of statisticData.statuses.type[1]">
                         <ion-col class="label">
-                            {{ status.name }}
+                            <!--{{ status.name }}-->
+
+                            <ng-container [ngSwitch]="true">
+                                <div *ngSwitchCase="status.name === 'Summary'">{{ 'statistic.summary' | translate }}</div>
+                                <div *ngSwitchDefault>{{ status.name }}</div>
+                            </ng-container>
                         </ion-col>
                         <ion-col text-center>
                             <span class="period">{{ status.countPeriod }}</span> / <span class="all">{{ status.countAll }}</span>
@@ -532,7 +540,11 @@
 
                     <ion-row *ngFor="let status of statisticData.statuses.type[2]">
                         <ion-col class="label">
-                            {{ status.name }}
+                            <!--{{ status.name }}-->
+                            <ng-container [ngSwitch]="true">
+                                <div *ngSwitchCase="status.name === 'Summary'">{{ 'statistic.summary' | translate }}</div>
+                                <div *ngSwitchDefault>{{ status.name }}</div>
+                            </ng-container>
                         </ion-col>
                         <ion-col text-center>
                             <span class="period">{{ status.countPeriod }}</span> / <span class="all">{{ status.countAll }}</span>
@@ -558,7 +570,11 @@
 
                     <ion-row *ngFor="let status of statisticData.statuses.type[3]">
                         <ion-col class="label">
-                            {{ status.name }}
+                            <!--{{ status.name }}-->
+                            <ng-container [ngSwitch]="true">
+                                <div *ngSwitchCase="status.name === 'Summary'">{{ 'statistic.summary' | translate }}</div>
+                                <div *ngSwitchDefault>{{ status.name }}</div>
+                            </ng-container>
                         </ion-col>
                         <ion-col text-center>
                             <span class="period">{{ status.countPeriod }}</span> / <span class="all">{{ status.countAll }}</span>
@@ -584,7 +600,11 @@
 
                     <ion-row *ngFor="let status of statisticData.statuses.type[4]">
                         <ion-col class="label">
-                            {{ status.name }}
+                            <!--{{ status.name }}-->
+                            <ng-container [ngSwitch]="true">
+                                <div *ngSwitchCase="status.name === 'Summary'">{{ 'statistic.summary' | translate }}</div>
+                                <div *ngSwitchDefault>{{ status.name }}</div>
+                            </ng-container>
                         </ion-col>
                         <ion-col text-center>
                             <span class="period">{{ status.countPeriod }}</span> / <span class="all">{{ status.countAll }}</span>
@@ -610,7 +630,14 @@
 
                     <ion-row *ngFor="let status of statisticData.statuses.type[5]">
                         <ion-col class="label">
-                            {{ status.name }}
+
+                            <!--{{ status.name }}-->
+
+                            <ng-container [ngSwitch]="true">
+                                <div *ngSwitchCase="status.name === 'Summary'">{{ 'statistic.summary' | translate }}</div>
+                                <div *ngSwitchDefault>{{ status.name }}</div>
+                            </ng-container>
+
                         </ion-col>
                         <ion-col text-center>
                             <span class="period">{{ status.countPeriod }}</span> / <span class="all">{{ status.countAll }}</span>
@@ -650,7 +677,17 @@
                         <ion-row class="status_from_row">
 
                             <ion-col text-center>
-                                {{ transition.fromStatus }}
+                                <ng-container [ngSwitch]="true">
+                                    <div *ngSwitchCase="transition.fromStatus === 'No status'">{{ 'statistic.status.no_status' | translate }}</div>
+                                    <div *ngSwitchCase="transition.fromStatus === 'CLOSED DEAL'">{{ 'statistic.status.close_deal' | translate }}</div>
+                                    <div *ngSwitchCase="transition.fromStatus === 'UNCERTAIN'">{{ 'statistic.status.uncertain' | translate }}</div>
+                                    <div *ngSwitchCase="transition.fromStatus === 'REFUSENIKS'">{{ 'statistic.status.refuseniks' | translate }}</div>
+                                    <div *ngSwitchCase="transition.fromStatus === 'PROCESS'">{{ 'statistic.status.progress' | translate }}</div>
+                                    <div *ngSwitchCase="transition.fromStatus === 'BAD'">{{ 'statistic.status.bad' | translate }}</div>
+                                    <div *ngSwitchDefault>{{ transition.fromStatus }}</div>
+                                </ng-container>
+
+
                             </ion-col>
 
                         </ion-row>
@@ -690,7 +727,18 @@
                         <ion-row class="status_to_row">
 
                             <ion-col text-center>
-                                {{ transition.toStatus }}
+                                <!--{{ transition.toStatus }}-->
+
+                                <ng-container [ngSwitch]="true">
+                                    <div *ngSwitchCase="transition.toStatus === 'No status'">{{ 'statistic.status.no_status' | translate }}</div>
+                                    <div *ngSwitchCase="transition.toStatus === 'CLOSED DEAL'">{{ 'statistic.status.close_deal' | translate }}</div>
+                                    <div *ngSwitchCase="transition.toStatus === 'UNCERTAIN'">{{ 'statistic.status.uncertain' | translate }}</div>
+                                    <div *ngSwitchCase="transition.toStatus === 'REFUSENIKS'">{{ 'statistic.status.refuseniks' | translate }}</div>
+                                    <div *ngSwitchCase="transition.toStatus === 'PROCESS'">{{ 'statistic.status.progress' | translate }}</div>
+                                    <div *ngSwitchCase="transition.toStatus === 'BAD'">{{ 'statistic.status.bad' | translate }}</div>
+                                    <div *ngSwitchDefault>{{ transition.toStatus }}</div>
+                                </ng-container>
+
                             </ion-col>
 
                         </ion-row>

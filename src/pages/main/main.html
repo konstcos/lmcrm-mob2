@@ -312,7 +312,10 @@
                 <ion-datetime
                         displayFormat="DD/MM/YYYY"
                         pickerFormat="DD-MM-YYYY"
-                        [(ngModel)]="filter.period.from">
+                        [(ngModel)]="filter.period.from"
+                        doneText="{{ 'filter.dateTime.apply' | translate }}"
+                        cancelText="{{ 'filter.dateTime.cancel' | translate }}"
+                >
                 </ion-datetime>
             </ion-item>
 
@@ -322,7 +325,10 @@
                 <ion-datetime
                         displayFormat="DD/MM/YYYY"
                         pickerFormat="DD-MM-YYYY"
-                        [(ngModel)]="filter.period.to">
+                        [(ngModel)]="filter.period.to"
+                        doneText="{{ 'filter.dateTime.apply' | translate }}"
+                        cancelText="{{ 'filter.dateTime.cancel' | translate }}"
+                >
                 </ion-datetime>
             </ion-item>
 

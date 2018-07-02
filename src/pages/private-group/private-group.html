@@ -39,7 +39,10 @@
 
             <ion-item-sliding *ngFor="let member of members['active']" #slidingItem>
                 <ion-item (click)="memberAction(member, slidingItem)">
-                    <div item-left class="status active">active</div>
+                    <div item-left class="status active">
+                        {{ 'private_group.active' | translate }}
+                        <!--active-->
+                    </div>
 
                     <div text-right item-right class="member_data">
                         <div class="member_date"> <span class="time">{{ member.date.time }}</span> {{ member.date.date }}</div>
@@ -80,7 +83,10 @@
 
             <ion-item-sliding *ngFor="let member of members['rejected']" >
                 <ion-item (click)="memberAction(member)">
-                    <div item-left class="status rejected">rejected</div>
+                    <div item-left class="status rejected">
+                        {{ 'private_group.rejected' | translate }}
+                        <!--rejected-->
+                    </div>
 
                     <div text-right item-right class="member_data">
                         <div class="member_date"> <span class="time">{{ member.date.time }}</span> {{ member.date.date }}</div>
@@ -99,52 +105,12 @@
 
         </ion-list>
 
-
-
-        <!--<div *ngFor="let member of members['active']" class="member_item">-->
-
-            <!--<div class="status active" text-right>-->
-                <!--active-->
-            <!--</div>-->
-
-            <!--<div>-->
-                <!--<ion-row >-->
-                    <!--<ion-col>-->
-                        <!--<div>-->
-                            <!--{{ member.name }} {{ member.surname }}-->
-                        <!--</div>-->
-
-                        <!--<div>-->
-                            <!--{{ member.email }}-->
-                        <!--</div>-->
-                    <!--</ion-col>-->
-
-                    <!--<ion-col col-1 align-self-center class="member_dell_button">-->
-                        <!--<ion-icon color="danger" name="md-trash"></ion-icon>-->
-                    <!--</ion-col>-->
-                <!--</ion-row>-->
-            <!--</div>-->
-
-        <!--</div>-->
-
-
-
-        <!--<ion-row *ngFor="let member of members['waiting']" class="member_item">-->
-            <!--<ion-col>{{ member.email }}</ion-col>-->
-            <!--<ion-col></ion-col>-->
-        <!--</ion-row>-->
-
-        <!--<ion-row *ngFor="let member of members['rejected']" class="member_item">-->
-            <!--<ion-col>{{ member.email }}</ion-col>-->
-            <!--<ion-col></ion-col>-->
-        <!--</ion-row>-->
-
     </div>
 
     <div *ngIf="noMembers">
 
         <ion-row>
-            <ion-col>
+            <ion-col class="no_group_members">
                 {{ 'private_group.no_members_in_group' | translate }}
                 <!--No members in group-->
             </ion-col>

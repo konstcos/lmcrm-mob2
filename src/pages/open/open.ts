@@ -664,20 +664,22 @@ export class OpenPage {
 
                         let alertCantArchive = {
                             title: 'Cant archive',
-                            message: 'You can not archive a lead with this status'
+                            message: 'You can not archive a lead with this status',
+                            ok_button: 'OK'
                         };
 
 
                         this.translate.get('exposed.cant_archive', {}).subscribe((res: any) => {
                             alertCantArchive.title = res.title;
                             alertCantArchive.message = res.message;
+                            alertCantArchive.ok_button = res.ok_button;
                         });
 
 
                         let alert = this.alertCtrl.create({
                             title: alertCantArchive.title,
                             message: alertCantArchive.message,
-                            buttons: ['OK']
+                            buttons: [alertCantArchive.ok_button]
                         });
                         alert.present();
 

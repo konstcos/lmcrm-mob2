@@ -257,7 +257,10 @@
             "for_deals": "For Deals",
             "private_group": "Private Group"
         },
-
+        "dateTime": {
+            "cancel": "Cancel",
+            "apply": "Apply"
+        },
         "apply": "Apply",
         "reset": "Reset"
     },
@@ -393,7 +396,8 @@
         "extracting_from_archive": "{{ lead_name }} extraction from archive",
         "cant_archive": {
             "title": "Cant archive",
-            "message": "You can not archive a lead with this status"
+            "message": "You can not archive a lead with this status",
+            "ok_button": "OK"
         },
         "dealmaker_no_status": {
 
@@ -708,6 +712,8 @@
             "branch_number": "Branch number",
             "invoice_number": "Account number"
         },
+        "option_switched_successfully": "option switched successfully",
+        "option_switched_error": "option switched error",
         "edit": "Edit",
         "save": "Save"
     },
@@ -958,8 +964,10 @@
 
     "private_group": {
         "title": "קבוצה פרטית שלי",
-        "dell": "מחק קשר",
-        "waiting": "ממתין לאישור",
+        "active": "active",
+        "rejected": "rejected",
+        "dell": "dell",
+        "waiting": "waiting",
         "no_members_in_group": "אין חברים בקבוצה פרטית",
         "add_member": "הוסף איש קשר חדש",
         "member_action": {
@@ -1029,6 +1037,7 @@
             "period": "לתקופה",
             "all": "כל הזמן"
         },
+        "summary": "Summary",
         "range": {
             "today": "היום",
             "yesterday": "אתמול",
@@ -1039,7 +1048,9 @@
             "custom_range": "בהתאמה אישית",
             "cancel": "cancel",
             "apply": "apply"
-        }
+        },
+        "cancel": "cancel",
+        "apply": "apply"
 
     },
 
